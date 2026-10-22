@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'LXGW Neo ZhiSong';
+  src:
+    local('LXGW Neo ZhiSong'),
+    local('LXGWNeoZhiSong'),
+    local('霞鹜新致宋'),
+    url('/fonts/LXGWNeoZhiSong-subset.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LXGW WenKai';
+  src:
+    local('LXGW WenKai'),
+    local('LXGWWenKai-Regular'),
+    local('霞鹜文楷'),
+    url('/fonts/LXGWWenKai-subset.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root,
+[data-theme='ivory'] {
+  --bg-canvas: #f6f3ec;
+  --bg-elevated: #ece7dc;
+  --bg-panel: #fbf9f5;
+  --ink-primary: #141413;
+  --rule-line: #d6cfc2;
+  --rule-strong: #141413;
+  --accent-nrf: #c83e2b;
+  --accent-nrf-soft: rgba(200, 62, 43, 0.12);
+}
+
+[data-theme='parchment'] {
+  --bg-canvas: #ede6d6;
+  --bg-elevated: #e2d9c5;
+  --bg-panel: #f4efe2;
+  --ink-primary: #181614;
+  --rule-line: #cbbda4;
+  --rule-strong: #181614;
+  --accent-nrf: #b53624;
+  --accent-nrf-soft: rgba(181, 54, 36, 0.14);
+}
+
+[data-theme='obsidian'] {
+  --bg-canvas: #121311;
+  --bg-elevated: #1b1d1a;
+  --bg-panel: #181a17;
+  --ink-primary: #eae6dd;
+  --rule-line: #2d2f2a;
+  --rule-strong: #d8d3c8;
+  --accent-nrf: #e05e4a;
+  --accent-nrf-soft: rgba(224, 94, 74, 0.18);
+}
+
+html {
+  background-color: var(--bg-canvas);
+  color: var(--ink-primary);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: 'EB Garamond', 'LXGW Neo ZhiSong', 'Noto Serif SC', serif;
+  background-color: var(--bg-canvas);
+  color: var(--ink-primary);
+  font-style: normal;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* 中文正文：霞鹜新致宋，实墨，严禁斜体，自然段首行缩进两字 */
+.zh-prose {
+  font-family: 'EB Garamond', 'LXGW Neo ZhiSong', 'Noto Serif SC', serif;
+  font-style: normal !important;
+  color: var(--ink-primary);
+  line-height: 2;
+  letter-spacing: 0.015em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+.zh-indent {
+  text-indent: 2em;
+}
+
+.zh-prose em,
+.zh-prose i {
+  font-style: normal !important;
+}
+
+/* 中文加粗/强调：使用霞鹜文楷，正体无斜体 */
+.zh-emphasis {
+  font-family: 'EB Garamond', 'LXGW WenKai', serif;
+  font-style: normal !important;
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+/* 旁注正文：同样使用霞鹜新致宋，实墨不发灰 */
+.gloss-prose {
+  font-family: 'EB Garamond', 'LXGW Neo ZhiSong', 'Noto Serif SC', serif;
+  font-style: normal !important;
+  color: var(--ink-primary);
+  line-height: 1.82;
+}
+
+/* 法语标题与罗马数字：EB Garamond */
+.fr-prose {
+  font-family: 'EB Garamond', Georgia, serif;
+  color: var(--ink-primary);
+  line-height: 1.65;
+}
+
+.font-mono-coord {
+  font-family: 'JetBrains Mono', 'LXGW WenKai Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
