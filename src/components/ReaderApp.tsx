@@ -715,13 +715,15 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                   <button
                     type="button"
                     onClick={() => jumpToSection('liminaire')}
-                    className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[36px_1fr] items-baseline transition-colors border-[1.5px] ${
+                    className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] ${
                       currentSpySection === 'liminaire'
                         ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-medium'
                         : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
                     }`}
                   >
-                    <span className="font-mono-coord text-xs text-[var(--accent-nrf)]">序</span>
+                    <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
+                      序
+                    </span>
                     <span>卷首与题词</span>
                   </button>
                 )}
@@ -731,16 +733,20 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                     key={sec.id}
                     type="button"
                     onClick={() => jumpToSection(sec.id)}
-                    className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[36px_1fr] items-baseline transition-colors border-[1.5px] ${
+                    className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] ${
                       currentSpySection === sec.id
                         ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-medium'
                         : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
                     }`}
                   >
-                    <span className="font-mono-coord text-xs text-[var(--accent-nrf)]">
-                      {sec.roman === 'Vorrede' ? '序言' : sec.roman}
+                    <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
+                      {sec.roman === 'Vorrede'
+                        ? '序言'
+                        : sec.roman === 'Appendice'
+                          ? '附录'
+                          : sec.roman}
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <div>{sec.titleZh}</div>
                       <div className="fr-prose italic text-xs mt-0.5">{sec.titleOriginal}</div>
                     </div>
@@ -785,8 +791,8 @@ export default function ReaderApp({ books }: ReaderAppProps) {
       >
         {/* 左栏：桌面端可收起章节目录（清理全部冗余横线） */}
         {sidebarOpen && (
-          <aside className="hidden xl:block border-r border-[var(--rule-line)] pr-6 py-12">
-            <div className="sticky top-24 space-y-7">
+          <aside className="hidden xl:block border-r border-[var(--rule-line)] pr-4 py-12">
+            <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pr-2 space-y-7">
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="font-mono-coord text-[10px] tracking-[0.22em] uppercase text-[var(--accent-nrf)]">
@@ -819,13 +825,13 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                     <button
                       type="button"
                       onClick={() => jumpToSection('liminaire')}
-                      className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[30px_1fr] items-baseline transition-colors cursor-pointer border-[1.5px] ${
+                      className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
                         currentSpySection === 'liminaire'
                           ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-semibold'
                           : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
                       }`}
                     >
-                      <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)]">
+                      <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)] shrink-0">
                         序
                       </span>
                       <span>卷首与题词</span>
@@ -839,14 +845,18 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                         key={sec.id}
                         type="button"
                         onClick={() => jumpToSection(sec.id)}
-                        className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[30px_1fr] items-baseline transition-colors cursor-pointer border-[1.5px] ${
+                        className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
                           isCurrent
                             ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-semibold'
                             : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
                         }`}
                       >
-                        <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)]">
-                          {sec.roman === 'Vorrede' ? '序言' : sec.roman}
+                        <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)] shrink-0">
+                          {sec.roman === 'Vorrede'
+                            ? '序言'
+                            : sec.roman === 'Appendice'
+                              ? '附录'
+                              : sec.roman}
                         </span>
                         <div className="min-w-0">
                           <div>{sec.titleZh}</div>
@@ -963,8 +973,8 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                   {/* 小节标题横幅 */}
                   <div className="max-w-[680px] mb-8 sm:mb-10 pb-4 border-b-2 border-[var(--rule-strong)]">
                     <div className="flex items-baseline gap-3">
-                      {sec.roman !== 'Vorrede' && (
-                        <span className="fr-prose text-2xl sm:text-[28px] text-[var(--accent-nrf)]">
+                      {sec.roman !== 'Vorrede' && sec.roman !== 'Appendice' && (
+                        <span className="fr-prose text-2xl sm:text-[28px] text-[var(--accent-nrf)] shrink-0">
                           {sec.roman}.
                         </span>
                       )}

@@ -5,6 +5,9 @@ import { protestantischeEthik } from './protestantische-ethik';
 import { commonSense } from './common-sense';
 import { lesVillesDuMoyenAge } from './les-villes-du-moyen-age';
 import { bartlebyTheScrivener } from './bartleby-the-scrivener';
+import { ceQuOnVoit } from './ce-qu-on-voit';
+import { politicalDiscourses } from './political-discourses';
+import { achtzehnteBrumaire } from './achtzehnte-brumaire';
 
 export const books: BookMeta[] = [
   leMytheDeSisyphe,
@@ -12,7 +15,10 @@ export const books: BookMeta[] = [
   protestantischeEthik,
   commonSense,
   lesVillesDuMoyenAge,
-  bartlebyTheScrivener
+  bartlebyTheScrivener,
+  ceQuOnVoit,
+  politicalDiscourses,
+  achtzehnteBrumaire
 ];
 
 export function getBookBySlug(slug: string): BookMeta | undefined {
