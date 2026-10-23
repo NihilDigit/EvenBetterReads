@@ -492,6 +492,44 @@ export default function ReaderApp({ books }: ReaderAppProps) {
 
   // ==================== 书架视图 (Bookshelf View) ====================
   if (!activeBookSlug) {
+    const renderBookCard = (b: BookMeta) => (
+      <article
+        key={b.slug}
+        onClick={() => openBook(b.slug)}
+        className="group border border-[var(--rule-strong)] p-1.5 bg-[var(--bg-panel)] hover:border-[var(--accent-nrf)] transition-colors cursor-pointer"
+      >
+        <div className="border border-[var(--rule-line)] group-hover:border-[var(--accent-nrf)] transition-colors px-5 py-5 sm:px-6 sm:py-6">
+          <div className="flex items-baseline justify-between gap-2 pb-3 border-b border-[var(--rule-line)]">
+            <div className="flex items-baseline gap-2 min-w-0">
+              <span className="fr-prose uppercase tracking-[0.14em] text-xs truncate">
+                {b.authorOriginal}
+              </span>
+              <span className="text-xs shrink-0">{b.authorZh}</span>
+            </div>
+            <span className="font-mono-coord text-[11px] shrink-0">{b.year}</span>
+          </div>
+
+          <div className="mt-4">
+            <p className="fr-prose italic text-sm sm:text-base">{b.titleOriginal}</p>
+            <h2 className="zh-title-bold text-xl sm:text-2xl tracking-tight mt-0.5 leading-snug">
+              {b.titleZh}
+            </h2>
+            <p className="text-xs sm:text-[13px] mt-1">
+              —— {b.subtitleZh}（<span className="fr-prose italic">{b.subtitleOriginal}</span>）
+            </p>
+          </div>
+
+          <div className="mt-4 space-y-2.5">
+            {b.descriptionZh.split('\n\n').map((para, idx) => (
+              <p key={idx} className="zh-prose zh-indent text-[13.5px] leading-relaxed">
+                {renderGlossContent(para)}
+              </p>
+            ))}
+          </div>
+        </div>
+      </article>
+    );
+
     return (
       <div className="min-h-screen flex flex-col bg-[var(--bg-canvas)] text-[var(--ink-primary)] selection:bg-[var(--accent-nrf-soft)]">
         <header className="border-b-2 border-[var(--rule-strong)] bg-[var(--bg-canvas)]">
@@ -506,39 +544,30 @@ export default function ReaderApp({ books }: ReaderAppProps) {
         </header>
 
         <main className="max-w-[1280px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-10 flex-1">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {books.map((b) => (
-              <article
-                key={b.slug}
-                onClick={() => openBook(b.slug)}
-                className="group border border-[var(--rule-strong)] p-1.5 bg-[var(--bg-panel)] hover:border-[var(--accent-nrf)] transition-colors cursor-pointer flex flex-col"
-              >
-                <div className="border border-[var(--rule-line)] group-hover:border-[var(--accent-nrf)] transition-colors px-5 py-5 sm:px-6 sm:py-6 flex-1 flex flex-col">
-                  <div className="flex items-baseline justify-between gap-2 pb-3 border-b border-[var(--rule-line)]">
-                    <div className="flex items-baseline gap-2 min-w-0">
-                      <span className="fr-prose uppercase tracking-[0.14em] text-xs truncate">
-                        {b.authorOriginal}
-                      </span>
-                      <span className="text-xs shrink-0">{b.authorZh}</span>
-                    </div>
-                    <span className="font-mono-coord text-[11px] shrink-0">{b.year}</span>
-                  </div>
+          {/* 移动端单列流 */}
+          <div className="flex flex-col gap-6 md:hidden">
+            {books.map((b) => renderBookCard(b))}
+          </div>
 
-                  <div className="mt-4">
-                    <p className="fr-prose italic text-sm sm:text-base">{b.titleOriginal}</p>
-                    <h2 className="zh-title-bold text-xl sm:text-2xl tracking-tight mt-0.5 leading-snug">
-                      {b.titleZh}
-                    </h2>
-                    <p className="text-xs sm:text-[13px] mt-1">
-                      —— {b.subtitleZh}（<span className="fr-prose italic">{b.subtitleOriginal}</span>）
-                    </p>
-                  </div>
+          {/* 平板双列错落瀑布流 */}
+          <div className="hidden md:grid lg:hidden grid-cols-2 gap-6 items-start">
+            {[0, 1].map((colIdx) => (
+              <div key={colIdx} className="flex flex-col gap-6">
+                {books
+                  .filter((_, idx) => idx % 2 === colIdx)
+                  .map((b) => renderBookCard(b))}
+              </div>
+            ))}
+          </div>
 
-                  <p className="zh-prose zh-indent text-[13.5px] mt-4 leading-relaxed">
-                    {b.descriptionZh}
-                  </p>
-                </div>
-              </article>
+          {/* 桌面端三列错落瀑布流 */}
+          <div className="hidden lg:grid grid-cols-3 gap-6 items-start">
+            {[0, 1, 2].map((colIdx) => (
+              <div key={colIdx} className="flex flex-col gap-6">
+                {books
+                  .filter((_, idx) => idx % 3 === colIdx)
+                  .map((b) => renderBookCard(b))}
+              </div>
             ))}
           </div>
         </main>
