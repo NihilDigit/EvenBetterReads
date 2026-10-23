@@ -13,6 +13,44 @@ interface ReaderAppProps {
   books: BookMeta[];
 }
 
+interface ReadingProgressItem {
+  slug: string;
+  blockId: string | null;
+  sectionId: string;
+  sectionTitle: string;
+  progress: number;
+  updatedAt: number;
+}
+
+interface ReadingProgressStore {
+  lastSlug: string | null;
+  items: Record<string, ReadingProgressItem>;
+}
+
+const PROGRESS_STORAGE_KEY = 'ebr-reading-progress-v1';
+
+function loadProgressStore(): ReadingProgressStore {
+  try {
+    const raw = localStorage.getItem(PROGRESS_STORAGE_KEY);
+    if (!raw) return { lastSlug: null, items: {} };
+    const parsed = JSON.parse(raw) as Partial<ReadingProgressStore>;
+    return {
+      lastSlug: typeof parsed.lastSlug === 'string' ? parsed.lastSlug : null,
+      items: parsed.items && typeof parsed.items === 'object' ? parsed.items : {}
+    };
+  } catch {
+    return { lastSlug: null, items: {} };
+  }
+}
+
+function saveProgressStore(store: ReadingProgressStore) {
+  try {
+    localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(store));
+  } catch {
+    // ignore storage errors
+  }
+}
+
 export interface RailNoteItem {
   kind: 'gloss' | 'authorNote';
   id: string;
@@ -234,11 +272,17 @@ export default function ReaderApp({ books }: ReaderAppProps) {
   const [currentSpySection, setCurrentSpySection] = useState<string>('liminaire');
   const [activeGlossId, setActiveGlossId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [progressStore, setProgressStore] = useState<ReadingProgressStore>({
+    lastSlug: null,
+    items: {}
+  });
 
   const dedicationRowRef = useRef<HTMLDivElement | null>(null);
   const sectionRowRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const tocNavRef = useRef<HTMLElement | null>(null);
+  const isRestoringScrollRef = useRef<boolean>(false);
 
-  // 初始化主题、字号、目录状态与 URL 书籍参数
+  // 初始化主题、字号、目录状态、阅读进度与 URL 书籍参数
   useEffect(() => {
     try {
       const savedTheme = localStorage.getItem('ebr-theme') as PaperTheme | null;
@@ -258,6 +302,8 @@ export default function ReaderApp({ books }: ReaderAppProps) {
       // ignore storage errors
     }
 
+    setProgressStore(loadProgressStore());
+
     const syncFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
       const slug = params.get('book');
@@ -274,19 +320,20 @@ export default function ReaderApp({ books }: ReaderAppProps) {
   }, [books]);
 
   const openBook = (slug: string) => {
+    isRestoringScrollRef.current = true;
     setActiveBookSlug(slug);
     setActiveGlossId(null);
     setMobileTocOpen(false);
     const url = new URL(window.location.href);
     url.searchParams.set('book', slug);
     window.history.pushState({ book: slug }, '', url.toString());
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
 
   const returnToShelf = () => {
     setActiveBookSlug(null);
     setActiveGlossId(null);
     setMobileTocOpen(false);
+    setProgressStore(loadProgressStore());
     const url = new URL(window.location.href);
     url.searchParams.delete('book');
     window.history.pushState({}, '', url.toString());
@@ -331,15 +378,59 @@ export default function ReaderApp({ books }: ReaderAppProps) {
   const chapter = book.chapters[0];
   const hasLiminaire = Boolean(chapter.dedication?.noteZh || chapter.epigraph);
 
-  // 切换书籍时更新页面标题与默认章节锚点
-  useEffect(() => {
+  // 切换书籍时更新页面标题并恢复上次阅读到的自然段坐标
+  useLayoutEffect(() => {
     if (!activeBookSlug) {
       document.title = 'EvenBetterReads';
+      isRestoringScrollRef.current = false;
       return;
     }
+
     document.title = `${book.titleZh} — ${book.authorZh} | EvenBetterReads`;
-    setCurrentSpySection(hasLiminaire ? 'liminaire' : (chapter.sections[0]?.id ?? 'liminaire'));
+    const defaultSection = hasLiminaire ? 'liminaire' : (chapter.sections[0]?.id ?? 'liminaire');
+    const store = loadProgressStore();
+    const saved = store.items[activeBookSlug];
+
+    if (saved && saved.progress > 0 && saved.progress < 99) {
+      isRestoringScrollRef.current = true;
+      setCurrentSpySection(saved.sectionId || defaultSection);
+      setScrollProgress(saved.progress);
+
+      const alignToSavedBlock = () => {
+        const target =
+          (saved.blockId ? document.getElementById(saved.blockId) : null) ||
+          document.getElementById(`section-${saved.sectionId}`);
+        if (target) {
+          const y = Math.max(0, target.getBoundingClientRect().top + window.scrollY - 84);
+          window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior });
+        }
+      };
+
+      alignToSavedBlock();
+      const rafId = window.requestAnimationFrame(() => {
+        alignToSavedBlock();
+        window.setTimeout(() => {
+          isRestoringScrollRef.current = false;
+        }, 80);
+      });
+
+      return () => window.cancelAnimationFrame(rafId);
+    } else {
+      isRestoringScrollRef.current = false;
+      setCurrentSpySection(defaultSection);
+      setScrollProgress(0);
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    }
   }, [activeBookSlug, book, chapter, hasLiminaire]);
+
+  // 左侧目录高亮项变化时，保持高亮项在目录可视区域内
+  useEffect(() => {
+    if (!activeBookSlug || !sidebarOpen || !tocNavRef.current) return;
+    const activeBtn = tocNavRef.current.querySelector<HTMLElement>(
+      `[data-toc-section="${currentSpySection}"]`
+    );
+    activeBtn?.scrollIntoView({ block: 'nearest' });
+  }, [activeBookSlug, sidebarOpen, currentSpySection]);
 
   const { glossIndexMap, allRailItemsMap, footnoteMap } = useMemo(() => {
     const gMap: GlossIndexMap = {};
@@ -406,12 +497,78 @@ export default function ReaderApp({ books }: ReaderAppProps) {
   useEffect(() => {
     if (!activeBookSlug) return;
 
+    let saveTimer: number | null = null;
+
+    const getSectionLabel = (secId: string) => {
+      if (secId === 'liminaire') return '卷首与题词';
+      const found = chapter.sections.find((s) => s.id === secId);
+      if (!found) return '';
+      const prefix =
+        found.roman === 'Vorrede'
+          ? '序言'
+          : found.roman === 'Appendice'
+            ? '附录'
+            : found.roman;
+      return `${prefix} ${found.titleZh}`;
+    };
+
+    const persistReadingPosition = (
+      scrollTop: number,
+      pct: number,
+      currentSection: string
+    ) => {
+      if (isRestoringScrollRef.current) return;
+
+      const store = loadProgressStore();
+
+      // 在卷首顶部或已读至全书末尾时，清除未完待续状态
+      if (scrollTop < 80 || pct >= 99) {
+        if (store.items[activeBookSlug]) {
+          delete store.items[activeBookSlug];
+          if (store.lastSlug === activeBookSlug) {
+            const remaining = Object.values(store.items).sort(
+              (a, b) => b.updatedAt - a.updatedAt
+            );
+            store.lastSlug = remaining[0]?.slug ?? null;
+          }
+          saveProgressStore(store);
+          setProgressStore(store);
+        }
+        return;
+      }
+
+      const blocks = document.querySelectorAll<HTMLElement>('[data-reading-block]');
+      let activeBlockId: string | null = null;
+      for (const el of blocks) {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom > 68) {
+          activeBlockId = el.dataset.readingBlock ?? null;
+          break;
+        }
+      }
+
+      const nextItem: ReadingProgressItem = {
+        slug: activeBookSlug,
+        blockId: activeBlockId,
+        sectionId: currentSection,
+        sectionTitle: getSectionLabel(currentSection),
+        progress: Math.min(98, Math.max(1, Math.round(pct))),
+        updatedAt: Date.now()
+      };
+
+      store.lastSlug = activeBookSlug;
+      store.items[activeBookSlug] = nextItem;
+      saveProgressStore(store);
+      setProgressStore(store);
+    };
+
     const onScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight =
         document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      if (docHeight > 0) {
-        setScrollProgress(Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)));
+      const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      if (!isRestoringScrollRef.current && docHeight > 0) {
+        setScrollProgress(pct);
       }
 
       const sectionEls = document.querySelectorAll<HTMLElement>('[data-section-anchor]');
@@ -422,12 +579,26 @@ export default function ReaderApp({ books }: ReaderAppProps) {
           current = el.dataset.sectionAnchor || current;
         }
       }
-      setCurrentSpySection(current);
+      if (!isRestoringScrollRef.current) {
+        setCurrentSpySection(current);
+      }
+
+      if (saveTimer !== null) {
+        window.clearTimeout(saveTimer);
+      }
+      saveTimer = window.setTimeout(() => {
+        persistReadingPosition(scrollTop, pct, current);
+      }, 120);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (saveTimer !== null) {
+        window.clearTimeout(saveTimer);
+      }
+    };
   }, [activeBookSlug, hasLiminaire, chapter.sections]);
 
   const handleSelectGloss = (id: string) => {
@@ -492,6 +663,18 @@ export default function ReaderApp({ books }: ReaderAppProps) {
 
   // ==================== 书架视图 (Bookshelf View) ====================
   if (!activeBookSlug) {
+    const resumeEntry = (() => {
+      const candidateSlug =
+        progressStore.lastSlug && progressStore.items[progressStore.lastSlug]
+          ? progressStore.lastSlug
+          : Object.values(progressStore.items).sort((a, b) => b.updatedAt - a.updatedAt)[0]?.slug;
+      if (!candidateSlug) return null;
+      const record = progressStore.items[candidateSlug];
+      const targetBook = books.find((b) => b.slug === candidateSlug);
+      if (!record || !targetBook || record.progress <= 0 || record.progress >= 99) return null;
+      return { book: targetBook, record };
+    })();
+
     const renderBookCard = (b: BookMeta) => (
       <article
         key={b.slug}
@@ -544,6 +727,50 @@ export default function ReaderApp({ books }: ReaderAppProps) {
         </header>
 
         <main className="max-w-[1280px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-10 flex-1">
+          {/* 书架顶部「最近续读」通栏 */}
+          {resumeEntry && (
+            <div className="mb-8 border border-[var(--rule-strong)] bg-[var(--bg-panel)] p-1.5">
+              <div
+                onClick={() => openBook(resumeEntry.book.slug)}
+                className="group relative border border-[var(--rule-line)] hover:border-[var(--accent-nrf)] transition-colors px-4 py-3.5 sm:px-6 sm:py-4 flex items-center justify-between gap-4 cursor-pointer"
+              >
+                <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                  <span className="inline-block bg-[var(--ink-primary)] text-[var(--bg-canvas)] group-hover:bg-[var(--accent-nrf)] transition-colors px-2 py-0.5 font-mono-coord text-[11px] tracking-wider shrink-0">
+                    继续阅读
+                  </span>
+                  <div className="flex items-baseline gap-2.5 min-w-0 truncate">
+                    <span className="zh-title-bold text-base sm:text-lg truncate">
+                      {resumeEntry.book.titleZh}
+                    </span>
+                    <span className="fr-prose italic text-xs sm:text-sm hidden md:inline truncate">
+                      {resumeEntry.book.titleOriginal}
+                    </span>
+                  </div>
+                  <span className="hidden sm:inline-block h-3.5 w-[1px] bg-[var(--rule-line)] shrink-0" />
+                  <span className="hidden sm:inline-block zh-emphasis text-xs sm:text-[13.5px] truncate">
+                    {resumeEntry.record.sectionTitle}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+                  <span className="font-mono-coord text-xs text-[var(--accent-nrf)]">
+                    {resumeEntry.record.progress}%
+                  </span>
+                  <span className="text-xs border border-[var(--rule-strong)] px-2.5 py-1 group-hover:bg-[var(--ink-primary)] group-hover:text-[var(--bg-canvas)] transition-colors">
+                    续读 →
+                  </span>
+                </div>
+
+                <div className="absolute left-0 right-0 bottom-0 h-[2px] bg-transparent overflow-hidden">
+                  <div
+                    className="h-full bg-[var(--accent-nrf)] transition-all duration-150"
+                    style={{ width: `${resumeEntry.record.progress}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* 移动端单列流 */}
           <div className="flex flex-col gap-6 md:hidden">
             {books.map((b) => renderBookCard(b))}
@@ -571,6 +798,45 @@ export default function ReaderApp({ books }: ReaderAppProps) {
             ))}
           </div>
         </main>
+
+        {/* 书架底部牌记与译注协议说明 */}
+        <footer className="border-t-2 border-[var(--rule-strong)] bg-[var(--bg-canvas)] mt-12">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-8 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 text-xs">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="fr-prose text-sm tracking-tight">
+                <span className="italic text-[var(--accent-nrf)] pr-[1px]">Even</span>
+                <span className="font-semibold">Better</span>
+                <span>Reads</span>
+              </span>
+              <span className="hidden sm:inline-block h-3 w-[1px] bg-[var(--rule-line)]" />
+              <span>全站中文译文与伴读旁注由</span>
+              <a
+                href="https://deepmind.google/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono-coord text-[11.5px] text-[var(--accent-nrf)] underline underline-offset-4 decoration-[var(--accent-nrf)] hover:opacity-80 transition-opacity"
+              >
+                Gemini-4-Argon
+              </a>
+              <span>依据外文权威底本直接精译并撰注</span>
+            </div>
+
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span>
+                中文译文与伴读旁注采用{' '}
+                <a
+                  href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hans"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
+                >
+                  CC0 1.0
+                </a>{' '}
+                献入公有领域（Public Domain）
+              </span>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
@@ -690,7 +956,7 @@ export default function ReaderApp({ books }: ReaderAppProps) {
           onClick={() => setMobileTocOpen(false)}
         >
           <div
-            className="w-72 max-w-[82vw] h-full bg-[var(--bg-canvas)] border-r border-[var(--rule-line)] p-6 flex flex-col justify-between overflow-y-auto"
+            className="toc-scroll w-72 max-w-[82vw] h-full bg-[var(--bg-canvas)] border-r border-[var(--rule-line)] p-6 flex flex-col justify-between overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div>
@@ -792,7 +1058,7 @@ export default function ReaderApp({ books }: ReaderAppProps) {
         {/* 左栏：桌面端可收起章节目录（清理全部冗余横线） */}
         {sidebarOpen && (
           <aside className="hidden xl:block border-r border-[var(--rule-line)] pr-4 py-12">
-            <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pr-2 space-y-7">
+            <div className="toc-scroll sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pr-2 space-y-7">
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="font-mono-coord text-[10px] tracking-[0.22em] uppercase text-[var(--accent-nrf)]">
@@ -820,10 +1086,11 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                   </span>
                 </div>
 
-                <nav className="space-y-1.5">
+                <nav ref={tocNavRef} className="space-y-1.5">
                   {hasLiminaire && (
                     <button
                       type="button"
+                      data-toc-section="liminaire"
                       onClick={() => jumpToSection('liminaire')}
                       className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
                         currentSpySection === 'liminaire'
@@ -844,6 +1111,7 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                       <button
                         key={sec.id}
                         type="button"
+                        data-toc-section={sec.id}
                         onClick={() => jumpToSection(sec.id)}
                         className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
                           isCurrent
@@ -904,6 +1172,7 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                   {chapter.dedication.noteZh && (
                     <div
                       id="dedication-block"
+                      data-reading-block="dedication-block"
                       ref={dedicationRowRef}
                       className="grid grid-cols-1 xl:grid-cols-[minmax(0,680px)_310px] gap-6 xl:gap-12 items-start"
                     >
@@ -1016,7 +1285,7 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                         }
 
                         return (
-                          <div key={blk.id} id={blk.id}>
+                          <div key={blk.id} id={blk.id} data-reading-block={blk.id}>
                             {renderZhParagraph(blk.zh, {
                               glossIndexMap,
                               activeGlossId,
@@ -1070,6 +1339,32 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                 >
                   返回章首
                 </button>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-4 border-t border-[var(--rule-line)] flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 text-xs">
+              <div className="flex flex-wrap items-baseline gap-1.5">
+                <span>本篇中文译文与伴读旁注由</span>
+                <a
+                  href="https://deepmind.google/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono-coord text-[11.5px] text-[var(--accent-nrf)] underline underline-offset-4 decoration-[var(--accent-nrf)] hover:opacity-80 transition-opacity"
+                >
+                  Gemini-4-Argon
+                </a>
+                <span>自外文底本直接译注</span>
+              </div>
+              <div>
+                <span>中文译注协议：</span>
+                <a
+                  href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hans"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
+                >
+                  CC0 1.0
+                </a>
               </div>
             </div>
           </footer>

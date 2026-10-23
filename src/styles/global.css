@@ -133,3 +133,45 @@ body {
   font-family: 'JetBrains Mono', 'LXGW WenKai Mono', monospace;
   font-variant-numeric: tabular-nums;
 }
+
+/* 全局滚动条：移除 Windows 默认白底轨道与上下箭头，统一为纸墨极细线条 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rule-line) var(--bg-canvas);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--rule-line);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--rule-strong);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* 左侧目录栏专用：隐藏滚动条视觉干扰（保留滚轮/触控板滚动），避免与右侧分割竖线冲突 */
+.toc-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.toc-scroll::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
