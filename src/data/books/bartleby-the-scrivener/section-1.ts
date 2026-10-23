@@ -15,7 +15,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-01',
           anchor: '法律文书抄写员，亦即代书人',
           content:
-            '原文作 **law-copyists or scriveners**。Scrivener 源于拉丁语 *scrībere*（书写），在中世纪与近代早期英格兰原指享有行会特权的公证人与契据撰拟人；但在十九世纪中叶、雷明顿打字机（1874 年后方才普及）与复写纸尚未进入事务所的时代，华尔街的 scrivener 已沦为纯粹出卖手部肌肉与视力的计件文书苦力。任何一份地契、抵押契据或衡平法院庭审证词都必须由抄写员用钢笔或鹅毛笔逐字誊写出四至六份一模一样的副本，按每「页码单位（folio，合一百个英文单词）」四美分计酬。梅尔维尔借这一即将被机械复制时代淘汰的边缘职业，精准捕捉到了现代白领无产阶级与文学写作者共同的异化处境。'
+            '原文作 **law-copyists or scriveners**。Scrivener 源于拉丁语 scrībere（书写），在中世纪与近代早期英格兰原指享有行会特权的公证人与契据撰拟人；但在十九世纪中叶、雷明顿打字机（1874 年后方才普及）与复写纸尚未进入事务所的时代，华尔街的 scrivener 已沦为纯粹出卖手部肌肉与视力的计件文书苦力。任何一份地契、抵押契据或衡平法院庭审证词都必须由抄写员用钢笔或鹅毛笔逐字誊写出四至六份一模一样的副本，按每「页码单位（folio，合一百个英文单词）」四美分计酬。梅尔维尔借这一即将被机械复制时代淘汰的边缘职业，精准捕捉到了现代白领无产阶级与文学写作者共同的异化处境。'
         }
       ]
     },
@@ -33,7 +33,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-02',
           anchor: '约翰·雅各布·阿斯特',
           content:
-            '约翰·雅各布·阿斯特（John Jacob Astor，1763—1848），德裔美国皮毛贸易垄断商与曼哈顿房地产大亨，美国历史上第一位千万富翁。阿斯特在十九世纪初通过太平洋皮毛公司与对华鸦片、茶叶贸易积累巨额原始资本后，将全部资金投入纽约曼哈顿地产收购，成为名副其实的「纽约房东（Landlord of New York）」，并于 1848 年去世时留下逾两千万美元遗产。叙述者反复摩挲「阿斯特」这一名字的语音质感（Hath a rounded and orbicular sound to it, and rings like unto bullion，其中 *Astor* 暗谐希腊拉丁词根「星辰 / 金币」），暴露出这位自诩中立温和的老律师在骨子里对华尔街顶级食利资本的拜物教式皈依。'
+            '约翰·雅各布·阿斯特（John Jacob Astor，1763—1848），德裔美国皮毛贸易垄断商与曼哈顿房地产大亨，美国历史上第一位千万富翁。阿斯特在十九世纪初通过太平洋皮毛公司与对华鸦片、茶叶贸易积累巨额原始资本后，将全部资金投入纽约曼哈顿地产收购，成为名副其实的「纽约房东（Landlord of New York）」，并于 1848 年去世时留下逾两千万美元遗产。叙述者反复摩挲「阿斯特」这一名字的语音质感（Hath a rounded and orbicular sound to it, and rings like unto bullion，其中 Astor 暗谐希腊拉丁词根「星辰 / 金币」），暴露出这位自诩中立温和的老律师在骨子里对华尔街顶级食利资本的拜物教式皈依。'
         }
       ]
     },
@@ -113,7 +113,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-07',
           anchor: '他俩的发作就像卫兵换岗一样彼此接替。钳子当值时，火鸡便下岗休息；反之亦然',
           content:
-            '原文作 **Their fits relieved each other like guards. When Nippers’ was on, Turkey’s was off; and _vice versa_**。这是梅尔维尔对资本主义劳动分工（division of labor）最辛辣的讽刺：在华尔街事务所这台精密运转的机器里，没有一个雇员是完整健全的人——老英国人「火鸡」上午清醒驯服、下午酗酒狂躁；美国青年「钳子」上午因阶级野心与胃病而磨牙摔桌、下午则筋疲力尽归于温顺。然而在精于管理算计的老律师眼中，两个半疯的残缺灵魂只要按正午十二点精确错峰，就能拼合成一个全天候高效运转的完整劳动力，甚至被他赞叹为「巧妙的自然安排（a good natural arrangement）」，恰如亚当·斯密与近代自然神学所歌颂的「看不见的手」与自然和谐。'
+            '原文作 **Their fits relieved each other like guards. When Nippers’ was on, Turkey’s was off; and vice versa**。这是梅尔维尔对资本主义劳动分工（division of labor）最辛辣的讽刺：在华尔街事务所这台精密运转的机器里，没有一个雇员是完整健全的人——老英国人「火鸡」上午清醒驯服、下午酗酒狂躁；美国青年「钳子」上午因阶级野心与胃病而磨牙摔桌、下午则筋疲力尽归于温顺。然而在精于管理算计的老律师眼中，两个半疯的残缺灵魂只要按正午十二点精确错峰，就能拼合成一个全天候高效运转的完整劳动力，甚至被他赞叹为「巧妙的自然安排（a good natural arrangement）」，恰如亚当·斯密与近代自然神学所歌颂的「看不见的手」与自然和谐。'
         }
       ]
     },
@@ -126,7 +126,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-08',
           anchor: '整门崇高的法学科学全都浓缩在一枚坚果壳里了',
           content:
-            '原文作 **the whole noble science of the law was contained in a nut-shell**。梅尔维尔在此玩了一个绝妙的双关语：英文成语 *in a nutshell* 意为「一言以蔽之、精炼概括」（源自老普林尼《自然史》记载西塞罗曾见过一部字迹极小、可装入一枚胡桃壳内的《伊利亚特》抄本）；但在十二岁学徒「姜汁饼干」的书桌抽屉里，装的却是字面意义上吃剩的「坚果壳（shells of various sorts of nuts）」。车夫父亲指望儿子通过研习「崇高的法学科学」晋身法官阶层，而事务所真实的日常却是替老抄写员跑腿买苹果与一便士八块的廉价姜汁饼干——所谓神圣法学，在底层学徒眼里不过是一堆空洞无物的果壳。下文提及的「斯皮岑伯格苹果（Spitzenbergs）」则是源于纽约州上州荷兰裔果园的著名红皮酸甜苹果（相传为托马斯·杰斐逊最喜爱的品种）。'
+            '原文作 **the whole noble science of the law was contained in a nut-shell**。梅尔维尔在此玩了一个绝妙的双关语：英文成语 in a nutshell 意为「一言以蔽之、精炼概括」（源自老普林尼《自然史》记载西塞罗曾见过一部字迹极小、可装入一枚胡桃壳内的《伊利亚特》抄本）；但在十二岁学徒「姜汁饼干」的书桌抽屉里，装的却是字面意义上吃剩的「坚果壳（shells of various sorts of nuts）」。车夫父亲指望儿子通过研习「崇高的法学科学」晋身法官阶层，而事务所真实的日常却是替老抄写员跑腿买苹果与一便士八块的廉价姜汁饼干——所谓神圣法学，在底层学徒眼里不过是一堆空洞无物的果壳。下文提及的「斯皮岑伯格苹果（Spitzenbergs）」则是源于纽约州上州荷兰裔果园的著名红皮酸甜苹果（相传为托马斯·杰斐逊最喜爱的品种）。'
         }
       ]
     },
@@ -185,7 +185,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-11',
           anchor: '「我宁可不。」',
           content:
-            '原文作 **“I would prefer not to.”**（后文亦变体为 **“I prefer not to.”**）。这是世界文学与现代大陆哲学中最著名的悬置公式。法国哲学家吉尔·德勒兹在名篇《巴托比，或公式》（*Bartleby, ou la formule*, 1989）中指出，这五个词在语法上完全合乎规范，在语用上却是一枚炸毁一切日常语言预设的异质炸弹：它既不是直接的否定（“I will not” 带有对抗性意志），也不是对某物的肯定偏好，而是以不定式小品词 *to* 的悬空截断（anaphoric truncation），开辟出一片「既不接受、亦不拒绝」的无差别地带（zone of indiscernibility）。意大利哲学家乔治·阿甘本则在《巴托比，或论偶然性》（1993）与《潜能》中将其溯源至亚里士多德《形而上学》第九卷关于「潜能（dynamis）」的核心命题——「一切能存在之物，皆同样能不存在（to dynaton endechetai kai mē einai）」：巴托比正是那位守护着「不为之潜能（potenza di non / potentiality not to）」的终极抄写员，他让纯粹潜能从「必须转化为现实功绩（energeia）」的西方形而上学与资本主义律令中彻底解放出来。'
+            '原文作 **“I would prefer not to.”**（后文亦变体为 **“I prefer not to.”**）。这是世界文学与现代大陆哲学中最著名的悬置公式。法国哲学家吉尔·德勒兹在名篇《巴托比，或公式》（Bartleby, ou la formule, 1989）中指出，这五个词在语法上完全合乎规范，在语用上却是一枚炸毁一切日常语言预设的异质炸弹：它既不是直接的否定（“I will not” 带有对抗性意志），也不是对某物的肯定偏好，而是以不定式小品词 to 的悬空截断（anaphoric truncation），开辟出一片「既不接受、亦不拒绝」的无差别地带（zone of indiscernibility）。意大利哲学家乔治·阿甘本则在《巴托比，或论偶然性》（1993）与《潜能》中将其溯源至亚里士多德《形而上学》第九卷关于「潜能（dynamis）」的核心命题——「一切能存在之物，皆同样能不存在（to dynaton endechetai kai mē einai）」：巴托比正是那位守护着「不为之潜能（potenza di non / potentiality not to）」的终极抄写员，他让纯粹潜能从「必须转化为现实功绩（energeia）」的西方形而上学与资本主义律令中彻底解放出来。'
         }
       ]
     },

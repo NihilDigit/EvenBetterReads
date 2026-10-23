@@ -131,7 +131,7 @@ export const bastiatPart2Sections: BookSection[] = [
           {
             id: 'gloss-malesuada-fames',
             anchor: '饥饿是最坏的教唆犯',
-            content: '拉丁文原文为 **malesuada fames**，典出古罗马诗人维吉尔《埃涅阿斯纪》（*Aeneid*）第六卷第276行。在埃涅阿斯踏入冥界入口时，维吉尔将「教唆作恶的饥饿」（Malesuada Fames）与悲伤、疾病、恐惧、贫困并列为盘踞在冥府门前的可怖化身。1846至1847年欧洲爆发严重农业歉收与马铃薯晚疫病大饥荒，粮食价格暴涨，直接成为1848年二月革命的社会导火索。',
+            content: '拉丁文原文为 **malesuada fames**，典出古罗马诗人维吉尔《埃涅阿斯纪》（Aeneid）第六卷第276行。在埃涅阿斯踏入冥界入口时，维吉尔将「教唆作恶的饥饿」（Malesuada Fames）与悲伤、疾病、恐惧、贫困并列为盘踞在冥府门前的可怖化身。1846至1847年欧洲爆发严重农业歉收与马铃薯晚疫病大饥荒，粮食价格暴涨，直接成为1848年二月革命的社会导火索。',
           },
         ],
       },
@@ -285,7 +285,7 @@ export const bastiatPart2Sections: BookSection[] = [
           {
             id: 'gloss-legal-plunder',
             anchor: '由法律亲手实施的不公与掠夺',
-            content: '法文为 **spoliation légale**（合法掠夺），这是巴斯夏在同年名著《法律》（*La Loi*，1850年6月）中系统锻造的核心政治哲学概念。巴斯夏指出，法律的唯一正当职能本应是保卫公民的人身、自由与财产免遭暴力侵害；然而当特定利益集团俘获立法机关后，法律便发生了致命的颠倒，沦为一部分人假借国家强制力、无需冒私人抢劫之风险而公开掠夺另一部分人财产的工具。关税保护主义与国家补贴正是「合法掠夺」最典型的两大形态。',
+            content: '法文为 **spoliation légale**（合法掠夺），这是巴斯夏在同年名著《法律》（La Loi，1850年6月）中系统锻造的核心政治哲学概念。巴斯夏指出，法律的唯一正当职能本应是保卫公民的人身、自由与财产免遭暴力侵害；然而当特定利益集团俘获立法机关后，法律便发生了致命的颠倒，沦为一部分人假借国家强制力、无需冒私人抢劫之风险而公开掠夺另一部分人财产的工具。关税保护主义与国家补贴正是「合法掠夺」最典型的两大形态。',
           },
         ],
       },
@@ -297,7 +297,7 @@ export const bastiatPart2Sections: BookSection[] = [
           {
             id: 'gloss-bossuet-histoire',
             anchor: '博须埃的《世界通史论》',
-            content: '指17世纪法国古典主义散文大师、莫城主教**雅克-贝尼涅·博须埃**（Jacques-Bénigne Bossuet，1627—1704）于1681年为王太子撰写的经典著作《世界通史论》（*Discours sur l’histoire universelle*）。巴斯夏特意选用这部家喻户晓的法兰西国民读物，旨在直观说明：自由贸易下省下来的五法郎不仅没有让法国货币外流，反而转化为普通工匠家庭对本国精神文化产品的有效需求。',
+            content: '指17世纪法国古典主义散文大师、莫城主教**雅克-贝尼涅·博须埃**（Jacques-Bénigne Bossuet，1627—1704）于1681年为王太子撰写的经典著作《世界通史论》（Discours sur l’histoire universelle）。巴斯夏特意选用这部家喻户晓的法兰西国民读物，旨在直观说明：自由贸易下省下来的五法郎不仅没有让法国货币外流，反而转化为普通工匠家庭对本国精神文化产品的有效需求。',
           },
         ],
       },
@@ -348,7 +348,7 @@ export const bastiatPart2Sections: BookSection[] = [
           {
             id: 'gloss-rousseau-depraved',
             anchor: '凡思考之人皆是堕落的动物',
-            content: '引自让-雅克·卢梭《论人类不平等的起源和基础》（*Discours sur l’origine et les fondements de l’inégalité parmi les hommes*，1755）第一部分名句：「如果我敢这样说的话，沉思的状态是一种反自然的状态，而凡思考之人皆是堕落的动物（l’homme qui médite est un animal dépravé）。」巴斯夏借此归谬：倘若技术发明与机器果真导致人类普遍贫困，那么人类运用理性思考改善自身处境的一切努力都成了自我毁灭的诅咒。',
+            content: '引自让-雅克·卢梭《论人类不平等的起源和基础》（Discours sur l’origine et les fondements de l’inégalité parmi les hommes，1755）第一部分名句：「如果我敢这样说的话，沉思的状态是一种反自然的状态，而凡思考之人皆是堕落的动物（l’homme qui médite est un animal dépravé）。」巴斯夏借此归谬：倘若技术发明与机器果真导致人类普遍贫困，那么人类运用理性思考改善自身处境的一切努力都成了自我毁灭的诅咒。',
           },
         ],
       },

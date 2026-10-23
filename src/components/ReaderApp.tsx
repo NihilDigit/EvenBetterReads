@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect, useMemo, useRef, useCallback } from 'react';
 import type { BookMeta, GlossItem, ParagraphBlock } from '../types/book';
+import { books as defaultBooks } from '../data/books';
+import BookCoverSvg from './BookCoverSvg';
 import {
   renderZhParagraph,
   renderGlossContent,
@@ -10,7 +12,7 @@ type PaperTheme = 'ivory' | 'parchment' | 'obsidian';
 type FontScale = 'sm' | 'md' | 'lg';
 
 interface ReaderAppProps {
-  books: BookMeta[];
+  books?: BookMeta[];
 }
 
 interface ReadingProgressItem {
@@ -147,6 +149,12 @@ function PositionedSidenoteRail({
     return <div className="hidden xl:block" />;
   }
 
+  const handleNoteClick = (id: string) => {
+    const sel = window.getSelection();
+    if (sel && !sel.isCollapsed && sel.toString().trim().length > 0) return;
+    onSelect(id);
+  };
+
   return (
     <div
       ref={railRef}
@@ -164,9 +172,9 @@ function PositionedSidenoteRail({
               ref={(el) => {
                 noteRefs.current[item.id] = el;
               }}
-              onClick={() => onSelect(item.id)}
+              onClick={() => handleNoteClick(item.id)}
               style={{ top: `${top}px` }}
-              className={`absolute left-0 right-0 border px-3.5 py-3 transition-colors duration-150 cursor-pointer ${
+              className={`absolute left-0 right-0 border px-3.5 py-3 transition-[top,background-color,border-color] duration-200 ease-out cursor-pointer ${
                 isActive
                   ? 'border-[var(--ink-primary)] bg-[var(--bg-elevated)]/45'
                   : 'border-[var(--rule-strong)] bg-transparent hover:bg-[var(--bg-elevated)]/25'
@@ -177,7 +185,7 @@ function PositionedSidenoteRail({
                   {item.authorLabel} [{item.formattedIndex}]
                 </span>
               </div>
-              <p className="gloss-prose text-[13px] leading-relaxed">
+              <p className="gloss-prose text-[13px] leading-relaxed cursor-text">
                 {renderGlossContent(item.content)}
               </p>
             </aside>
@@ -190,9 +198,9 @@ function PositionedSidenoteRail({
             ref={(el) => {
               noteRefs.current[item.id] = el;
             }}
-            onClick={() => onSelect(item.id)}
+            onClick={() => handleNoteClick(item.id)}
             style={{ top: `${top}px` }}
-            className={`absolute left-0 right-0 border-t-2 pt-2.5 pb-3 px-3 transition-colors duration-150 cursor-pointer gloss-prose ${
+            className={`absolute left-0 right-0 border-t-2 pt-2.5 pb-3 px-3 transition-[top,background-color,border-color] duration-200 ease-out cursor-pointer gloss-prose ${
               isActive
                 ? 'border-[var(--accent-nrf)] bg-[var(--accent-nrf-soft)]'
                 : 'border-[var(--rule-line)] bg-transparent hover:border-[var(--rule-strong)]'
@@ -204,7 +212,7 @@ function PositionedSidenoteRail({
               </span>
               <span className="zh-emphasis text-[13.5px] leading-snug">{item.anchor}</span>
             </div>
-            <p className="text-[13px] leading-relaxed pl-[26px]">
+            <p className="text-[13px] leading-relaxed pl-[26px] cursor-text">
               {renderGlossContent(item.content)}
             </p>
           </aside>
@@ -263,7 +271,7 @@ function getBlockRailItems(
   return entries.map((e) => e.item);
 }
 
-export default function ReaderApp({ books }: ReaderAppProps) {
+export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   const [activeBookSlug, setActiveBookSlug] = useState<string | null>(null);
   const [theme, setTheme] = useState<PaperTheme>('ivory');
   const [fontScale, setFontScale] = useState<FontScale>('md');
@@ -272,6 +280,7 @@ export default function ReaderApp({ books }: ReaderAppProps) {
   const [currentSpySection, setCurrentSpySection] = useState<string>('liminaire');
   const [activeGlossId, setActiveGlossId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [previewBookSlug, setPreviewBookSlug] = useState<string | null>(null);
   const [progressStore, setProgressStore] = useState<ReadingProgressStore>({
     lastSlug: null,
     items: {}
@@ -316,17 +325,38 @@ export default function ReaderApp({ books }: ReaderAppProps) {
 
     syncFromUrl();
     window.addEventListener('popstate', syncFromUrl);
-    return () => window.removeEventListener('popstate', syncFromUrl);
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setPreviewBookSlug(null);
+        setActiveGlossId(null);
+        setMobileTocOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('popstate', syncFromUrl);
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [books]);
 
-  const openBook = (slug: string) => {
+  const openBook = (slug: string, initialSectionId?: string) => {
     isRestoringScrollRef.current = true;
+    setPreviewBookSlug(null);
     setActiveBookSlug(slug);
     setActiveGlossId(null);
     setMobileTocOpen(false);
     const url = new URL(window.location.href);
     url.searchParams.set('book', slug);
     window.history.pushState({ book: slug }, '', url.toString());
+    if (initialSectionId) {
+      window.setTimeout(() => {
+        const target = document.getElementById(`section-${initialSectionId}`);
+        if (target) {
+          const y = target.getBoundingClientRect().top + window.scrollY - 72;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 60);
+    }
   };
 
   const returnToShelf = () => {
@@ -675,49 +705,75 @@ export default function ReaderApp({ books }: ReaderAppProps) {
       return { book: targetBook, record };
     })();
 
-    const renderBookCard = (b: BookMeta) => (
-      <article
-        key={b.slug}
-        onClick={() => openBook(b.slug)}
-        className="group border border-[var(--rule-strong)] p-1.5 bg-[var(--bg-panel)] hover:border-[var(--accent-nrf)] transition-colors cursor-pointer"
-      >
-        <div className="border border-[var(--rule-line)] group-hover:border-[var(--accent-nrf)] transition-colors px-5 py-5 sm:px-6 sm:py-6">
-          <div className="flex items-baseline justify-between gap-2 pb-3 border-b border-[var(--rule-line)]">
-            <div className="flex items-baseline gap-2 min-w-0">
-              <span className="fr-prose uppercase tracking-[0.14em] text-xs truncate">
-                {b.authorOriginal}
-              </span>
-              <span className="text-xs shrink-0">{b.authorZh}</span>
+    const previewBook = previewBookSlug
+      ? (books.find((b) => b.slug === previewBookSlug) ?? null)
+      : null;
+
+    const renderBookCard = (b: BookMeta, idx: number) => {
+      const isLongTitle = b.titleZh.length > 10;
+
+      return (
+        <article
+          key={b.slug}
+          onClick={() => setPreviewBookSlug(b.slug)}
+          style={{ animationDelay: `${idx * 28}ms` }}
+          className="anim-card-enter group border border-[var(--rule-strong)] p-1 bg-[var(--bg-panel)] hover:-translate-y-0.5 hover:border-[var(--accent-nrf)] hover:shadow-[0_6px_18px_-6px_rgba(0,0,0,0.12)] transition-all duration-250 ease-out cursor-pointer"
+        >
+          <div className="border border-[var(--rule-line)] group-hover:border-[var(--accent-nrf)] transition-colors duration-250 p-3.5 sm:p-4">
+            <div className="grid grid-cols-[96px_minmax(0,1fr)] sm:grid-cols-[104px_minmax(0,1fr)] gap-3.5 sm:gap-4 items-stretch">
+              <BookCoverSvg slug={b.slug} />
+
+              <div className="min-w-0 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-baseline justify-between gap-2 pb-1.5 border-b border-[var(--rule-line)]">
+                    <span className="text-xs font-medium truncate">{b.authorZh}</span>
+                    <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)] shrink-0">
+                      {b.year}
+                    </span>
+                  </div>
+
+                  <h2
+                    className={`zh-title-bold tracking-tight mt-2 leading-snug group-hover:text-[var(--accent-nrf)] transition-colors duration-200 ${
+                      isLongTitle ? 'text-[16px] sm:text-[17px]' : 'text-lg sm:text-[19.5px]'
+                    }`}
+                  >
+                    {b.titleZh}
+                  </h2>
+                  <p className="fr-prose italic text-xs leading-snug mt-0.5 truncate">
+                    {b.titleOriginal}
+                  </p>
+                  <p className="text-[11.5px] mt-1 leading-snug truncate">
+                    —— {b.subtitleZh}
+                  </p>
+                </div>
+
+                <div className="mt-3 pt-2.5 border-t border-[var(--rule-line)] flex items-center justify-end">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openBook(b.slug);
+                    }}
+                    className="group/btn w-full sm:w-auto px-4 py-1.5 text-[13px] font-medium bg-[var(--ink-primary)] text-[var(--bg-canvas)] hover:bg-[var(--accent-nrf)] active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5"
+                  >
+                    <span>开始阅读</span>
+                    <span className="font-mono-coord inline-block group-hover/btn:translate-x-0.5 transition-transform duration-200">
+                      →
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
-            <span className="font-mono-coord text-[11px] shrink-0">{b.year}</span>
           </div>
-
-          <div className="mt-4">
-            <p className="fr-prose italic text-sm sm:text-base">{b.titleOriginal}</p>
-            <h2 className="zh-title-bold text-xl sm:text-2xl tracking-tight mt-0.5 leading-snug">
-              {b.titleZh}
-            </h2>
-            <p className="text-xs sm:text-[13px] mt-1">
-              —— {b.subtitleZh}（<span className="fr-prose italic">{b.subtitleOriginal}</span>）
-            </p>
-          </div>
-
-          <div className="mt-4 space-y-2.5">
-            {b.descriptionZh.split('\n\n').map((para, idx) => (
-              <p key={idx} className="zh-prose zh-indent text-[13.5px] leading-relaxed">
-                {renderGlossContent(para)}
-              </p>
-            ))}
-          </div>
-        </div>
-      </article>
-    );
+        </article>
+      );
+    };
 
     return (
       <div className="min-h-screen flex flex-col bg-[var(--bg-canvas)] text-[var(--ink-primary)] selection:bg-[var(--accent-nrf-soft)]">
-        <header className="border-b-2 border-[var(--rule-strong)] bg-[var(--bg-canvas)]">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
-            <h1 className="fr-prose text-2xl sm:text-[32px] leading-none tracking-[-0.02em] select-none">
+        <header className="border-b border-[var(--rule-strong)] bg-[var(--bg-canvas)]">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 h-13 sm:h-14 flex items-center justify-between gap-4">
+            <h1 className="fr-prose text-xl sm:text-[25px] leading-none tracking-[-0.02em] select-none shrink-0">
               <span className="italic font-normal text-[var(--accent-nrf)] pr-[2px]">Even</span>
               <span className="font-semibold">Better</span>
               <span className="font-normal">Reads</span>
@@ -726,82 +782,202 @@ export default function ReaderApp({ books }: ReaderAppProps) {
           </div>
         </header>
 
-        <main className="max-w-[1280px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 sm:py-10 flex-1">
-          {/* 书架顶部「最近续读」通栏 */}
+        <main className="max-w-[1280px] w-full mx-auto px-4 sm:px-8 lg:px-12 py-5 sm:py-6 flex-1">
+          {/* 书架顶部紧凑「最近续读」条 */}
           {resumeEntry && (
-            <div className="mb-8 border border-[var(--rule-strong)] bg-[var(--bg-panel)] p-1.5">
-              <div
-                onClick={() => openBook(resumeEntry.book.slug)}
-                className="group relative border border-[var(--rule-line)] hover:border-[var(--accent-nrf)] transition-colors px-4 py-3.5 sm:px-6 sm:py-4 flex items-center justify-between gap-4 cursor-pointer"
-              >
-                <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                  <span className="inline-block bg-[var(--ink-primary)] text-[var(--bg-canvas)] group-hover:bg-[var(--accent-nrf)] transition-colors px-2 py-0.5 font-mono-coord text-[11px] tracking-wider shrink-0">
-                    继续阅读
+            <div
+              onClick={() => openBook(resumeEntry.book.slug)}
+              className="anim-view-enter group relative mb-5 border border-[var(--rule-strong)] bg-[var(--bg-panel)] hover:border-[var(--accent-nrf)] transition-all duration-200 px-3.5 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between gap-3 cursor-pointer"
+            >
+              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                <span className="inline-block bg-[var(--ink-primary)] text-[var(--bg-canvas)] group-hover:bg-[var(--accent-nrf)] transition-colors px-1.5 py-0.5 font-mono-coord text-[10.5px] tracking-wider shrink-0">
+                  继续阅读
+                </span>
+                <div className="flex items-baseline gap-2 min-w-0 truncate">
+                  <span className="zh-title-bold text-sm sm:text-[15px] truncate">
+                    {resumeEntry.book.titleZh}
                   </span>
-                  <div className="flex items-baseline gap-2.5 min-w-0 truncate">
-                    <span className="zh-title-bold text-base sm:text-lg truncate">
-                      {resumeEntry.book.titleZh}
-                    </span>
-                    <span className="fr-prose italic text-xs sm:text-sm hidden md:inline truncate">
-                      {resumeEntry.book.titleOriginal}
-                    </span>
-                  </div>
-                  <span className="hidden sm:inline-block h-3.5 w-[1px] bg-[var(--rule-line)] shrink-0" />
-                  <span className="hidden sm:inline-block zh-emphasis text-xs sm:text-[13.5px] truncate">
-                    {resumeEntry.record.sectionTitle}
+                  <span className="fr-prose italic text-xs hidden md:inline truncate">
+                    {resumeEntry.book.titleOriginal}
                   </span>
                 </div>
+                <span className="hidden sm:inline-block h-3 w-[1px] bg-[var(--rule-line)] shrink-0" />
+                <span className="hidden sm:inline-block zh-emphasis text-xs truncate">
+                  {resumeEntry.record.sectionTitle}
+                </span>
+              </div>
 
-                <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-                  <span className="font-mono-coord text-xs text-[var(--accent-nrf)]">
-                    {resumeEntry.record.progress}%
+              <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+                <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)]">
+                  {resumeEntry.record.progress}%
+                </span>
+                <span className="text-[11.5px] border border-[var(--rule-strong)] px-2 py-0.5 group-hover:bg-[var(--ink-primary)] group-hover:text-[var(--bg-canvas)] transition-colors flex items-center gap-1">
+                  <span>续读</span>
+                  <span className="font-mono-coord inline-block group-hover:translate-x-0.5 transition-transform duration-200">
+                    →
                   </span>
-                  <span className="text-xs border border-[var(--rule-strong)] px-2.5 py-1 group-hover:bg-[var(--ink-primary)] group-hover:text-[var(--bg-canvas)] transition-colors">
-                    续读 →
-                  </span>
-                </div>
+                </span>
+              </div>
 
-                <div className="absolute left-0 right-0 bottom-0 h-[2px] bg-transparent overflow-hidden">
-                  <div
-                    className="h-full bg-[var(--accent-nrf)] transition-all duration-150"
-                    style={{ width: `${resumeEntry.record.progress}%` }}
-                  />
-                </div>
+              <div className="absolute left-0 right-0 bottom-0 h-[1.5px] bg-transparent overflow-hidden">
+                <div
+                  className="h-full bg-[var(--accent-nrf)] transition-all duration-150"
+                  style={{ width: `${resumeEntry.record.progress}%` }}
+                />
               </div>
             </div>
           )}
 
           {/* 移动端单列流 */}
-          <div className="flex flex-col gap-6 md:hidden">
-            {books.map((b) => renderBookCard(b))}
+          <div className="flex flex-col gap-5 md:hidden">
+            {books.map((b, idx) => renderBookCard(b, idx))}
           </div>
 
-          {/* 平板双列错落瀑布流 */}
-          <div className="hidden md:grid lg:hidden grid-cols-2 gap-6 items-start">
-            {[0, 1].map((colIdx) => (
-              <div key={colIdx} className="flex flex-col gap-6">
-                {books
-                  .filter((_, idx) => idx % 2 === colIdx)
-                  .map((b) => renderBookCard(b))}
-              </div>
-            ))}
+          {/* 平板双列网格 */}
+          <div className="hidden md:grid lg:hidden grid-cols-2 gap-5 items-stretch">
+            {books.map((b, idx) => renderBookCard(b, idx))}
           </div>
 
-          {/* 桌面端三列错落瀑布流 */}
-          <div className="hidden lg:grid grid-cols-3 gap-6 items-start">
-            {[0, 1, 2].map((colIdx) => (
-              <div key={colIdx} className="flex flex-col gap-6">
-                {books
-                  .filter((_, idx) => idx % 3 === colIdx)
-                  .map((b) => renderBookCard(b))}
-              </div>
-            ))}
+          {/* 桌面端三列网格 */}
+          <div className="hidden lg:grid grid-cols-3 gap-5 items-stretch">
+            {books.map((b, idx) => renderBookCard(b, idx))}
           </div>
         </main>
 
+        {/* 书籍导读与目录弹窗 (Book Introduction Modal) */}
+        {previewBook && (
+          <div
+            className="anim-backdrop-enter fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px] flex items-center justify-center p-4 sm:p-6"
+            onClick={() => setPreviewBookSlug(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${previewBook.titleZh} 导读`}
+          >
+            <div
+              className="anim-modal-enter border-2 border-[var(--rule-strong)] bg-[var(--bg-canvas)] max-w-[680px] w-full max-h-[88vh] flex flex-col shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 弹窗固定顶栏：滚动到底部时依然常驻，突出「开始阅读」与「关闭」按钮 */}
+              <div className="shrink-0 px-5 sm:px-7 py-3 border-b-2 border-[var(--rule-strong)] bg-[var(--bg-panel)] flex items-center justify-between gap-3">
+                <div className="flex items-baseline gap-2.5 min-w-0 truncate">
+                  <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
+                    {previewBook.vol}
+                  </span>
+                  <span className="zh-title-bold text-base sm:text-lg truncate">
+                    {previewBook.titleZh}
+                  </span>
+                  <span className="text-xs hidden sm:inline truncate">
+                    {previewBook.authorZh}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2.5 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => openBook(previewBook.slug)}
+                    className="group/mbtn px-4 py-1.5 text-xs sm:text-[13px] font-medium bg-[var(--ink-primary)] text-[var(--bg-canvas)] hover:bg-[var(--accent-nrf)] active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center gap-1"
+                  >
+                    <span>开始阅读</span>
+                    <span className="font-mono-coord inline-block group-hover/mbtn:translate-x-0.5 transition-transform duration-200">
+                      →
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewBookSlug(null)}
+                    aria-label="关闭弹窗"
+                    className="px-3 py-1.5 text-xs sm:text-[13px] font-medium border border-[var(--rule-strong)] bg-[var(--bg-canvas)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] active:scale-[0.98] transition-all duration-150 cursor-pointer"
+                  >
+                    ✕ 关闭
+                  </button>
+                </div>
+              </div>
+
+              {/* 弹窗可滚动内容区 */}
+              <div className="p-5 sm:p-7 overflow-y-auto toc-scroll space-y-6">
+                {/* 书籍题录头块 */}
+                <div className="grid grid-cols-[96px_minmax(0,1fr)] sm:grid-cols-[116px_minmax(0,1fr)] gap-5 items-start pb-5 border-b border-[var(--rule-line)]">
+                  <BookCoverSvg slug={previewBook.slug} />
+
+                  <div className="min-w-0">
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      <span className="text-sm font-medium">{previewBook.authorZh}</span>
+                      <span className="fr-prose uppercase tracking-[0.12em] text-xs">
+                        {previewBook.authorOriginal}
+                      </span>
+                      <span className="font-mono-coord text-xs text-[var(--accent-nrf)] ml-auto">
+                        {previewBook.year}
+                      </span>
+                    </div>
+
+                    <h2 className="zh-title-bold text-xl sm:text-2xl tracking-tight mt-2 leading-snug">
+                      {previewBook.titleZh}
+                    </h2>
+                    <p className="fr-prose italic text-sm sm:text-base mt-0.5">
+                      {previewBook.titleOriginal}
+                    </p>
+                    <p className="text-xs sm:text-[13px] mt-1">
+                      —— {previewBook.subtitleZh}（
+                      <span className="fr-prose italic">{previewBook.subtitleOriginal}</span>）
+                    </p>
+                    <p className="fr-prose text-xs mt-3 pt-2 border-t border-[var(--rule-line)]">
+                      {previewBook.publisher}
+                    </p>
+                  </div>
+                </div>
+
+                {/* 弹窗正文：完整多段式学术导读 */}
+                <div className="space-y-3.5">
+                  {previewBook.descriptionZh.split('\n\n').map((para, idx) => (
+                    <p
+                      key={idx}
+                      className="zh-prose zh-indent text-[14.5px] sm:text-[15.5px] leading-relaxed"
+                    >
+                      {renderGlossContent(para)}
+                    </p>
+                  ))}
+                </div>
+
+                {/* 弹窗底部：章节目录速览（点击可直接跳入对应章节） */}
+                {previewBook.chapters[0] && (
+                  <div className="pt-5 border-t border-[var(--rule-line)]">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="font-mono-coord text-xs uppercase tracking-[0.15em] text-[var(--accent-nrf)]">
+                        章节目录（点击直达）
+                      </span>
+                      <span className="font-mono-coord text-[11px]">
+                        {previewBook.chapters[0].number}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                      {previewBook.chapters[0].sections.map((sec) => (
+                        <button
+                          key={sec.id}
+                          type="button"
+                          onClick={() => openBook(previewBook.slug, sec.id)}
+                          className="text-left px-3 py-2 text-xs border border-[var(--rule-line)] hover:border-[var(--rule-strong)] hover:bg-[var(--bg-elevated)]/60 transition-colors grid grid-cols-[minmax(32px,auto)_1fr] gap-2 items-baseline cursor-pointer"
+                        >
+                          <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)]">
+                            {sec.roman === 'Vorrede'
+                              ? '序言'
+                              : sec.roman === 'Appendice'
+                                ? '附录'
+                                : sec.roman}
+                          </span>
+                          <span className="truncate">{sec.titleZh}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* 书架底部牌记与译注协议说明 */}
-        <footer className="border-t-2 border-[var(--rule-strong)] bg-[var(--bg-canvas)] mt-12">
-          <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-8 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 text-xs">
+        <footer className="border-t border-[var(--rule-strong)] bg-[var(--bg-canvas)] mt-8">
+          <div className="max-w-[1280px] mx-auto px-4 sm:px-8 lg:px-12 py-4 sm:py-5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3 text-xs">
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="fr-prose text-sm tracking-tight">
                 <span className="italic text-[var(--accent-nrf)] pr-[1px]">Even</span>
@@ -832,8 +1008,17 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                 >
                   CC0 1.0
                 </a>{' '}
-                献入公有领域（Public Domain）
+                献入公有领域
               </span>
+              <span className="hidden sm:inline-block h-3 w-[1px] bg-[var(--rule-line)]" />
+              <a
+                href="https://github.com/NihilDigit/EvenBetterReads"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
+              >
+                GitHub
+              </a>
             </div>
           </div>
         </footer>
@@ -853,42 +1038,36 @@ export default function ReaderApp({ books }: ReaderAppProps) {
   return (
     <div className="min-h-screen flex flex-col bg-[var(--bg-canvas)] text-[var(--ink-primary)] selection:bg-[var(--accent-nrf-soft)]">
       {/* 顶部网格导航栏 */}
-      <header className="sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-line)]">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-13 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            {/* 左上角主按钮：返回书架 */}
+      <header className="sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-strong)]">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-13 sm:h-14 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            {/* 左上角固定为与书架一致的品牌 Logo（点击直接返回书架主页） */}
             <button
               type="button"
               onClick={returnToShelf}
-              className="inline-flex items-center px-2.5 py-1 text-xs border border-[var(--rule-strong)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] transition-colors cursor-pointer shrink-0"
+              title="返回书架主页"
+              className="fr-prose text-xl sm:text-[23px] leading-none tracking-[-0.02em] select-none cursor-pointer shrink-0 hover:opacity-80 transition-opacity"
             >
-              ← 返回书架
+              <span className="italic font-normal text-[var(--accent-nrf)] pr-[2px]">Even</span>
+              <span className="font-semibold">Better</span>
+              <span className="font-normal">Reads</span>
             </button>
+
+            <span className="h-4 w-[1px] bg-[var(--rule-line)] shrink-0" />
 
             {/* 移动端目录抽屉按钮 */}
             <button
               type="button"
               onClick={() => setMobileTocOpen((v) => !v)}
-              className="xl:hidden inline-flex items-center px-2.5 py-1 text-xs border border-[var(--rule-line)] hover:border-[var(--rule-strong)] cursor-pointer shrink-0"
+              className="xl:hidden inline-flex items-center px-2.5 py-1 text-xs border border-[var(--rule-strong)] cursor-pointer shrink-0"
               aria-label="切换目录"
             >
               目录
             </button>
 
-            {/* 桌面端仅在左侧目录收起时显示「展开目录」按钮 */}
-            {!sidebarOpen && (
-              <button
-                type="button"
-                onClick={toggleDesktopSidebar}
-                className="hidden xl:inline-flex items-center px-2.5 py-1 text-xs border border-[var(--rule-line)] hover:border-[var(--rule-strong)] transition-colors cursor-pointer shrink-0"
-              >
-                展开目录
-              </button>
-            )}
-
             <a
               href="#top"
-              className="flex items-baseline gap-2.5 truncate ml-1"
+              className="flex items-baseline gap-2 truncate"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -952,11 +1131,11 @@ export default function ReaderApp({ books }: ReaderAppProps) {
       {/* 移动端目录与字号抽屉（去掉多余分割线） */}
       {mobileTocOpen && (
         <div
-          className="fixed inset-0 z-50 xl:hidden bg-black/45"
+          className="anim-backdrop-enter fixed inset-0 z-50 xl:hidden bg-black/45"
           onClick={() => setMobileTocOpen(false)}
         >
           <div
-            className="toc-scroll w-72 max-w-[82vw] h-full bg-[var(--bg-canvas)] border-r border-[var(--rule-line)] p-6 flex flex-col justify-between overflow-y-auto"
+            className="anim-drawer-in toc-scroll w-72 max-w-[82vw] h-full bg-[var(--bg-canvas)] border-r border-[var(--rule-line)] p-6 flex flex-col justify-between overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <div>
@@ -1051,31 +1230,43 @@ export default function ReaderApp({ books }: ReaderAppProps) {
       {/* 主体网格容器 */}
       <div
         id="top"
-        className={`max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-10 flex-1 grid grid-cols-1 ${
-          sidebarOpen ? 'xl:grid-cols-[220px_minmax(0,1fr)] xl:gap-10' : 'xl:grid-cols-1'
+        key={activeBookSlug}
+        className={`anim-view-enter max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-10 flex-1 grid grid-cols-1 transition-[grid-template-columns,gap] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          sidebarOpen
+            ? 'xl:grid-cols-[220px_minmax(0,1fr)] xl:gap-10'
+            : 'xl:grid-cols-[44px_minmax(0,1fr)] xl:gap-8'
         }`}
       >
-        {/* 左栏：桌面端可收起章节目录（清理全部冗余横线） */}
-        {sidebarOpen && (
-          <aside className="hidden xl:block border-r border-[var(--rule-line)] pr-4 py-12">
-            <div className="toc-scroll sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pr-2 space-y-7">
+        {/* 左栏：桌面端章节目录（展开态为完整目录，收起态保留窄轨与章节序号锚点，绝不凭空消失） */}
+        <aside
+          className={`hidden xl:block border-r border-[var(--rule-line)] transition-[padding] duration-300 ${
+            sidebarOpen ? 'pr-4 py-10' : 'pr-2.5 py-8'
+          }`}
+        >
+          {sidebarOpen ? (
+            <div
+              key="toc-expanded"
+              className="anim-fade-in toc-scroll sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pr-2 space-y-6"
+            >
               <div className="flex items-start justify-between gap-2">
-                <div>
-                  <p className="font-mono-coord text-[10px] tracking-[0.22em] uppercase text-[var(--accent-nrf)]">
+                <div className="min-w-0">
+                  <p className="font-mono-coord text-[10px] tracking-[0.22em] uppercase text-[var(--accent-nrf)] truncate">
                     {book.authorOriginal}
                   </p>
-                  <h1 className="text-lg font-medium mt-1 tracking-wide">{book.titleZh}</h1>
-                  <p className="fr-prose italic text-xs mt-0.5">
+                  <h1 className="text-lg font-medium mt-1 tracking-wide leading-snug">
+                    {book.titleZh}
+                  </h1>
+                  <p className="fr-prose italic text-xs mt-0.5 truncate">
                     {book.titleOriginal} ({book.year})
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={toggleDesktopSidebar}
-                  title="收起目录"
-                  className="px-2 py-0.5 text-[11px] border border-[var(--rule-line)] hover:border-[var(--rule-strong)] transition-colors cursor-pointer shrink-0"
+                  title="收起目录栏"
+                  className="px-2 py-1 text-[11px] border border-[var(--rule-strong)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] transition-colors cursor-pointer shrink-0"
                 >
-                  收起
+                  « 收起
                 </button>
               </div>
 
@@ -1138,31 +1329,102 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                 </nav>
               </div>
             </div>
-          </aside>
-        )}
+          ) : (
+            <div
+              key="toc-collapsed"
+              className="anim-fade-in toc-scroll sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain flex flex-col items-center gap-2"
+            >
+              <button
+                type="button"
+                onClick={toggleDesktopSidebar}
+                title="展开目录栏"
+                className="w-8 py-2 text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] transition-colors cursor-pointer flex flex-col items-center gap-1 leading-none"
+              >
+                <span className="font-mono-coord text-xs">»</span>
+                <span className="[writing-mode:vertical-rl] tracking-widest text-[11px] py-0.5">
+                  目录
+                </span>
+              </button>
+
+              <div className="w-4 h-[1px] bg-[var(--rule-line)] my-1" />
+
+              {hasLiminaire && (
+                <button
+                  type="button"
+                  onClick={() => jumpToSection('liminaire')}
+                  title="卷首与题词"
+                  className={`w-8 h-7 text-[11px] font-mono-coord flex items-center justify-center border transition-colors cursor-pointer ${
+                    currentSpySection === 'liminaire'
+                      ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] text-[var(--accent-nrf)] font-semibold'
+                      : 'border-transparent hover:border-[var(--rule-line)]'
+                  }`}
+                >
+                  序
+                </button>
+              )}
+
+              {chapter.sections.map((sec) => {
+                const isCurrent = currentSpySection === sec.id;
+                const shortLabel =
+                  sec.roman === 'Vorrede'
+                    ? '序'
+                    : sec.roman === 'Appendice'
+                      ? '附'
+                      : sec.roman;
+                return (
+                  <button
+                    key={sec.id}
+                    type="button"
+                    onClick={() => jumpToSection(sec.id)}
+                    title={`${sec.roman} ${sec.titleZh}`}
+                    className={`w-8 h-7 text-[10.5px] font-mono-coord flex items-center justify-center border transition-colors cursor-pointer ${
+                      isCurrent
+                        ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] text-[var(--accent-nrf)] font-semibold'
+                        : 'border-transparent hover:border-[var(--rule-line)]'
+                    }`}
+                  >
+                    {shortLabel}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </aside>
 
         {/* 主阅读画布 */}
         <main
-          className={`py-8 sm:py-12 lg:py-16 min-w-0 ${
+          className={`py-8 sm:py-10 min-w-0 ${
             !sidebarOpen ? 'xl:max-w-[1040px] xl:mx-auto w-full' : ''
           }`}
         >
-          {/* 卷首：独立献辞/副标题页 + 卷首说明 + 独立卷首题词页 */}
+          {/* 卷首：献辞/导言标题 + 卷首说明 + 卷首题词 */}
           {(chapter.dedication || chapter.epigraph) && (
             <section
               id="section-liminaire"
               data-section-anchor="liminaire"
-              className="mb-16 sm:mb-24"
+              className="mb-14 sm:mb-20"
             >
               {chapter.dedication && (
                 <>
-                  {/* 1. 独立献辞/题献块 */}
-                  <div className="max-w-[680px] py-12 sm:py-16 mb-12 border-y border-[var(--rule-line)] text-center px-4">
-                    <p className="zh-emphasis text-xl sm:text-[26px] tracking-wide leading-relaxed">
+                  {/* 1. 献辞/导言标题横幅（去掉顶部分割线与过大内边距，与正文小节标题层级统一） */}
+                  <div
+                    className={`max-w-[680px] ${
+                      chapter.dedication.noteZh
+                        ? 'mb-7 sm:mb-8 pb-4 border-b-2 border-[var(--rule-strong)]'
+                        : 'py-6 sm:py-8 mb-8 border-b border-[var(--rule-line)] text-center'
+                    }`}
+                  >
+                    <h2
+                      className={`${
+                        chapter.dedication.noteZh
+                          ? 'text-2xl sm:text-[26px] font-normal tracking-wide leading-snug'
+                          : 'zh-emphasis text-xl sm:text-[24px] tracking-wide leading-relaxed'
+                      }`}
+                    >
                       {chapter.dedication.toZh}
-                    </p>
+                    </h2>
                     {chapter.dedication.toOriginal && (
-                      <p className="fr-prose italic text-base sm:text-lg mt-2.5">
+                      <p className="fr-prose italic text-sm sm:text-base mt-1">
                         {chapter.dedication.toOriginal}
                       </p>
                     )}
@@ -1208,11 +1470,15 @@ export default function ReaderApp({ books }: ReaderAppProps) {
 
               {/* 3. 独立卷首题词块 */}
               {chapter.epigraph && (
-                <div className="max-w-[680px] mt-14 sm:mt-20 py-14 sm:py-20 border-y border-[var(--rule-strong)] text-center px-4 sm:px-10">
-                  <p className="zh-emphasis text-lg sm:text-[21px] leading-relaxed">
+                <div
+                  className={`max-w-[680px] ${
+                    chapter.dedication ? 'mt-10 pt-8 border-t border-[var(--rule-line)]' : ''
+                  } pb-8 border-b border-[var(--rule-strong)] text-center px-4 sm:px-8`}
+                >
+                  <p className="zh-emphasis text-lg sm:text-[20px] leading-relaxed">
                     「{chapter.epigraph.quoteZh}」
                   </p>
-                  <footer className="mt-5 text-sm tracking-wide">
+                  <footer className="mt-4 text-sm tracking-wide">
                     —— {chapter.epigraph.authorZh} {chapter.epigraph.sourceZh}
                   </footer>
                 </div>
@@ -1355,15 +1621,26 @@ export default function ReaderApp({ books }: ReaderAppProps) {
                 </a>
                 <span>自外文底本直接译注</span>
               </div>
-              <div>
-                <span>中文译注协议：</span>
+              <div className="flex items-baseline gap-3">
+                <span>
+                  中文译注协议：
+                  <a
+                    href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hans"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors ml-1"
+                  >
+                    CC0 1.0
+                  </a>
+                </span>
+                <span className="h-3 w-[1px] bg-[var(--rule-line)]" />
                 <a
-                  href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hans"
+                  href="https://github.com/NihilDigit/EvenBetterReads"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
                 >
-                  CC0 1.0
+                  GitHub
                 </a>
               </div>
             </div>
@@ -1374,13 +1651,13 @@ export default function ReaderApp({ books }: ReaderAppProps) {
       {/* 移动端/平板端：半透明遮罩 + 底部旁注/原注面板 */}
       {activeRailItem && (
         <div
-          className="xl:hidden fixed inset-0 z-50 bg-black/45 flex items-end"
+          className="anim-backdrop-enter xl:hidden fixed inset-0 z-50 bg-black/45 flex items-end"
           onClick={() => setActiveGlossId(null)}
           role="dialog"
           aria-label={activeRailItem.kind === 'authorNote' ? book.authorNoteLabel : '伴读旁注'}
         >
           <div
-            className={`w-full border-t-2 bg-[var(--bg-canvas)] px-5 pt-4 pb-7 sm:px-6 shadow-2xl ${
+            className={`anim-sheet-up w-full border-t-2 bg-[var(--bg-canvas)] px-5 pt-4 pb-7 sm:px-6 shadow-2xl ${
               activeRailItem.kind === 'authorNote'
                 ? 'border-[var(--ink-primary)]'
                 : 'border-[var(--accent-nrf)]'

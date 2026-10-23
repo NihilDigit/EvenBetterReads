@@ -175,3 +175,118 @@ body {
   width: 0;
   height: 0;
 }
+
+/* ==================== 统一交互与视图过渡动效 ==================== */
+@keyframes ebr-view-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ebr-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ebr-backdrop-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ebr-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.975);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ebr-sheet-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ebr-drawer-in {
+  from {
+    opacity: 0.6;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ebr-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.anim-view-enter {
+  animation: ebr-view-enter 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-card-enter {
+  animation: ebr-card-enter 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-backdrop-enter {
+  animation: ebr-backdrop-enter 0.2s ease-out both;
+}
+
+.anim-modal-enter {
+  animation: ebr-modal-enter 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-sheet-up {
+  animation: ebr-sheet-up 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-drawer-in {
+  animation: ebr-drawer-in 0.26s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.anim-fade-in {
+  animation: ebr-fade-in 0.22s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-view-enter,
+  .anim-card-enter,
+  .anim-backdrop-enter,
+  .anim-modal-enter,
+  .anim-sheet-up,
+  .anim-drawer-in,
+  .anim-fade-in {
+    animation: none !important;
+  }
+}
+

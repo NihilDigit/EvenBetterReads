@@ -55,7 +55,7 @@ export const humePart4Sections: BookSection[] = [
             id: 'g-pd-s7-02',
             anchor: '威廉·坦普尔爵士',
             content:
-              '威廉·坦普尔爵士（Sir William Temple，1628—1699），英国驻海牙大使、政治家与散文家，曾促成 1668 年英、荷、瑞三国同盟及威廉三世与玛丽的联姻（乔纳森·斯威夫特早年曾任其私人秘书）。他在名著《尼德兰联合省考察记》（*Observations upon the United Provinces of the Netherlands*，1673）第六章「论他们的贸易」中提出：商业财富绝非自然肥沃的产物，反倒是荷兰地狭人稠、沼泽贫瘠的生存压力加上高额消费税，迫使荷兰人养成节俭与不知疲倦的勤勉习俗；反之，爱尔兰土壤肥沃、食物极廉，反而滋生了游手好闲的惰性。'
+              '威廉·坦普尔爵士（Sir William Temple，1628—1699），英国驻海牙大使、政治家与散文家，曾促成 1668 年英、荷、瑞三国同盟及威廉三世与玛丽的联姻（乔纳森·斯威夫特早年曾任其私人秘书）。他在名著《尼德兰联合省考察记》（Observations upon the United Provinces of the Netherlands，1673）第六章「论他们的贸易」中提出：商业财富绝非自然肥沃的产物，反倒是荷兰地狭人稠、沼泽贫瘠的生存压力加上高额消费税，迫使荷兰人养成节俭与不知疲倦的勤勉习俗；反之，爱尔兰土壤肥沃、食物极廉，反而滋生了游手好闲的惰性。'
           }
         ]
       },
@@ -457,7 +457,7 @@ export const humePart4Sections: BookSection[] = [
             id: 'g-pd-s8-14',
             anchor: '「然而大众只看恩赏的数额之巨；最愚蠢的人争相出钱购买；而在明智之士眼中，凡属不害及共和国便既无法赐予、亦无法收受的东西，皆形同废纸。」',
             content:
-              '引自古罗马史学家塔西佗《历史》第三卷第五十五章（*Sed vulgus ad magnitudinem beneficiorum aderat: Stultissimus quisque pecuniis mercabatur: Apud sapientes cassa habebantur, quæ neque dari neque accipi, salva republica, poterant*）。原典记述公元 69 年「四帝之年」内战末期，罗马皇帝维特里乌斯在弗拉维派大军压境、大势已去之际，为笼络人心并敛财救急，疯狂滥赐公民权与免税特权。休谟借此辛辣地指出，主权国家在负债累累时许诺的高息债券，本质上就是一种「如果不毁掉共和国就根本不可能兑现」的空头支票。至于本段开头提及的「当今法兰西国王（路易十五）与他曾祖父（路易十四）」，系指法国在 1715 年及 1720 年经历多次债务违约与强制减息后，到奥地利王位继承战争（1740—1748）时竟依然能以低息顺利发债，足见金融市场投资者的健忘与短视。'
+              '引自古罗马史学家塔西佗《历史》第三卷第五十五章（Sed vulgus ad magnitudinem beneficiorum aderat: Stultissimus quisque pecuniis mercabatur: Apud sapientes cassa habebantur, quæ neque dari neque accipi, salva republica, poterant）。原典记述公元 69 年「四帝之年」内战末期，罗马皇帝维特里乌斯在弗拉维派大军压境、大势已去之际，为笼络人心并敛财救急，疯狂滥赐公民权与免税特权。休谟借此辛辣地指出，主权国家在负债累累时许诺的高息债券，本质上就是一种「如果不毁掉共和国就根本不可能兑现」的空头支票。至于本段开头提及的「当今法兰西国王（路易十五）与他曾祖父（路易十四）」，系指法国在 1715 年及 1720 年经历多次债务违约与强制减息后，到奥地利王位继承战争（1740—1748）时竟依然能以低息顺利发债，足见金融市场投资者的健忘与短视。'
           }
         ]
       },

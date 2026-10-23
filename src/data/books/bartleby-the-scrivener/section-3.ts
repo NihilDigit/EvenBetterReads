@@ -138,7 +138,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-06',
           anchor: '在弗吉尼亚某个万里无云的午后，嘴里叼着烟斗被一道夏日闪电劈死的那个人',
           content:
-            '这一令人难忘的石化比喻源于十九世纪美国报刊广为流传的一则弗吉尼亚自然奇闻（梅尔维尔在随后的短篇小说《避雷针推销员》〔*The Lightning-Rod Man*, 1854〕中再次探讨了雷击恐惧）。一个无所事事（occupied with nothing）的抄写员在紧锁的办公室门后说出一句「我正忙着（I am occupied）」，其语义上的彻底悖谬如同晴空霹雳，瞬间抽空了老律师建立在常识与契约之上的全部行动力，使这位本欲驱逐雇员的房产支配者自己在门外化作了一具僵立的躯壳。'
+            '这一令人难忘的石化比喻源于十九世纪美国报刊广为流传的一则弗吉尼亚自然奇闻（梅尔维尔在随后的短篇小说《避雷针推销员》〔The Lightning-Rod Man, 1854〕中再次探讨了雷击恐惧）。一个无所事事（occupied with nothing）的抄写员在紧锁的办公室门后说出一句「我正忙着（I am occupied）」，其语义上的彻底悖谬如同晴空霹雳，瞬间抽空了老律师建立在常识与契约之上的全部行动力，使这位本欲驱逐雇员的房产支配者自己在门外化作了一具僵立的躯壳。'
         }
       ]
     },
@@ -202,7 +202,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-08',
           anchor: '「我赐给你们一条新命令，乃是叫你们彼此相爱。」',
           content:
-            '引自《新约·约翰福音》第 13 章第 34 节耶稣在最后晚餐上对门徒的临别叮嘱（钦定本 *King James Version*：「A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.」）。极具梅尔维尔式反讽意味的是：基督原本要求门徒以舍己牺牲的圣爱（agape）彼此相待，而在华尔街老律师的道德账本上，这条神圣的「新命令」却被精明地折算成了一种防止自己因一时冲动沦为杀人犯、从而保全自身名誉与安全的「纯粹自利（mere self-interest）」与「风险对冲保险（great safeguard to its possessor）」。'
+            '引自《新约·约翰福音》第 13 章第 34 节耶稣在最后晚餐上对门徒的临别叮嘱（钦定本 King James Version：「A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.」）。极具梅尔维尔式反讽意味的是：基督原本要求门徒以舍己牺牲的圣爱（agape）彼此相待，而在华尔街老律师的道德账本上，这条神圣的「新命令」却被精明地折算成了一种防止自己因一时冲动沦为杀人犯、从而保全自身名誉与安全的「纯粹自利（mere self-interest）」与「风险对冲保险（great safeguard to its possessor）」。'
         }
       ]
     },
@@ -226,7 +226,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-09',
           anchor: '《爱德华兹论意志》与《普里斯特利论必然性》',
           content:
-            '分别指北美大觉醒运动领袖、加尔文宗神学家乔纳森·爱德华兹（Jonathan Edwards，1703—1758）的经典巨著《论意志的自由》（*A Careful and Strict Enquiry into the Modern Prevailing Notions of That Freedom of Will, Which is Supposed to be Essential to Moral Agency*, 1754），以及英国启蒙自然哲学家、氧气发现者与一位论派神学家约瑟夫·普里斯特利（Joseph Priestley，1733—1804）的《哲学必然性学说阐微》（*The Doctrine of Philosophical Necessity Illustrated*, 1777）。爱德华兹从严酷的加尔文宗神学预定论出发，论证人的意志完全受制于其当下最强烈的动机（而动机最终由上帝主权决定），不存在脱开因果链条的「自决自由」；普里斯特利则从唯物主义因果决定论出发得出了相似的必然性结论。老律师在现实中既无力驱逐那个只认「我宁愿（I would prefer）」的巴托比，便滑稽地求助于这两部否定自由意志的哲学与神学名著，将自己的软弱无能美化为顺应「天意预定（predestinated from eternity）」的崇高宿命。'
+            '分别指北美大觉醒运动领袖、加尔文宗神学家乔纳森·爱德华兹（Jonathan Edwards，1703—1758）的经典巨著《论意志的自由》（A Careful and Strict Enquiry into the Modern Prevailing Notions of That Freedom of Will, Which is Supposed to be Essential to Moral Agency, 1754），以及英国启蒙自然哲学家、氧气发现者与一位论派神学家约瑟夫·普里斯特利（Joseph Priestley，1733—1804）的《哲学必然性学说阐微》（The Doctrine of Philosophical Necessity Illustrated, 1777）。爱德华兹从严酷的加尔文宗神学预定论出发，论证人的意志完全受制于其当下最强烈的动机（而动机最终由上帝主权决定），不存在脱开因果链条的「自决自由」；普里斯特利则从唯物主义因果决定论出发得出了相似的必然性结论。老律师在现实中既无力驱逐那个只认「我宁愿（I would prefer）」的巴托比，便滑稽地求助于这两部否定自由意志的哲学与神学名著，将自己的软弱无能美化为顺应「天意预定（predestinated from eternity）」的崇高宿命。'
         }
       ]
     },

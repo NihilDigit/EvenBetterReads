@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "verify": "bun scripts/verify-books.ts",
+    "build": "bun scripts/verify-books.ts && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

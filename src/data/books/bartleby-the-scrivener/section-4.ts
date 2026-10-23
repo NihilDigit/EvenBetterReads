@@ -27,7 +27,7 @@ export const section4: BookSection = {
           anchor:
             '他这样一个寸步不移的人，会是个流浪汉、一个游民？那么说来，恰恰是因为他不肯去流浪，你才硬要把他算作流浪汉了',
           content:
-            '梅尔维尔在此对英美普通法中的「流浪罪（vagrancy）」作了极尽辛辣的词源学与法理学解构。英语 **vagrant** 源于拉丁语 *vagari*（漫游、游荡，即老律师同义复指的 **wanderer**）；根据十九世纪纽约州《修正法令》（*Revised Statutes of the State of New York*），凡「无可见谋生手段（no visible means of support）」且无固定居所的怠惰游荡者，治安推事均可按流浪罪判处关押于济贫院或监狱。然而巴托比不仅拒绝移动分毫，还靠每天半个五分银币的姜汁饼自给自足。资本主义法律体系为了将这个退出雇佣劳动的静止身体纳入治安惩戒，不得不指鹿为马，将一个「绝对拒绝挪窝的人」强行定性为「到处流窜的游民」。'
+            '梅尔维尔在此对英美普通法中的「流浪罪（vagrancy）」作了极尽辛辣的词源学与法理学解构。英语 **vagrant** 源于拉丁语 vagari（漫游、游荡，即老律师同义复指的 **wanderer**）；根据十九世纪纽约州《修正法令》（Revised Statutes of the State of New York），凡「无可见谋生手段（no visible means of support）」且无固定居所的怠惰游荡者，治安推事均可按流浪罪判处关押于济贫院或监狱。然而巴托比不仅拒绝移动分毫，还靠每天半个五分银币的姜汁饼自给自足。资本主义法律体系为了将这个退出雇佣劳动的静止身体纳入治安惩戒，不得不指鹿为马，将一个「绝对拒绝挪窝的人」强行定性为「到处流窜的游民」。'
         },
         {
           id: 'g-bt-s4-02',
@@ -153,7 +153,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-06',
           anchor: '我喜欢固定不动。但我并不挑剔',
           content:
-            '原文作 **I like to be stationary. But I am not particular**。这里隐含着一重绝妙的英语双关：**stationary**（固定不动的）与 **stationery**（文具、信纸——抄写员终身相伴的劳作对象）同音异义。老律师一口气开出的五份职业清单（重操抄写旧业、布匹百货店员、酒馆酒保、巡回催账员、富家子弟欧洲壮游伴游），涵盖了十九世纪商业社会从体力服务、柜台零售、金融催收到高雅文化伴游的全部雇佣门类。巴托比却逐一否决了每一项具体的职业规定性，同时反复强调「**但我并不挑剔（But I am not particular）**」。在英语中，*not particular* 既有口语中「不挑剔、随和」之意，在哲学字面上更直指「**非特殊化的、拒绝被固定为任何特定（particular）社会职能的普遍潜能**」。'
+            '原文作 **I like to be stationary. But I am not particular**。这里隐含着一重绝妙的英语双关：**stationary**（固定不动的）与 **stationery**（文具、信纸——抄写员终身相伴的劳作对象）同音异义。老律师一口气开出的五份职业清单（重操抄写旧业、布匹百货店员、酒馆酒保、巡回催账员、富家子弟欧洲壮游伴游），涵盖了十九世纪商业社会从体力服务、柜台零售、金融催收到高雅文化伴游的全部雇佣门类。巴托比却逐一否决了每一项具体的职业规定性，同时反复强调「**但我并不挑剔（But I am not particular）**」。在英语中，not particular 既有口语中「不挑剔、随和」之意，在哲学字面上更直指「**非特殊化的、拒绝被固定为任何特定（particular）社会职能的普遍潜能**」。'
         }
       ]
     },
@@ -282,7 +282,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-11',
           anchor: '「同君王和谋士在一起，」',
           content:
-            '化用《旧约·约伯记》第 3 章第 13—19 节受苦的约伯咒诅自己生辰时的著名哀歌（钦定本 *King James Version*：「For now should I have lain still and been quiet, I should have slept: then had I been at rest, **With kings and counsellors of the earth, which built desolate places for themselves**... There the prisoners rest together; they hear not the voice of the oppressor. The small and great are there; and the servant is free from his master.」——「不然，我早已躺卧安寂，早已安睡得享安息，同地上为自己建造荒邱的君王和谋士在一起……在那里被囚的人同得安息，不听见督工的声音。大小尊卑都在那里；奴仆脱离主人的辖制。」）。在仿古埃及法老金字塔形制的「坟墓」监狱墙根下，一文不名、以胎儿姿态蜷缩辞世的抄写员巴托比，终于在死亡的绝对平等中「脱离了主人的辖制」，与那些为自己修筑宏伟陵墓的地上君王和谋士（kings and counselors，在英语中 **counselor** 亦双关「出庭大律师 / 法律顾问」）同享安息。'
+            '化用《旧约·约伯记》第 3 章第 13—19 节受苦的约伯咒诅自己生辰时的著名哀歌（钦定本 King James Version：「For now should I have lain still and been quiet, I should have slept: then had I been at rest, **With kings and counsellors of the earth, which built desolate places for themselves**... There the prisoners rest together; they hear not the voice of the oppressor. The small and great are there; and the servant is free from his master.」——「不然，我早已躺卧安寂，早已安睡得享安息，同地上为自己建造荒邱的君王和谋士在一起……在那里被囚的人同得安息，不听见督工的声音。大小尊卑都在那里；奴仆脱离主人的辖制。」）。在仿古埃及法老金字塔形制的「坟墓」监狱墙根下，一文不名、以胎儿姿态蜷缩辞世的抄写员巴托比，终于在死亡的绝对平等中「脱离了主人的辖制」，与那些为自己修筑宏伟陵墓的地上君王和谋士（kings and counselors，在英语中 **counselor** 亦双关「出庭大律师 / 法律顾问」）同享安息。'
         }
       ]
     },
@@ -298,13 +298,13 @@ export const section4: BookSection = {
           id: 'g-bt-s4-12',
           anchor: '巴托比从前曾是华盛顿死信局里的一名低级职员，后来因为政府换届而突然遭到了革职',
           content:
-            '美国邮政总局下属的「死信局（Dead Letter Office）」于 1825 年在首都华盛顿特区正式设立，专门集中拆检全美各地因收件人亡故、迁徙不明或字迹模糊而无法投递的信件（dead letters），从中检索有价财物（汇票、纸币、戒指）尝试退还寄件人，而将其余无法退还的数百万封信件定期在华盛顿露天焚化炉中按车焚毁；1852 年（即本篇发表前一年），美国报刊曾广泛刊载关于华盛顿死信局特写报道，梅尔维尔的挚友纳撒尼尔·霍桑以及梅尔维尔本人当时亦正在谋求政府公职任命。文中「因政府换届而突然遭到革职（suddenly removed by a change in the administration）」则直指自安德鲁·杰克逊总统（1829）以来愈演愈烈的美国政党「分肥制（Spoils System）」：每逢新总统上台（如 1841、1845、1849、1853 年政党轮替），联邦政府便大规模清洗包括邮政总局低级文书在内的前任公务员，将其职位作为战利品分封给本党效忠者。在神学与语言学双重隐喻上，英语 **letter** 兼指「书信」「文字字母」与保罗神学中的「律法字句」（《哥林多后书》3:6：「因为那字句是叫人死，精意是叫人活 / *for the letter killeth, but the spirit giveth life*」）：从华盛顿死信局中焚烧的无法抵达收件人的情感书信，到华尔街律师事务所里一字不差机械誊写的产权契据，直至现代作家寄往大众市场却无人理解的文学作品，一切脱离了生命回应的「文字（letters）」皆已沦为「死信（dead letters）」。'
+            '美国邮政总局下属的「死信局（Dead Letter Office）」于 1825 年在首都华盛顿特区正式设立，专门集中拆检全美各地因收件人亡故、迁徙不明或字迹模糊而无法投递的信件（dead letters），从中检索有价财物（汇票、纸币、戒指）尝试退还寄件人，而将其余无法退还的数百万封信件定期在华盛顿露天焚化炉中按车焚毁；1852 年（即本篇发表前一年），美国报刊曾广泛刊载关于华盛顿死信局特写报道，梅尔维尔的挚友纳撒尼尔·霍桑以及梅尔维尔本人当时亦正在谋求政府公职任命。文中「因政府换届而突然遭到革职（suddenly removed by a change in the administration）」则直指自安德鲁·杰克逊总统（1829）以来愈演愈烈的美国政党「分肥制（Spoils System）」：每逢新总统上台（如 1841、1845、1849、1853 年政党轮替），联邦政府便大规模清洗包括邮政总局低级文书在内的前任公务员，将其职位作为战利品分封给本党效忠者。在神学与语言学双重隐喻上，英语 **letter** 兼指「书信」「文字字母」与保罗神学中的「律法字句」（《哥林多后书》3:6：「因为那字句是叫人死，精意是叫人活 / for the letter killeth, but the spirit giveth life」）：从华盛顿死信局中焚烧的无法抵达收件人的情感书信，到华尔街律师事务所里一字不差机械誊写的产权契据，直至现代作家寄往大众市场却无人理解的文学作品，一切脱离了生命回应的「文字（letters）」皆已沦为「死信（dead letters）」。'
         },
         {
           id: 'g-bt-s4-13',
           anchor: '啊，巴托比！啊，人性！',
           content:
-            '原文作 **Ah Bartleby! Ah humanity!**。这一声结语式的悲叹在二十世纪末引发了欧陆当代哲学最著名的两场专题阐释。吉尔·德勒兹（Gilles Deleuze）在《批评与临床》的压卷之作《巴托比，或公式》（*Bartleby, ou la formule*, 1989）中指出，巴托比绝非传统心理小说中的病患或隐喻，他那句不合常规语法的「公式（la formule）」——*I would prefer not to*（既不肯定也不否定，在否定具体行为的同时开启了一片纯粹的「不可能性之域」）——在标准英语内部凿出了一门「异乡人的语言」，彻底悬置了建立在父权温情与契约互惠之上的资产阶级社会拟制，迫使老律师从傲慢的家长制雇主走向对「无父之兄弟情谊」的震颤体认。乔治·阿甘本（Giorgio Agamben）则在《巴托比，或论偶然性》（*Bartleby, o della contingenza*, 1993）中将巴托比置于亚里士多德《形而上学》与阿威罗伊哲学传统的核心：真正的潜能（dynamis / potentiality）不仅在于「能够做（潜能实现为现实性）」，更在于保持「**能够不做（potenza di non / potentiality not to be）**」的主权。巴托比作为一名「不再书写的抄写员」，恰如亚里士多德笔下那块「尚未写上任何字迹的蜡板（tabula rasa）」，以彻底弃绝一切现实规定性的姿态，守护了人类存在最深邃的纯粹潜能与偶然性。'
+            '原文作 **Ah Bartleby! Ah humanity!**。这一声结语式的悲叹在二十世纪末引发了欧陆当代哲学最著名的两场专题阐释。吉尔·德勒兹（Gilles Deleuze）在《批评与临床》的压卷之作《巴托比，或公式》（Bartleby, ou la formule, 1989）中指出，巴托比绝非传统心理小说中的病患或隐喻，他那句不合常规语法的「公式（la formule）」——I would prefer not to（既不肯定也不否定，在否定具体行为的同时开启了一片纯粹的「不可能性之域」）——在标准英语内部凿出了一门「异乡人的语言」，彻底悬置了建立在父权温情与契约互惠之上的资产阶级社会拟制，迫使老律师从傲慢的家长制雇主走向对「无父之兄弟情谊」的震颤体认。乔治·阿甘本（Giorgio Agamben）则在《巴托比，或论偶然性》（Bartleby, o della contingenza, 1993）中将巴托比置于亚里士多德《形而上学》与阿威罗伊哲学传统的核心：真正的潜能（dynamis / potentiality）不仅在于「能够做（潜能实现为现实性）」，更在于保持「**能够不做（potenza di non / potentiality not to be）**」的主权。巴托比作为一名「不再书写的抄写员」，恰如亚里士多德笔下那块「尚未写上任何字迹的蜡板（tabula rasa）」，以彻底弃绝一切现实规定性的姿态，守护了人类存在最深邃的纯粹潜能与偶然性。'
         }
       ]
     }

@@ -56,7 +56,7 @@ function renderInnerZh(
             options?.onSelectGloss?.(fnId);
           }}
           title={`查看${label}`}
-          className={`inline-flex items-center mx-1 px-1.5 py-0.5 text-[11px] leading-none font-mono-coord align-baseline border transition-colors cursor-pointer ${
+          className={`inline-flex items-center mx-0.5 px-1 py-[1.5px] text-[10px] leading-none font-mono-coord align-super -top-[0.18em] relative border transition-colors cursor-pointer ${
             isActive
               ? 'bg-[var(--ink-primary)] text-[var(--bg-canvas)] border-[var(--ink-primary)]'
               : 'bg-transparent text-[var(--ink-primary)] border-[var(--rule-strong)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)]'
@@ -71,10 +71,33 @@ function renderInnerZh(
 }
 
 /**
+ * 将跨伴读旁注锚点的 **...** 拆解归并到各子段内部，防止外层切分后残留裸露的 **
+ */
+function normalizeBoldAcrossGlosses(text: string): string {
+  const glossToken = /(\[[^\]]+\]\{#[a-zA-Z0-9_-]+\})/g;
+  return text.replace(/\*\*([^*]+)\*\*/g, (full, inner: string) => {
+    if (!inner.includes('{#')) return full;
+    return inner
+      .split(glossToken)
+      .map((chunk) => {
+        if (!chunk) return '';
+        const m = chunk.match(/^\[([^\]]+)\]\{#([a-zA-Z0-9_-]+)\}$/);
+        if (m) {
+          const [, anchor, id] = m;
+          const cleanAnchor = anchor.replace(/\*\*/g, '');
+          return `[**${cleanAnchor}**]{#${id}}`;
+        }
+        return `**${chunk}**`;
+      })
+      .join('');
+  });
+}
+
+/**
  * 解析中文段落：每个自然段均为 <p className="zh-prose zh-indent">（首行缩进两字）
  */
 export function renderZhParagraph(text: string, options: ParseZhOptions): React.ReactNode[] {
-  const paragraphs = text.split('\n\n');
+  const paragraphs = normalizeBoldAcrossGlosses(text).split('\n\n');
 
   return paragraphs.map((para, pIdx) => {
     const glossRegex = /(\[[^\]]+\]\{#[a-zA-Z0-9_-]+\})/g;
@@ -104,6 +127,8 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
             data-gloss-trigger={glossId}
             onClick={(e) => {
               e.stopPropagation();
+              const sel = window.getSelection();
+              if (sel && !sel.isCollapsed && sel.toString().trim().length > 0) return;
               options.onSelectGloss(glossId);
             }}
             onKeyDown={(e) => {
