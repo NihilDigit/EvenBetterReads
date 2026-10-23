@@ -7,7 +7,7 @@
     local('LXGWNeoZhiSong'),
     local('霞鹜新致宋'),
     url('/fonts/LXGWNeoZhiSong-subset.woff2') format('woff2');
-  font-weight: 400;
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -19,7 +19,7 @@
     local('LXGWWenKai-Regular'),
     local('霞鹜文楷'),
     url('/fonts/LXGWWenKai-subset.woff2') format('woff2');
-  font-weight: 400;
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
@@ -95,11 +95,22 @@ body {
   font-style: normal !important;
 }
 
-/* 中文加粗/强调：使用霞鹜文楷，正体无斜体 */
+/* 中文强调：使用霞鹜文楷正体，禁用浏览器伪粗体发晕，仅靠字体切换与极轻微描边提亮 */
 .zh-emphasis {
   font-family: 'EB Garamond', 'LXGW WenKai', serif;
   font-style: normal !important;
-  font-weight: 600;
+  font-weight: 400;
+  font-synthesis: none;
+  -webkit-text-stroke: 0.2px currentColor;
+  color: var(--ink-primary);
+}
+
+/* 书名大标题专用中度加粗：禁用浏览器错位伪粗体，采用均匀描边保持字口锐利 */
+.zh-title-bold {
+  font-family: 'EB Garamond', 'LXGW Neo ZhiSong', 'Noto Serif SC', serif;
+  font-weight: 400;
+  font-synthesis: none;
+  -webkit-text-stroke: 0.45px currentColor;
   color: var(--ink-primary);
 }
 

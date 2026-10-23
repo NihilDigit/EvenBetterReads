@@ -139,7 +139,7 @@ function PositionedSidenoteRail({
                   {item.authorLabel} [{item.formattedIndex}]
                 </span>
               </div>
-              <p className="zh-emphasis font-normal text-[13px] leading-relaxed">
+              <p className="gloss-prose text-[13px] leading-relaxed">
                 {renderGlossContent(item.content)}
               </p>
             </aside>
@@ -526,10 +526,10 @@ export default function ReaderApp({ books }: ReaderAppProps) {
 
                   <div className="mt-4">
                     <p className="fr-prose italic text-sm sm:text-base">{b.titleOriginal}</p>
-                    <h2 className="text-xl sm:text-2xl font-bold tracking-tight mt-0.5 leading-snug">
+                    <h2 className="zh-title-bold text-xl sm:text-2xl tracking-tight mt-0.5 leading-snug">
                       {b.titleZh}
                     </h2>
-                    <p className="zh-emphasis font-normal text-xs sm:text-[13px] mt-1">
+                    <p className="text-xs sm:text-[13px] mt-1">
                       —— {b.subtitleZh}（<span className="fr-prose italic">{b.subtitleOriginal}</span>）
                     </p>
                   </div>
@@ -1082,13 +1082,7 @@ export default function ReaderApp({ books }: ReaderAppProps) {
               </div>
 
               <div className="mt-3.5 max-h-[42vh] overflow-y-auto">
-                <p
-                  className={
-                    activeRailItem.kind === 'authorNote'
-                      ? 'zh-emphasis font-normal text-[14.5px] leading-relaxed'
-                      : 'gloss-prose text-[14.5px] leading-relaxed'
-                  }
-                >
+                <p className="gloss-prose text-[14.5px] leading-relaxed">
                   {renderGlossContent(activeRailItem.content)}
                 </p>
               </div>
