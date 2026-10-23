@@ -94,7 +94,7 @@ export const section3: BookSection = {
           id: 'g-chestov-impossible',
           anchor: '一位评论家曾转述过他的一句耐人寻味的话：「唯一真正的出路，恰恰就在按人类判断来看走投无路的地方。否则，我们还需要上帝干什么？人们唯有为了求取不可能之事，才会转向上帝；至于可能之事，单靠人自己就足够了。」',
           content:
-            '这里的「评论家」指俄裔法国哲学家与音乐评论家鲍里斯 德 施勒泽（Boris de Schloezer），他将舍斯托夫的著作译为法文并撰写长篇导言。这段话浓缩了舍斯托夫在《克尔凯郭尔与存在哲学》（1936 法译本）中的核心论点：舍斯托夫反复援引《马可福音》10:27「在人是不能，在神却不然，因为神凡事都能」，主张真正的信仰恰恰始于理性判定绝对不可能的绝境（如约伯要求上帝让已死的儿女复生）。'
+            '这里的「评论家」指俄裔法国哲学家与音乐评论家鲍里斯·德·施勒泽（Boris de Schloezer），他将舍斯托夫的著作译为法文并撰写长篇导言。这段话浓缩了舍斯托夫在《克尔凯郭尔与存在哲学》（1936 法译本）中的核心论点：舍斯托夫反复援引《马可福音》10:27「在人是不能，在神却不然，因为神凡事都能」，主张真正的信仰恰恰始于理性判定绝对不可能的绝境（如约伯要求上帝让已死的儿女复生）。'
         }
       ]
     },
@@ -140,7 +140,7 @@ export const section3: BookSection = {
       type: 'paragraph',
       num: '§ 13',
       fr: "Ce qui est sensible chez Léon Chestov, le sera plus encore peut-être chez Kierkegaard. Certes, il est difficile de cerner chez un auteur aussi fuyant des propositions claires. Mais, malgré des écrits apparemment opposés, par-dessus les pseudonymes, les jeux et les sourires, on sent tout au long de cette œuvre apparaître comme le pressentiment (en même temps que l'appréhension) d'une vérité qui finit par éclater dans les derniers ouvrages : Kierkegaard lui aussi fait le saut. Le christianisme dont son enfance s'effrayait tant, il revient finalement vers son visage le plus dur. Pour lui aussi, l'antinomie et le paradoxe deviennent critères du religieux. Ainsi cela même qui faisait désespérer du sens et de la profondeur de cette vie lui donne maintenant sa vérité et sa clarté. Le christianisme, c'est le scandale et ce que Kierkegaard demande tout uniment, c'est le troisième sacrifice exigé par Ignace de Loyola, celui dont Dieu se réjouit le plus : « le sacrifice de l'Intellect[^fn-5] ». Cet effet du « saut » est bizarre, mais ne doit plus nous surprendre. Il fait de l'absurde le critère de l'autre monde alors qu'il est seulement un résidu de l'expérience de ce monde. « Dans son échec, dit Kierkegaard, le croyant trouve son triomphe. »",
-      zh: '在列夫 舍斯托夫身上已然明显的东西，在克尔凯郭尔身上或许表现得更为极致。诚然，在这样一位行踪飘忽的作者那里，很难捉住清晰的命题；但尽管他的著作表面上相互冲突，越过那些化名、诡计与微笑，我们仍能感受到整部作品自始至终浮现着对某条真理的预感（同时也是恐惧），而这条真理最终在他晚期的著作中轰然爆发：克尔凯郭尔同样纵身一跃。对于令他童年胆战心惊的基督教，他最终折返回其最严酷冷硬的面孔面前。在他看来，二律背反与悖论同样成了宗教性的判准。于是，恰恰是原先令他对今生的意义与深度感到绝望的东西，如今反倒赋予了今生以真理与澄明。基督教就是那块「绊脚石」，而克尔凯郭尔直截了当要求的，正是[依纳爵 罗耀拉所要求的第三重献祭]{#g-loyola}，也是最令上帝欢喜的那重献祭：**「理智的献祭」**[^fn-5]。「跳跃」所产生的这一效果固然古怪，却已不值得我们大惊小怪。荒谬本只是今生经验的残余物，他却将荒谬变成了彼岸世界的判准。克尔凯郭尔说：「信徒在自己的挫败中，找到了他的凯旋。」',
+      zh: '在列夫·舍斯托夫身上已然明显的东西，在克尔凯郭尔身上或许表现得更为极致。诚然，在这样一位行踪飘忽的作者那里，很难捉住清晰的命题；但尽管他的著作表面上相互冲突，越过那些化名、诡计与微笑，我们仍能感受到整部作品自始至终浮现着对某条真理的预感（同时也是恐惧），而这条真理最终在他晚期的著作中轰然爆发：克尔凯郭尔同样纵身一跃。对于令他童年胆战心惊的基督教，他最终折返回其最严酷冷硬的面孔面前。在他看来，二律背反与悖论同样成了宗教性的判准。于是，恰恰是原先令他对今生的意义与深度感到绝望的东西，如今反倒赋予了今生以真理与澄明。基督教就是那块「绊脚石」，而克尔凯郭尔直截了当要求的，正是[依纳爵·罗耀拉所要求的第三重献祭]{#g-loyola}，也是最令上帝欢喜的那重献祭：**「理智的献祭」**[^fn-5]。「跳跃」所产生的这一效果固然古怪，却已不值得我们大惊小怪。荒谬本只是今生经验的残余物，他却将荒谬变成了彼岸世界的判准。克尔凯郭尔说：「信徒在自己的挫败中，找到了他的凯旋。」',
       authorNotes: [
         {
           id: 'fn-5',
@@ -151,9 +151,9 @@ export const section3: BookSection = {
       glosses: [
         {
           id: 'g-loyola',
-          anchor: '依纳爵 罗耀拉所要求的第三重献祭',
+          anchor: '依纳爵·罗耀拉所要求的第三重献祭',
           content:
-            '耶稣会创始人依纳爵 罗耀拉（Ignatius of Loyola，1491—1556）在 1553 年《论服从书》中将修道者的服从分为三个递进等级：第一级是外在行动的服从，第二级是意志的服从，而最高、最令上帝喜悦的第三级则是「理智的献祭（sacrificio dell’intelletto）」——即强迫自己的理智去相信违反理性判断的教义。段中「基督教就是那块绊脚石（scandale）」则出自《哥林多前书》1:23 保罗所言「我们却是传钉十字架的基督，在犹太人为绊脚石，在外邦人为愚拙」，克尔凯郭尔在《哲学片断》与《基督教的训练》中将其发展为核心神学概念：上帝道成肉身并受死在理性上是绝对荒谬的「冒犯 / 绊脚石」，唯有碾碎理性才能跃入信仰。'
+            '耶稣会创始人依纳爵·罗耀拉（Ignatius of Loyola，1491—1556）在 1553 年《论服从书》中将修道者的服从分为三个递进等级：第一级是外在行动的服从，第二级是意志的服从，而最高、最令上帝喜悦的第三级则是「理智的献祭（sacrificio dell’intelletto）」——即强迫自己的理智去相信违反理性判断的教义。段中「基督教就是那块绊脚石（scandale）」则出自《哥林多前书》1:23 保罗所言「我们却是传钉十字架的基督，在犹太人为绊脚石，在外邦人为愚拙」，克尔凯郭尔在《哲学片断》与《基督教的训练》中将其发展为核心神学概念：上帝道成肉身并受死在理性上是绝对荒谬的「冒犯 / 绊脚石」，唯有碾碎理性才能跃入信仰。'
         }
       ]
     },
@@ -168,7 +168,7 @@ export const section3: BookSection = {
           id: 'g-galiani',
           anchor: '加利亚尼神父曾对德皮奈夫人说：重要的不是治愈，而是带着病痛活下去。',
           content:
-            '费迪南多 加利亚尼（Ferdinando Galiani，1728—1787），意大利启蒙思想家、外交官，长年旅居巴黎，与百科全书派交好。他在致法国沙龙女主人德皮奈夫人（Madame d’Épinay）的著名书信中写道，人生的顽疾正如慢性病，妄图一劳永逸地「根治」只会招来江湖郎中的毒药，真正的智慧是带着病痛活下去。尼采也曾在书信中高度赞赏加利亚尼此语。'
+            '费迪南多·加利亚尼（Ferdinando Galiani，1728—1787），意大利启蒙思想家、外交官，长年旅居巴黎，与百科全书派交好。他在致法国沙龙女主人德皮奈夫人（Madame d’Épinay）的著名书信中写道，人生的顽疾正如慢性病，妄图一劳永逸地「根治」只会招来江湖郎中的毒药，真正的智慧是带着病痛活下去。尼采也曾在书信中高度赞赏加利亚尼此语。'
         }
       ]
     },
@@ -239,7 +239,7 @@ export const section3: BookSection = {
           id: 'g-bergson',
           anchor: '借用柏格森的一个比喻，它就像一台突然定格在某一帧画面上的放映机',
           content:
-            '法国哲学家亨利 柏格森（Henri Bergson，1859—1941）在《创造进化论》（1907）第四章中提出了著名的「思维的电影机制（mécanisme cinématographique de la pensée）」比喻：人类理智在面对绵延不绝的生命流动时，总是像摄影机一样截取一个个静止的瞬间切片。加缪在此借用这一图像，说明现象学的「意向性」起初只是将意识之光定格在一帧帧孤立的经验切片上，而不预设整部电影的终极剧本。'
+            '法国哲学家亨利·柏格森（Henri Bergson，1859—1941）在《创造进化论》（1907）第四章中提出了著名的「思维的电影机制（mécanisme cinématographique de la pensée）」比喻：人类理智在面对绵延不绝的生命流动时，总是像摄影机一样截取一个个静止的瞬间切片。加缪在此借用这一图像，说明现象学的「意向性」起初只是将意识之光定格在一帧帧孤立的经验切片上，而不预设整部电影的终极剧本。'
         }
       ]
     },

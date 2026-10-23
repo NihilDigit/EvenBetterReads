@@ -13,7 +13,7 @@ export const leMytheDeSisyphe: BookMeta = {
   titleZh: '西西弗神话',
   subtitleZh: '论荒谬',
   authorOriginal: 'Albert Camus',
-  authorZh: '阿尔贝 加缪',
+  authorZh: '阿尔贝·加缪',
   authorNoteLabel: '加缪原注',
   year: '1942',
   publisher: 'Éditions Gallimard, Paris',

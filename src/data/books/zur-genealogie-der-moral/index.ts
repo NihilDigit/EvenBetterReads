@@ -11,7 +11,7 @@ export const zurGenealogieDerMoral: BookMeta = {
   titleZh: '论道德的谱系',
   subtitleZh: '一篇论战檄文',
   authorOriginal: 'Friedrich Nietzsche',
-  authorZh: '弗里德里希 尼采',
+  authorZh: '弗里德里希·尼采',
   authorNoteLabel: '尼采原注',
   year: '1887',
   publisher: 'Verlag von C. G. Naumann, Leipzig',

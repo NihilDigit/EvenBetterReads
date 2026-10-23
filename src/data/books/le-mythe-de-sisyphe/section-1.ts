@@ -2,19 +2,19 @@ import type { BookSection, GlossItem } from '../../../types/book';
 
 export const chapter1Dedication = {
   toOriginal: 'à Pascal Pia',
-  toZh: '献给帕斯卡尔 皮亚',
+  toZh: '献给帕斯卡尔·皮亚',
   noteFr:
     "Les pages qui suivent traitent d'une sensibilité absurde qu'on peut trouver éparse dans le siècle — et non d'une philosophie absurde que notre temps, à proprement parler, n'a pas connue. Il est donc d'une honnêteté élémentaire de marquer, pour commencer, ce qu'elles doivent à certains esprits contemporains. Mon intention est si peu de le cacher qu'on les verra cités et commentés tout au long de l'ouvrage.\n\nMais il est utile de noter, en même temps, que l'absurde, pris jusqu'ici comme conclusion, est considéré dans cet essai comme un point de départ. En ce sens, on peut dire qu'il y a du provisoire dans mon commentaire : on ne saurait préjuger de la position qu'il engage. On trouvera seulement ici la description, à l'état pur, d'un mal de l'esprit. Aucune métaphysique, aucune croyance n'y sont mêlées pour le moment. Ce sont les limites et le seul parti pris de ce livre.",
   noteZh:
     '以下篇幅探讨的，是一种散见于我们这个时代的[荒谬感]{#g-sensibilite}，而非一套严格意义上我们时代未曾有过的「荒谬哲学」。因此，出于最起码的诚实，开篇即应指明本书受惠于当代若干思想者之处。我丝毫无意隐瞒这份渊源，全书随处可见对他们的引述与评析。\n\n但同样有必要指出，[以往常被当作结论的荒谬，在这篇随笔里却被视为出发点]{#g-point-depart}。从这个意义上说，我的评述带有某种暂时性：它最终会将人引向何种立场，眼下尚不可预断。读者在这里看到的，仅仅是一种处于纯粹状态的**精神疾患**的描摹。暂时不掺杂任何形而上学，也不掺杂任何信仰。这便是本书的界限，也是它唯一的成见。',
   signatureFr: 'Albert Camus',
-  signatureZh: '阿尔贝 加缪',
+  signatureZh: '阿尔贝·加缪',
   glosses: [
     {
       id: 'g-sensibilite',
       anchor: '荒谬感',
       content:
-        '受献者帕斯卡尔 皮亚（Pascal Pia，1903—1979）是加缪在阿尔及尔创办《共和晚报》与巴黎《战斗报》时的挚友与引路人。加缪将「荒谬感」与「荒谬哲学」区分开：他始终拒绝被归入萨特式的学院存在主义体系，强调这里处理的不是一套先验教条，而是二十世纪人在日常经验与历史断裂中普遍遭遇的精神症候。'
+        '受献者帕斯卡尔·皮亚（Pascal Pia，1903—1979）是加缪在阿尔及尔创办《共和晚报》与巴黎《战斗报》时的挚友与引路人。加缪将「荒谬感」与「荒谬哲学」区分开：他始终拒绝被归入萨特式的学院存在主义体系，强调这里处理的不是一套先验教条，而是二十世纪人在日常经验与历史断裂中普遍遭遇的精神症候。'
     },
     {
       id: 'g-point-depart',
