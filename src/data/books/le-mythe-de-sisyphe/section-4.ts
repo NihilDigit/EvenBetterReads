@@ -2,7 +2,7 @@ import type { BookSection } from '../../../types/book';
 
 export const section4: BookSection = {
   id: 'la-liberte-absurde',
-  roman: 'IV',
+  roman: 'I.4',
   titleOriginal: 'La liberté absurde',
   titleZh: '荒谬的自由',
   blocks: [

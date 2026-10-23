@@ -3,6 +3,9 @@ import { chapter1Dedication, chapter1Epigraph, section1 } from './section-1';
 import { section2 } from './section-2';
 import { section3 } from './section-3';
 import { section4 } from './section-4';
+import { chapitre2Epigraph, chapitre2Sections } from './chapitre-2';
+import { chapitre3Sections } from './chapitre-3';
+import { appendiceKafkaSection, chapitre4Section } from './chapitre-4';
 
 export const leMytheDeSisyphe: BookMeta = {
   slug: 'le-mythe-de-sisyphe',
@@ -19,16 +22,25 @@ export const leMytheDeSisyphe: BookMeta = {
   publisher: 'Éditions Gallimard, Paris',
   collection: 'Les Essais XII',
   descriptionZh:
-    '收录第一章《荒谬的推理》全篇（荒谬与自杀、荒谬的高墙、哲学自杀、荒谬的自由）。加缪将「荒谬」从近代虚无主义的结论倒转为全部思辨的出发点：当世界彻底失去彼岸的终极意义，人能否在不借助信仰跳跃、亦不走向自我毁灭的前提下，仅凭清醒的反抗活出此生的壮丽？',
+    '完整收录全书四章（《荒谬的推理》《荒谬的人》《荒谬的创造》《西西弗神话》）及《附录：弗朗茨·卡夫卡作品中的希望与荒谬》。加缪将「荒谬」从近代虚无主义的结论倒转为全部思辨的出发点：当世界彻底失去彼岸的终极意义，人能否在不借助信仰跳跃、亦不走向自我毁灭的前提下，仅凭清醒的反抗、燃烧的当下与无明天的创造，在推石上山的搏斗中活出此生的壮丽？',
   chapters: [
     {
-      id: 'un-raisonnement-absurde',
-      number: 'Chapitre I',
-      titleOriginal: 'Un raisonnement absurde',
-      titleZh: '荒谬的推理',
+      id: 'le-mythe-de-sisyphe-complet',
+      number: 'Texte intégral',
+      titleOriginal: 'Le Mythe de Sisyphe',
+      titleZh: '西西弗神话',
       dedication: chapter1Dedication,
       epigraph: chapter1Epigraph,
-      sections: [section1, section2, section3, section4]
+      sections: [
+        section1,
+        section2,
+        section3,
+        section4,
+        ...chapitre2Sections,
+        ...chapitre3Sections,
+        chapitre4Section,
+        appendiceKafkaSection
+      ]
     }
   ]
 };

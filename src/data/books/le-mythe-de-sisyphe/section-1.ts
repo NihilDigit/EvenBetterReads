@@ -36,7 +36,7 @@ export const chapter1Epigraph = {
 
 export const section1: BookSection = {
   id: 'l-absurde-et-le-suicide',
-  roman: 'I',
+  roman: 'I.1',
   titleOriginal: "L'absurde et le suicide",
   titleZh: '荒谬与自杀',
   blocks: [

@@ -2,7 +2,7 @@ import type { BookSection } from '../../../types/book';
 
 export const section3: BookSection = {
   id: 'le-suicide-philosophique',
-  roman: 'III',
+  roman: 'I.3',
   titleOriginal: 'Le suicide philosophique',
   titleZh: '哲学自杀',
   blocks: [

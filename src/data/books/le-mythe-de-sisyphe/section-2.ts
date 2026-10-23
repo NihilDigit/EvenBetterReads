@@ -2,7 +2,7 @@ import type { BookSection } from '../../../types/book';
 
 export const section2: BookSection = {
   id: 'les-murs-absurdes',
-  roman: 'II',
+  roman: 'I.2',
   titleOriginal: 'Les murs absurdes',
   titleZh: '荒谬的高墙',
   blocks: [
@@ -228,7 +228,7 @@ export const section2: BookSection = {
       type: 'paragraph',
       num: '§ 17',
       fr: "Je sais déjà que la pensée est entrée du moins dans ces déserts. Elle y a trouvé son pain. Elle y a compris qu'elle se nourrissait jusque-là de fantômes. Elle a donné prétexte à quelques-uns des thèmes les plus pressants de la réflexion humaine.\n\nÀ partir du moment où elle est reconnue, l'absurdité est une passion, la plus déchirante de toutes. Mais savoir si l'on peut vivre avec ses passions, savoir si l'on peut accepter leur loi profonde qui est de brûler le cœur que dans le même temps elles exaltent, voilà toute la question. Ce n'est pas cependant celle que nous poserons encore. Elle est au centre de cette expérience. Il sera temps d'y revenir. Reconnaissons plutôt ces thèmes et ces élans nés du désert. Il suffira de les énumérer. Ceux-là aussi sont aujourd'hui connus de tous. Il y a toujours eu des hommes pour défendre les droits de l'irrationnel. La tradition de ce qu'on peut appeler la pensée humiliée n'a jamais cessé d'être vivante. La critique du rationalisme a été faite tant de fois qu'il semble qu'elle ne soit plus à faire. Pourtant notre époque voit renaître ces systèmes paradoxaux qui s'ingénient à faire trébucher la raison comme si vraiment elle avait toujours marché de l'avant. Mais cela n'est point tant une preuve de l'efficacité de la raison que de la vivacité de ses espoirs. Sur le plan de l'histoire, cette constance de deux attitudes illustre la passion essentielle de l'homme déchiré entre son appel vers l'unité et la vision claire qu'il peut avoir des murs qui l'enserrent.",
-      zh: '我已经知道，思想至少曾踏入过这片荒漠。它在那里找到了自己的食粮，并在那里明白了自己此前一直靠吞食幽灵度日。它由此引发了人类省思中若干最紧迫的母题。\n\n从被认清的那一刻起，荒谬便是一种激情，是所有激情中最撕裂人心的一种。但究竟能否与自己的激情共存，能否接受它们那条在振奋心灵的同时也将心灵灼烧殆尽的深层法则——这才是全部问题所在。不过，我们眼下还不到提出这个问题的时候。它处在这场经验的中心，稍后自会回到它身上。还是先来辨认那些诞生于荒漠的母题与冲动吧，只需将它们逐一列举即可。如今它们同样已为人所共知。世上从来不乏为非理性的权利辩护的人，[那条可被称为**受屈辱的思想**的传统从未中断过生机]{#g-pensee-humiliee}。对理性主义的批判已经做过太多次，似乎早已无须重做。然而我们这个时代却目睹那些悖论体系再度复兴，它们挖空心思去绊倒理性，仿佛理性当真一直阔步前行似的。但这与其说是证明了理性的有效，不如说是证明了理性所怀抱的希望是何等顽强。在历史的层面上，这两种姿态的恒常对立，恰好映照出人在「朝向统一的呼唤」与「清晰看见围困自身的高墙」之间被撕裂的根本激情。',
+      zh: '我已经知道，思想至少曾踏入过这片荒漠。它在那里找到了自己的食粮，并在那里明白了自己此前一直靠吞食幽灵度日。它由此引发了人类省思中若干最紧迫的母题。\n\n从被认清的那一刻起，荒谬便是一种激情，是所有激情中最撕裂人心的一种。但究竟能否与自己的激情共存，能否接受它们那条在振奋心灵的同时也将心灵灼烧殆尽的深层法则——这才是全部问题所在。不过，我们眼下还不到提出这个问题的时候。它处在这场经验的中心，稍后自会回到它身上。还是先来辨认那些诞生于荒漠的母题与冲动吧，只需将它们逐一列举即可。如今它们同样已为人所共知。世上从来不乏为非理性的权利辩护的人，[那条可被称为受屈辱的思想的传统从未中断过生机]{#g-pensee-humiliee}。对理性主义的批判已经做过太多次，似乎早已无须重做。然而我们这个时代却目睹那些悖论体系再度复兴，它们挖空心思去绊倒理性，仿佛理性当真一直阔步前行似的。但这与其说是证明了理性的有效，不如说是证明了理性所怀抱的希望是何等顽强。在历史的层面上，这两种姿态的恒常对立，恰好映照出人在「朝向统一的呼唤」与「清晰看见围困自身的高墙」之间被撕裂的根本激情。',
       glosses: [
         {
           id: 'g-pensee-humiliee',
