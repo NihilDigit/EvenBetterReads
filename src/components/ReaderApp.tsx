@@ -1073,16 +1073,23 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
       <header className="sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-strong)]">
         <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-10 h-13 sm:h-14 flex items-center justify-between gap-2 sm:gap-3">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            {/* 左上角固定为与书架一致的品牌 Logo（点击直接返回书架主页） */}
+            {/* 左上角固定为与书架一致的品牌 Logo（窄屏简写为 EBR，点击直接返回书架主页） */}
             <button
               type="button"
               onClick={returnToShelf}
               title="返回书架主页"
-              className="fr-prose text-[19px] sm:text-[23px] leading-none tracking-[-0.02em] select-none cursor-pointer shrink-0 hover:opacity-80 transition-opacity"
+              className="fr-prose text-[20px] sm:text-[23px] leading-none tracking-[-0.02em] select-none cursor-pointer shrink-0 hover:opacity-80 transition-opacity"
             >
-              <span className="italic font-normal text-[var(--accent-nrf)] pr-[2px]">Even</span>
-              <span className="font-semibold">Better</span>
-              <span className="font-normal">Reads</span>
+              <span className="sm:hidden">
+                <span className="italic font-normal text-[var(--accent-nrf)] pr-[1px]">E</span>
+                <span className="font-semibold">B</span>
+                <span className="font-normal">R</span>
+              </span>
+              <span className="hidden sm:inline">
+                <span className="italic font-normal text-[var(--accent-nrf)] pr-[2px]">Even</span>
+                <span className="font-semibold">Better</span>
+                <span className="font-normal">Reads</span>
+              </span>
             </button>
 
             <span className="h-4 w-[1px] bg-[var(--rule-line)] shrink-0" />
@@ -1680,7 +1687,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               ? `translateY(${sheetDragY}px)`
               : 'translateY(100%)'
           }}
-          className={`w-full border-t-2 bg-[var(--bg-canvas)] text-[var(--ink-primary)] px-5 pt-2.5 pb-7 sm:px-6 shadow-2xl transition-transform ${
+          className={`w-full max-h-[72vh] flex flex-col border-t-2 bg-[var(--bg-canvas)] text-[var(--ink-primary)] pt-2 shadow-2xl transition-transform ${
             sheetDragY > 0 ? 'duration-0' : 'duration-250 ease-[cubic-bezier(0.22,1,0.36,1)]'
           } ${
             sheetItem?.kind === 'authorNote'
@@ -1708,43 +1715,45 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         >
           {/* Sheet 顶部拖拽柄（点击或下滑均可收起） */}
           <div
-            className="w-full py-1.5 flex justify-center cursor-pointer"
+            className="w-full py-1.5 shrink-0 flex justify-center cursor-pointer"
             onClick={() => setActiveGlossId(null)}
           >
             <span className="w-10 h-1 bg-[var(--rule-line)] block" />
           </div>
 
           {sheetItem && (
-            <div className="max-w-[680px] mx-auto mt-1">
-              <div className="flex items-start justify-between gap-3 pb-3 border-b border-[var(--rule-line)]">
-                {sheetItem.kind === 'authorNote' ? (
-                  <div className="flex items-center gap-2">
-                    <span className="inline-block bg-[var(--surface-solid)] text-[var(--ink-on-solid)] border border-[var(--rule-strong)] px-2 py-0.5 font-mono-coord text-xs">
-                      {sheetItem.authorLabel} [{sheetItem.formattedIndex}]
-                    </span>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-[28px_1fr] items-baseline gap-1 min-w-0">
-                    <span className="font-mono-coord text-xs text-[var(--accent-nrf)] font-semibold">
-                      {sheetItem.formattedIndex}
-                    </span>
-                    <p className="zh-emphasis text-[15px] leading-snug">
-                      {sheetItem.anchor}
-                    </p>
-                  </div>
-                )}
+            <div className="max-w-[680px] w-full mx-auto mt-1 flex flex-col min-h-0 flex-1">
+              <div className="px-5 sm:px-6 shrink-0">
+                <div className="flex items-start justify-between gap-3 pb-3 border-b border-[var(--rule-line)]">
+                  {sheetItem.kind === 'authorNote' ? (
+                    <div className="flex items-center gap-2">
+                      <span className="inline-block bg-[var(--surface-solid)] text-[var(--ink-on-solid)] border border-[var(--rule-strong)] px-2 py-0.5 font-mono-coord text-xs">
+                        {sheetItem.authorLabel} [{sheetItem.formattedIndex}]
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-[28px_1fr] items-baseline gap-1 min-w-0">
+                      <span className="font-mono-coord text-xs text-[var(--accent-nrf)] font-semibold">
+                        {sheetItem.formattedIndex}
+                      </span>
+                      <p className="zh-emphasis text-[15px] leading-snug">
+                        {sheetItem.anchor}
+                      </p>
+                    </div>
+                  )}
 
-                <button
-                  type="button"
-                  onClick={() => setActiveGlossId(null)}
-                  aria-label="收起注疏"
-                  className="w-8 h-8 -mr-1.5 -mt-1 flex items-center justify-center text-sm text-[var(--ink-primary)] opacity-70 hover:opacity-100 shrink-0 cursor-pointer"
-                >
-                  ✕
-                </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveGlossId(null)}
+                    aria-label="收起注疏"
+                    className="w-8 h-8 -mr-1.5 -mt-1 flex items-center justify-center text-sm text-[var(--ink-primary)] opacity-70 hover:opacity-100 shrink-0 cursor-pointer"
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
 
-              <div className="mt-3.5 max-h-[46vh] overflow-y-auto overscroll-contain pr-1">
+              <div className="px-5 sm:px-6 pt-3.5 pb-6 overflow-y-auto overscroll-contain flex-1 min-h-0">
                 <p className="gloss-prose text-[14.5px] leading-relaxed">
                   {renderGlossContent(sheetItem.content)}
                 </p>
