@@ -275,7 +275,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   const [activeBookSlug, setActiveBookSlug] = useState<string | null>(null);
   const [theme, setTheme] = useState<PaperTheme>('ivory');
   const [fontScale, setFontScale] = useState<FontScale>('md');
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const [mobileTocOpen, setMobileTocOpen] = useState<boolean>(false);
   const [currentSpySection, setCurrentSpySection] = useState<string>('liminaire');
   const [activeGlossId, setActiveGlossId] = useState<string | null>(null);
@@ -299,16 +298,12 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     try {
       const savedTheme = localStorage.getItem('ebr-theme') as PaperTheme | null;
       const savedScale = localStorage.getItem('ebr-scale') as FontScale | null;
-      const savedSidebar = localStorage.getItem('ebr-sidebar');
       if (savedTheme && ['ivory', 'parchment', 'obsidian'].includes(savedTheme)) {
         setTheme(savedTheme);
         document.documentElement.setAttribute('data-theme', savedTheme);
       }
       if (savedScale && ['sm', 'md', 'lg'].includes(savedScale)) {
         setFontScale(savedScale);
-      }
-      if (savedSidebar === 'closed') {
-        setSidebarOpen(false);
       }
     } catch {
       // ignore storage errors
@@ -392,18 +387,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     }
   };
 
-  const toggleDesktopSidebar = () => {
-    setSidebarOpen((prev) => {
-      const next = !prev;
-      try {
-        localStorage.setItem('ebr-sidebar', next ? 'open' : 'closed');
-      } catch {
-        // ignore
-      }
-      return next;
-    });
-  };
-
   const book = useMemo(
     () => books.find((b) => b.slug === activeBookSlug) ?? books[0],
     [books, activeBookSlug]
@@ -456,14 +439,14 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     }
   }, [activeBookSlug, book, chapter, hasLiminaire]);
 
-  // 左侧目录高亮项变化时，保持高亮项在目录可视区域内
+  // 目录抽屉打开或高亮项变化时，保持高亮项在目录可视区域内
   useEffect(() => {
-    if (!activeBookSlug || !sidebarOpen || !tocNavRef.current) return;
+    if (!activeBookSlug || !mobileTocOpen || !tocNavRef.current) return;
     const activeBtn = tocNavRef.current.querySelector<HTMLElement>(
       `[data-toc-section="${currentSpySection}"]`
     );
     activeBtn?.scrollIntoView({ block: 'nearest' });
-  }, [activeBookSlug, sidebarOpen, currentSpySection]);
+  }, [activeBookSlug, mobileTocOpen, currentSpySection]);
 
   const { glossIndexMap, allRailItemsMap, footnoteMap } = useMemo(() => {
     const gMap: GlossIndexMap = {};
@@ -532,12 +515,12 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   }
   const sheetItem = activeRailItem ?? lastRailItemRef.current;
 
-  // 移动端弹窗/抽屉/底部注疏 Sheet 打开时锁定底层页面滚动，避免穿透滚动
+  // 弹窗/目录抽屉/移动端底部注疏 Sheet 打开时锁定底层页面滚动，避免穿透滚动
   useEffect(() => {
     const isMobileViewport = typeof window !== 'undefined' && window.innerWidth < 1280;
     const shouldLock =
       Boolean(previewBookSlug) ||
-      Boolean(mobileTocOpen && isMobileViewport) ||
+      Boolean(mobileTocOpen) ||
       Boolean(activeRailItem && isMobileViewport);
 
     if (!shouldLock) return;
@@ -1075,12 +1058,12 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
       <header className="sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-strong)]">
         <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-10 h-13 sm:h-14 flex items-center justify-between gap-2 sm:gap-3">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            {/* 左上角第一顺位：移动端/平板端汉堡目录按钮（与右侧控件统一为 h-8 盒模型） */}
+            {/* 左上角第一顺位：全端统一的汉堡目录按钮（与右侧控件统一为 h-8 盒模型） */}
             <button
               type="button"
               onClick={() => setMobileTocOpen((v) => !v)}
-              className="xl:hidden h-8 w-8 p-0.5 inline-flex items-center justify-center border border-[var(--rule-line)] bg-[var(--bg-panel)] cursor-pointer shrink-0 transition-colors"
-              aria-label="切换目录"
+              className="h-8 w-8 p-0.5 inline-flex items-center justify-center border border-[var(--rule-line)] bg-[var(--bg-panel)] cursor-pointer shrink-0 transition-colors"
+              aria-label="切换章节目录"
               title="章节目录"
             >
               <span
@@ -1192,42 +1175,49 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </div>
       </header>
 
-      {/* 移动端目录抽屉（支持平滑滑入滑出，点击右侧空白遮罩即收起） */}
+      {/* 全端统一的汉堡目录抽屉（纯 GPU transform 滑入滑出，零文档流重排，点击右侧遮罩即收起） */}
       <div
-        className={`fixed inset-0 z-50 xl:hidden transition-opacity duration-200 ${
+        className={`fixed inset-0 z-50 transition-opacity duration-200 ${
           mobileTocOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         } bg-black/45`}
         onClick={() => setMobileTocOpen(false)}
         aria-hidden={!mobileTocOpen}
       >
-        <div
-          className={`toc-scroll w-72 max-w-[82vw] h-full bg-[var(--bg-canvas)] text-[var(--ink-primary)] border-r border-[var(--rule-line)] p-5 flex flex-col justify-between overflow-y-auto transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        <aside
+          className={`toc-scroll w-72 sm:w-80 max-w-[84vw] h-full bg-[var(--bg-canvas)] text-[var(--ink-primary)] border-r border-[var(--rule-strong)] p-5 sm:p-6 flex flex-col justify-between overflow-y-auto overscroll-contain shadow-2xl will-change-transform transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             mobileTocOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
           onClick={(e) => e.stopPropagation()}
+          aria-label="章节目录"
         >
           <div>
             <div className="flex items-start justify-between gap-2 pb-4 border-b border-[var(--rule-line)]">
               <div className="min-w-0">
-                <p className="font-mono-coord text-[10px] tracking-[0.2em] uppercase text-[var(--accent-nrf)]">
-                  {chapter.number}
+                <p className="font-mono-coord text-[10px] tracking-[0.2em] uppercase text-[var(--accent-nrf)] truncate">
+                  {book.authorOriginal} / {chapter.number}
                 </p>
-                <h2 className="text-base font-medium mt-0.5 truncate">{book.titleZh}</h2>
+                <h2 className="text-base sm:text-lg font-medium mt-1 leading-snug">
+                  {book.titleZh}
+                </h2>
+                <p className="fr-prose italic text-xs mt-0.5 truncate">
+                  {book.titleOriginal} ({book.year})
+                </p>
               </div>
               <button
                 type="button"
                 onClick={() => setMobileTocOpen(false)}
                 aria-label="收起目录"
-                className="w-8 h-8 -mr-1 -mt-1 flex items-center justify-center text-sm text-[var(--ink-primary)] opacity-75 hover:opacity-100 cursor-pointer"
+                className="w-8 h-8 -mr-1 -mt-1 flex items-center justify-center text-sm text-[var(--ink-primary)] opacity-75 hover:opacity-100 cursor-pointer shrink-0"
               >
                 ✕
               </button>
             </div>
 
-            <nav className="mt-3 space-y-1">
+            <nav ref={tocNavRef} className="mt-3.5 space-y-1">
               {hasLiminaire && (
                 <button
                   type="button"
+                  data-toc-section="liminaire"
                   onClick={() => jumpToSection('liminaire')}
                   className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] cursor-pointer ${
                     currentSpySection === 'liminaire'
@@ -1246,6 +1236,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 <button
                   key={sec.id}
                   type="button"
+                  data-toc-section={sec.id}
                   onClick={() => jumpToSection(sec.id)}
                   className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] cursor-pointer ${
                     currentSpySection === sec.id
@@ -1268,179 +1259,17 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               ))}
             </nav>
           </div>
-        </div>
+        </aside>
       </div>
 
-      {/* 主体网格容器 */}
+      {/* 主体网格容器（主阅读区与右侧旁注轨道始终在视口居中，开合汉堡目录零重排） */}
       <div
         id="top"
         key={activeBookSlug}
-        className={`anim-view-enter max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-10 flex-1 grid grid-cols-1 transition-[grid-template-columns,gap] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          sidebarOpen
-            ? 'xl:grid-cols-[220px_minmax(0,1fr)] xl:gap-10'
-            : 'xl:grid-cols-[44px_minmax(0,1fr)] xl:gap-8'
-        }`}
+        className="anim-view-enter max-w-[1080px] w-full mx-auto px-4 sm:px-6 lg:px-10 flex-1"
       >
-        {/* 左栏：桌面端章节目录（展开态为完整目录，收起态保留窄轨与章节序号锚点，绝不凭空消失） */}
-        <aside
-          className={`hidden xl:block border-r border-[var(--rule-line)] transition-[padding] duration-300 ${
-            sidebarOpen ? 'pr-4 py-10' : 'pr-2.5 py-8'
-          }`}
-        >
-          {sidebarOpen ? (
-            <div
-              key="toc-expanded"
-              className="anim-fade-in toc-scroll sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain pr-2 space-y-6"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <p className="font-mono-coord text-[10px] tracking-[0.22em] uppercase text-[var(--accent-nrf)] truncate">
-                    {book.authorOriginal}
-                  </p>
-                  <h1 className="text-lg font-medium mt-1 tracking-wide leading-snug">
-                    {book.titleZh}
-                  </h1>
-                  <p className="fr-prose italic text-xs mt-0.5 truncate">
-                    {book.titleOriginal} ({book.year})
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={toggleDesktopSidebar}
-                  title="收起目录栏"
-                  className="px-2 py-1 text-[11px] border border-[var(--rule-strong)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors cursor-pointer shrink-0"
-                >
-                  « 收起
-                </button>
-              </div>
-
-              <div>
-                <div className="mb-2.5 px-2.5">
-                  <span className="font-mono-coord text-[10px] tracking-[0.18em] uppercase">
-                    {chapter.number}
-                  </span>
-                </div>
-
-                <nav ref={tocNavRef} className="space-y-1.5">
-                  {hasLiminaire && (
-                    <button
-                      type="button"
-                      data-toc-section="liminaire"
-                      onClick={() => jumpToSection('liminaire')}
-                      className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
-                        currentSpySection === 'liminaire'
-                          ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-semibold'
-                          : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
-                      }`}
-                    >
-                      <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)] shrink-0">
-                        序
-                      </span>
-                      <span>卷首与题词</span>
-                    </button>
-                  )}
-
-                  {chapter.sections.map((sec) => {
-                    const isCurrent = currentSpySection === sec.id;
-                    return (
-                      <button
-                        key={sec.id}
-                        type="button"
-                        data-toc-section={sec.id}
-                        onClick={() => jumpToSection(sec.id)}
-                        className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
-                          isCurrent
-                            ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-semibold'
-                            : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
-                        }`}
-                      >
-                        <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)] shrink-0">
-                          {sec.roman === 'Vorrede'
-                            ? '序言'
-                            : sec.roman === 'Appendice'
-                              ? '附录'
-                              : sec.roman}
-                        </span>
-                        <div className="min-w-0">
-                          <div>{sec.titleZh}</div>
-                          <div className="fr-prose italic text-[11px] truncate mt-0.5">
-                            {sec.titleOriginal}
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </nav>
-              </div>
-            </div>
-          ) : (
-            <div
-              key="toc-collapsed"
-              className="anim-fade-in toc-scroll sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain flex flex-col items-center gap-2"
-            >
-              <button
-                type="button"
-                onClick={toggleDesktopSidebar}
-                title="展开目录栏"
-                className="w-8 py-2 text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors cursor-pointer flex flex-col items-center gap-1 leading-none"
-              >
-                <span className="font-mono-coord text-xs">»</span>
-                <span className="[writing-mode:vertical-rl] tracking-widest text-[11px] py-0.5">
-                  目录
-                </span>
-              </button>
-
-              <div className="w-4 h-[1px] bg-[var(--rule-line)] my-1" />
-
-              {hasLiminaire && (
-                <button
-                  type="button"
-                  onClick={() => jumpToSection('liminaire')}
-                  title="卷首与题词"
-                  className={`w-8 h-7 text-[11px] font-mono-coord flex items-center justify-center border transition-colors cursor-pointer ${
-                    currentSpySection === 'liminaire'
-                      ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] text-[var(--accent-nrf)] font-semibold'
-                      : 'border-transparent hover:border-[var(--rule-line)]'
-                  }`}
-                >
-                  序
-                </button>
-              )}
-
-              {chapter.sections.map((sec) => {
-                const isCurrent = currentSpySection === sec.id;
-                const shortLabel =
-                  sec.roman === 'Vorrede'
-                    ? '序'
-                    : sec.roman === 'Appendice'
-                      ? '附'
-                      : sec.roman;
-                return (
-                  <button
-                    key={sec.id}
-                    type="button"
-                    onClick={() => jumpToSection(sec.id)}
-                    title={`${sec.roman} ${sec.titleZh}`}
-                    className={`w-8 h-7 text-[10.5px] font-mono-coord flex items-center justify-center border transition-colors cursor-pointer ${
-                      isCurrent
-                        ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] text-[var(--accent-nrf)] font-semibold'
-                        : 'border-transparent hover:border-[var(--rule-line)]'
-                    }`}
-                  >
-                    {shortLabel}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </aside>
-
         {/* 主阅读画布 */}
-        <main
-          className={`py-8 sm:py-10 min-w-0 ${
-            !sidebarOpen ? 'xl:max-w-[1040px] xl:mx-auto w-full' : ''
-          }`}
-        >
+        <main className="py-8 sm:py-10 min-w-0 w-full">
           {/* 卷首：献辞/导言标题 + 卷首说明 + 卷首题词 */}
           {(chapter.dedication || chapter.epigraph) && (
             <section
@@ -1505,7 +1334,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                         items={dedicationRailItems}
                         activeId={activeGlossId}
                         onSelect={handleSelectGloss}
-                        layoutDeps={[fontScale, sidebarOpen, activeBookSlug]}
+                        layoutDeps={[fontScale, activeBookSlug]}
                       />
                     </div>
                   )}
@@ -1615,7 +1444,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                       items={sectionRailItems}
                       activeId={activeGlossId}
                       onSelect={handleSelectGloss}
-                      layoutDeps={[fontScale, sidebarOpen, activeBookSlug]}
+                      layoutDeps={[fontScale, activeBookSlug]}
                     />
                   </div>
                 </section>
