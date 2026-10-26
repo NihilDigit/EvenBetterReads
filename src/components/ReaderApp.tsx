@@ -158,7 +158,7 @@ function PositionedSidenoteRail({
   return (
     <div
       ref={railRef}
-      className="hidden xl:block relative w-[310px]"
+      className="hidden xl:block relative w-[300px]"
       style={{ minHeight: railMinHeight > 0 ? `${railMinHeight}px` : undefined }}
     >
       {items.map((item) => {
@@ -1287,39 +1287,31 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </aside>
       </div>
 
-      {/* 桌面端（xl+）左侧常驻目录栏：使用 fixed + 纯 GPU translateX 动画收起/展开，彻底消除正文重排卡顿 */}
+      {/* 桌面端（xl+）左侧常驻目录栏：与主阅读区保持对称的 48px 间距，通过纯 GPU transform 收起/展开 */}
       <aside
-        className={`hidden xl:flex fixed top-14 left-0 bottom-0 z-30 w-[236px] bg-[var(--bg-canvas)] text-[var(--ink-primary)] border-r border-[var(--rule-line)] px-5 py-8 flex-col justify-between overflow-y-auto overscroll-contain toc-scroll will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`hidden xl:flex fixed top-14 left-[max(0px,calc(50%-640px))] bottom-0 z-30 w-[220px] bg-[var(--bg-canvas)] text-[var(--ink-primary)] border-r border-[var(--rule-line)] px-4 py-8 flex-col justify-between overflow-y-auto overscroll-contain toc-scroll will-change-[transform,opacity] transition-[transform,opacity] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          sidebarOpen
+            ? 'translate-x-0 opacity-100 pointer-events-auto'
+            : '-translate-x-[240px] opacity-0 pointer-events-none'
         }`}
         aria-label="桌面端章节目录"
         aria-hidden={!sidebarOpen}
       >
         <div className="space-y-6">
-          <div className="flex items-start justify-between gap-2 pb-4 border-b border-[var(--rule-line)]">
-            <div className="min-w-0">
-              <p className="font-mono-coord text-[10px] tracking-[0.22em] uppercase text-[var(--accent-nrf)] truncate">
-                {book.authorOriginal}
-              </p>
-              <h1 className="text-base font-medium mt-1 tracking-wide leading-snug">
-                {book.titleZh}
-              </h1>
-              <p className="fr-prose italic text-xs mt-0.5 truncate">
-                {book.titleOriginal} ({book.year})
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={toggleDesktopSidebar}
-              title="收起目录栏"
-              className="px-2 py-1 text-[11px] border border-[var(--rule-line)] bg-[var(--bg-panel)] hover:border-[var(--rule-strong)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors cursor-pointer shrink-0"
-            >
-              « 收起
-            </button>
+          <div className="pb-4 border-b border-[var(--rule-line)] px-2">
+            <p className="font-mono-coord text-[10px] tracking-[0.22em] uppercase text-[var(--accent-nrf)] truncate">
+              {book.authorOriginal}
+            </p>
+            <h1 className="text-base font-medium mt-1 tracking-wide leading-snug">
+              {book.titleZh}
+            </h1>
+            <p className="fr-prose italic text-xs mt-0.5 truncate">
+              {book.titleOriginal} ({book.year})
+            </p>
           </div>
 
           <div>
-            <div className="mb-2.5 px-2.5">
+            <div className="mb-2.5 px-2">
               <span className="font-mono-coord text-[10px] tracking-[0.18em] uppercase">
                 {chapter.number}
               </span>
@@ -1331,7 +1323,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   type="button"
                   data-toc-section="liminaire"
                   onClick={() => jumpToSection('liminaire')}
-                  className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
+                  className={`w-full text-left py-2.5 px-2 text-xs grid grid-cols-[minmax(32px,auto)_1fr] gap-2 items-baseline transition-colors cursor-pointer border-[1.5px] ${
                     currentSpySection === 'liminaire'
                       ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-semibold'
                       : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
@@ -1352,7 +1344,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                     type="button"
                     data-toc-section={sec.id}
                     onClick={() => jumpToSection(sec.id)}
-                    className={`w-full text-left py-2.5 px-2.5 text-xs grid grid-cols-[minmax(34px,auto)_1fr] gap-2.5 items-baseline transition-colors cursor-pointer border-[1.5px] ${
+                    className={`w-full text-left py-2.5 px-2 text-xs grid grid-cols-[minmax(32px,auto)_1fr] gap-2 items-baseline transition-colors cursor-pointer border-[1.5px] ${
                       isCurrent
                         ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-semibold'
                         : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
@@ -1379,11 +1371,11 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </div>
       </aside>
 
-      {/* 主体网格容器：桌面端通过纯 GPU translateX(118px) 随左侧 236px 目录同步平移居中，零正文重排 */}
+      {/* 主体网格容器：桌面端 620px 正文 + 48px 间距 + 300px 旁注 = 968px，展开目录时右移 112px 使目录到正文间距亦恰好为 48px */}
       <div
         id="top"
-        className={`max-w-[1080px] w-full mx-auto px-4 sm:px-6 lg:px-10 flex-1 will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          sidebarOpen ? 'xl:translate-x-[118px]' : 'xl:translate-x-0'
+        className={`max-w-[680px] xl:max-w-[968px] w-full mx-auto px-4 sm:px-6 xl:px-0 flex-1 will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          sidebarOpen ? 'xl:translate-x-[112px]' : 'xl:translate-x-0'
         }`}
       >
         {/* 主阅读画布 */}
@@ -1399,7 +1391,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 <>
                   {/* 1. 献辞/导言标题横幅（去掉顶部分割线与过大内边距，与正文小节标题层级统一） */}
                   <div
-                    className={`max-w-[680px] ${
+                    className={`max-w-[620px] ${
                       chapter.dedication.noteZh
                         ? 'mb-7 sm:mb-8 pb-4 border-b-2 border-[var(--rule-strong)]'
                         : 'py-6 sm:py-8 mb-8 border-b border-[var(--rule-line)] text-center'
@@ -1427,7 +1419,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                       id="dedication-block"
                       data-reading-block="dedication-block"
                       ref={dedicationRowRef}
-                      className="grid grid-cols-1 xl:grid-cols-[minmax(0,680px)_310px] gap-6 xl:gap-12 items-start"
+                      className="grid grid-cols-1 xl:grid-cols-[620px_300px] gap-6 xl:gap-12 items-start"
                     >
                       <div>
                         <div>
@@ -1462,7 +1454,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               {/* 3. 独立卷首题词块 */}
               {chapter.epigraph && (
                 <div
-                  className={`max-w-[680px] ${
+                  className={`max-w-[620px] ${
                     chapter.dedication ? 'mt-10 pt-8 border-t border-[var(--rule-line)]' : ''
                   } pb-8 border-b border-[var(--rule-strong)] text-center px-4 sm:px-8`}
                 >
@@ -1497,7 +1489,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   className="scroll-mt-20"
                 >
                   {/* 小节标题横幅 */}
-                  <div className="max-w-[680px] mb-8 sm:mb-10 pb-4 border-b-2 border-[var(--rule-strong)]">
+                  <div className="max-w-[620px] mb-8 sm:mb-10 pb-4 border-b-2 border-[var(--rule-strong)]">
                     <div className="flex items-baseline gap-3">
                       {sec.roman !== 'Vorrede' && sec.roman !== 'Appendice' && (
                         <span className="fr-prose text-2xl sm:text-[28px] text-[var(--accent-nrf)] shrink-0">
@@ -1520,7 +1512,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                     ref={(el) => {
                       sectionRowRefs.current[sec.id] = el;
                     }}
-                    className="grid grid-cols-1 xl:grid-cols-[minmax(0,680px)_310px] gap-0 xl:gap-12 items-start"
+                    className="grid grid-cols-1 xl:grid-cols-[620px_300px] gap-0 xl:gap-12 items-start"
                   >
                     {/* 左栏：连续自然段流 */}
                     <div className="space-y-3.5">
@@ -1571,7 +1563,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           </div>
 
           {/* 章节尾声底栏 */}
-          <footer className="mt-24 pt-10 border-t-2 border-[var(--rule-strong)] max-w-[680px]">
+          <footer className="mt-24 pt-10 border-t-2 border-[var(--rule-strong)] max-w-[620px]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <p className="font-mono-coord text-[11px] uppercase tracking-[0.18em] text-[var(--accent-nrf)]">
