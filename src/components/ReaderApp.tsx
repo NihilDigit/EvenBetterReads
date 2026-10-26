@@ -681,10 +681,10 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     return found ? `${found.roman} ${found.titleZh}` : '';
   }, [currentSpySection, chapter.sections]);
 
-  // 纸张主题切换组件（书架与阅读器共用）
+  // 纸张主题切换组件（书架与阅读器共用，高度与字号切换器严格统一为 h-8）
   const renderThemeSwitcher = () => (
     <div
-      className="inline-flex border border-[var(--rule-line)] bg-[var(--bg-panel)] p-0.5 text-xs"
+      className="inline-flex items-center h-8 border border-[var(--rule-line)] bg-[var(--bg-panel)] p-0.5 text-xs"
       role="group"
       aria-label="纸张主题"
     >
@@ -699,14 +699,16 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           key={t.id}
           type="button"
           onClick={() => handleThemeChange(t.id)}
-          className={`flex items-center gap-1.5 px-2 py-1 cursor-pointer transition-colors ${
+          title={t.label}
+          aria-label={t.label}
+          className={`h-full w-7 sm:w-auto sm:px-2.5 inline-flex items-center justify-center gap-1.5 leading-none cursor-pointer transition-colors ${
             theme === t.id
               ? 'bg-[var(--surface-solid)] text-[var(--ink-on-solid)]'
               : 'text-[var(--ink-primary)] hover:bg-[var(--bg-elevated)]'
           }`}
         >
           <span
-            className="w-2 h-2 border border-current inline-block"
+            className="w-2.5 h-2.5 border border-current inline-block shrink-0"
             style={{ backgroundColor: t.dot }}
           />
           <span className="hidden sm:inline">{t.label}</span>
@@ -1072,13 +1074,46 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
       {/* 顶部网格导航栏 */}
       <header className="sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-strong)]">
         <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-10 h-13 sm:h-14 flex items-center justify-between gap-2 sm:gap-3">
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            {/* 左上角固定为与书架一致的品牌 Logo（窄屏简写为 EBR，点击直接返回书架主页） */}
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            {/* 左上角第一顺位：移动端/平板端汉堡目录按钮（与右侧控件统一为 h-8 盒模型） */}
+            <button
+              type="button"
+              onClick={() => setMobileTocOpen((v) => !v)}
+              className="xl:hidden h-8 w-8 p-0.5 inline-flex items-center justify-center border border-[var(--rule-line)] bg-[var(--bg-panel)] cursor-pointer shrink-0 transition-colors"
+              aria-label="切换目录"
+              title="章节目录"
+            >
+              <span
+                className={`w-full h-full inline-flex items-center justify-center transition-colors ${
+                  mobileTocOpen
+                    ? 'bg-[var(--surface-solid)] text-[var(--ink-on-solid)]'
+                    : 'text-[var(--ink-primary)] hover:bg-[var(--bg-elevated)]'
+                }`}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M1.75 3.25H12.25M1.75 7H9.75M1.75 10.75H12.25"
+                    stroke="currentColor"
+                    strokeWidth="1.35"
+                    strokeLinecap="square"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            {/* 汉堡按钮右侧：品牌 Logo（窄屏简写为 EBR，点击直接返回书架主页） */}
             <button
               type="button"
               onClick={returnToShelf}
               title="返回书架主页"
-              className="fr-prose text-[20px] sm:text-[23px] leading-none tracking-[-0.02em] select-none cursor-pointer shrink-0 hover:opacity-80 transition-opacity"
+              className="fr-prose text-[20px] sm:text-[23px] leading-none tracking-[-0.02em] select-none cursor-pointer shrink-0 hover:opacity-80 transition-opacity flex items-center"
             >
               <span className="sm:hidden">
                 <span className="italic font-normal text-[var(--accent-nrf)] pr-[1px]">E</span>
@@ -1092,17 +1127,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               </span>
             </button>
 
-            <span className="h-4 w-[1px] bg-[var(--rule-line)] shrink-0" />
-
-            {/* 移动端目录抽屉按钮 */}
-            <button
-              type="button"
-              onClick={() => setMobileTocOpen((v) => !v)}
-              className="xl:hidden inline-flex items-center px-2 sm:px-2.5 py-1 text-xs border border-[var(--rule-strong)] cursor-pointer shrink-0"
-              aria-label="切换目录"
-            >
-              目录
-            </button>
+            <span className="hidden sm:inline-block h-4 w-[1px] bg-[var(--rule-line)] shrink-0" />
 
             <a
               href="#top"
@@ -1126,10 +1151,10 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-            {/* 字号调节（移动端与桌面端顶栏常驻） */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* 字号调节（与左侧汉堡及右侧主题切换器高度、外框、内边距完全统一） */}
             <div
-              className="inline-flex border border-[var(--rule-line)] bg-[var(--bg-panel)] p-0.5 text-xs"
+              className="inline-flex items-center h-8 border border-[var(--rule-line)] bg-[var(--bg-panel)] p-0.5 text-xs"
               role="group"
               aria-label="字号大小"
             >
@@ -1144,7 +1169,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   key={s.id}
                   type="button"
                   onClick={() => handleScaleChange(s.id)}
-                  className={`px-1.5 sm:px-2 py-1 cursor-pointer transition-colors ${
+                  className={`h-full w-7 inline-flex items-center justify-center leading-none cursor-pointer transition-colors ${
                     fontScale === s.id
                       ? 'bg-[var(--surface-solid)] text-[var(--ink-on-solid)]'
                       : 'text-[var(--ink-primary)] hover:bg-[var(--bg-elevated)]'
