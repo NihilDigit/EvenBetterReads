@@ -181,7 +181,7 @@ function PositionedSidenoteRail({
               }`}
             >
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="inline-block bg-[var(--ink-primary)] text-[var(--bg-canvas)] px-1.5 py-0.5 font-mono-coord text-[11px] leading-none">
+                <span className="inline-block bg-[var(--surface-solid)] text-[var(--ink-on-solid)] border border-[var(--rule-strong)] px-1.5 py-0.5 font-mono-coord text-[11px] leading-none">
                   {item.authorLabel} [{item.formattedIndex}]
                 </span>
               </div>
@@ -290,6 +290,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   const sectionRowRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const tocNavRef = useRef<HTMLElement | null>(null);
   const isRestoringScrollRef = useRef<boolean>(false);
+  const lastRailItemRef = useRef<RailNoteItem | null>(null);
+  const sheetTouchStartYRef = useRef<number | null>(null);
+  const [sheetDragY, setSheetDragY] = useState<number>(0);
 
   // 初始化主题、字号、目录状态、阅读进度与 URL 书籍参数
   useEffect(() => {
@@ -524,6 +527,27 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     [allRailItemsMap, activeGlossId]
   );
 
+  if (activeRailItem) {
+    lastRailItemRef.current = activeRailItem;
+  }
+  const sheetItem = activeRailItem ?? lastRailItemRef.current;
+
+  // 移动端弹窗/抽屉/底部注疏 Sheet 打开时锁定底层页面滚动，避免穿透滚动
+  useEffect(() => {
+    const isMobileViewport = typeof window !== 'undefined' && window.innerWidth < 1280;
+    const shouldLock =
+      Boolean(previewBookSlug) ||
+      Boolean(mobileTocOpen && isMobileViewport) ||
+      Boolean(activeRailItem && isMobileViewport);
+
+    if (!shouldLock) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [previewBookSlug, mobileTocOpen, activeRailItem]);
+
   useEffect(() => {
     if (!activeBookSlug) return;
 
@@ -677,8 +701,8 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           onClick={() => handleThemeChange(t.id)}
           className={`flex items-center gap-1.5 px-2 py-1 cursor-pointer transition-colors ${
             theme === t.id
-              ? 'bg-[var(--ink-primary)] text-[var(--bg-canvas)]'
-              : 'hover:bg-[var(--bg-elevated)]'
+              ? 'bg-[var(--surface-solid)] text-[var(--ink-on-solid)]'
+              : 'text-[var(--ink-primary)] hover:bg-[var(--bg-elevated)]'
           }`}
         >
           <span
@@ -754,7 +778,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                       e.stopPropagation();
                       openBook(b.slug);
                     }}
-                    className="group/btn w-full sm:w-auto px-4 py-1.5 text-[13px] font-medium bg-[var(--ink-primary)] text-[var(--bg-canvas)] hover:bg-[var(--accent-nrf)] active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5"
+                    className="group/btn w-full sm:w-auto px-4 py-1.5 text-[13px] font-medium bg-[var(--surface-solid)] text-[var(--ink-on-solid)] border border-[var(--rule-strong)] hover:bg-[var(--accent-nrf)] hover:border-[var(--accent-nrf)] hover:text-[#fbf9f5] active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5"
                   >
                     <span>开始阅读</span>
                     <span className="font-mono-coord inline-block group-hover/btn:translate-x-0.5 transition-transform duration-200">
@@ -790,7 +814,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               className="anim-view-enter group relative mb-5 border border-[var(--rule-strong)] bg-[var(--bg-panel)] hover:border-[var(--accent-nrf)] transition-all duration-200 px-3.5 py-2 sm:px-4 sm:py-2.5 flex items-center justify-between gap-3 cursor-pointer"
             >
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-                <span className="inline-block bg-[var(--ink-primary)] text-[var(--bg-canvas)] group-hover:bg-[var(--accent-nrf)] transition-colors px-1.5 py-0.5 font-mono-coord text-[10.5px] tracking-wider shrink-0">
+                <span className="inline-block bg-[var(--accent-nrf)] text-[#fbf9f5] transition-colors px-1.5 py-0.5 font-mono-coord text-[10.5px] tracking-wider shrink-0">
                   继续阅读
                 </span>
                 <div className="flex items-baseline gap-2 min-w-0 truncate">
@@ -811,7 +835,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)]">
                   {resumeEntry.record.progress}%
                 </span>
-                <span className="text-[11.5px] border border-[var(--rule-strong)] px-2 py-0.5 group-hover:bg-[var(--ink-primary)] group-hover:text-[var(--bg-canvas)] transition-colors flex items-center gap-1">
+                <span className="text-[11.5px] border border-[var(--rule-strong)] px-2 py-0.5 group-hover:bg-[var(--surface-solid)] group-hover:text-[var(--ink-on-solid)] transition-colors flex items-center gap-1">
                   <span>续读</span>
                   <span className="font-mono-coord inline-block group-hover:translate-x-0.5 transition-transform duration-200">
                     →
@@ -844,21 +868,29 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           </div>
         </main>
 
-        {/* 书籍导读与目录弹窗 (Book Introduction Modal) */}
+        {/* 书籍导读与目录弹窗 (移动端为底部弹出 Sheet，点击上方留白即可收起；桌面端为居中弹窗) */}
         {previewBook && (
           <div
-            className="anim-backdrop-enter fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px] flex items-center justify-center p-4 sm:p-6"
+            className="anim-backdrop-enter fixed inset-0 z-50 bg-black/50 backdrop-blur-[1px] flex items-end sm:items-center justify-center p-0 sm:p-6"
             onClick={() => setPreviewBookSlug(null)}
             role="dialog"
             aria-modal="true"
             aria-label={`${previewBook.titleZh} 导读`}
           >
             <div
-              className="anim-modal-enter border-2 border-[var(--rule-strong)] bg-[var(--bg-canvas)] max-w-[680px] w-full max-h-[88vh] flex flex-col shadow-2xl"
+              className="anim-sheet-up sm:anim-modal-enter border-t-2 sm:border-2 border-[var(--rule-strong)] bg-[var(--bg-canvas)] text-[var(--ink-primary)] max-w-[680px] w-full max-h-[85vh] sm:max-h-[88vh] flex flex-col shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* 弹窗固定顶栏：滚动到底部时依然常驻，突出「开始阅读」与「关闭」按钮 */}
-              <div className="shrink-0 px-5 sm:px-7 py-3 border-b-2 border-[var(--rule-strong)] bg-[var(--bg-panel)] flex items-center justify-between gap-3">
+              {/* 移动端顶部拖拽柄 */}
+              <div
+                className="sm:hidden pt-2.5 pb-1 bg-[var(--bg-panel)] flex justify-center cursor-pointer"
+                onClick={() => setPreviewBookSlug(null)}
+              >
+                <span className="w-10 h-1 bg-[var(--rule-line)] block" />
+              </div>
+
+              {/* 弹窗固定顶栏：滚动到底部时依然常驻 */}
+              <div className="shrink-0 px-4 sm:px-7 py-3 border-b border-[var(--rule-strong)] bg-[var(--bg-panel)] flex items-center justify-between gap-3">
                 <div className="flex items-baseline gap-2.5 min-w-0 truncate">
                   <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
                     {previewBook.vol}
@@ -871,11 +903,11 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2.5 shrink-0">
+                <div className="flex items-center gap-2 shrink-0">
                   <button
                     type="button"
                     onClick={() => openBook(previewBook.slug)}
-                    className="group/mbtn px-4 py-1.5 text-xs sm:text-[13px] font-medium bg-[var(--ink-primary)] text-[var(--bg-canvas)] hover:bg-[var(--accent-nrf)] active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center gap-1"
+                    className="group/mbtn px-3.5 sm:px-4 py-1.5 text-xs sm:text-[13px] font-medium bg-[var(--accent-nrf)] text-[#fbf9f5] hover:opacity-90 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center gap-1"
                   >
                     <span>开始阅读</span>
                     <span className="font-mono-coord inline-block group-hover/mbtn:translate-x-0.5 transition-transform duration-200">
@@ -886,9 +918,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                     type="button"
                     onClick={() => setPreviewBookSlug(null)}
                     aria-label="关闭弹窗"
-                    className="px-3 py-1.5 text-xs sm:text-[13px] font-medium border border-[var(--rule-strong)] bg-[var(--bg-canvas)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] active:scale-[0.98] transition-all duration-150 cursor-pointer"
+                    className="w-8 h-8 flex items-center justify-center text-sm border border-[var(--rule-line)] bg-[var(--bg-canvas)] text-[var(--ink-primary)] hover:border-[var(--rule-strong)] hover:bg-[var(--bg-elevated)] active:scale-[0.98] transition-all duration-150 cursor-pointer"
                   >
-                    ✕ 关闭
+                    ✕
                   </button>
                 </div>
               </div>
@@ -1039,14 +1071,14 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     <div className="min-h-screen flex flex-col bg-[var(--bg-canvas)] text-[var(--ink-primary)] selection:bg-[var(--accent-nrf-soft)]">
       {/* 顶部网格导航栏 */}
       <header className="sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-strong)]">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-13 sm:h-14 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
+        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-10 h-13 sm:h-14 flex items-center justify-between gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             {/* 左上角固定为与书架一致的品牌 Logo（点击直接返回书架主页） */}
             <button
               type="button"
               onClick={returnToShelf}
               title="返回书架主页"
-              className="fr-prose text-xl sm:text-[23px] leading-none tracking-[-0.02em] select-none cursor-pointer shrink-0 hover:opacity-80 transition-opacity"
+              className="fr-prose text-[19px] sm:text-[23px] leading-none tracking-[-0.02em] select-none cursor-pointer shrink-0 hover:opacity-80 transition-opacity"
             >
               <span className="italic font-normal text-[var(--accent-nrf)] pr-[2px]">Even</span>
               <span className="font-semibold">Better</span>
@@ -1059,7 +1091,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
             <button
               type="button"
               onClick={() => setMobileTocOpen((v) => !v)}
-              className="xl:hidden inline-flex items-center px-2.5 py-1 text-xs border border-[var(--rule-strong)] cursor-pointer shrink-0"
+              className="xl:hidden inline-flex items-center px-2 sm:px-2.5 py-1 text-xs border border-[var(--rule-strong)] cursor-pointer shrink-0"
               aria-label="切换目录"
             >
               目录
@@ -1067,7 +1099,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
 
             <a
               href="#top"
-              className="flex items-baseline gap-2 truncate"
+              className="hidden sm:flex items-baseline gap-2 truncate"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1087,10 +1119,10 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
             </span>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* 字号调节 */}
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            {/* 字号调节（移动端与桌面端顶栏常驻） */}
             <div
-              className="hidden md:inline-flex border border-[var(--rule-line)] bg-[var(--bg-panel)] p-0.5 text-xs"
+              className="inline-flex border border-[var(--rule-line)] bg-[var(--bg-panel)] p-0.5 text-xs"
               role="group"
               aria-label="字号大小"
             >
@@ -1105,10 +1137,10 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   key={s.id}
                   type="button"
                   onClick={() => handleScaleChange(s.id)}
-                  className={`px-2 py-1 cursor-pointer transition-colors ${
+                  className={`px-1.5 sm:px-2 py-1 cursor-pointer transition-colors ${
                     fontScale === s.id
-                      ? 'bg-[var(--ink-primary)] text-[var(--bg-canvas)]'
-                      : 'hover:bg-[var(--bg-elevated)]'
+                      ? 'bg-[var(--surface-solid)] text-[var(--ink-on-solid)]'
+                      : 'text-[var(--ink-primary)] hover:bg-[var(--bg-elevated)]'
                   }`}
                 >
                   {s.label}
@@ -1128,104 +1160,84 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </div>
       </header>
 
-      {/* 移动端目录与字号抽屉（去掉多余分割线） */}
-      {mobileTocOpen && (
+      {/* 移动端目录抽屉（支持平滑滑入滑出，点击右侧空白遮罩即收起） */}
+      <div
+        className={`fixed inset-0 z-50 xl:hidden transition-opacity duration-200 ${
+          mobileTocOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        } bg-black/45`}
+        onClick={() => setMobileTocOpen(false)}
+        aria-hidden={!mobileTocOpen}
+      >
         <div
-          className="anim-backdrop-enter fixed inset-0 z-50 xl:hidden bg-black/45"
-          onClick={() => setMobileTocOpen(false)}
+          className={`toc-scroll w-72 max-w-[82vw] h-full bg-[var(--bg-canvas)] text-[var(--ink-primary)] border-r border-[var(--rule-line)] p-5 flex flex-col justify-between overflow-y-auto transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            mobileTocOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+          onClick={(e) => e.stopPropagation()}
         >
-          <div
-            className="anim-drawer-in toc-scroll w-72 max-w-[82vw] h-full bg-[var(--bg-canvas)] border-r border-[var(--rule-line)] p-6 flex flex-col justify-between overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div>
-              <div className="flex items-center justify-between pb-4">
-                <div>
-                  <p className="font-mono-coord text-[10px] tracking-[0.2em] uppercase text-[var(--accent-nrf)]">
-                    {chapter.number}
-                  </p>
-                  <h2 className="text-base font-medium mt-0.5">{chapter.titleZh}</h2>
-                </div>
+          <div>
+            <div className="flex items-start justify-between gap-2 pb-4 border-b border-[var(--rule-line)]">
+              <div className="min-w-0">
+                <p className="font-mono-coord text-[10px] tracking-[0.2em] uppercase text-[var(--accent-nrf)]">
+                  {chapter.number}
+                </p>
+                <h2 className="text-base font-medium mt-0.5 truncate">{book.titleZh}</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setMobileTocOpen(false)}
+                aria-label="收起目录"
+                className="w-8 h-8 -mr-1 -mt-1 flex items-center justify-center text-sm text-[var(--ink-primary)] opacity-75 hover:opacity-100 cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            <nav className="mt-3 space-y-1">
+              {hasLiminaire && (
                 <button
                   type="button"
-                  onClick={() => setMobileTocOpen(false)}
-                  className="px-2 py-1 text-xs border border-[var(--rule-line)] cursor-pointer"
+                  onClick={() => jumpToSection('liminaire')}
+                  className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] cursor-pointer ${
+                    currentSpySection === 'liminaire'
+                      ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-medium'
+                      : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
+                  }`}
                 >
-                  关闭
+                  <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
+                    序
+                  </span>
+                  <span>卷首与题词</span>
                 </button>
-              </div>
+              )}
 
-              <nav className="mt-3 space-y-1.5">
-                {hasLiminaire && (
-                  <button
-                    type="button"
-                    onClick={() => jumpToSection('liminaire')}
-                    className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] ${
-                      currentSpySection === 'liminaire'
-                        ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-medium'
-                        : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
-                    }`}
-                  >
-                    <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
-                      序
-                    </span>
-                    <span>卷首与题词</span>
-                  </button>
-                )}
-
-                {chapter.sections.map((sec) => (
-                  <button
-                    key={sec.id}
-                    type="button"
-                    onClick={() => jumpToSection(sec.id)}
-                    className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] ${
-                      currentSpySection === sec.id
-                        ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-medium'
-                        : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
-                    }`}
-                  >
-                    <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
-                      {sec.roman === 'Vorrede'
-                        ? '序言'
-                        : sec.roman === 'Appendice'
-                          ? '附录'
-                          : sec.roman}
-                    </span>
-                    <div className="min-w-0">
-                      <div>{sec.titleZh}</div>
-                      <div className="fr-prose italic text-xs mt-0.5">{sec.titleOriginal}</div>
-                    </div>
-                  </button>
-                ))}
-              </nav>
-
-              <div className="mt-8 pt-6">
-                <div className="text-xs mb-2">正文字号</div>
-                <div className="grid grid-cols-3 border border-[var(--rule-line)] p-0.5 text-xs">
-                  {(
-                    [
-                      { id: 'sm', label: '紧凑' },
-                      { id: 'md', label: '标准' },
-                      { id: 'lg', label: '舒朗' }
-                    ] as const
-                  ).map((s) => (
-                    <button
-                      key={s.id}
-                      type="button"
-                      onClick={() => handleScaleChange(s.id)}
-                      className={`py-1.5 ${
-                        fontScale === s.id ? 'bg-[var(--ink-primary)] text-[var(--bg-canvas)]' : ''
-                      }`}
-                    >
-                      {s.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+              {chapter.sections.map((sec) => (
+                <button
+                  key={sec.id}
+                  type="button"
+                  onClick={() => jumpToSection(sec.id)}
+                  className={`w-full text-left py-2.5 px-2.5 text-sm grid grid-cols-[minmax(38px,auto)_1fr] gap-2.5 items-baseline transition-colors border-[1.5px] cursor-pointer ${
+                    currentSpySection === sec.id
+                      ? 'border-[var(--rule-strong)] bg-[var(--bg-elevated)] font-medium'
+                      : 'border-transparent hover:bg-[var(--bg-elevated)]/50'
+                  }`}
+                >
+                  <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
+                    {sec.roman === 'Vorrede'
+                      ? '序言'
+                      : sec.roman === 'Appendice'
+                        ? '附录'
+                        : sec.roman}
+                  </span>
+                  <div className="min-w-0">
+                    <div>{sec.titleZh}</div>
+                    <div className="fr-prose italic text-xs mt-0.5">{sec.titleOriginal}</div>
+                  </div>
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
-      )}
+      </div>
 
       {/* 主体网格容器 */}
       <div
@@ -1264,7 +1276,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   type="button"
                   onClick={toggleDesktopSidebar}
                   title="收起目录栏"
-                  className="px-2 py-1 text-[11px] border border-[var(--rule-strong)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] transition-colors cursor-pointer shrink-0"
+                  className="px-2 py-1 text-[11px] border border-[var(--rule-strong)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors cursor-pointer shrink-0"
                 >
                   « 收起
                 </button>
@@ -1338,7 +1350,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 type="button"
                 onClick={toggleDesktopSidebar}
                 title="展开目录栏"
-                className="w-8 py-2 text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] transition-colors cursor-pointer flex flex-col items-center gap-1 leading-none"
+                className="w-8 py-2 text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors cursor-pointer flex flex-col items-center gap-1 leading-none"
               >
                 <span className="font-mono-coord text-xs">»</span>
                 <span className="[writing-mode:vertical-rl] tracking-widest text-[11px] py-0.5">
@@ -1601,7 +1613,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 <button
                   type="button"
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  className="px-4 py-2 text-xs border border-[var(--rule-strong)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)] transition-colors cursor-pointer"
+                  className="px-4 py-2 text-xs border border-[var(--rule-strong)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors cursor-pointer"
                 >
                   返回章首
                 </button>
@@ -1648,37 +1660,76 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </main>
       </div>
 
-      {/* 移动端/平板端：半透明遮罩 + 底部旁注/原注面板 */}
-      {activeRailItem && (
+      {/* 移动端/平板端：底部弹出 Sheet（点击上方空白区域或向下滑动即收起） */}
+      <div
+        className={`xl:hidden fixed inset-0 z-50 flex flex-col justify-end transition-opacity duration-200 ${
+          activeRailItem ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        } bg-black/45`}
+        onClick={() => {
+          setSheetDragY(0);
+          setActiveGlossId(null);
+        }}
+        role="dialog"
+        aria-modal={Boolean(activeRailItem)}
+        aria-hidden={!activeRailItem}
+        aria-label={sheetItem?.kind === 'authorNote' ? book.authorNoteLabel : '伴读旁注'}
+      >
         <div
-          className="anim-backdrop-enter xl:hidden fixed inset-0 z-50 bg-black/45 flex items-end"
-          onClick={() => setActiveGlossId(null)}
-          role="dialog"
-          aria-label={activeRailItem.kind === 'authorNote' ? book.authorNoteLabel : '伴读旁注'}
+          style={{
+            transform: activeRailItem
+              ? `translateY(${sheetDragY}px)`
+              : 'translateY(100%)'
+          }}
+          className={`w-full border-t-2 bg-[var(--bg-canvas)] text-[var(--ink-primary)] px-5 pt-2.5 pb-7 sm:px-6 shadow-2xl transition-transform ${
+            sheetDragY > 0 ? 'duration-0' : 'duration-250 ease-[cubic-bezier(0.22,1,0.36,1)]'
+          } ${
+            sheetItem?.kind === 'authorNote'
+              ? 'border-[var(--rule-strong)]'
+              : 'border-[var(--accent-nrf)]'
+          }`}
+          onClick={(e) => e.stopPropagation()}
+          onTouchStart={(e) => {
+            sheetTouchStartYRef.current = e.touches[0]?.clientY ?? null;
+          }}
+          onTouchMove={(e) => {
+            if (sheetTouchStartYRef.current === null) return;
+            const deltaY = (e.touches[0]?.clientY ?? 0) - sheetTouchStartYRef.current;
+            if (deltaY > 0) {
+              setSheetDragY(deltaY);
+            }
+          }}
+          onTouchEnd={() => {
+            if (sheetDragY > 56) {
+              setActiveGlossId(null);
+            }
+            setSheetDragY(0);
+            sheetTouchStartYRef.current = null;
+          }}
         >
+          {/* Sheet 顶部拖拽柄（点击或下滑均可收起） */}
           <div
-            className={`anim-sheet-up w-full border-t-2 bg-[var(--bg-canvas)] px-5 pt-4 pb-7 sm:px-6 shadow-2xl ${
-              activeRailItem.kind === 'authorNote'
-                ? 'border-[var(--ink-primary)]'
-                : 'border-[var(--accent-nrf)]'
-            }`}
-            onClick={(e) => e.stopPropagation()}
+            className="w-full py-1.5 flex justify-center cursor-pointer"
+            onClick={() => setActiveGlossId(null)}
           >
-            <div className="max-w-[680px] mx-auto">
-              <div className="flex items-start justify-between gap-4 pb-3 border-b border-[var(--rule-line)]">
-                {activeRailItem.kind === 'authorNote' ? (
+            <span className="w-10 h-1 bg-[var(--rule-line)] block" />
+          </div>
+
+          {sheetItem && (
+            <div className="max-w-[680px] mx-auto mt-1">
+              <div className="flex items-start justify-between gap-3 pb-3 border-b border-[var(--rule-line)]">
+                {sheetItem.kind === 'authorNote' ? (
                   <div className="flex items-center gap-2">
-                    <span className="inline-block bg-[var(--ink-primary)] text-[var(--bg-canvas)] px-2 py-0.5 font-mono-coord text-xs">
-                      {activeRailItem.authorLabel} [{activeRailItem.formattedIndex}]
+                    <span className="inline-block bg-[var(--surface-solid)] text-[var(--ink-on-solid)] border border-[var(--rule-strong)] px-2 py-0.5 font-mono-coord text-xs">
+                      {sheetItem.authorLabel} [{sheetItem.formattedIndex}]
                     </span>
                   </div>
                 ) : (
                   <div className="grid grid-cols-[28px_1fr] items-baseline gap-1 min-w-0">
                     <span className="font-mono-coord text-xs text-[var(--accent-nrf)] font-semibold">
-                      {activeRailItem.formattedIndex}
+                      {sheetItem.formattedIndex}
                     </span>
                     <p className="zh-emphasis text-[15px] leading-snug">
-                      {activeRailItem.anchor}
+                      {sheetItem.anchor}
                     </p>
                   </div>
                 )}
@@ -1686,21 +1737,22 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 <button
                   type="button"
                   onClick={() => setActiveGlossId(null)}
-                  className="px-2.5 py-1 text-xs bg-[var(--ink-primary)] text-[var(--bg-canvas)] shrink-0 cursor-pointer"
+                  aria-label="收起注疏"
+                  className="w-8 h-8 -mr-1.5 -mt-1 flex items-center justify-center text-sm text-[var(--ink-primary)] opacity-70 hover:opacity-100 shrink-0 cursor-pointer"
                 >
-                  关闭
+                  ✕
                 </button>
               </div>
 
-              <div className="mt-3.5 max-h-[42vh] overflow-y-auto">
+              <div className="mt-3.5 max-h-[46vh] overflow-y-auto overscroll-contain pr-1">
                 <p className="gloss-prose text-[14.5px] leading-relaxed">
-                  {renderGlossContent(activeRailItem.content)}
+                  {renderGlossContent(sheetItem.content)}
                 </p>
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

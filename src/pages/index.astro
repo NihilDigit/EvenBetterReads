@@ -8,7 +8,16 @@ import ReaderApp from '../components/ReaderApp';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>EvenBetterReads</title>
+    <script is:inline>
+      try {
+        var saved = localStorage.getItem('ebr-theme');
+        if (saved === 'ivory' || saved === 'parchment' || saved === 'obsidian') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    </script>
     <meta
       name="description"
       content="EvenBetterReads — 私人思想与哲学经典精译及深度伴读文库"

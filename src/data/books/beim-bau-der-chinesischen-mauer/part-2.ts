@@ -5,7 +5,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
     id: 'das-stadtwappen',
     roman: 'II',
     titleOriginal: 'Das Stadtwappen (1920)',
-    titleZh: '市徽（巴别塔的建造）',
+    titleZh: '市徽',
     blocks: [
       {
         id: 'kf-p2-s2-b01',
@@ -16,19 +16,19 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-2-01',
             anchor: '人们根本用不着把这种看法渲染得太过火，就完全可能连奠定地基的勇气都丧失殆尽',
             content:
-              '原文作 **man mußte diese Meinung gar nicht sehr übertreiben und konnte überhaupt davor zurückschrecken, die Fundamente zu legen**。本篇写于 1920 年秋，由马克斯·布罗德拟题《市徽》（Das Stadtwappen）。卡夫卡在此对《创世记》第 11 章的巴别塔神话实施了彻底的现代性倒转：在《圣经》原典中，人类万众一心、火速筑塔，工程的中断源于上帝降下的外部惩罚（变乱口音）；而在卡夫卡笔下，开篇工程队里便已配备了「译员（Dolmetscher）」，多语种的沟通根本不成问题，真正从内部瘫痪巴别塔工程的，恰恰是**现代技术进步主义的时间悖论**。既然人类科学知识与建筑技术处于无限线性进步之中，当下世代倾尽全力的劳作在更先进的后代眼中注定只是必须推倒重来的拙劣废品；于是，对「通天塔这一绝对观念（Gedanke）」的无限推崇与对「未来技术进步」的绝对信赖，合谋导向了当下的彻底不作为——甚至连第一块地基都不敢奠定。这一「地基焦虑」亦与前篇《万里长城建造时》中那位声称「巴别塔毁于地基薄弱，唯有万里长城方能为新巴别塔提供稳固地基」的比较史学者的狂想形成了精妙的互文。'
+              '原文作 **man mußte diese Meinung gar nicht sehr übertreiben und konnte überhaupt davor zurückschrecken, die Fundamente zu legen**。本篇写于 1920 年秋，由马克斯·布罗德拟题《市徽》（Das Stadtwappen）。在《创世记》第 11 章原典中，巴别塔工程的中断源于上帝变乱口音；而在卡夫卡笔下，工程队一开始便配备了「译员（Dolmetscher）」，使工程从内部停摆的是技术进步论自身的时间推演：既然未来世代的建筑技术必定比当代更先进，当下的施工在后人眼中注定会被推倒重来，结果人们连第一块地基也迟迟不去奠定。这一关于地基的讨论亦与前篇《中国长城建造时》中那位声称「巴别塔败于地基薄弱，唯有万里长城方能为新巴别塔提供稳固地基」的学者观点相互呼应。'
           },
           {
             id: 'g-kf-2-02',
             anchor: '这样的念头麻痹了人们的气力，与其说人们操心建塔，倒不如说更操心营建工人的城市',
             content:
-              '原文作 **Solche Gedanken lähmten die Kräfte und mehr als um den Turmbau kümmerte man sich um den Bau der Arbeiterstadt**。当垂直维度的超越性目标（通天塔）被无限期悬置为纯粹头脑中的观念，人类的全部历史能量便坍缩至水平维度的世俗居住空间（工人城 Arbeiterstadt）。原本为了筑塔而聚集的各族工匠按「同乡会（Landsmannschaft，奥匈帝国大学与城市中按民族籍贯划分的社团术语）」划界争抢最美街区，美化城市的市民美学工程不断孵化新的嫉妒与流血内战；而内战的失控非但没有唤醒筑塔者，反倒为领袖阶层（Führer）提供了继续合法推迟建塔的完美官僚借口（「必待普遍和平缔结之后再建」），构成现代世俗政治自我维系的死循环。'
+              '原文作 **Solche Gedanken lähmten die Kräfte und mehr als um den Turmbau kümmerte man sich um den Bau der Arbeiterstadt**。当垂直维度的建塔目标被悬置为头脑中的观念后，人们的精力便转向水平维度的世俗居住空间（工人城 Arbeiterstadt）。各族工匠按「同乡会（Landsmannschaft，奥匈帝国大学与城市中按籍贯划分的社团名称）」争夺街区并爆发冲突；而内部冲突又反过来成为领袖们（Führer）推迟建塔的理由（「最好等到缔结普遍和平之后再行动工」）。'
           },
           {
             id: 'g-kf-2-03',
             anchor: '凡是在这座城市里产生的传说与歌谣，无不充满了对某一个预言之日的渴望——在那一天，这座城市将被一只巨拳在接连五记短促的重击之下砸得粉碎。因此，这座城市也把拳头绘入了市徽',
             content:
-              '原文作 **Alles was in dieser Stadt an Sagen und Liedern entstanden ist, ist erfüllt von der Sehnsucht nach einem prophezeiten Tag, an welchem die Stadt von einer Riesenfaust in fünf kurz aufeinanderfolgenden Schlägen zerschmettert werden wird. Deshalb hat auch die Stadt die Faust im Wappen**。这是卡夫卡晚期最震撼的末世论意象之一。当第二、三代人早已看穿通天事业的「荒谬无意义（Sinnlosigkeit）」，却又因社会分工与历史惰性的深度捆绑而无法弃城逃离时，整座文明之城的集体潜意识便从「渴望上升」倒转为「渴望被毁灭」。那只从天而降、以五记短促重击（如五根指节依次叩击）砸碎城市的「巨拳（Riesenfaust）」，在纹章学上直接暗涉卡夫卡生于斯长于斯的**布拉格旧城城徽（Staré Město pražské）**——1649 年神圣罗马帝国皇帝斐迪南三世为表彰布拉格市民在三十年战争末期抗击瑞典军队的功绩，特在布拉格市徽中央敞开的城门洞里添入了一只紧握长剑的铁甲巨拳。巴比伦城将毁灭自己的末日巨拳铸为引以为傲的市徽，凝聚了卡夫卡对一战后欧洲现代文明自我毁灭冲动的深邃诊断。'
+              '原文作 **Alles was in dieser Stadt an Sagen und Liedern entstanden ist, ist erfüllt von der Sehnsucht nach einem prophezeiten Tag, an welchem die Stadt von einer Riesenfaust in fünf kurz aufeinanderfolgenden Schlägen zerschmettert werden wird. Deshalb hat auch die Stadt die Faust im Wappen**。当后代早已看穿通天塔工程的「无意义（Sinnlosigkeit）」却又因利益纠葛无法离开城市时，城市居民的愿望便转向期待外力将城市一举摧毁。市徽中的「巨拳（Riesenfaust）」在纹章学上暗合卡夫卡故乡**布拉格旧城城徽（Staré Město pražské）**：1649 年神圣罗马帝国皇帝斐迪南三世为表彰布拉格市民在三十年战争末期抗击瑞典军队的功绩，在布拉格市徽中央敞开的城门洞里添入了一只紧握长剑的铁甲拳头。'
           }
         ]
       }
@@ -43,31 +43,31 @@ export const kafkaMauerPart2Sections: BookSection[] = [
       {
         id: 'kf-p2-s3-b01',
         type: 'paragraph',
-        zh: '[在法的门前站着一名守门人。一个乡下人来到这名守门人跟前，请求进入法]{#g-kf-3-01}。可是守门人说，他现在不能准许他进去。乡下人思忖了一番，随后问道，那么他往后是否可以获准进去。「有可能，」守门人说，「但现在不行。」[既然通往法的大门一如既往地敞开着，而且守门人闪到了一旁]{#g-kf-3-02}，乡下人便弯下腰去，想透过大门往里面看个究竟。守门人察觉到了这一举动，便笑了起来，说道：「要是它这么诱惑你，你大可以不管我的禁令，试着闯进去嘛。不过你得记住：**我是有威力的。而且我只是最底层的一名守门人。**从一座大厅到另一座大厅，每一道门前都站着守门人，一个比一个更有威力。就连第三个守门人的模样，甚至连我都已经承受不住了。」这样的困难是乡下人始料未及的；他心想，法理应是在任何时候都向每一个人敞开的呀；可是当他此刻更仔细地打量这位身穿皮大衣的守门人，看清他那高耸的尖鼻子，以及那又长、又稀、又黑的鞑靼式胡须时，他还是拿定主意，宁可先等下去，直到获准进入为止。守门人给了他一只矮脚凳，让他在大门一侧坐下。他在那里坐了日复一日，年复一年。他作过许多次努力以求获准入内，并用自己的苦苦哀求弄得守门人不胜其烦。守门人时常对他进行一些小小的审讯，盘问起他的故乡以及别的许多事情；但那都是一些漫不经心的提问，就像大老爷们随口发问那样，而且到了最后，他总是一遍又一遍地对他说，自己眼下还不能放他进去。乡下人为了这趟远行原本备办了许多东西，如今不管那些东西多么贵重，他统统拿了出啦，用来贿赂守门人。守门人固然一概收下，却在收下时说道：「我收下它，只是为了不让你觉得自己有什么疏漏未尽之处。」在漫长的岁月里，乡下人几乎目不转睛地观察着这名守门人。他忘掉了其他的守门人，在他看来，眼前这第一个守门人就是阻挠他进入法的唯一障碍。他诅咒这不幸的偶然遭遇，在最初几年里还毫无顾忌地放声咒骂，后来随着年事渐老，便只是自顾自地低声嘟囔了。他变得像小孩子一样幼稚，既然在长达数年的钻研中，他连守门人皮领子里的跳蚤也都摸得一清二楚，他便也央求那些跳蚤来帮帮自己，好叫守门人回心转意。到最后，他的视力渐渐衰弱，他自己也弄不清楚，究竟是四周真的变得越来越暗，还是仅仅自己的眼睛在欺骗他。[不过，此刻他却在黑暗中辨认出了一道光辉，正永不熄灭地从法的大门里迸射出来]{#g-kf-3-03}。如今他活不了多久了。在他临死之前，这整段岁月里的全部经验在他的脑海中汇集成了一个问题——一个他迄今为止还从未向守门人提出过的问题。他朝守门人招了招手，因为他再也无力撑起自己那日渐僵硬的躯体了。守门人不得不深深地俯下身来凑近他，因为两人之间的身高差距已经发生了对乡下人极其不利的改变。「事到如今，你究竟还想知道什么？」守门人问道，「你真是贪得无厌。」「所有人都追求法呀，」乡下人说，「怎么偏偏在这么多年里，除了我之外，竟没有一个人来要求进入呢？」守门人看出乡下人已经走到了生命的尽头，为了让他那正在消逝的听觉还能听清，便对着他大声吼道：「[这里没有别人能够获准进入，因为这道入口原本只是为你一人设立的。我现在就去把它关上]{#g-kf-3-04}。」',
+        zh: '[在法的门前站着一名守门人。一个乡下人来到这名守门人跟前，请求进入法]{#g-kf-3-01}。可是守门人说，他现在不能准许他进去。乡下人思忖了一番，随后问道，那么他往后是否可以获准进去。「有可能，」守门人说，「但现在不行。」[既然通往法的大门一如既往地敞开着，而且守门人闪到了一旁]{#g-kf-3-02}，乡下人便弯下腰去，想透过大门往里面看个究竟。守门人察觉到了这一举动，便笑了起来，说道：「要是它这么诱惑你，你大可以不管我的禁令，试着闯进去嘛。不过你得记住：**我是有威力的。而且我只是最底层的一名守门人。**从一座大厅到另一座大厅，每一道门前都站着守门人，一个比一个更有威力。就连第三个守门人的模样，甚至连我都已经承受不住了。」这样的困难是乡下人始料未及的；他心想，法理应是在任何时候都向每一个人敞开的呀；可是当他此刻更仔细地打量这位身穿皮大衣的守门人，看清他那高耸的尖鼻子，以及那又长、又稀、又黑的鞑靼式胡须时，他还是拿定主意，宁可先等下去，直到获准进入为止。守门人给了他一只矮脚凳，让他在大门一侧坐下。他在那里坐了日复一日，年复一年。他作过许多次努力以求获准入内，并用自己的苦苦哀求弄得守门人不胜其烦。守门人时常对他进行一些小小的审讯，盘问起他的故乡以及别的许多事情；但那都是一些漫不经心的提问，就像大老爷们随口发问那样，而且到了最后，他总是一遍又一遍地对他说，自己眼下还不能放他进去。乡下人为了这趟远行原本备办了许多东西，如今不管那些东西多么贵重，他统统拿了出来，用来贿赂守门人。守门人固然一概收下，却在收下时说道：「我收下它，只是为了不让你觉得自己有什么疏漏未尽之处。」在漫长的岁月里，乡下人几乎目不转睛地观察着这名守门人。他忘掉了其他的守门人，在他看来，眼前这第一个守门人就是阻挠他进入法的唯一障碍。他诅咒这不幸的偶然遭遇，在最初几年里还毫无顾忌地放声咒骂，后来随着年事渐老，便只是自顾自地低声嘟囔了。他变得像小孩子一样幼稚，既然在长达数年的钻研中，他连守门人皮领子里的跳蚤也都摸得一清二楚，他便也央求那些跳蚤来帮帮自己，好叫守门人回心转意。到最后，他的视力渐渐衰弱，他自己也弄不清楚，究竟是四周真的变得越来越暗，还是仅仅自己的眼睛在欺骗他。[不过，此刻他却在黑暗中辨认出了一道光辉，正永不熄灭地从法的大门里迸射出来]{#g-kf-3-03}。如今他活不了多久了。在他临死之前，这整段岁月里的全部经验在他的脑海中汇集成了一个问题——一个他迄今为止还从未向守门人提出过的问题。他朝守门人招了招手，因为他再也无力撑起自己那日渐僵硬的躯体了。守门人不得不深深地俯下身来凑近他，因为两人之间的身高差距已经发生了对乡下人极其不利的改变。「事到如今，你究竟还想知道什么？」守门人问道，「你真是贪得无厌。」「所有人都追求法呀，」乡下人说，「怎么偏偏在这么多年里，除了我之外，竟没有一个人来要求进入呢？」守门人看出乡下人已经走到了生命的尽头，为了让他那正在消逝的听觉还能听清，便对着他大声吼道：「[这里没有别人能够获准进入，因为这道入口原本只是为你一人设立的。我现在就去把它关上]{#g-kf-3-04}。」',
         glosses: [
           {
             id: 'g-kf-3-01',
             anchor: '在法的门前站着一名守门人。一个乡下人来到这名守门人跟前，请求进入法',
             content:
-              '原文作 **Vor dem Gesetz steht ein Türhüter. Zu diesem Türhüter kommt ein Mann vom Lande und bittet um Eintritt in das Gesetz**。本篇写于 1914 年 11—12 月间，最初作为长篇小说《审判》（Der Proceß）第九章〈在大教堂里〉的核心构件写就（由监狱神父在黑暗的教堂讲坛上作为「律法引论」向约瑟夫·K 讲述），后由卡夫卡抽离出来，于 1915 年 9 月独立发表在布拉格犹太复国主义周刊《自卫》（Selbstwehr）的新年特刊上，并于 1919 年收入生前小说集《乡村医生》（Ein Landarzt）。德语 **ein Mann vom Lande**（一个乡下人）直接对译希伯来语《塔木德》与拉比文献中的核心概念 **ʿam ha-ʾaretz**（字面义即「土地上的人 / 乡下人」，在犹太教传统中专指不通晓托拉律法奥秘的平信徒或外行愚民），而 **das Gesetz** 则对应希伯来语 **Torah**（托拉 / 律法）。在《乡村医生》初版中，卡夫卡刻意将整篇寓言排印为**从头至尾毫无分段的一整块密实文本**，在视觉与阅读呼吸上直接复现了律法密不透风的围困感。'
+              '原文作 **Vor dem Gesetz steht ein Türhüter. Zu diesem Türhüter kommt ein Mann vom Lande und bittet um Eintritt in das Gesetz**。本篇写于 1914 年 11—12 月间，原为长篇小说《审判》（Der Proceß）第九章〈在大教堂里〉中监狱神父向约瑟夫·K 讲述的寓言，后由卡夫卡抽离出来，于 1915 年 9 月独立发表在布拉格犹太复国主义周刊《自卫》（Selbstwehr）上，并于 1919 年收入《乡村医生》（Ein Landarzt）。德语 **ein Mann vom Lande**（一个乡下人）对应希伯来语《塔木德》与拉比文献中的术语 **ʿam ha-ʾaretz**（字面义为「土地上的人 / 乡下人」，在犹太教传统中指不通晓托拉律法文本的平信徒），而 **das Gesetz** 则对应希伯来语 **Torah**（托拉 / 律法）。在《乡村医生》初版中，卡夫卡将全篇排印为不分段的一整段文本。'
           },
           {
             id: 'g-kf-3-02',
             anchor: '既然通往法的大门一如既往地敞开着，而且守门人闪到了一旁',
             content:
-              '原文作 **Da das Tor zum Gesetz offen steht wie immer und der Türhüter beiseite tritt**。这里隐藏着整篇寓言最核心的空间与权力悖论：通往法的大门始终大敞四开（offen steht wie immer），守门人不仅没有锁门、没有拔刀阻拦，甚至主动侧身让开了通道（beiseite tritt）。阻挡乡下人迈步跨过门槛的，既不是物理屏障，也不是绝对的否定，而仅仅是一句将准入无限期推迟到未来的时间性话语——「有可能，但现在不行（Es ist möglich, jetzt aber nicht）」，外加关于内层大厅守门人层层递增的言语威慑。在《审判》第九章著名的拉比式释经（Midrash）对话中，监狱神父向约瑟夫·K 揭示了一个惊人的反转：乡下人原本可以随时离开或强行闯入，是他的自我服从将自己钉死在了门侧的矮脚凳上；反观守门人，则被职务死死捆绑在这扇专属大门旁，甚至连自行关门的权力都要等到乡下人咽气的一刻才能行使——在律法的科层制机器中，看守者与被看守者同样是不得自由的囚徒。'
+              '原文作 **Da das Tor zum Gesetz offen steht wie immer und der Türhüter beiseite tritt**。通往法的大门始终敞开（offen steht wie immer），守门人并未锁门或持械阻拦，而是侧身闪到一旁（beiseite tritt），仅以「有可能，但现在不行（Es ist möglich, jetzt aber nicht）」的推迟话语及对内层守门人的威慑阻止乡下人入内。在《审判》第九章围绕这则寓言展开的释经对话中，监狱神父向约瑟夫·K 提出了另一种视角：乡下人原本可以随时离开或进入，守门人反倒因职责所系，不得不伴随乡下人在门旁守候一生，直至乡下人咽气方能关门。'
           },
           {
             id: 'g-kf-3-03',
             anchor: '不过，此刻他却在黑暗中辨认出了一道光辉，正永不熄灭地从法的大门里迸射出来',
             content:
-              '原文作 **Wohl aber erkennt er jetzt im Dunkel einen Glanz, der unverlöschlich aus der Türe des Gesetzes bricht**。这一意象深植于犹太卡巴拉（Kabbalah）神秘主义与米德拉什传统：《塔木德》与《佐哈尔》（光辉之书，Sefer ha-Zohar）论述上帝创世与赐下托拉时，设有「五十道理解之门（Shaʿarei Binah）」，每一道门后都驻守着威严可怖的护法天使（守门人），唯有穿越重重门阙方能窥见神圣临在的「光辉（Shekhinah / Zohar）」。然而在卡夫卡的现代反讽中，这道永不熄灭的神圣光辉唯有在乡下人双目失明、生命行将熄灭的彻底黑暗中才被辨认出来：启示的光芒确实存在，但它既不照亮道路，也不提供救赎，只照亮了一场耗尽毕生光阴的徒劳等待。'
+              '原文作 **Wohl aber erkennt er jetzt im Dunkel einen Glanz, der unverlöschlich aus der Türe des Gesetzes bricht**。这一意象可溯源至犹太卡巴拉（Kabbalah）与米德拉什传统：《塔木德》与《佐哈尔》（光辉之书，Sefer ha-Zohar）论述托拉律法时，设有由护法天使驻守的「五十道理解之门（Shaʿarei Binah）」，门后即神圣临在的「光辉（Shekhinah / Zohar）」。此处乡下人直到双目将盲、临近死亡的黑暗时刻，才初次辨认出从法门内射出的光辉。'
           },
           {
             id: 'g-kf-3-04',
             anchor: '这里没有别人能够获准进入，因为这道入口原本只是为你一人设立的。我现在就去把它关上',
             content:
-              '原文作 **Hier konnte niemand sonst Einlaß erhalten, denn dieser Eingang war nur für dich bestimmt. Ich gehe jetzt und schließe ihn**。这句临终断语引发了二十世纪大陆哲学与政治神学最著名的论争。犹太神秘主义史家格尔肖姆·肖勒姆（Gershom Scholem）在 1934 年致瓦尔特·本雅明的信中指出，卡夫卡笔下的「法」处于一种**「具有效力却毫无具体意义的状态（Geltung ohne Bedeutung）」**——律法已彻底丧失了一切可被认识、可被履行的具体规范内容，沦为纯粹的虚无（Nichts），却依然作为不可抗拒的统治形式对个体保持着绝对的主权效力。意大利哲学家乔治·阿甘本在《神圣人：主权权力与赤裸生命》（Homo Sacer, 1995）第一部第四章中进一步指出：这扇「专为乡下人一人设立、却禁止他进入」的敞开之门，正是现代主权权力「例外状态（Ausnahmezustand）」的纯粹拓扑结构——律法恰恰是通过「将个体排除在门外的方式将其吸纳进律法的统治之中（排斥性吸纳，inclusive exclusion）」。阿甘本甚至提出一种弥赛亚式的激进解读：乡下人绝非单纯的失败者，他用自己长达一生的枯坐等待，最终迫使守门人亲手**关上**了那扇原本靠「永恒敞开」来施行空洞统治的律法之门，从而终止了纯粹形式之法的无限悬置。'
+              '原文作 **Hier konnte niemand sonst Einlaß erhalten, denn dieser Eingang war nur für dich bestimmt. Ich gehe jetzt und schließe ihn**。犹太神秘主义史家格尔肖姆·肖勒姆（Gershom Scholem）在 1934 年致瓦尔特·本雅明的信中，将卡夫卡笔下的「法」概括为**「具有效力却无具体意义（Geltung ohne Bedeutung）」**的状态——律法已不再向个体揭示可被履行的具体规范内容，却依然作为形式对个体保持着约束力。乔治·阿甘本在《神圣人》（Homo Sacer, 1995）第一部第四章中亦援引此句，以此说明主权法通过「将个体排除在门外」的方式将其纳入管辖的结构。'
           }
         ]
       }
@@ -98,7 +98,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-4-01',
             anchor: '按第二则传说，普罗米修斯在剧痛中躲避着不断猛啄的鹰喙，越缩越深地挤进岩石里，直到与岩石融为一体',
             content:
-              '原文作 **Nach der zweiten drückte sich Prometheus im Schmerz vor den zuhackenden Schnäbeln immer tiefer in den Felsen, bis er mit ihm eins wurde**。本篇写于 1918 年 1 月 17 日《八开本笔记 G》（Oktavheft G，旧编年常统归入 1917—1918 年辛劳村格言与寓言期）。第一则传说是赫西俄德《神谱》与埃斯库罗斯《被缚的普罗米修斯》确立的古典正统神话：盗火的泰坦巨神因「将众神背叛给人类（die Götter an die Menschen verraten）」而遭受永恒刑罚（注意卡夫卡将单数巨鹰改写为复数 **Adler**「群鹰」）。而从第二则传说开始，卡夫卡启动了一场反英雄、反悲剧的形而上学耗竭运动：普罗米修斯不再像歌德早期狂飙突进名诗《普罗米修斯》或浪漫主义传统中那样昂首怒斥宙斯，而是因肉体无法承受鹰喙猛啄的剧痛，本能地向身后的刑具与背景（高加索山岩）内部退缩，直至受苦的主体与无生命的石头彻底同化（mit ihm eins wurde），从而抹平了古典悲剧中「反抗主体与外部自然」的二元张力。'
+              '原文作 **Nach der zweiten drückte sich Prometheus im Schmerz vor den zuhackenden Schnäbeln immer tiefer in den Felsen, bis er mit ihm eins wurde**。本篇写于 1918 年 1 月 17 日《八开本笔记 G》（Oktavheft G）。第一则传说是赫西俄德《神谱》与埃斯库罗斯《被缚的普罗米修斯》确立的古典神话（文中将单数巨鹰改写为复数 **Adler**）。从第二则传说起，卡夫卡改写了古典与浪漫派（如歌德早期诗作《普罗米修斯》）昂首反抗宙斯的英雄叙事：普罗米修斯因躲避鹰喙猛啄的剧痛，不断向身后的高加索山岩内部退缩，直至与岩石同化为一。'
           }
         ]
       },
@@ -116,7 +116,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-4-02',
             anchor: '众神倦了，苍鹰倦了，伤口也疲倦地合拢了',
             content:
-              '原文作 **Die Götter wurden müde, die Adler wurden müde, die Wunde schloß sich müde**。在卡夫卡的形而上学宇宙里，真正终结神话暴力的从来不是赫拉克勒斯式的弯弓射雕或革命解放，而是时间的漫长磨损、「遗忘（Vergessen）」与深入骨髓的「宇宙论式疲倦（Müdigkeit）」。当最初的盗火与背叛在数千年光阴中沦为「变得毫无缘由之物（das grundlos Gewordene）」，三个并列短句以催眠般的重复节奏宣告了神话戏剧的全面停摆：施刑的主权者（众神）倦了，行刑的机器（苍鹰）倦了，最后连受刑肉体上那道原本永恒再生的「伤口（Wunde）」本身也因厌倦而自行闭合——不再有救赎，只有彻底的精力耗竭。'
+              '原文作 **Die Götter wurden müde, die Adler wurden müde, die Wunde schloß sich müde**。在此处，终结神话刑罚的并非赫拉克勒斯弯弓射雕的外部解救，而是数千年时间带来的「遗忘（Vergessen）」与「疲倦（Müdigkeit）」：当最初的背叛沦为「变得毫无缘由之物（das grundlos Gewordene）」，施刑的众神、行刑的苍鹰以及受刑躯体上原本不断再生的伤口皆因疲倦而停止。'
           }
         ]
       },
@@ -129,7 +129,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-4-03',
             anchor: '只剩下那座不可解释的岩山。——传说试图解释那不可解释之物。既然它源于某种真理的根基，它就必定要重新终结于不可解释之物',
             content:
-              '原文作 **Blieb das unerklärliche Felsgebirge. – Die Sage versucht das Unerklärliche zu erklären. Da sie aus einem Wahrheitsgrund kommt, muß sie wieder im Unerklärlichen enden**。全篇以冷峻的哲学断语收束：神话传说（Sage）原本是人类为了解释那先于一切意义、荒谬而沉默的物质存在——「不可解释的岩山（das unerklärliche Felsgebirge）」——而编织出的发生学叙事（由于高加索山脉怪石嶙峋、不可理解，古人便虚构出巨神被锁山岩的神话来解释它）。然而经过卡夫卡四重传说的层层剥离与耗竭，神、人、鹰、罪责与伤口全部蒸发，最终只剩下一块抗拒一切人类阐释的裸露地质学岩山。德国哲学家汉斯·布鲁门伯格（Hans Blumenberg）在《神话的工作》（Arbeit am Mythos, 1979）压卷之章中将卡夫卡此篇誉为西方两千五百年普罗米修斯神话传统的终极句号：当神话真正忠实于它所源出的「真理根基（Wahrheitsgrund）」时，它唯一诚实的归宿就是完成自我注销，将世界重新归还给最初的不可解释性。'
+              '原文作 **Blieb das unerklärliche Felsgebirge. – Die Sage versucht das Unerklärliche zu erklären. Da sie aus einem Wahrheitsgrund kommt, muß sie wieder im Unerklärlichen enden**。神话传说（Sage）原本是古人为了解释怪石嶙峋、不可理解的自然存在（「不可解释的岩山」，das unerklärliche Felsgebirge）而编织出的叙事；经过四重传说的顺次剥离，神、人、鹰与罪责悉数隐退，最终只剩下最初那座抗拒阐释的岩山。德国哲学家汉斯·布鲁门伯格（Hans Blumenberg）在《神话的工作》（Arbeit am Mythos, 1979）末章中曾深入讨论过这一结尾。'
           }
         ]
       }
@@ -155,7 +155,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-5-01',
             anchor: '为了防备塞壬，奥德修斯把蜡塞进自己的耳朵，并让人用铁链把自己牢牢锁死在桅杆上',
             content:
-              '原文作 **Um sich vor den Sirenen zu bewahren, stopfte sich Odysseus Wachs in die Ohren und ließ sich am Mast festschmieden**。本篇写于 1917 年 10 月 23 日《八开本笔记 G》，由马克斯·布罗德拟题《塞壬的沉默》。卡夫卡在此对荷马《奥德赛》第十二卷实施了一次蓄意而惊人的改写：在荷马原典中，奥德修斯听从女巫喀耳刻的锦囊妙计，是用揉软的蜂蜡堵住**划桨水手们**的耳朵，而让自己**不塞耳朵**、仅用绳索绑在桅杆上，以便在免于跳海暴毙的前提下白白享受塞壬动人心魄的歌声（霍克海默与阿多诺在《启蒙辩证法》第一章中据此将荷马的奥德修斯剖析为资产阶级启蒙主体的原型——既靠压抑肉体实践、剥削盲目劳作的底层水手来保全自身，又将致命的神话自然矮化为安全无害的艺术音乐会）。而卡夫卡笔下的奥德修斯却采取了滑稽的「双重防御」：**既往自己耳朵里塞满蜡，又让人用铁链（而非绳索，词同《普罗米修斯》中的 festschmieden「锻打锁死」）把自己锁在桅杆上**，连半点水手的踪影都从船上抹去了。面对「穿透一切（durchdrang alles）」的神话歌声，蜂蜡与铁链在物理上纯属无济于事的「幼稚小把戏（Mittelchen）」；但恰恰是奥德修斯对现代技术小工具那份近乎愚蠢的、毫无反思的绝对信赖，构成了他在神话深渊面前第一层奇妙的免疫力。'
+              '原文作 **Um sich vor den Sirenen zu bewahren, stopfte sich Odysseus Wachs in die Ohren und ließ sich am Mast festschmieden**。本篇写于 1917 年 10 月 23 日《八开本笔记 G》，由马克斯·布罗德拟题《塞壬的沉默》。在荷马《奥德赛》第十二卷原典中，奥德修斯依喀耳刻之计，用蜂蜡堵住**划桨水手们**的耳朵，而让自己**不塞耳朵**、仅用绳索绑在桅杆上，以便在安全前提下聆听塞壬的歌声。卡夫卡则将这一情节改写为：船上不见水手的踪影，奥德修斯**既往自己耳朵里塞满蜡，又让人用铁链把自己锁在桅杆上**，满怀对这套「小小手段（Mittelchen）」的天真信赖驶向塞壬。'
           }
         ]
       },
@@ -168,7 +168,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-5-02',
             anchor: '然而，塞壬拥有一件比歌声更可怕的武器，那就是她们的沉默',
             content:
-              '原文作 **Nun haben aber die Sirenen eine noch schrecklichere Waffe als den Gesang, nämlich ihr Schweigen**。这是整篇寓言的第一重哲学翻转：为什么「沉默」比「歌声」更致命？因为塞壬的歌声诉诸感官诱惑与外在毁灭，受试探者尚且知道自己正处于与他者的搏斗之中；而塞壬的绝对沉默，则会让全副武装的闯入者误以为自己凭一己之力征服了深渊，从而在主体内部诱发出「席卷一切的狂妄自大（alles fortreißende Überhebung，即古希腊悲剧中的 **Hybris / 僭越狂妄**）」。然而，当塞壬面对一脸天真陶醉于蜂蜡与锁链的奥德修斯而真正止息歌声时，诱惑的权力关系却发生了奇妙的逆转：由于奥德修斯耳塞蜂蜡、目光越过她们直视远方，他「没有听见她们的沉默（hörte ihr Schweigen nicht）」，误以为她们正在徒劳地引吭高歌；反倒是原本居高临下的塞壬在人类彻底的无视面前丧失了诱惑的意志，沦为徒劳地伸展脚爪、渴望在奥德修斯深邃眼眸中捕捉一丝自身倒影的失落审美者。'
+              '原文作 **Nun haben aber die Sirenen eine noch schrecklichere Waffe als den Gesang, nämlich ihr Schweigen**。塞壬的歌声诉诸外在诱惑，而塞壬的沉默则会令闯入者误以为自己凭一己之力战胜了她们，从而诱发「席卷一切的狂妄自大（alles fortreißende Überhebung，对应古希腊悲剧中的僭越 **Hybris**）」。然而，由于奥德修斯耳塞蜂蜡、目光越过她们直视远方，他「没有听见她们的沉默（hörte ihr Schweigen nicht）」，以为她们正在徒劳地歌唱，反而令塞壬在被彻底无视的处境下失去了诱惑的意愿。'
           }
         ]
       },
@@ -201,7 +201,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-5-03',
             anchor: '也许——尽管这已经超出了人类理智所能理解的界限——他其实真的察觉到了塞壬的沉默，只是把上述整场假象当作一面盾牌，举在她们和众神面前罢了',
             content:
-              '原文作 **Vielleicht hat er, obwohl das mit Menschenverstand nicht mehr zu begreifen ist, wirklich gemerkt, daß die Sirenen schwiegen, und hat ihnen und den Göttern den obigen Scheinvorgang nur gewissermaßen als Schild entgegengehalten**。在全篇最末的这则「附记（Anhang）」中，卡夫卡实施了令人眩晕的二阶反转（二级观察）：前文关于奥德修斯「天真信赖幼稚手段、盲目听不见沉默」的全部心理描写，在瞬间被揭露为奥德修斯本人精心导演的一场「假象演出（Scheinvorgang）」。荷马史诗中奥德修斯的固定修饰语正是 **polymetis**（千谋百计的 / 狡黠如狐的）。面对神话深渊与众神布下的「沉默」绝杀局——一旦承认听见了沉默，就会因战胜深渊的傲慢而毁灭——人类理性最高级的元狡计（Metis），就是**假装自己天真愚蠢、假装塞壬仍在歌唱而自己被蜂蜡护佑着听不见**。用一场滴水不漏的「扮演天真」作为盾牌（Schild），奥德修斯既保全了塞壬作为神话的体面，又在众神眼皮底下全身而退。'
+              '原文作 **Vielleicht hat er, obwohl das mit Menschenverstand nicht mehr zu begreifen ist, wirklich gemerkt, daß die Sirenen schwiegen, und hat ihnen und den Göttern den obigen Scheinvorgang nur gewissermaßen als Schild entgegengehalten**。在文末这则「附记（Anhang）」中，前文关于奥德修斯「天真信赖蜂蜡与铁链、听不见沉默」的叙述被反转：荷马史诗中以「足智多谋（polymetis）」著称的奥德修斯，或许实际上已经察觉了塞壬的沉默，只是为了避免触发战胜塞壬所带来的致命傲慢，故意将「扮演天真」作为一场「假象演出（Scheinvorgang）」与盾牌（Schild）举在塞壬与众神面前。'
           }
         ]
       }
@@ -222,7 +222,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-6-01',
             anchor: '两个少年坐在码头石堤上掷骰子。一个男人在纪念碑的台阶上、在挥舞马刀的英雄雕像阴影里读着一份报纸',
             content:
-              '原文作 **Zwei Knaben saßen auf der Quaimauer und spielten Würfel. Ein Mann las eine Zeitung auf den Stufen eines Denkmals im Schatten des säbelschwingenden Helden**。《猎人格拉古》写于 1917 年 1 月至 2 月初的《八开本笔记 B》（Oktavheft B，写于布拉格炼金术士街 22 号黄金小巷的微型小屋中）。小说中的南欧湖港小城**里瓦（Riva del Garda）**位于意大利北部加尔达湖（Lago di Garda）最北端，一战前属奥匈帝国蒂罗尔伯国管辖；卡夫卡曾于 1909 年 9 月（与布罗德兄弟同游）及 1913 年 9—10 月两次旅居里瓦的冯·哈尔通根博士疗养院，并在那里与被他在日记中隐称为「瑞士少女（G. W.）」的十八岁女子发生过一段刻骨铭心却无果而终的恋情。开篇连续七个互不从属的并列静物句，以近乎同时代意大利画家乔治·德·基里科（Giorgio de Chirico）「形而上学绘画（Pittura metafisica）」般的冷峻透视，勾勒出一座沉浸在庸常惯性中的南欧港口：掷骰子、读报、打水、看湖、饮酒、打盹——正是在这片对超越性事件彻底麻木的世俗背景中，载着半死半活之猎人的幽灵驳船「仿佛被托在水面上（als werde sie über dem Wasser getragen）」毫无重量地滑入了人间。'
+              '原文作 **Zwei Knaben saßen auf der Quaimauer und spielten Würfel. Ein Mann las eine Zeitung auf den Stufen eines Denkmals im Schatten des säbelschwingenden Helden**。《猎人格拉古》写于 1917 年 1 月至 2 月初的《八开本笔记 B》（Oktavheft B）。文中的南欧湖港小城**里瓦（Riva del Garda）**位于加尔达湖（Lago di Garda）最北端，一战前属奥匈帝国蒂罗尔伯国管辖；卡夫卡曾于 1909 年 9 月及 1913 年 9—10 月两次旅居里瓦疗养院。开篇以一组互不从属的并列短句勾勒出港口的日常景象（掷骰子、读报、打水、看湖、饮酒、打盹），载着猎人的平底驳船便在无人理会的平静中滑入港口。'
           }
         ]
       },
@@ -260,7 +260,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-6-02',
             anchor: '您大概也知道，我就是猎人格拉古',
             content:
-              '原文作 **Auch Sie wissen wahrscheinlich, daß ich der Jäger Gracchus bin**。**Gracchus（格拉古）**这一名字是卡夫卡文学中最著名的多语种词源密码与隐秘自画像。在捷克语中，卡夫卡的家族姓氏 **Kafka（kavka）**意为**「寒鸦（jackdaw）」**（卡夫卡父亲赫尔曼·卡夫卡在布拉格经营的百货商行，其信笺与招牌徽标正是一只站在橡树枝上的寒鸦）；而在拉丁语中，寒鸦作 **graculus**，在里瓦当地通用的意大利语中则作 **gracchio**（德语为 Dohle）。卡夫卡将自己的捷克语姓氏「寒鸦」转写为拉丁化与古罗马化的 **Gracchus**（表面借用了古罗马共和国著名的平民保民官格拉古兄弟之名，内核却是「寒鸦猎人＝弗朗茨·卡夫卡」的同义词签名）。而与他对话的里瓦市长在下文自报家门名叫 **Salvatore**（意大利语意为「救世主」）：一位有着「救世主」之名、戴着黑手套嫌恶地拨开台阶果皮的现代市政官僚，面对着化名「寒鸦」的卡夫卡分身，却连对方究竟是死是活都无力裁断，更遑论施行任何救赎。'
+              '原文作 **Auch Sie wissen wahrscheinlich, daß ich der Jäger Gracchus bin**。**Gracchus（格拉古）**这一名字隐含着多语种词源关联：在捷克语中，卡夫卡的家族姓氏 **Kafka（kavka）**意为**「寒鸦（jackdaw）」**（卡夫卡父亲赫尔曼·卡夫卡在布拉格经营的百货商行，其信笺徽标正是一只站在树枝上的寒鸦）；而在拉丁语中，寒鸦作 **graculus**，在里瓦当地通用的意大利语中则作 **gracchio**。卡夫卡将自己的捷克语姓氏「寒鸦」转写为拉丁化的 **Gracchus**；而与他对话的里瓦市长在下文自报姓名叫 **Salvatore**（意大利语意为「救世主」）。'
           }
         ]
       },
@@ -298,7 +298,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-6-03',
             anchor: '我的死亡小船迷失了航向，也许是舵轮转错了一下，也许是掌船人一刹那的分心，也许是被我那美丽绝伦的故乡分散了注意力，我也不知道究竟是怎么回事；我只知道一点，那就是我留在了尘世上，而打那以后，我的小船便一直在尘世的水域里航行',
             content:
-              '原文作 **Mein Todeskahn verfehlte die Fahrt, eine falsche Drehung des Steuers, ein Augenblick der Unaufmerksamkeit des Führers, eine Ablenkung durch meine wunderschöne Heimat, ich weiß nicht, was es war, nur das weiß ich, daß ich auf der Erde blieb und daß mein Kahn seither die irdischen Gewässer befahrt**。在古希腊神话（冥河船夫卡戎 Charon）与但丁《神曲》中，亡灵摆渡船的航线受神圣宇宙法则统摄，生死疆界森严绝对；而在卡夫卡笔下，就连「死亡」本身也会发生官僚式或技术性的偶发故障（舵轮拧错一下、船夫走神一秒）。这一微小的「根本差错（Grundfehler）」使格拉古陷入了绝对的**生存论阈限状态（Liminality）**：「既已死去，却又在某种程度上活着」。下文他说自己在通往彼岸的无穷阶梯上「由猎人变成了一只蝴蝶（Aus dem Jäger ist ein Schmetterling geworden）」——古希腊语 **psyche（灵魂）**的本义正是「蝴蝶」，然而格拉古这只灵魂蝴蝶却无法飞入彼岸闪光的门扉，只能在生与死的夹缝阶梯上无重力地上下扑腾，每当冲向最高处时，却总在尘世某片荒凉水域的旧木船舱里重新醒来。'
+              '原文作 **Mein Todeskahn verfehlte die Fahrt, eine falsche Drehung des Steuers, ein Augenblick der Unaufmerksamkeit des Führers, eine Ablenkung durch meine wunderschöne Heimat, ich weiß nicht, was es war, nur das weiß ich, daß ich auf der Erde blieb und daß mein Kahn seither die irdischen Gewässer befahrt**。不同于古希腊神话中冥河船夫卡戎（Charon）精准渡亡的冥界秩序，此处连「死亡」本身也会发生舵轮转错或船夫分心的偶发差错（Grundfehler），使格拉古处于「既已死去，却又在某种程度上活着」的居间状态。下文他说自己在通往彼岸的大阶梯上「由猎人变成了一只蝴蝶（Aus dem Jäger ist ein Schmetterling geworden）」——古希腊语 **psyche（灵魂）**的本义即为「蝴蝶」。'
           }
         ]
       },
@@ -356,7 +356,7 @@ export const kafkaMauerPart2Sections: BookSection[] = [
             id: 'g-kf-6-04',
             anchor: '「是船夫，」猎人说。「没有人会读到我在这里写下的东西，没有人会来帮助我',
             content:
-              '原文作 **„Der Bootsmann“, sagte der Jäger. „Niemand wird lesen, was ich hier schreibe, niemand wird kommen, mir zu helfen**。此处是考据《猎人格拉古》版本编纂史与遗稿断裂状态的关键节点。在卡夫卡 1917 年初的《八开本笔记 B》手稿原件中，当猎人回答「是船夫（Der Bootsmann）」之后，原本紧接着一段猎人替船夫分辩的残句（大意谓船夫只顾低头看妻子朱莉亚，未曾留意航向，随后手稿便在数行后戛然而止；而在卡夫卡同年春天尝试重写《猎人格拉古》的另一则日记体续篇残稿中，全篇更是直接中断于猎人的一句半截话：**「『在大阶梯上，』他说（„Auf der Treppe,“ sagte er）」**）。本译本所据的底本（马克斯·布罗德与汉斯·约阿希姆·舍普斯于 1931 年编订出版的《万里长城建造时》通行本）在此处删去了《八开本笔记 B》末尾未写完的几行残句，转而将卡夫卡写于 1917 年 4 月 6 日《八开本笔记 C》中的另一段格拉古独白（从「没有人会读到我在这里写下的东西」直至篇末「随着在死亡最底层吹拂的风航行」）无缝嫁接了进来。正因如此，这位躺在担架上的亡灵猎人突然脱口说出「没有人会读到**我在这里写下的东西（was ich hier schreibe）**」——虚构叙事的第四面墙在此轰然洞穿，被困在生死夹缝中的「寒鸦猎人（Gracchus）」与深夜伏案疾书的「寒鸦作家（Kafka）」彻底合二为一。无论是手稿原件中断于「在阶梯上」的未竟悬置，还是通行本在「死亡最底层的风」中的无舵漂流，都共同指向那个拒绝一切廉价同情的冰冷诊断：「想要帮助我的念头本身就是一场疾病，必须躺到床上去治。」'
+              '原文作 **„Der Bootsmann“, sagte der Jäger. „Niemand wird lesen, was ich hier schreibe, niemand wird kommen, mir zu helfen**。此处反映了《猎人格拉古》遗稿的版本拼接痕迹：在卡夫卡 1917 年初的《八开本笔记 B》手稿原件中，猎人回答「是船夫（Der Bootsmann）」之后原本是几句替船夫分辩的残句，随后手稿中断。马克斯·布罗德与汉斯-约阿希姆·舍普斯于 1931 年编订出版通行本时，删去了《八开本笔记 B》末尾未写完的残句，将卡夫卡写于 1917 年 4 月 6 日《八开本笔记 C》中的另一段格拉古独白（从「没有人会读到我在这里写下的东西」直至篇末）拼接于此，因此出现了躺在担架上的猎人说出「我在这里写下的东西（was ich hier schreibe）」的视角叠合。'
           }
         ]
       },

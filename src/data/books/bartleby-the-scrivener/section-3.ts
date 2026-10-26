@@ -18,7 +18,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-01',
           anchor: '面壁沉思',
           content:
-            '原文作 **dead-wall revery**（后文亦作复数 **dead-wall reveries**），是梅尔维尔在本篇中铸造的核心哲学意象。建筑学上的 **dead wall**（盲墙、死墙）指不设任何门窗孔洞、纯粹用于阻隔视线与防火的实心砖墙；在十九世纪中叶地价暴涨的华尔街，高耸的金融天井将巴托比紧邻的侧窗彻底封死在距窗玻璃不足三英尺的砖墙面前。这种「面壁」既非浪漫主义者凭窗远眺自然风景的遐想（reverie），亦非禅宗式的开悟，而是现代文书劳工在资本空间挤压到极限时，目光撞击绝对无意义的物质屏障后折返自身的空洞凝视。'
+            '原文作 **dead-wall revery**（后文亦作复数 **dead-wall reveries**）。建筑学上的 **dead wall**（盲墙、死墙）指不设任何门窗孔洞、用于阻隔视线与防火的实心砖墙；在十九世纪中叶建筑密集的华尔街，巴托比紧邻的侧窗距对面实心砖墙不足三英尺。梅尔维尔将浪漫主义文学中凭窗远眺自然风景的「遐想（reverie）」与「盲墙（dead wall）」组合在一起，用以指称巴托比长时间面对砖墙站立不动的凝视状态。'
         }
       ]
     },
@@ -42,7 +42,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-02',
           anchor: '永远放弃抄写了',
           content:
-            '原文作 **permanently given up copying**。老律师起初试图将巴托比的停笔归咎于用眼过度导致的生理性视力受损（一种可被现代医学与雇主慈善理解的「工伤休假」）；但巴托比却将偶发的生理障碍彻底转化为存在论上的决绝撤退——哪怕视力完全恢复，他也「已经放弃抄写了」。在文学自传层面，这一幕亦折射出梅尔维尔本人的写作危机：在 1851 年出版《白鲸》与 1852 年出版《皮埃尔》接连遭受评论界冷遇与商业惨败、且自身长期饱受严重眼疾折磨之后，梅尔维尔借巴托比之口道出了作家面对出版市场与大众趣味的彻底拒斥。'
+            '原文作 **permanently given up copying**。老律师起初试图将巴托比的停笔解释为用眼过度导致的暂时性视力受损；巴托比则明确表示，即便视力完全恢复，他也「已经放弃抄写了」。在传记背景上，梅尔维尔于 1851 年出版《白鲸》、1852 年出版《皮埃尔》后接连遭遇评论冷遇与商业挫败，且本人长期受眼疾困扰，学者常将此处的「放弃书写」与作者当时的创作处境相联系。'
         }
       ]
     },
@@ -60,7 +60,7 @@ export const section3: BookSection = {
       num: '§ 05',
       original:
         'At the expiration of that period, I peeped behind the screen, and lo! Bartleby was there.\n\nI buttoned up my coat, balanced myself; advanced slowly towards him, touched his shoulder, and said, “The time has come; you must quit this place; I am sorry for you; here is money; but you must go.”\n\n“I would prefer not,” he replied, with his back still towards me.\n\n“You _must_.”\n\nHe remained silent.',
-      zh: '六天期限届满之时，我往屏风后面一瞧，看哪！巴托比还在那里。我扣好外衣钮扣，稳了稳神，缓缓朝他走去，碰了碰他的肩膀说道：「时候到了；你必须离开这个地方；我为你难过；这儿有钱；但你必须走。」「**我宁愿不**。」他答道，背依然朝着我。「你**必须**走。」他默然不语。'
+      zh: '六天期限届满之时，我往屏风后面一瞧，看哪！巴托比还在那里。我扣好外衣钮扣，稳了稳神，缓缓朝他走去，碰了碰他的肩膀说道：「时候到了；你必须离开这个地方；我为你难过；这儿有钱；但你必须走。」「**我宁可不**。」他答道，背依然朝着我。「你**必须**走。」他默然不语。'
     },
     {
       id: 'bt-s3-p06',
@@ -82,7 +82,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-03',
           anchor: '某座荒废神庙的最后一根石柱',
           content:
-            '原文作 **like the last column of some ruined temple**。这一意象与前文第一部分「马略凝视迦太基废墟」形成精妙互文：当时十九世纪三十至四十年代的华尔街正掀起宏伟的希腊复兴式（Greek Revival）建筑浪潮——如建于 1834—1842 年、仿雅典帕特农神庙形制的美国海关大楼（今联邦大厅国家纪念馆）以及老证券交易所，均以高耸的大理石多立克或爱奥尼柱廊彰显金融帝国的永恒秩序。梅尔维尔却将空荡荡的华尔街办公室化作一座已经倾颓的古典废墟，而一文不名、拒绝拿走二十美元遣散费的巴托比，反倒成了这片商业神庙废墟中唯一屹立不倒的断柱。'
+            '原文作 **like the last column of some ruined temple**。这一比喻与前文「马略凝视迦太基废墟」相呼应。十九世纪三十至四十年代的华尔街盛行希腊复兴式（Greek Revival）建筑，如建于 1834—1842 年、仿雅典帕特农神庙形制的美国海关大楼（今联邦大厅国家纪念馆）以及老证券交易所，均采用大理石多立克或爱奥尼柱廊。此处将下班后空无一人的华尔街办公室比作倾颓的古典神庙，而拒绝取走二十美元遣散费的巴托比则如废墟中孤立的石柱。'
         }
       ]
     },
@@ -92,13 +92,13 @@ export const section3: BookSection = {
       num: '§ 08',
       original:
         'As I walked home in a pensive mood, my vanity got the better of my pity. I could not but highly plume myself on my masterly management in getting rid of Bartleby. Masterly I call it, and such it must appear to any dispassionate thinker. The beauty of my procedure seemed to consist in its perfect quietness. There was no vulgar bullying, no bravado of any sort, no choleric hectoring, and striding to and fro across the apartment, jerking out vehement commands for Bartleby to bundle himself off with his beggarly traps. Nothing of the kind. Without loudly bidding Bartleby depart—as an inferior genius might have done—I _assumed_ the ground that depart he must; and upon that assumption built all I had to say. The more I thought over my procedure, the more I was charmed with it. Nevertheless, next morning, upon awakening, I had my doubts,—I had somehow slept off the fumes of vanity. One of the coolest and wisest hours a man has, is just after he awakes in the morning. My procedure seemed as sagacious as ever.—but only in theory. How it would prove in practice—there was the rub. It was truly a beautiful thought to have assumed Bartleby’s departure; but, after all, that assumption was simply my own, and none of Bartleby’s. The great point was, not whether I had assumed that he would quit me, but whether he would prefer so to do. He was more a man of preferences than assumptions.',
-      zh: '我若有所思地步行回家，一路上，我的虚荣心渐渐压倒了怜悯之情。我不禁为自己打发巴托比时那手老练高明的处置而沾沾自喜。我称之为老练高明，任何头脑冷静的思想者看来也必定如此。我这一手妙就妙在它**绝对的平和从容**：既没有粗鄙的恐吓，也没有任何虚张声势，更没有暴跳如雷地呼喝威逼，在房间里来回踱步、气急败坏地勒令巴托比卷起他那点寒酸破烂滚蛋。完全没有这一套。我并没有像才智平庸之辈那样大声斥令巴托比离开，而是直接**假定**他必定会离开，并把我要说的一切话都建立在这一假定之上。我越是回味自己的处置手法，就越是为之陶醉。然而第二天清晨一觉醒来，我心里却犯起了嘀咕——睡了一觉，虚荣心的微醺不知怎的已经消散了。一个人最冷静、最明智的时刻，莫过于清晨刚醒来的那一刻。我的做法固然一如既往地显得睿智非凡——但那只是在理论上。它在实践中究竟成效如何——症结正在于此（there was the rub，化用《哈姆雷特》第三幕第一场生存或毁灭独白）。假定巴托比已然离开，这的确是个美妙绝伦的念头；可归根结底，那个假定纯粹是我自己一厢情愿的假定，而绝非巴托比的假定。问题的关键，不在于我是否**假定**他会离开我，而在于他是否**宁愿**这样做。[与其说他是一个遵从假定的人，不如说他是一个只认宁愿的人]{#g-bt-s3-04}。',
+      zh: '我若有所思地步行回家，一路上，我的虚荣心渐渐压倒了怜悯之情。我不禁为自己打发巴托比时那手老练高明的处置而沾沾自喜。我称之为老练高明，任何头脑冷静的思想者看来也必定如此。我这一手妙就妙在它**绝对的平和从容**：既没有粗鄙的恐吓，也没有任何虚张声势，更没有暴跳如雷地呼喝威逼，在房间里来回踱步、气急败坏地勒令巴托比卷起他那点寒酸破烂滚蛋。完全没有这一套。我并没有像才智平庸之辈那样大声斥令巴托比离开，而是直接**假定**他必定会离开，并把我要说的一切话都建立在这一假定之上。我越是回味自己的处置手法，就越是为之陶醉。然而第二天清晨一觉醒来，我心里却犯起了嘀咕——睡了一觉，虚荣心的微醺不知怎的已经消散了。一个人最冷静、最明智的时刻，莫过于清晨刚醒来的那一刻。我的做法固然一如既往地显得睿智非凡——但那只是在理论上。它在实践中究竟成效如何——症结正在于此（there was the rub，化用《哈姆雷特》第三幕第一场生存或毁灭独白）。假定巴托比已然离开，这的确是个美妙绝伦的念头；可归根结底，那个假定纯粹是我自己一厢情愿的假定，而绝非巴托比的假定。问题的关键，不在于我是否**假定**他会离开我，而在于他是否**宁可**这样做。[与其说他是一个遵从假定的人，不如说他是一个只认宁可的人]{#g-bt-s3-04}。',
       glosses: [
         {
           id: 'g-bt-s3-04',
-          anchor: '与其说他是一个遵从假定的人，不如说他是一个只认宁愿的人',
+          anchor: '与其说他是一个遵从假定的人，不如说他是一个只认宁可的人',
           content:
-            '原文作 **He was more a man of preferences than assumptions**。这是全篇最具哲学穿透力的警句。老律师赖以立身的整个华尔街法律与资本主义社会秩序，全部建立在无需言明的「假定（assumption）」之上：雇主假定支付工钱加上二十美元恩惠便能买断主仆关系的解除；法律假定理性人必然服从产权、工资契约与体面的社会暗示。然而「假定」是一种预先将他人纳入既有规则框架的隐性征用（presupposition）。巴托比的「宁愿不（preference）」则彻底悬置了一切社会预设——他不与老律师的「假定」正面辩驳，却让这套建立在资产阶级默契之上的拟制权威在清晨醒来时自行瓦解为「纯粹是我自己一厢情愿的假定」。'
+            '原文作 **He was more a man of preferences than assumptions**。老律师所依循的法律与日常交易秩序建立在「假定（assumption）」之上：雇主假定支付工钱与遣散费即可终止雇佣关系，假定常人必然服从产权、契约与社会暗示。巴托比的「宁可（preference）」则不服从这类预先设定的默契，使老律师的「假定」在实践中落空为单方面的一厢情愿。'
         }
       ]
     },
@@ -108,13 +108,13 @@ export const section3: BookSection = {
       num: '§ 09',
       original:
         'After breakfast, I walked down town, arguing the probabilities _pro_ and _con_. One moment I thought it would prove a miserable failure, and Bartleby would be found all alive at my office as usual; the next moment it seemed certain that I should see his chair empty. And so I kept veering about. At the corner of Broadway and Canal-street, I saw quite an excited group of people standing in earnest conversation.\n\n“I’ll take odds he doesn’t,” said a voice as I passed.\n\n“Doesn’t go?—done!” said I, “put up your money.”\n\nI was instinctively putting my hand in my pocket to produce my own, when I remembered that this was an election day. The words I had overheard bore no reference to Bartleby, but to the success or non-success of some candidate for the mayoralty. In my intent frame of mind, I had, as it were, imagined that all Broadway shared in my excitement, and were debating the same question with me. I passed on, very thankful that the uproar of the street screened my momentary absent-mindedness.',
-      zh: '吃过早饭，我步行前往下城，一路上在心里反复权衡他走与不走的正反概率。这一刻我觉得事情定会以惨败收场，到事务所一看，巴托比照旧活生生地待在那里；下一刻我又觉得十拿九稳，准能看见他的椅子空空如也。我就这样摇摆不定、左思右想。走到[百老汇大道与运河街的街角]{#g-bt-s3-05}时，我看见一群情绪颇为激动的人正站在那里热火朝天地议论着什么。「我敢打赌他不会！」我路过时，听见一个声音说道。「不会走？——赌了！」我脱口而出，「掏钱下注吧。」我本能地把手伸进口袋准备掏钱，猛然间才想起今天原来是选举日。我无意中听到的那句话压根儿与巴托比无关，而是在赌某位市长候选人能否当选。在我全神贯注的心境下，我简直以为整条百老汇大街都在分担我的焦躁兴奋，都在同我争辩同一个问题。我赶紧继续往前走，暗自庆幸街头的喧嚣掩盖了我一时的失魂落魄。',
+      zh: '吃过早饭，我步行前往下城，一路上在心里反复权衡他走与不走的正反概率。这一刻我觉得事情定会以惨败收场，到事务所一看，巴托比照旧活生生地待在那里；下一刻我又觉得十拿九稳，准能看见他的椅子空空如也。我就这样摇摆不定、左思右想。走到[百老汇大道与运河街的街角]{#g-bt-s3-05}时，我看见一群情绪颇为激动的人正站在那里热火朝天地议论着什么。「我敢打赌他不会！」我路过时，听见一个声音说道。「不会走？——赌了！」我脱口而出，「掏钱下注吧。」我本能地把手伸进口袋准备掏钱，猛然间才想起今天原来是选举日。我无意中听到的那句话压根儿与巴托比无关，而是在赌某位市长候选人能否当选。在我全神贯注的心境下，我简直以为整条百老汇大道都在分担我的焦躁兴奋，都在同我争辩同一个问题。我赶紧继续往前走，暗自庆幸街头的喧嚣掩盖了我一时的失魂落魄。',
       glosses: [
         {
           id: 'g-bt-s3-05',
           anchor: '百老汇大道与运河街的街角',
           content:
-            '百老汇（Broadway）与运河街（Canal Street）交界处是十九世纪中叶纽约曼哈顿连接中城住宅区与下城华尔街金融区的交通咽喉，也是纽约政党政治集会与街头盘口赌局最喧嚣的场所。梅尔维尔在此安排了一个极具喜剧张力的错位瞬间：街头市民正围绕「选举日（election day）」的纽约市长候选人（mayoralty）打赌，而满脑子被巴托比占据的老律师却误以为全纽约都在赌巴托比「走还是不走」。大众民主政治中充满功利算计的选票博弈（围绕谁能「上台就职」），与巴托比彻底拒绝进入任何社会角色的绝对静止，在百老汇街头撞出了荒诞的火花。'
+            '百老汇大道（Broadway）与运河街（Canal Street）交界处是十九世纪中叶曼哈顿连接中城住宅区与下城金融区的交通要道，也是纽约政党集会与街头赌盘活跃的场所。当时正值纽约市长选举日（election day），路人围绕候选人能否当选打赌，而心事重重的老律师则误以为人们在赌巴托比是否会离开事务所。'
         }
       ]
     },
@@ -138,7 +138,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-06',
           anchor: '在弗吉尼亚某个万里无云的午后，嘴里叼着烟斗被一道夏日闪电劈死的那个人',
           content:
-            '这一令人难忘的石化比喻源于十九世纪美国报刊广为流传的一则弗吉尼亚自然奇闻（梅尔维尔在随后的短篇小说《避雷针推销员》〔The Lightning-Rod Man, 1854〕中再次探讨了雷击恐惧）。一个无所事事（occupied with nothing）的抄写员在紧锁的办公室门后说出一句「我正忙着（I am occupied）」，其语义上的彻底悖谬如同晴空霹雳，瞬间抽空了老律师建立在常识与契约之上的全部行动力，使这位本欲驱逐雇员的房产支配者自己在门外化作了一具僵立的躯壳。'
+            '这一比喻源于十九世纪美国报刊流传的一则弗吉尼亚自然奇闻（梅尔维尔在随后的短篇小说《避雷针推销员》〔The Lightning-Rod Man, 1854〕中亦曾提及雷击现象）。已经被解雇且不再抄写的巴托比在紧锁的办公室门内回答「还没呢；我正忙着（Not yet; I am occupied）」，令门外的老律师呆立原地。'
         }
       ]
     },
@@ -164,7 +164,7 @@ export const section3: BookSection = {
       num: '§ 14',
       original:
         '“Will you, or will you not, quit me?” I now demanded in a sudden passion, advancing close to him.\n\n“I would prefer _not_ to quit you,” he replied, gently emphasizing the _not_.\n\n“What earthly right have you to stay here? Do you pay any rent? Do you pay my taxes? Or is this property yours?”\n\nHe answered nothing.',
-      zh: '「你到底走，还是不走？」我突然按捺不住一腔怒火，逼近他跟前厉声质问道。「我宁愿**不**离开您。」他回答说，温和地加重了那个「**不**」字。「你究竟凭什么世俗的权利留在这儿？你付房租吗？你替我交税吗？还是说这处房产归你所有？」他一言不发。'
+      zh: '「你到底走，还是不走？」我突然按捺不住一腔怒火，逼近他跟前厉声质问道。「我宁可**不**离开您。」他回答说，温和地加重了那个「**不**」字。「你究竟凭什么世俗的权利留在这儿？你付房租吗？你替我交税吗？还是说这处房产归你所有？」他一言不发。'
     },
     {
       id: 'bt-s3-p15',
@@ -186,7 +186,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-07',
           anchor: '不幸的亚当斯与更为不幸的柯尔特在后者那间孤寂的办公室里酿成的惨剧',
           content:
-            '指 1841 年 9 月 17 日震动全纽约的真实血案。知名左轮手枪发明家塞缪尔·柯尔特（Samuel Colt）的兄长、会计学教材作者约翰·考德威尔·柯尔特（John Caldwell Colt，1810—1842），在纽约百老汇大道与钱伯斯街转角花岗岩大楼二层自己租用的办公室里，因教科书印制账目纠纷与印刷商塞缪尔·亚当斯（Samuel Adams）发生激烈争执，狂怒之下用锤斧将亚当斯击毙，随后将尸体装入木箱涂满墨水，企图通过货船运往新奥尔良毁尸灭迹。案发被捕后，柯尔特被判处绞刑；1842 年 11 月 18 日行刑当天，他在曼哈顿「坟墓」监狱（The Tombs，即本篇第四部分巴托比最终被关押之地）的死囚牢房内与女友举行婚礼后持刀自尽，与此同时监狱圆顶恰巧起火燃烧。老律师在此将现代写字楼剖析为「全然不曾受过家庭温情圣化的非人空间（unhallowed by humanizing domestic associations）」，深刻揭示了冷酷孤立的现代商业办公环境如何催化人的精神崩溃与暴力失控。'
+            '指 1841 年 9 月 17 日发生于纽约的一桩真实命案。左轮手枪发明家塞缪尔·柯尔特（Samuel Colt）的兄长、会计学教材作者约翰·考德威尔·柯尔特（John Caldwell Colt，1810—1842），在纽约百老汇大道与钱伯斯街转角大楼二层的办公室里，因教材印制账目纠纷与印刷商塞缪尔·亚当斯（Samuel Adams）发生争执，用锤斧将亚当斯击毙，随后将尸体装入木箱涂满墨水，企图借货船运往新奥尔良。案发被捕后，柯尔特被判处绞刑；1842 年 11 月 18 日行刑当天，他在曼哈顿「坟墓」监狱（The Tombs，即本篇第四部分巴托比最终被关押之地）死囚牢房内与女友举行婚礼后持刀自尽，当时监狱圆顶恰好失火。老律师由此认为，缺乏家庭温情熏陶的孤立商业办公室（unhallowed by humanizing domestic associations）容易加剧人的暴躁与失控。'
         }
       ]
     },
@@ -202,7 +202,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-08',
           anchor: '「我赐给你们一条新命令，乃是叫你们彼此相爱。」',
           content:
-            '引自《新约·约翰福音》第 13 章第 34 节耶稣在最后晚餐上对门徒的临别叮嘱（钦定本 King James Version：「A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.」）。极具梅尔维尔式反讽意味的是：基督原本要求门徒以舍己牺牲的圣爱（agape）彼此相待，而在华尔街老律师的道德账本上，这条神圣的「新命令」却被精明地折算成了一种防止自己因一时冲动沦为杀人犯、从而保全自身名誉与安全的「纯粹自利（mere self-interest）」与「风险对冲保险（great safeguard to its possessor）」。'
+            '引自《新约·约翰福音》第 13 章第 34 节耶稣在最后晚餐上对门徒的嘱咐（钦定本 King James Version：「A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.」）。基督原本要求门徒以舍己的圣爱（agape）彼此相待，而在老律师的权衡中，这条诫命被转化为一种防止自己因一时冲动犯下命案、从而保全自身安全的「纯粹自利（mere self-interest）」与「护身符（great safeguard to its possessor）」。'
         }
       ]
     },
@@ -212,7 +212,7 @@ export const section3: BookSection = {
       num: '§ 18',
       original:
         'I endeavored also immediately to occupy myself, and at the same time to comfort my despondency. I tried to fancy that in the course of the morning, at such time as might prove agreeable to him, Bartleby, of his own free accord, would emerge from his hermitage, and take up some decided line of march in the direction of the door. But no. Half-past twelve o’clock came; Turkey began to glow in the face, overturn his inkstand, and become generally obstreperous; Nippers abated down into quietude and courtesy; Ginger Nut munched his noon apple; and Bartleby remained standing at his window in one of his profoundest dead-wall reveries. Will it be credited? Ought I to acknowledge it? That afternoon I left the office without saying one further word to him.',
-      zh: '我随即还设法找些正事让自己忙活起来，借以排遣心头的沮丧。我试着幻想，在上午的某个时刻——只要巴托比觉得称心如意——他便会出于完全自愿，从他的隐修地里走出来，迈着坚定的步伐朝大门口进发。然而并没有。十二点半到了；火鸡的脸颊开始涨得通红，打翻了他的墨水台，整个人变得喧哗躁动起来；钳子则收敛了火气，变得安分守礼；姜汁饼咔嚓咔嚓地啃着他晌午的苹果；而巴托比依旧站在窗前，沉浸在他最深邃的一次**面壁沉思**之中。说出来有人信吗？我该不该招认呢？那天下午，我离开事务所时，竟没有再对他说半句话。'
+      zh: '我随即还设法找些正事让自己忙活起来，借以排遣心头的沮丧。我试着幻想，在上午的某个时刻——只要巴托比觉得称心如意——他便会出于完全自愿，从他的隐修地里走出来，迈着坚定的步伐朝大门口进发。然而并没有。十二点半到了；火鸡的脸颊开始涨得通红，打翻了他的墨水台，整个人变得喧哗躁动起来；钳子则收敛了火气，变得安分守礼；姜汁饼干咔嚓咔嚓地啃着他晌午的苹果；而巴托比依旧站在窗前，沉浸在他最深邃的一次**面壁沉思**之中。说出来有人信吗？我该不该招认呢？那天下午，我离开事务所时，竟没有再对他说半句话。'
     },
     {
       id: 'bt-s3-p19',
@@ -226,7 +226,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-09',
           anchor: '《爱德华兹论意志》与《普里斯特利论必然性》',
           content:
-            '分别指北美大觉醒运动领袖、加尔文宗神学家乔纳森·爱德华兹（Jonathan Edwards，1703—1758）的经典巨著《论意志的自由》（A Careful and Strict Enquiry into the Modern Prevailing Notions of That Freedom of Will, Which is Supposed to be Essential to Moral Agency, 1754），以及英国启蒙自然哲学家、氧气发现者与一位论派神学家约瑟夫·普里斯特利（Joseph Priestley，1733—1804）的《哲学必然性学说阐微》（The Doctrine of Philosophical Necessity Illustrated, 1777）。爱德华兹从严酷的加尔文宗神学预定论出发，论证人的意志完全受制于其当下最强烈的动机（而动机最终由上帝主权决定），不存在脱开因果链条的「自决自由」；普里斯特利则从唯物主义因果决定论出发得出了相似的必然性结论。老律师在现实中既无力驱逐那个只认「我宁愿（I would prefer）」的巴托比，便滑稽地求助于这两部否定自由意志的哲学与神学名著，将自己的软弱无能美化为顺应「天意预定（predestinated from eternity）」的崇高宿命。'
+            '分别指北美大觉醒运动领袖、加尔文宗神学家乔纳森·爱德华兹（Jonathan Edwards，1703—1758）的《论意志的自由》（A Careful and Strict Enquiry into the Modern Prevailing Notions of That Freedom of Will, Which is Supposed to be Essential to Moral Agency, 1754），以及英国自然哲学家、氧气发现者与一位论派神学家约瑟夫·普里斯特利（Joseph Priestley，1733—1804）的《哲学必然性学说阐微》（The Doctrine of Philosophical Necessity Illustrated, 1777）。爱德华兹从加尔文宗神学预定论出发，论证人的意志受制于当下最强烈的动机（终极上取决于上帝主权），不存在脱离因果链条的自决自由；普里斯特利则从唯物主义因果决定论出发得出相似的必然性结论。老律师在现实中无力驱逐那个只讲「我宁可（I would prefer）」的巴托比，遂借助这两部否定自由意志的著作，将自己的处境解释为「从亘古以来便早已命中注定（predestinated from eternity）」的天意安排。'
         }
       ]
     },
@@ -256,7 +256,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-11',
           anchor: '凭着永久占有的权利主张对我这间事务所的所有权',
           content:
-            '原文作 **claim possession of my office by right of his perpetual occupancy**。作为一名毕生起草房地产契据与产权转让书的华尔街律师，叙述者在此流露出了他最深层的潜意识恐惧——英美普通法与不动产法中的「时效取得 / 逆权侵占（adverse possession）」原则：当一个无产权者公开、持续且排他地占有他人不动产达到法定年限（十九世纪纽约州通常为二十年），原所有权人若未能成功将其驱逐，占有人便可依法取得该房产的合法产权。在老律师的噩梦中，巴托比那绝对静止的身体（「一天只花半个五分银币」的不死幽灵）竟成了瓦解私有产权法理的终极武器。'
+            '原文作 **claim possession of my office by right of his perpetual occupancy**。英美普通法与不动产法中设有「时效取得 / 逆权侵占（adverse possession）」原则：当无产权者公开、持续且排他地占有他人不动产达到法定年限（十九世纪纽约州通常为二十年），原所有权人若未能将其驱逐，占有人即可取得该不动产的合法产权。作为专办房地产契据的律师，叙述者甚至担忧巴托比会通过长期居留而取得其事务所的所有权。'
         }
       ]
     },
@@ -266,7 +266,7 @@ export const section3: BookSection = {
       num: '§ 22',
       original:
         'Ere revolving any complicated project, however, adapted to this end, I first simply suggested to Bartleby the propriety of his permanent departure. In a calm and serious tone, I commended the idea to his careful and mature consideration. But having taken three days to meditate upon it, he apprised me that his original determination remained the same; in short, that he still preferred to abide with me.',
-      zh: '然而，在为达到这一目的而筹划任何复杂的方案之前，我首先还是直截了当地向巴托比提出，他永久离开此地乃是合乎分寸之举。我用平静而严肃的口吻，郑重劝他就此念头作一番审慎周全的考虑。可是，他在经过三天的冥思苦想之后通知我说，他最初的决定依然不变；简言之，**他还是宁愿同我住在一起**。'
+      zh: '然而，在为达到这一目的而筹划任何复杂的方案之前，我首先还是直截了当地向巴托比提出，他永久离开此地乃是合乎分寸之举。我用平静而严肃的口吻，郑重劝他就此念头作一番审慎周全的考虑。可是，他在经过三天的冥思苦想之后通知我说，他最初的决定依然不变；简言之，**他还是宁可同我住在一起**。'
     }
   ]
 };

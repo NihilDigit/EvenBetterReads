@@ -56,10 +56,10 @@ function renderInnerZh(
             options?.onSelectGloss?.(fnId);
           }}
           title={`查看${label}`}
-          className={`inline-flex items-center mx-0.5 px-1 py-[1.5px] text-[10px] leading-none font-mono-coord align-super -top-[0.18em] relative border transition-colors cursor-pointer ${
+          className={`inline-flex items-center mx-0.5 px-1.5 py-[1.5px] text-[10.5px] leading-none font-mono-coord align-super -top-[0.18em] relative border transition-colors cursor-pointer touch-manipulation after:content-[''] after:absolute after:-inset-y-2 after:-inset-x-1.5 ${
             isActive
-              ? 'bg-[var(--ink-primary)] text-[var(--bg-canvas)] border-[var(--ink-primary)]'
-              : 'bg-transparent text-[var(--ink-primary)] border-[var(--rule-strong)] hover:bg-[var(--ink-primary)] hover:text-[var(--bg-canvas)]'
+              ? 'bg-[var(--accent-nrf)] text-[#fbf9f5] border-[var(--accent-nrf)]'
+              : 'bg-[var(--bg-panel)] text-[var(--ink-primary)] border-[var(--rule-strong)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)]'
           }`}
         >
           {label} {fnNum}
@@ -137,7 +137,7 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
                 options.onSelectGloss(glossId);
               }
             }}
-            className={`group/gloss inline cursor-pointer border-b-[1.5px] pb-[1px] transition-colors duration-150 ${
+            className={`group/gloss inline cursor-pointer touch-manipulation border-b-[1.5px] pb-[1px] transition-colors duration-150 ${
               isActive
                 ? 'bg-[var(--accent-nrf-soft)] border-solid border-[var(--accent-nrf)]'
                 : 'border-solid border-[var(--accent-nrf)]/65 hover:border-[var(--accent-nrf)] hover:bg-[var(--accent-nrf-soft)]'

@@ -12,7 +12,7 @@ export const section4: BookSection = {
       num: '§ 01',
       original:
         'What shall I do? I now said to myself, buttoning up my coat to the last button. What shall I do? what ought I to do? what does conscience say I _should_ do with this man, or rather ghost. Rid myself of him, I must; go, he shall. But how? You will not thrust him, the poor, pale, passive mortal,—you will not thrust such a helpless creature out of your door? you will not dishonor yourself by such cruelty? No, I will not, I cannot do that. Rather would I let him live and die here, and then mason up his remains in the wall. What then will you do? For all your coaxing, he will not budge. Bribes he leaves under your own paperweight on your table; in short, it is quite plain that he prefers to cling to you.',
-      zh: '我该怎么办？此刻我一面把外衣一直扣到最上面一颗纽扣，一面扪心自问。我该怎么办？我理当怎么办？对于这个人——或者不如说这个幽灵——良心告诉我**应当**拿他怎么办？摆脱他，那是必须的；走，他是走定了。可是怎么让他走呢？面对这样一个可怜、苍白、逆来顺受的凡人——你总不至于把这样一个无依无靠的生灵硬推出门外吧？你总不至于干出这等残忍的事来玷辱自己的名声吧？不，我不会，我干不出那种事。我宁可让他活着呆在这儿、死在这儿，然后再把他的遗骸砌进墙里去。那你究竟打算怎么办？任凭你百般哄劝，他自岿然不动。你给他的贿赂，他原封不动地留在你桌上你自己的镇纸底下；总而言之，再明白不过的是，**他宁愿死死依附着你**。'
+      zh: '我该怎么办？此刻我一面把外衣一直扣到最上面一颗纽扣，一面扪心自问。我该怎么办？我理当怎么办？对于这个人——或者不如说这个幽灵——良心告诉我**应当**拿他怎么办？摆脱他，那是必须的；走，他是走定了。可是怎么让他走呢？面对这样一个可怜、苍白、逆来顺受的凡人——你总不至于把这样一个无依无靠的生灵硬推出门外吧？你总不至于干出这等残忍的事来玷辱自己的名声吧？不，我不会，我干不出那种事。我宁可让他活着呆在这儿、死在这儿，然后再把他的遗骸砌进墙里去。那你究竟打算怎么办？任凭你百般哄劝，他自岿然不动。你给他的贿赂，他原封不动地留在你桌上你自己的镇纸底下；总而言之，再明白不过的是，**他宁可死死依附着你**。'
     },
     {
       id: 'bt-s4-p02',
@@ -27,13 +27,13 @@ export const section4: BookSection = {
           anchor:
             '他这样一个寸步不移的人，会是个流浪汉、一个游民？那么说来，恰恰是因为他不肯去流浪，你才硬要把他算作流浪汉了',
           content:
-            '梅尔维尔在此对英美普通法中的「流浪罪（vagrancy）」作了极尽辛辣的词源学与法理学解构。英语 **vagrant** 源于拉丁语 vagari（漫游、游荡，即老律师同义复指的 **wanderer**）；根据十九世纪纽约州《修正法令》（Revised Statutes of the State of New York），凡「无可见谋生手段（no visible means of support）」且无固定居所的怠惰游荡者，治安推事均可按流浪罪判处关押于济贫院或监狱。然而巴托比不仅拒绝移动分毫，还靠每天半个五分银币的姜汁饼自给自足。资本主义法律体系为了将这个退出雇佣劳动的静止身体纳入治安惩戒，不得不指鹿为马，将一个「绝对拒绝挪窝的人」强行定性为「到处流窜的游民」。'
+            '英语 **vagrant**（流浪汉）源于拉丁语 vagari（漫游、游荡，即文中老律师同义复指的 **wanderer**）。根据十九世纪纽约州《修正法令》（Revised Statutes of the State of New York），凡「无可见谋生手段（no visible means of support）」且无固定居所的游荡者，治安推事均可按流浪罪（vagrancy）判处关押于济贫院或监狱。巴托比既拒绝移动分毫，又靠每天半个五分银币的姜汁饼干自给自足，却因「拒绝离开」而在法律上被归入「游民」罪名。'
         },
         {
           id: 'g-bt-s4-02',
           anchor: '既然他不肯离开我，那我就只得离开他了',
           content:
-            '原文作 **Since he will not quit me, I must quit him**。在私有制与雇佣契约的逻辑达到死胡同之际，主客体关系发生了彻底的喜剧性倒置：身为房产承租人与雇主的华尔街大律师，在自己拥有完全排他性支配权的办公室里，竟然只能像寄居蟹蜕壳逃跑一样，通过「自己搬离自己的事务所」来解除对雇员的占有关系。'
+            '原文作 **Since he will not quit me, I must quit him**。在无法依据雇佣契约或产权规则驱逐巴托比之后，身为房产承租人与雇主的老律师只得通过自己搬离事务所来解除与雇员的共处状态。'
         }
       ]
     },
@@ -57,7 +57,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-03',
           anchor: '像一册巨大的对开本那样被折叠起来',
           content:
-            '原文作 **folded up like a huge folio**。**Folio**（对开本）既是十六至十九世纪印刷史中最大开本的法典与经典尺寸，亦是法律与会计事务所中按页计费的「法定抄写计算单位（一百词或七十二词为一 folio）」及巨型账册。老律师当初用来将巴托比「隔在视野之外，却又随时听候召唤」的那扇绿色折叠屏风，在此被比作一册合拢的巨型对开本法典；随着这册虚拟法典的折起撤离，巴托比从法律文书的阴影中彻底暴露出来，化作空无一物的「赤裸房间里纹丝不动的占有人（the motionless occupant of a naked room）」。'
+            '原文作 **folded up like a huge folio**。**Folio**（对开本）既是十六至十九世纪印刷史中大型法典与账册的开本尺寸，也是法律事务所中按字数计费的「法定抄写计算单位（一百词或七十二词为一 folio）」。老律师用来将巴托比隔在视线之外的绿色折叠屏风，在搬迁撤离时被比作一册合拢的对开本卷宗。'
         }
       ]
     },
@@ -75,7 +75,7 @@ export const section4: BookSection = {
       num: '§ 06',
       original:
         'I thought all was going well, when a perturbed looking stranger visited me, inquiring whether I was the person who had recently occupied rooms at No.—Wall-street.\n\nFull of forebodings, I replied that I was.\n\n“Then sir,” said the stranger, who proved a lawyer, “you are responsible for the man you left there. He refuses to do any copying; he refuses to do any thing; he says he prefers not to; and he refuses to quit the premises.”',
-      zh: '我原以为一切都已顺遂无虞，冷不防一位神色惶遽的陌生人登门造访，开口便问我是不是不久前租用华尔街某号房间的那个人。我满怀不祥的预感，回答说正是鄙人。「那么，先生，」那位后来证实也是同行律师的陌生人说道，「您得为您留在那儿的那个人负责。他拒绝做任何抄写；他拒绝干任何事情；他说他**宁愿不**；而且他拒绝离开那处房产。」'
+      zh: '我原以为一切都已顺遂无虞，冷不防一位神色惶遽的陌生人登门造访，开口便问我是不是不久前租用华尔街某号房间的那个人。我满怀不祥的预感，回答说正是鄙人。「那么，先生，」那位后来证实也是同行律师的陌生人说道，「您得为您留在那儿的那个人负责。他拒绝做任何抄写；他拒绝干任何事情；他说他**宁可不**；而且他拒绝离开那处房产。」'
     },
     {
       id: 'bt-s4-p07',
@@ -89,7 +89,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-04',
           anchor: '您提到的这个人同我毫无瓜葛——他既不是我的亲戚，也不是我的学徒',
           content:
-            '原文作 **the man you allude to is nothing to me—he is no relation or apprentice of mine**。在基督教文本脉络中，老律师接连三次否认与巴托比的关系（此处对新租户律师说「他同我毫无瓜葛」「我对他一无所知」，以及下一段面对房东众人再次坚持「巴托比同我毫无瓜葛」），构成了对《新约》四福音书中使徒彼得在鸡鸣前三次不认主（「我不认得那个人」，《马太福音》26:72）的深刻世俗戏仿。老律师试图用现代契约法的有限责任边界（「既非血亲，亦非学徒契约关系，且雇佣早已终止」）来切割自己对邻人的伦理责任，然而这种法律上的免责抗辩却在他内心的震颤（inward tremor）与整个华尔街社会的追责面前彻底破产。'
+            '原文作 **the man you allude to is nothing to me—he is no relation or apprentice of mine**。老律师在此接连三次否认与巴托比的关系（此处对新租户律师说「他同我毫无瓜葛」「我对他一无所知」，以及下一段面对房东众人再次坚称「巴托比同我毫无瓜葛」），在叙事结构上呼应了《新约》四福音书中使徒彼得在鸡鸣前三次否认认识耶稣（「我不认得那个人」，《马太福音》26:72）的典故。老律师试图援引契约法的责任边界（既非血亲，亦非学徒，且雇佣关系已终止）来撇清自身责任。'
         }
       ]
     },
@@ -105,7 +105,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-05',
           anchor: '大家甚至担心会惹出暴民骚乱',
           content:
-            '原文作 **some fears are entertained of a mob**。十九世纪三四十年代至五十年代初的纽约正处于剧烈的阶级冲突与街头骚乱频发期——包括 1837 年金融恐慌引发的「面粉暴动（Flour Riot）」以及 1849 年造成数十人死伤的「阿斯特广场暴动（Astor Place Riot）」，华尔街有产阶级对「暴民（mob）」怀有极度的神经质恐惧。极具讽刺意味的是，白天静坐楼梯栏杆、夜晚露宿门厅的巴托比明明是全纽约最安静、最温顺、连一根手指都不动的孤家寡人，但在华尔街房东与律师眼中，一个既不工作也不消费、更不肯离开办公楼公共空间的「绝对无所事事者」，其存在本身就如同无政府主义传染病，足以驱散客户并诱发颠覆私有产权秩序的群体骚乱。'
+            '原文作 **some fears are entertained of a mob**。十九世纪三四十年代至五十年代初的纽约街头骚乱频发，包括 1837 年金融恐慌引发的「面粉暴动（Flour Riot）」以及 1849 年造成数十人死伤的「阿斯特广场暴动（Astor Place Riot）」，令华尔街有产者对「暴民（mob）」高度敏感。尽管巴托比只是白天静坐楼梯栏杆、夜晚露宿门厅，房东与租户仍担心他的滞留会引来围观人群并触发骚乱。'
         }
       ]
     },
@@ -131,7 +131,7 @@ export const section4: BookSection = {
       num: '§ 11',
       original:
         '“Bartleby,” said I, “are you aware that you are the cause of great tribulation to me, by persisting in occupying the entry after being dismissed from the office?”\n\nNo answer.\n\n“Now one of two things must take place. Either you must do something, or something must be done to you. Now what sort of business would you like to engage in? Would you like to re-engage in copying for some one?”\n\n“No; I would prefer not to make any change.”',
-      zh: '「巴托比，」我说，「你被事务所解雇之后，还执意占据着门厅过道，你可知道自己给我惹来了多大的苦恼吗？」没有回答。「眼下只有两条路可走：要么你必须自己干点什么，要么别人就得对你采取点什么措施了。说说看，你究竟愿意从事哪一类行当？你愿意重新受雇于什么人，继续干抄写活吗？」「不；**我宁愿不作任何改变**。」'
+      zh: '「巴托比，」我说，「你被事务所解雇之后，还执意占据着门厅过道，你可知道自己给我惹来了多大的苦恼吗？」没有回答。「眼下只有两条路可走：要么你必须自己干点什么，要么别人就得对你采取点什么措施了。说说看，你究竟愿意从事哪一类行当？你愿意重新受雇于什么人，继续干抄写活吗？」「不；**我宁可不作任何改变**。」'
     },
     {
       id: 'bt-s4-p12',
@@ -139,7 +139,7 @@ export const section4: BookSection = {
       num: '§ 12',
       original:
         '“Would you like a clerkship in a dry-goods store?”\n\n“There is too much confinement about that. No, I would not like a clerkship; but I am not particular.”\n\n“Too much confinement,” I cried, “why you keep yourself confined all the time!”\n\n“I would prefer not to take a clerkship,” he rejoined, as if to settle that little item at once.\n\n“How would a bar-tender’s business suit you? There is no trying of the eyesight in that.”\n\n“I would not like it at all; though, as I said before, I am not particular.”',
-      zh: '「那你愿意到布匹百货店里去当个店员吗？」「那种活计太受拘束了。不，我不喜欢当百货店员；不过我并不挑剔。」「太受拘束！」我叫了起来，「天哪，你明明每时每刻都把自己关在屋里受拘束！」「我宁愿不去当百货店员，」他淡淡地接了一句，仿佛要把这桩小事当场拍板了结。「那么，去酒馆当个酒保合不合你的心意？那一行可完全不费眼力。」「我一点也不喜欢；不过，就像我刚才说的，我并不挑剔。」'
+      zh: '「那你愿意到布匹百货店里去当个店员吗？」「那种活计太受拘束了。不，我不喜欢当百货店员；不过我并不挑剔。」「太受拘束！」我叫了起来，「天哪，你明明每时每刻都把自己关在屋里受拘束！」「我宁可不去当百货店员，」他淡淡地接了一句，仿佛要把这桩小事当场拍板了结。「那么，去酒馆当个酒保合不合你的心意？那一行可完全不费眼力。」「我一点也不喜欢；不过，就像我刚才说的，我并不挑剔。」'
     },
     {
       id: 'bt-s4-p13',
@@ -147,13 +147,13 @@ export const section4: BookSection = {
       num: '§ 13',
       original:
         'His unwonted wordiness inspirited me. I returned to the charge.\n\n“Well then, would you like to travel through the country collecting bills for the merchants? That would improve your health.”\n\n“No, I would prefer to be doing something else.”\n\n“How then would going as a companion to Europe, to entertain some young gentleman with your conversation,—how would that suit you?”\n\n“Not at all. It does not strike me that there is any thing definite about that. I like to be stationary. But I am not particular.”',
-      zh: '他这反常的话多劲儿让我精神大振。我当即重整旗鼓，继续追问。「既然这样，那你愿不愿意到全国各地去旅行，替商人们催收账款？那对你的身体健康大有好处。」「不，我宁愿去干点别的事。」「那么，给某位年轻绅士当游伴远赴欧洲，用你的谈吐陪他解闷——这门差事又合不合你的意呢？」「一点也不合意。我看不出那差事有什么确切实在的地方。[我喜欢固定不动。但我并不挑剔]{#g-bt-s4-06}。」',
+      zh: '他这反常的话多劲儿让我精神大振。我当即重整旗鼓，继续追问。「既然这样，那你愿不愿意到全国各地去旅行，替商人们催收账款？那对你的身体健康大有好处。」「不，我宁可去干点别的事。」「那么，给某位年轻绅士当游伴远赴欧洲，用你的谈吐陪他解闷——这门差事又合不合你的意呢？」「一点也不合意。我看不出那差事有什么确切实在的地方。[我喜欢固定不动。但我并不挑剔]{#g-bt-s4-06}。」',
       glosses: [
         {
           id: 'g-bt-s4-06',
           anchor: '我喜欢固定不动。但我并不挑剔',
           content:
-            '原文作 **I like to be stationary. But I am not particular**。这里隐含着一重绝妙的英语双关：**stationary**（固定不动的）与 **stationery**（文具、信纸——抄写员终身相伴的劳作对象）同音异义。老律师一口气开出的五份职业清单（重操抄写旧业、布匹百货店员、酒馆酒保、巡回催账员、富家子弟欧洲壮游伴游），涵盖了十九世纪商业社会从体力服务、柜台零售、金融催收到高雅文化伴游的全部雇佣门类。巴托比却逐一否决了每一项具体的职业规定性，同时反复强调「**但我并不挑剔（But I am not particular）**」。在英语中，not particular 既有口语中「不挑剔、随和」之意，在哲学字面上更直指「**非特殊化的、拒绝被固定为任何特定（particular）社会职能的普遍潜能**」。'
+            '原文作 **I like to be stationary. But I am not particular**。**Stationary**（固定不动的）与 **stationery**（文具、信纸，即抄写员日常使用的办公用品）在英语中同音异义。老律师接连列举了五种职业（重操抄写旧业、布匹百货店员、酒馆酒保、巡回催账员、富家子弟欧洲游伴），巴托比逐一谢绝了每一项具体的职业安排，同时反复声称「但我并不挑剔（But I am not particular）」——英语 **not particular** 在口语中意为「不挑剔、随和」，在字面上则指「不归属于任何特定（particular）门类」。'
         }
       ]
     },
@@ -163,7 +163,7 @@ export const section4: BookSection = {
       num: '§ 14',
       original:
         '“Stationary you shall be then,” I cried, now losing all patience, and for the first time in all my exasperating connection with him fairly flying into a passion. “If you do not go away from these premises before night, I shall feel bound—indeed I _am_ bound—to—to—to quit the premises myself!” I rather absurdly concluded, knowing not with what possible threat to try to frighten his immobility into compliance. Despairing of all further efforts, I was precipitately leaving him, when a final thought occurred to me—one which had not been wholly unindulged before.\n\n“Bartleby,” said I, in the kindest tone I could assume under such exciting circumstances, “will you go home with me now—not to my office, but my dwelling—and remain there till we can conclude upon some convenient arrangement for you at our leisure? Come, let us start now, right away.”\n\n“No: at present I would prefer not to make any change at all.”',
-      zh: '「那你就固定不动个够吧！」我嚷道，此刻彻底失去了全部耐性，在与他结识以来这整段令人抓狂的纠葛中，破天荒头一遭勃然大怒。「要是你在天黑之前还不离开这处房产，我就不得不——千真万确，我就**不得不**——不得不——不得不自己离开这处房产了！」我极其荒唐地冒出这么一句收场话，实在不晓得还能搬出什么吓人的威胁，去把他的岿然不动吓得乖乖就范。我对一切进一步的努力彻底绝望，正要转身仓皇离去，脑海里忽然闪过最后一个念头——一个先前也并非完全没有动过的念头。「巴托比，」我用这般焦躁情境下所能装出的最和蔼可亲的语气说道，「你现在肯跟我回家去吗——不是去我的事务所，而是去我的私宅——先在那儿住下，等我们从容不迫地替你商定一项妥善的安置办法？来吧，咱们现在就动身，立刻就走。」「不：**眼下我宁愿完全不作任何改变**。」'
+      zh: '「那你就固定不动个够吧！」我嚷道，此刻彻底失去了全部耐性，在与他结识以来这整段令人抓狂的纠葛中，破天荒头一遭勃然大怒。「要是你在天黑之前还不离开这处房产，我就不得不——千真万确，我就**不得不**——不得不——不得不自己离开这处房产了！」我极其荒唐地冒出这么一句收场话，实在不晓得还能搬出什么吓人的威胁，去把他的岿然不动吓得乖乖就范。我对一切进一步的努力彻底绝望，正要转身仓皇离去，脑海里忽然闪过最后一个念头——一个先前也并非完全没有动过的念头。「巴托比，」我用这般焦躁情境下所能装出的最和蔼可亲的语气说道，「你现在肯跟我回家去吗——不是去我的事务所，而是去我的私宅——先在那儿住下，等我们从容不迫地替你商定一项妥善的安置办法？来吧，咱们现在就动身，立刻就走。」「不：**眼下我宁可完全不作任何改变**。」'
     },
     {
       id: 'bt-s4-p15',
@@ -178,7 +178,7 @@ export const section4: BookSection = {
           anchor:
             '驾着我的罗卡韦轻便四轮马车，在曼哈顿上城与四郊四处兜风；还乘渡轮过河去了泽西城和霍博肯，又像逃犯一样顺道造访了曼哈顿维尔和阿斯托利亚',
           content:
-            '原文中的 **rockaway** 是十九世纪三十年代在纽约长岛罗卡韦（Rockaway）一带发明的一种轻便四轮棚顶马车，车体低矮，车顶向前延伸遮盖驾车人座，专为中产绅士郊游代步设计。请注意此处颠倒乾坤的戏剧反讽：在前文中，老律师刚刚在内心独白里讥笑过将寸步不移的巴托比定性为「流浪汉 / 游民（vagrant / wanderer）」的荒谬；而短短数日之后，恰恰是因为巴托比在华尔街楼梯栏杆上的绝对静止（stationary），这位体面的华尔街大律师自己却被迫放弃固定办公场所，跳上马车在曼哈顿上城、哈德逊河西岸的新泽西（Jersey City、Hoboken）、曼哈顿北端的曼哈顿维尔（Manhattanville）以及东河对岸皇后区的阿斯托利亚（Astoria）之间东躲西藏，真正活成了一个「住在马车里的流浪逃犯（paid fugitive visits）」。'
+            '原文中的 **rockaway** 是十九世纪三十年代在纽约长岛罗卡韦（Rockaway）一带出现的一种轻便四轮棚顶马车，车体低矮，车顶向前延伸遮盖驾车人座，常用于中产市民郊游代步。前文中老律师曾认为将寸步不移的巴托比定性为「流浪汉 / 游民（vagrant / wanderer）」十分荒谬；而此时因为巴托比在楼梯栏杆上固定不动（stationary），老律师自己反而离开办公场所，驾马车在曼哈顿上城、哈德逊河西岸的新泽西（Jersey City、Hoboken）、曼哈顿北端的曼哈顿维尔（Manhattanville）以及东河对岸皇后区的阿斯托利亚（Astoria）之间四处奔走躲避（paid fugitive visits）。'
         }
       ]
     },
@@ -210,7 +210,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-08',
           anchor: '「坟墓」监狱——或者用更正式得体的名称来说，前往「司法大厅」',
           content:
-            '指建于 1838 年、坐落于曼哈顿下城中央街（Centre Street，原淡水池填埋地基之上）的纽约市监狱暨刑事法院大楼，官方名称为「司法大厅（The Halls of Justice）」。该建筑由建筑师约翰·哈维兰（John Haviland）设计，是美国早期最具代表性的**埃及复兴式（Egyptian Revival）**巨石建筑：其外墙高耸倾斜，正面耸立着雕刻莲花与棕榈柱头的巨型古埃及神庙廊柱与太阳圆盘翼饰，直接模仿卢克索神庙与古埃及陵墓形制，因此自落成之日起便被纽约市民俗称为「**坟墓（The Tombs）**」。老律师在此特意并置「坟墓（The Tombs）」与「司法大厅（the Halls of Justice）」两个名称，一针见血地挑明了现代法律正义（Justice）与死亡禁闭（Tombs）在物质空间上的同构性：巴托比不过是从华尔街那座「砖砌天井的活人墓穴」，被转移到了国家司法机器用巨石筑成的「埃及金字塔坟墓」之中。'
+            '指建于 1838 年、位于曼哈顿下城中央街（Centre Street，原淡水池填埋地基之上）的纽约市监狱暨刑事法院大楼，官方名称为「司法大厅（The Halls of Justice）」。该建筑由建筑师约翰·哈维兰（John Haviland）设计，是美国早期埃及复兴式（Egyptian Revival）石造建筑的代表作：其外墙高耸倾斜，正面设有雕刻莲花与棕榈柱头的古埃及神庙式廊柱与太阳圆盘翼饰，仿照卢克索神庙与古埃及陵墓形制，因此自落成起便被纽约市民俗称为「坟墓（The Tombs）」。'
         }
       ]
     },
@@ -226,7 +226,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-09',
           anchor: '「我知道自己在哪里。」',
           content:
-            '原文作 **“I know where I am”**。面对老律师笨拙而虚伪的田园诗式宽慰（「瞧，上头有蓝天，脚下有青草」），巴托比第一次、也是唯一一次彻底卸下了「我宁愿不」的委婉客套，以两句冰冷如铁的直陈句——「我认得你，我没有什么话要对你说」与「我知道自己在哪里」——斩断了老律师的自欺。无论是华尔街带屏风的律师事务所，还是高墙合围的「司法大厅 / 坟墓监狱」，在巴托比眼中从来不存在本质区别；那片被囚禁在巨石高墙底部的青草与头顶井口般的天空，无法掩盖整座现代城市作为巨大牢笼的真相。'
+            '原文作 **“I know where I am”**。面对老律师「瞧，上头有蓝天，脚下有青草」的宽慰，巴托比不再使用「我宁可不」的委婉句式，而是直接以「我认得你，我没有什么话要对你说」与「我知道自己在哪里」作答。'
         }
       ]
     },
@@ -244,7 +244,7 @@ export const section4: BookSection = {
       num: '§ 21',
       original:
         '“Bartleby, this is Mr. Cutlets; you will find him very useful to you.”\n\n“Your sarvant, sir, your sarvant,” said the grub-man, making a low salutation behind his apron. “Hope you find it pleasant here, sir;—spacious grounds—cool apartments, sir—hope you’ll stay with us some time—try to make it agreeable. May Mrs. Cutlets and I have the pleasure of your company to dinner, sir, in Mrs. Cutlets’ private room?”\n\n“I prefer not to dine to-day,” said Bartleby, turning away. “It would disagree with me; I am unused to dinners.” So saying he slowly moved to the other side of the inclosure, and took up a position fronting the dead-wall.',
-      zh: '「巴托比，这位是肉排先生（Mr. Cutlets）；你会发现他对你大有用处的。」「您的仆人，先生，您的仆人，」包伙人一边在围裙后面深深鞠躬行礼，一边操着变调的乡音说道，「但愿您觉得这儿还称心如意，先生；——场地宽敞——房间凉爽，先生——但愿您能在我们这儿多盘桓些日子——我们一定尽力让您舒心。先生，不知肉排太太和我是否有幸请您赏光，到肉排太太的私人房间里共进正餐呢？」「**我今天宁愿不吃正餐**，」巴托比转过身去说道，「那会叫我不舒服的；**我向来不习惯吃正餐**。」说罢，他缓缓走到围院的另一侧，在一堵盲墙前站定，面壁而立。'
+      zh: '「巴托比，这位是肉排先生（Mr. Cutlets）；你会发现他对你大有用处的。」「您的仆人，先生，您的仆人，」包伙人一边在围裙后面深深鞠躬行礼，一边操着变调的乡音说道，「但愿您觉得这儿还称心如意，先生；——场地宽敞——房间凉爽，先生——但愿您能在我们这儿多盘桓些日子——我们一定尽力让您舒心。先生，不知肉排太太和我是否有幸请您赏光，到肉排太太的私人房间里共进正餐呢？」「**我今天宁可不吃正餐**，」巴托比转过身去说道，「那会叫我不舒服的；**我向来不习惯吃正餐**。」说罢，他缓缓走到围院的另一侧，在一堵盲墙前站定，面壁而立。'
     },
     {
       id: 'bt-s4-p22',
@@ -258,7 +258,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-10',
           anchor: '您认识门罗·爱德华兹吗？',
           content:
-            '门罗·爱德华兹（Monroe Edwards，1808—1847）是十九世纪四十年代轰动全美的「绅士伪造犯（gentleman forger）」。他出身肯塔基州，仪表堂堂、衣着考究，早年曾参与德克萨斯奴隶走私与土地投机，后专门模仿名人笔迹伪造棉花经纪商与银行汇票，骗取巨额资金并周游英国上流社会。1842 年他在纽约被捕，关押于「坟墓」监狱受审（恰与前文提及的约翰·柯尔特杀人案同期关押于同一座监狱，其庭审轰动一时），定罪后被送往纽约州奥西宁的辛辛州立监狱（Sing-Sing Prison）服刑，并于 1847 年因肺结核（consumption）死于狱中。狱中伙夫将拒绝抄写的巴托比误认作温文苍白的「伪造犯」，构成了一组极深刻的镜像：在华尔街金融资本主义体系中，「合法抄写员（copyist）」与「非法伪造犯（forger）」本是同一枚硬币的两面——二者皆靠「精准复制他人笔迹与契据符号」为生，只是一者将自己彻底异化为顺从产权秩序的复印机，另一者则利用符号复制术盗取产权；而巴托比通过「彻底放弃抄写」，同时超脱了合法复制与非法伪造的双重规训。'
+            '门罗·爱德华兹（Monroe Edwards，1808—1847），十九世纪四十年代美国知名的「绅士伪造犯（gentleman forger）」。他出身肯塔基州，仪表考究，早年曾参与德克萨斯奴隶走私与土地投机，后通过模仿笔迹伪造棉花经纪商与银行汇票骗取巨款。1842 年他在纽约被捕，关押于「坟墓」监狱受审（与前文提及的约翰·柯尔特杀人案同期羁押于该狱），定罪后移送纽约州奥西宁的辛辛州立监狱（Sing-Sing Prison）服刑，1847 年因肺结核（consumption）死于狱中。狱中包伙人将苍白文雅的巴托比误认作「伪造犯」，使依赖誊写契据谋生的「合法抄写员（copyist）」与依靠模仿笔迹牟利的「票据伪造犯（forger）」形成对照。'
         }
       ]
     },
@@ -282,7 +282,7 @@ export const section4: BookSection = {
           id: 'g-bt-s4-11',
           anchor: '「同君王和谋士在一起，」',
           content:
-            '化用《旧约·约伯记》第 3 章第 13—19 节受苦的约伯咒诅自己生辰时的著名哀歌（钦定本 King James Version：「For now should I have lain still and been quiet, I should have slept: then had I been at rest, **With kings and counsellors of the earth, which built desolate places for themselves**... There the prisoners rest together; they hear not the voice of the oppressor. The small and great are there; and the servant is free from his master.」——「不然，我早已躺卧安寂，早已安睡得享安息，同地上为自己建造荒邱的君王和谋士在一起……在那里被囚的人同得安息，不听见督工的声音。大小尊卑都在那里；奴仆脱离主人的辖制。」）。在仿古埃及法老金字塔形制的「坟墓」监狱墙根下，一文不名、以胎儿姿态蜷缩辞世的抄写员巴托比，终于在死亡的绝对平等中「脱离了主人的辖制」，与那些为自己修筑宏伟陵墓的地上君王和谋士（kings and counselors，在英语中 **counselor** 亦双关「出庭大律师 / 法律顾问」）同享安息。'
+            '化用《旧约·约伯记》第 3 章第 13—19 节约伯咒诅生辰时的哀辞（钦定本 King James Version：「For now should I have lain still and been quiet, I should have slept: then had I been at rest, **With kings and counsellors of the earth, which built desolate places for themselves**... There the prisoners rest together; they hear not the voice of the oppressor. The small and great are there; and the servant is free from his master.」——「不然，我早已躺卧安寂，早已安睡得享安息，同地上为自己建造荒邱的君王和谋士在一起……在那里被囚的人同得安息，不听见督工的声音。大小尊卑都在那里；奴仆脱离主人的辖制。」）。英语 **counselors** 既指《圣经》中的「谋士」，亦兼指「出庭律师 / 法律顾问」。'
         }
       ]
     },
@@ -298,13 +298,13 @@ export const section4: BookSection = {
           id: 'g-bt-s4-12',
           anchor: '巴托比从前曾是华盛顿死信局里的一名低级职员，后来因为政府换届而突然遭到了革职',
           content:
-            '美国邮政总局下属的「死信局（Dead Letter Office）」于 1825 年在首都华盛顿特区正式设立，专门集中拆检全美各地因收件人亡故、迁徙不明或字迹模糊而无法投递的信件（dead letters），从中检索有价财物（汇票、纸币、戒指）尝试退还寄件人，而将其余无法退还的数百万封信件定期在华盛顿露天焚化炉中按车焚毁；1852 年（即本篇发表前一年），美国报刊曾广泛刊载关于华盛顿死信局特写报道，梅尔维尔的挚友纳撒尼尔·霍桑以及梅尔维尔本人当时亦正在谋求政府公职任命。文中「因政府换届而突然遭到革职（suddenly removed by a change in the administration）」则直指自安德鲁·杰克逊总统（1829）以来愈演愈烈的美国政党「分肥制（Spoils System）」：每逢新总统上台（如 1841、1845、1849、1853 年政党轮替），联邦政府便大规模清洗包括邮政总局低级文书在内的前任公务员，将其职位作为战利品分封给本党效忠者。在神学与语言学双重隐喻上，英语 **letter** 兼指「书信」「文字字母」与保罗神学中的「律法字句」（《哥林多后书》3:6：「因为那字句是叫人死，精意是叫人活 / for the letter killeth, but the spirit giveth life」）：从华盛顿死信局中焚烧的无法抵达收件人的情感书信，到华尔街律师事务所里一字不差机械誊写的产权契据，直至现代作家寄往大众市场却无人理解的文学作品，一切脱离了生命回应的「文字（letters）」皆已沦为「死信（dead letters）」。'
+            '美国邮政总局下属的「死信局（Dead Letter Office）」于 1825 年在华盛顿特区设立，负责拆检全美各地因收件人亡故、迁徙或地址不明而无法投递的信件（dead letters），从中检索汇票、纸币、戒指等有价物品尝试退还寄件人，其余无法退还的信件则定期集中焚毁；1852 年（本篇发表前一年），美国报刊曾刊载过关于华盛顿死信局的专题报道。文中「因政府换届而突然遭到革职（suddenly removed by a change in the administration）」指十九世纪美国政党轮替时的「分肥制（Spoils System）」：每逢新总统就任，联邦政府常成批撤换包括邮政职员在内的前任低级公务人员。此外，英语 **letter** 兼有「书信」「字母 / 文书」及《新约·哥林多后书》3:6 中「律法字句（the letter killeth）」的多重含义。'
         },
         {
           id: 'g-bt-s4-13',
           anchor: '啊，巴托比！啊，人性！',
           content:
-            '原文作 **Ah Bartleby! Ah humanity!**。这一声结语式的悲叹在二十世纪末引发了欧陆当代哲学最著名的两场专题阐释。吉尔·德勒兹（Gilles Deleuze）在《批评与临床》的压卷之作《巴托比，或公式》（Bartleby, ou la formule, 1989）中指出，巴托比绝非传统心理小说中的病患或隐喻，他那句不合常规语法的「公式（la formule）」——I would prefer not to（既不肯定也不否定，在否定具体行为的同时开启了一片纯粹的「不可能性之域」）——在标准英语内部凿出了一门「异乡人的语言」，彻底悬置了建立在父权温情与契约互惠之上的资产阶级社会拟制，迫使老律师从傲慢的家长制雇主走向对「无父之兄弟情谊」的震颤体认。乔治·阿甘本（Giorgio Agamben）则在《巴托比，或论偶然性》（Bartleby, o della contingenza, 1993）中将巴托比置于亚里士多德《形而上学》与阿威罗伊哲学传统的核心：真正的潜能（dynamis / potentiality）不仅在于「能够做（潜能实现为现实性）」，更在于保持「**能够不做（potenza di non / potentiality not to be）**」的主权。巴托比作为一名「不再书写的抄写员」，恰如亚里士多德笔下那块「尚未写上任何字迹的蜡板（tabula rasa）」，以彻底弃绝一切现实规定性的姿态，守护了人类存在最深邃的纯粹潜能与偶然性。'
+            '原文作 **Ah Bartleby! Ah humanity!**。二十世纪末欧陆哲学界围绕这一结语与巴托比形象展开过代表性的讨论。吉尔·德勒兹（Gilles Deleuze）在《批评与临床》（Critique et clinique, 1993）所收论文《巴托比，或公式》（Bartleby, ou la formule, 1989）中认为，巴托比的公式句 I would prefer not to 既非肯定亦非否定，而是在标准英语内部构造出一种悬置一切预设的「异乡人语言」，瓦解了建立在父权温情与契约互惠之上的社会拟制。乔治·阿甘本（Giorgio Agamben）在《巴托比，或论偶然性》（Bartleby, o della contingenza, 1993）中则将巴托比置于亚里士多德《形而上学》与阿威罗伊哲学传统中加以阐释，认为完整的潜能（dynamis / potentiality）不仅包含「能够做」，亦包含「能够不做（potenza di non / potentiality not to be）」，而放弃书写的抄写员恰如亚里士多德笔下「尚未写上任何字迹的书写板（tabula rasa）」。'
         }
       ]
     }

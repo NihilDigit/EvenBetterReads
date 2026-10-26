@@ -213,7 +213,7 @@ export const section2: BookSection = {
           id: 'g-raison-universelle',
           anchor: '那种所谓的普遍理性、实践理性或道德理性，那种决定论，那些包揽一切解释的范畴，只配让诚实的人发笑。',
           content:
-            '一口气横扫了近代欧洲哲学的三大支柱：黑格尔统治历史的「普遍理性」、康德在《实践理性批判》中为挽救道德与信仰而设立的「实践理性」，以及十九世纪拉普拉斯与泰纳式的科学「决定论」。在加缪看来，这些体系都在用庞大的概念机器掩盖人类理智的根本受限性。'
+            '同时指向近代欧洲哲学的三大支柱：黑格尔统治历史的「普遍理性」、康德在《实践理性批判》中为挽救道德与信仰而设立的「实践理性」，以及十九世纪拉普拉斯与泰纳式的科学「决定论」。在加缪看来，这些体系都在用庞大的概念机器掩盖人类理智的根本受限性。'
         }
       ]
     },
@@ -313,13 +313,13 @@ export const section2: BookSection = {
       type: 'paragraph',
       num: '§ 22',
       fr: "De tous peut-être le plus attachant, Kierkegaard, pour une partie au moins de son existence, fait mieux que de découvrir l'absurde, il le vit. L'homme qui écrit : « Le plus sûr des mutismes n'est pas de se taire, mais de parler », s'assure pour commencer qu'aucune vérité n'est absolue et ne peut rendre satisfaisante une existence impossible en soi. Don Juan de la connaissance, il multiplie les pseudonymes et les contradictions, écrit les Discours édifiants en même temps que ce manuel du spiritualisme cynique qu'est Le Journal du Séducteur. Il refuse les consolations, la morale, les principes de tout repos. Cette épine qu'il se sent au cœur, il n'a garde d'en assoupir la douleur. Il la réveille au contraire et, dans la joie désespérée d'un crucifié content de l'être, construit pièce à pièce, lucidité, refus, comédie, une catégorie du démoniaque. Ce visage à la fois tendre et ricanant, ces pirouettes suivies d'un cri parti du fond de l'âme, c'est l'esprit absurde lui-même aux prises avec une réalité qui le dépasse. Et l'aventure spirituelle qui conduit Kierkegaard à ses chers scandales commence elle aussi dans le chaos d'une expérience privée de ses décors et rendue à son incohérence première.",
-      zh: '在所有人当中，或许最令人着迷的是克尔凯郭尔——至少在他生命的一部分时间里，他不止于发现荒谬，更是在亲身活出荒谬。这位写下「最可靠的缄默不是闭口不言，而是侃侃而谈」的人，从一开始便确信没有任何真理是绝对的，也没有任何真理能让一段本身不可能成立的生存变得令人满意。作为认识领域里的唐璜，他不断变换[化名与矛盾，在撰写《建德十八讲》的同时，又写下了《诱惑者日记》]{#g-kierkegaard-pseudo}这部犬儒唯灵论手册。他拒绝慰藉、拒绝道德、拒绝一切让人高枕无忧的原则。对于扎在心头的那根刺，他绝不设法麻痹它的剧痛；相反，他不断挑醒这痛楚，怀着一个甘愿被钉上十字架者的绝望狂喜，用澄明、拒绝与逢场作戏，一砖一瓦地搭建起一套「魔性的范畴」。那张既温柔又狞笑的面孔，那些紧接着发自灵魂深处一声惨叫的旋转舞步，正是与超出自身的实在贴身肉搏的荒谬心智本身。而将克尔凯郭尔引向他所钟爱的那些「绊脚石」的精神历险，同样始于一场被剥去了舞台布景、打回原初支离破碎状态的经验混沌。',
+      zh: '在所有人当中，或许最令人着迷的是克尔凯郭尔——至少在他生命的一部分时间里，他不止于发现荒谬，更是在亲身活出荒谬。这位写下「最可靠的缄默不是闭口不言，而是侃侃而谈」的人，从一开始便确信没有任何真理是绝对的，也没有任何真理能让一段本身不可能成立的生存变得令人满意。作为认识领域里的唐璜，他不断变换[化名与矛盾，在撰写《建德谈话》的同时，又写下了《诱惑者日记》]{#g-kierkegaard-pseudo}这部犬儒唯灵论手册。他拒绝慰藉、拒绝道德、拒绝一切让人高枕无忧的原则。对于扎在心头的那根刺，他绝不设法麻痹它的剧痛；相反，他不断挑醒这痛楚，怀着一个甘愿被钉上十字架者的绝望狂喜，用澄明、拒绝与逢场作戏，一砖一瓦地搭建起一套「魔性的范畴」。那张既温柔又狞笑的面孔，那些紧接着发自灵魂深处一声惨叫的旋转舞步，正是与超出自身的实在贴身肉搏的荒谬心智本身。而将克尔凯郭尔引向他所钟爱的那些「绊脚石」的精神历险，同样始于一场被剥去了舞台布景、打回原初支离破碎状态的经验混沌。',
       glosses: [
         {
           id: 'g-kierkegaard-pseudo',
-          anchor: '化名与矛盾，在撰写《建德十八讲》的同时，又写下了《诱惑者日记》',
+          anchor: '化名与矛盾，在撰写《建德谈话》的同时，又写下了《诱惑者日记》',
           content:
-            '克尔凯郭尔早期著作极少署真名，而是发明了「维克多·埃雷米塔」「约翰内斯·德·希伦蒂奥」「君士坦丁·康斯坦丁乌斯」等十几个立场相互冲突的笔名，借不同人物之口彼此辩驳。1843 年他一方面以笔名出版《非此即彼》（其中收录了精心算计如何从精神上操弄并抛弃少女科黛莉娅的《诱惑者日记》），另一方面又以真名同步发表虔诚的基督教《建德谈话》。段中「扎在心头的那根刺」源自《哥林多后书》12:7 保罗所谓「有一根刺加在我肉体上」，克尔凯郭尔经常用它指代自己终身背负的忧郁与同未婚妻蕾吉娜·欧尔森悔婚的隐痛。'
+            '克尔凯郭尔早期著作极少署真名，而是发明了「维克多·埃雷米塔」「约翰内斯·德·希伦蒂奥」「君士坦丁·康斯坦丁乌斯」等十几个立场相互冲突的笔名，借不同人物之口彼此辩驳。1843 年他一方面以笔名出版《非此即彼》（其中收录了精心算计如何从精神上操弄并抛弃少女科黛莉娅的《诱惑者日记》），另一方面又以真名同步发表虔诚的基督教《建德谈话》。段中「扎在心头的那根刺」源自《哥林多后书》12:7 保罗所谓「有一根刺加在我肉体上」，克尔凯郭尔经常用它指代自己终身背负的忧郁与同未婚妻蕾吉娜·奥尔森悔婚的隐痛。'
         }
       ]
     },

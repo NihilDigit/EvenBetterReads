@@ -15,7 +15,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-01',
           anchor: '常例与常理',
           content:
-            '原文作 **common usage and common sense**。作为英美普通法（Common Law）与苏格兰常识哲学（Common Sense Philosophy，十九世纪美国学院哲学的主流正统）的双重信徒，老律师把「行业惯例（common usage）」与「健全常识（common sense）」奉为不言自明的最高理性法庭。然而巴托比令人战栗之处在于：他并非听不懂这套逻辑，甚至完全承认老律师判断无误，却依然听凭某种不可通约的「至高考量（paramount consideration）」将整个常识与契约世界轻轻悬置。'
+            '原文作 **common usage and common sense**。老律师兼具英美普通法（Common Law）与苏格兰常识哲学（Common Sense Philosophy，十九世纪美国学院哲学的主流学派）的思维习惯，把「行业惯例（common usage）」与「健全常识（common sense）」视为不言自明的评判准则。巴托比并非不理解这套推理，甚至承认老律师的判断无误，却依然依照某种「至高考量（paramount consideration）」拒绝核对抄件。'
         }
       ]
     },
@@ -38,7 +38,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-02',
           anchor: '单靠姜汁饼干维生对人体质可能产生的影响',
           content:
-            '自古希腊盖伦（Galen）的四体液学说直至十九世纪中叶的通俗生理学，西方医学一直认为食物的冷热燥湿属性会直接塑造人的气质（temperament）：正如火鸡痛饮麦芽啤酒后血液沸腾、面红耳赤，生姜（ginger）在传统药理学中属于典型的「燥热辛烈（hot, spicy）」之物，理应激发胆汁质与多血质的暴烈火气。老律师试图用这套庸俗唯物主义的「饮食决定论」去推演巴托比，结果却撞上了荒谬的死胡同：巴托比终日吞食最辛辣的姜汁饼干，周身却散发着最阴冷苍白的死寂——连生理学因果律也在「他宁可它不起作用（Probably he preferred it should have none）」面前彻底失灵。'
+            '自古希腊盖伦（Galen）的四体液学说直至十九世纪中叶的通俗生理学，西方传统医学一直认为食物的冷热燥湿属性会直接影响人的气质（temperament）：正如火鸡痛饮麦芽啤酒后面红耳赤，生姜（ginger）在传统药理学中属于「燥热辛烈（hot, spicy）」之物，被认为会激发胆汁质与多血质的火气。老律师试图用这套饮食气质论来解释巴托比，却发现终日以辛辣姜汁饼干果腹的巴托比依旧苍白沉静，遂调侃道「十有八九，他是宁可生姜对他不起任何作用（Probably he preferred it should have none）」。'
         }
       ]
     },
@@ -51,13 +51,13 @@ export const section2: BookSection = {
           id: 'g-bt-s2-03',
           anchor: '消极抵抗',
           content:
-            '原文作 **passive resistance**。「消极抵抗（passive resistance）」一词诞生于十九世纪上半叶英国贵格会与爱尔兰天主教徒拒缴英国国教什一税（Tithe War，1831—1836）的非暴力抗税运动，并于 1848 年欧洲革命期间（如普鲁士国民议会的消极抵抗决议）进入跨大西洋政治词汇；短短数年之前，梅尔维尔的同代新英格兰作家亨利·大卫·梭罗（Henry David Thoreau）刚刚发表了著名的《论公民的不服从》（Resistance to Civil Government, 1849）。梅尔维尔敏锐地将这一政治抗争概念引入华尔街事务所的日常微观权力关系中，揭示出彻底剥离了暴力与敌意的「消极性（passivity）」为何比正面对抗更能令现代规训权力陷入抓狂。'
+            '原文作 **passive resistance**。「消极抵抗（passive resistance）」一词源于十九世纪上半叶英国贵格会与爱尔兰天主教徒拒缴英国国教什一税（Tithe War，1831—1836）的非暴力抗税运动，并于 1848 年欧洲革命期间（如普鲁士国民议会的消极抵抗决议）进入跨大西洋政治语汇；数年之前，亨利·大卫·梭罗发表了《论公民的不服从》（Resistance to Civil Government, 1849）。此处将这一政治概念移用于华尔街事务所内部的日常雇佣关系。'
         },
         {
           id: 'g-bt-s2-04',
           anchor: '在这里，我花极小的代价便能买到一份甘美可口的自我嘉许',
           content:
-            '原文作 **Here I can cheaply purchase a delicious self-approval. To befriend Bartleby... will cost me little or nothing, while I lay up in my soul what will eventually prove a sweet morsel for my conscience**。这段内心独白将十九世纪美国新教资产阶级的「慈善经济学」剥皮见骨：老律师把《马太福音》6:20「积攒财宝在天上（lay up for yourselves treasures in heaven）」的救赎诫命，彻底翻译成了华尔街的低买高卖账本——收留一个高产又廉价的巴托比「几乎不花分文成本（cost me little or nothing）」，却能「廉价购得（cheaply purchase）」一份供良心享用的甜点（sweet morsel）。慈善在此不再是对他者苦难的无条件承担，而是一桩稳赚不赔的道德套利交易。'
+            '原文作 **Here I can cheaply purchase a delicious self-approval. To befriend Bartleby... will cost me little or nothing, while I lay up in my soul what will eventually prove a sweet morsel for my conscience**。老律师在此借用商业记账的语汇改写了《马太福音》6:20「积攒财宝在天上（lay up for yourselves treasures in heaven）」的训诫：容忍一个高产而廉价的巴托比「几乎不费分文成本（cost me little or nothing）」，却能「廉价购得（cheaply purchase）」一份滋养良心的回报（sweet morsel）。'
         }
       ]
     },
@@ -80,7 +80,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-05',
           anchor: '「我宁可不。」「你偏不肯去吗？」「我宁可不。」',
           content:
-            '原文作 **“I would prefer not to.” / “You will not?” / “I prefer not.”**。这是全篇最关键的一组语法交锋。老律师试图强行把巴托比的回答翻译成「你偏不肯（You will not）」，因为助动词 will 属于意志（volition）与抗命（defiance）的范畴——一旦雇员承认「我不肯」，雇主就能顺理成章地以「违抗命令」为由将其开除。然而巴托比却极其精准地用斜体重音纠正道：「我**宁可**不（I prefer not）。」他拒绝进入「服从 / 叛逆」的意志二元对立，而是始终停留在非对抗性的「宁可（preference）」之中，使主权者的惩罚机器彻底找不到受力的支点。'
+            '原文作 **“I would prefer not to.” / “You will not?” / “I prefer not.”**。老律师试图将巴托比的回答转译为「你偏不肯（You will not）」，因为助动词 will 属于意志（volition）与抗命（defiance）的范畴，一旦雇员承认「不肯」，雇主便可按违抗指令将其解雇；巴托比则以斜体重音重申「我**宁可**不（I prefer not）」，始终停留在非对抗性的「宁可（preference）」表述之中。'
         }
       ]
     },
@@ -103,7 +103,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-06',
           anchor: '用来捆扎文书的红丝带',
           content:
-            '原文作 **red tape**。自十六世纪都铎王朝与西班牙哈布斯堡帝国起，英美与欧洲的法院及政府公署便习惯用染色红布条（red tape）捆扎卷宗、契据与判例汇编；十九世纪中叶，托马斯·卡莱尔在《现代评论》（Latter-Day Pamphlets, 1850）与查尔斯·狄更斯在《荒凉山庄》（Bleak House, 1852—1853，恰与《巴托比》同年连载）中将其转化为现代官僚主义繁文缛节的代名词。当老律师给法律文书打结时，需要第二个人伸出食指按住第一个十字结心才能系紧死结；巴托比拒绝伸出这一根手指去按住「红丝带」，在字面与象征双重层面上拒绝了参与法律文书的最终封装与确权。'
+            '原文作 **red tape**。自十六世纪都铎王朝与西班牙哈布斯堡帝国起，英美与欧洲的法院及公署便习惯用染色红布条（red tape）捆扎卷宗、契据与判例汇编；十九世纪中叶，托马斯·卡莱尔在《现代评论》（Latter-Day Pamphlets, 1850）与查尔斯·狄更斯在《荒凉山庄》（Bleak House, 1852—1853）中将其引申为官僚主义繁文缛节的代名词。当老律师给法律文书打结时，需要第二个人伸出手指按住第一个十字结心方能系紧；巴托比则连伸手按住「红丝带」亦表示「我宁可不」。'
         }
       ]
     },
@@ -116,7 +116,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-07',
           anchor: '三一教堂',
           content:
-            '原文作 **Trinity Church**。坐落于曼哈顿百老汇大道与华尔街丁字路口正中央的圣公会三一教堂，是整个华尔街金融区的地理与精神坐标原点。梅尔维尔写作此篇前不久，由建筑师理查德·阿普约翰（Richard Upjohn）设计的第三代哥特复兴式三一教堂刚刚于 1846 年落成（其高达 284 英尺的尖塔在长达数十年间一直是纽约最高建筑，俯瞰整条华尔街）；三一教堂教区本身更是当时曼哈顿仅次于阿斯特家族的超级大地主。老律师在星期天清晨顺路去三一教堂「听名牧讲道」途中偶访自己的华尔街事务所，恰恰勾勒出十九世纪美国精英将周末的基督教虔诚与工作日的商业契约无缝衔接的体面生活秩序。'
+            '原文作 **Trinity Church**。位于曼哈顿百老汇大道与华尔街丁字路口正中央的圣公会三一教堂，是华尔街金融区的地标建筑。由建筑师理查德·阿普约翰（Richard Upjohn）设计的第三代哥特复兴式三一教堂于 1846 年落成，其高达 284 英尺的尖塔在数十年间一直是纽约最高建筑；三一教堂教区本身也是当时曼哈顿拥有大量地产的业主。'
         }
       ]
     },
@@ -134,13 +134,13 @@ export const section2: BookSection = {
           id: 'g-bt-s2-08',
           anchor: '星期日的华尔街荒凉得犹如佩特拉古城',
           content:
-            '原文作 **Of a Sunday, Wall-street is deserted as Petra**。佩特拉（Petra）是古代纳巴泰王国在今约旦南部摩西谷玫瑰色砂岩峡谷峭壁上凿刻出的繁华商贸之都，罗马帝国吞并后因商路改道与地震而彻底荒废，化为一座唯有峭壁墓穴耸立的死城（英国诗人约翰·威廉·伯贡 1845 年获牛津纽迪盖特诗歌奖的名作《佩特拉》使其在十九世纪英美家喻户晓；梅尔维尔本人后于 1857 年亲赴巴勒斯坦考察并在长诗《克拉雷尔》中多次咏及佩特拉）。梅尔维尔将星期天资本退潮后的华尔街高楼峡谷直接叠印在佩特拉石窟废墟之上，一眼看穿了现代金融帝国繁华表象下早已凝结的岩石死寂。'
+            '原文作 **Of a Sunday, Wall-street is deserted as Petra**。佩特拉（Petra）是古代纳巴泰王国在今约旦南部摩西谷砂岩峡谷峭壁上凿刻出的商贸城市，罗马帝国吞并后因商路改道与地震而荒废，仅存峭壁墓穴与石窟遗迹。英国诗人约翰·威廉·伯贡 1845 年获牛津纽迪盖特诗歌奖的诗作《佩特拉》使其在十九世纪英美广为人知；梅尔维尔本人后于 1857 年赴巴勒斯坦考察，并在长诗《克拉雷尔》中多次提及佩特拉。'
         },
         {
           id: 'g-bt-s2-09',
           anchor: '一位无辜而变形的马略，独自对着迦太基的废墟苦苦沉思',
           content:
-            '原文作 **a sort of innocent and transformed Marius brooding among the ruins of Carthage**。典出古希腊传记作家普鲁塔克《希腊罗马名人传》之《马略传》：七任罗马执政官盖乌斯·马略（Gaius Marius，前 157—前 86）在与苏拉的内战中兵败流亡北非，刚在迦太基旧址登岸，罗马驻非行省长官便派差役勒令他离开；马略默默凝视着被罗马夷为平地的昔日帝国废墟，对差役答道：「去告诉你的长官，你看见盖乌斯·马略正坐在迦太基的废墟之中。」十九世纪美国画家约翰·范德林（John Vanderlyn）曾以此创作名画《迦太基废墟中的马略》（1807）。但老律师特意强调巴托比是「无辜而变形的（innocent and transformed）」马略：古罗马统帅马略满手血腥、在帝国废墟中谋划复仇，而苍白的文书巴托比却毫无征服欲与怨恨，在每晚与星期日沦为死城的华尔街金融废墟中央静坐不动。'
+            '原文作 **a sort of innocent and transformed Marius brooding among the ruins of Carthage**。典出普鲁塔克《希腊罗马名人传·马略传》：七任罗马执政官盖乌斯·马略（Gaius Marius，公元前 157—前 86）在与苏拉的内战中兵败流亡北非，刚在迦太基旧址登岸，罗马驻非行省长官便派差役勒令其离开；马略凝视着迦太基废墟对差役答道：「去告诉你的长官，你看见盖乌斯·马略正坐在迦太基的废墟之中。」美国画家约翰·范德林（John Vanderlyn）曾于 1807 年据此创作油画《迦太基废墟中的马略》。老律师在此将巴托比称为「无辜而变形的（innocent and transformed）」马略，以区别于古罗马统帅在废墟中谋划复仇的形象。'
         }
       ]
     },
@@ -153,7 +153,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-10',
           anchor: '手足同胞般的忧郁！因为无论是我还是巴托比，全都是亚当的子孙',
           content:
-            '原文作 **A fraternal melancholy! For both I and Bartleby were sons of Adam**。在发现巴托比以办公室旧沙发为床、以报纸包裹的饼干屑果腹的瞬间，华尔街老律师那套严密隔绝主仆阶层的屏风防线被短暂击穿，涌起了基督教与浪漫主义人道主义的最高瞬间——承认雇主与赤贫雇员同属原祖亚当之子（sons of Adam）。然而极具讽刺意味的是，老律师仅仅两句话之后，便迅速将自己刚刚萌生的这一普世悲悯贬斥为「一个病态而愚蠢的大脑生出的妄念（chimeras, doubtless, of a sick and silly brain）」，为下文从同情滑向恐惧与驱逐埋下了伏笔。'
+            '原文作 **A fraternal melancholy! For both I and Bartleby were sons of Adam**。发现巴托比以办公室旧沙发为床、以报纸包裹的饼干屑果腹后，老律师生出雇主与赤贫雇员同属原祖亚当之子（sons of Adam）的同胞悲悯；但仅隔两句，他便将这一念头自我消解为「一个病态而愚蠢的大脑生出的妄念（chimeras, doubtless, of a sick and silly brain）」。'
         }
       ]
     },
@@ -176,7 +176,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-11',
           anchor: '那份忧郁便按同样的比例化作了恐惧，那份怜悯也化作了嫌恶',
           content:
-            '原文作 **just in proportion as the forlornness of Bartleby grew and grew to my imagination, did that same melancholy merge into fear, that pity into repulsion**。这是梅尔维尔对十八世纪苏格兰启蒙运动道德哲学（弗朗西斯·哈奇森与亚当·斯密《道德情操论》，1759）最冷酷的心理剖析。斯密认为，人类的道德建立在通过「想象力（imagination）」将自己置身于受苦者处境的「同情共感（sympathy / fellow-feeling）」之上。然而梅尔维尔指出，资产阶级同情伦理存在一条隐秘的止损边界（up to a certain point）：当他者的苦难属于可通过小额施舍修复的肉体匮乏时，同情能带来愉悦的道德优越感；一旦苦难越过临界点，显露为无可救药的本体论绝境（「受苦的是他的灵魂，而他的灵魂我无从触及」），同情便瞬间引发主体自身被深渊吞噬的生存恐慌，并被「常识（common sense）」合理化地转化为恐惧与排斥。'
+            '原文作 **just in proportion as the forlornness of Bartleby grew and grew to my imagination, did that same melancholy merge into fear, that pity into repulsion**。十八世纪苏格兰启蒙运动道德哲学（如弗朗西斯·哈奇森与亚当·斯密《道德情操论》，1759）主张，人类的道德情感建立在通过「想象力（imagination）」设身处地体察受苦者处境的「同情共感（sympathy / fellow-feeling）」之上。老律师在此为这种同情划出了一条边界（up to a certain point）：当苦难尚可通过小额施舍缓解时，同情能唤起温情；一旦面对无法救治的深层绝境（「真正受苦的是他的灵魂，而他的灵魂，我却根本无从触及」），「健全的常识（common sense）」便促使主体摆脱怜悯，将其转化为恐惧与嫌恶。'
         }
       ]
     },
@@ -204,7 +204,7 @@ export const section2: BookSection = {
           id: 'g-bt-s2-12',
           anchor: '我竟养成了在各种并不完全恰当的场合不由自主地使用「宁可」这个词的习惯',
           content:
-            '原文作 **Somehow, of late I had got into the way of involuntarily using this word “prefer” upon all sorts of not exactly suitable occasions**。德勒兹在《巴托比，或公式》中特别指出，「我宁可不」具有一种惊人的语言传染力（linguistic contagion）：在绝对孤立的屏风背后，巴托比不主动对任何人施教，然而老律师、钳子与火鸡却在不知不觉中全被「宁可（prefer）」这一句式感染，连下达命令（「我宁可你眼下先退下」）与请示公事（「您宁可用蓝纸还是白纸」）都开始不由自主地滚动着这个词。在契约与指令统治的华尔街事务所中心，一个手无寸铁的文书仅凭一个悬置词，便让主权者与顺民的舌头集体脱轨。'
+            '原文作 **Somehow, of late I had got into the way of involuntarily using this word “prefer” upon all sorts of not exactly suitable occasions**。德勒兹在《巴托比，或公式》中指出，「我宁可不」在事务所内产生了语言传染（linguistic contagion）效应：老律师、钳子与火鸡在不知不觉中均被「宁可（prefer）」这一句式同化，在下达指令（「我宁可你眼下先退下」）与请示公事（「您宁可用蓝纸还是白纸」）时都不由自主地使用该词。'
         }
       ]
     },

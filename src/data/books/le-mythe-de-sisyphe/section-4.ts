@@ -67,7 +67,7 @@ export const section4: BookSection = {
           id: 'g-cordon',
           anchor: '它是死囚在临刑前最后一缕思绪的尖端，不管不顾地瞥见的几米开外、就在眩晕坠落的边缘处的那根鞋带。',
           content:
-            '呼应陀思妥耶夫斯基《白痴》第一部中梅什金公爵讲述的死刑犯临刑心理：在走上断头台或面对行刑队的最后几秒钟，死囚的意识非但没有涣散，反而以惊人的清晰度死死钉在眼前某个微不足道的感官细节上（如远处教堂屋顶的反光、阶梯边的一颗纽扣或一根鞋带），对现世的每一秒钟爆发出极致的贪恋与清醒。'
+            '呼应陀思妥耶夫斯基《白痴》第一部中梅什金公爵讲述的死刑犯临刑心理：在走上断头台或面对行刑队的最后几秒钟，死囚的意识非但没有涣散，反而高度集中在眼前某个微不足道的感官细节上（如远处教堂屋顶的反光、阶梯边的一颗纽扣或一根鞋带），对现世的每一秒钟表现出强烈的眷恋与清醒。'
         }
       ]
     },
@@ -234,7 +234,7 @@ export const section4: BookSection = {
         {
           id: 'fn-14',
           fr: 'Ce qui importe c’est la cohérence. On part ici d’un consentement au monde. Mais la pensée orientale enseigne qu’on peut se livrer au même effort de logique en choisissant contre le monde. Cela est aussi légitime et donne à cet essai sa perspective et ses limites. Mais quand la négation du monde s’exerce avec la même rigueur on parvient souvent (dans certaines écoles vedantas) à des résultats semblables en ce qui concerne par exemple l’indifférence des œuvres. Dans un livre d’une grande importance, Le Choix, Jean Grenier fonde de cette façon une véritable « philosophie de l’indifférence ».',
-          zh: '唯一要紧的是前后一贯。本书的出发点是对现世的认领；但东方思想教导我们，人完全可以作出否定现世的抉择，并付出同等严密的逻辑努力。那同样具有合法性，也恰恰标明了本篇随笔的视角与界限。然而，当对现世的否定贯彻到同等严苛的地步时（例如在某些吠檀多学派那里），往往也会在诸如「对功业成果的超然无求」等问题上抵达相似的结论。在一部至关重要的著作《抉择》中，让 格勒尼耶便循此路径奠定了一套真正的「冷漠哲学」。'
+          zh: '唯一要紧的是前后一贯。本书的出发点是对现世的认领；但东方思想教导我们，人完全可以作出否定现世的抉择，并付出同等严密的逻辑努力。那同样具有合法性，也恰恰标明了本篇随笔的视角与界限。然而，当对现世的否定贯彻到同等严苛的地步时（例如在某些吠檀多学派那里），往往也会在诸如「对功业成果的超然无求」等问题上抵达相似的结论。在一部至关重要的著作《抉择》中，让·格勒尼耶便循此路径奠定了一套真正的「冷漠哲学」。'
         }
       ],
       glosses: [
@@ -242,7 +242,7 @@ export const section4: BookSection = {
           id: 'g-menandre',
           anchor: '他们偏说英年早逝的人蒙受诸神宠爱。',
           content:
-            '出自古希腊新喜剧诗人米南德（Menander，约前 342—前 291）残篇的名句「蒙诸神宠爱者死得早」（ὃν οἱ θεοὶ φιλοῦσιν ἀποθνῄσκει νέος），后经罗马剧作家普劳图斯译为拉丁谚语流传后世。另外，加缪在本段原注中提到的让 格勒尼耶（Jean Grenier，1898—1971）是他从阿尔及尔中学到大学时期的恩师，《抉择》（1941）融汇了古希腊怀疑论、印度吠檀多不二论与道家无为思想，对加缪的思想成型影响极深。'
+            '出自古希腊新喜剧诗人米南德（Menander，约前 342—前 291）残篇的名句「蒙诸神宠爱者死得早」（ὃν οἱ θεοὶ φιλοῦσιν ἀποθνῄσκει νέος），后经罗马剧作家普劳图斯译为拉丁谚语流传后世。另外，加缪在本段原注中提到的让·格勒尼耶（Jean Grenier，1898—1971）是他从阿尔及尔中学到大学时期的恩师，《抉择》（1941）融汇了古希腊怀疑论、印度吠檀多不二论与道家无为思想，对加缪的思想成型影响极深。'
         }
       ]
     },
@@ -278,7 +278,7 @@ export const section4: BookSection = {
           id: 'g-alain-nuit',
           anchor: '阿兰说：「所谓祈祷，就是黑夜降临在思想之上。——但心智总得迎遇黑夜」，神秘主义者与存在哲学家们如是回应道。',
           content:
-            '阿兰（Alain，原名 Émile Chartier，1868—1951）是法国二十世纪上半叶极具影响力的理性主义哲学家与散文家，西蒙娜 薇依与萨特等人的老师。而神秘主义者所谓的「迎遇黑夜」，则指向十六世纪西班牙神秘主义修士十字若望（San Juan de la Cruz）的名著《灵魂的暗夜》——十字若望主张灵魂必须主动熄灭感官与理智之光，进入「暗夜」才能与上帝合一；加缪则以北极永夜中睁大双眼的「极夜守望（nuit polaire, veille de l’esprit）」与之抗衡。'
+            '阿兰（Alain，原名 Émile Chartier，1868—1951）是法国二十世纪上半叶极具影响力的理性主义哲学家与散文家，西蒙娜·薇依与萨特等人的老师。而神秘主义者所谓的「迎遇黑夜」，则指向十六世纪西班牙神秘主义修士十字若望（San Juan de la Cruz）的名著《灵魂的暗夜》——十字若望主张灵魂必须主动熄灭感官与理智之光，进入「暗夜」才能与上帝合一；加缪则以北极永夜中睁大双眼的「极夜守望（nuit polaire, veille de l’esprit）」与之抗衡。'
         }
       ]
     }

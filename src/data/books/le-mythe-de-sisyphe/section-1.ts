@@ -145,7 +145,7 @@ export const section1: BookSection = {
       type: 'paragraph',
       num: '§ 08',
       fr: "Posé en termes clairs, ce problème peut paraître à la fois simple et insoluble. Mais on suppose à tort que des questions simples entraînent des réponses qui ne le sont pas moins et que l'évidence implique l'évidence. A priori, et en inversant les termes du problème, de même qu'on se tue ou qu'on ne se tue pas, il semble qu'il n'y ait que deux solutions philosophiques, celle du oui et celle du non. Ce serait trop beau. Mais il faut faire la part de ceux qui, sans conclure, interrogent toujours. Ici, j'ironise à peine : il s'agit de la majorité. Je vois également que ceux qui répondent non agissent comme s'ils pensaient oui. De fait, si j'accepte le critérium nietzschéen, ils pensent oui d'une façon ou de l'autre. Au contraire, ceux qui se suicident, il arrive souvent qu'ils étaient assurés du sens de la vie. Ces contradictions sont constantes. On peut même dire qu'elles n'ont jamais été aussi vives que sur ce point où la logique au contraire paraît si désirable. C'est un lieu commun de comparer les théories philosophiques et la conduite de ceux qui les professent. Mais il faut bien dire que parmi les penseurs qui refusèrent un sens à la vie, aucun, sauf Kirilov qui appartient à la littérature, Peregrinos qui naît de la légende[^fn-2] et Jules Lequier qui relève de l'hypothèse, n'accorda sa logique jusqu'à refuser cette vie. On cite souvent, pour en rire, Schopenhauer qui faisait l'éloge du suicide devant une table bien garnie. Il n'y a point là matière à plaisanterie. Cette façon de ne pas prendre le tragique au sérieux n'est pas si grave, mais elle finit par juger son homme.",
-      zh: '用清晰的语言摆出来，这个问题看似既简单又无解。但人们错误地假定，简单的问题必定引出同样简单的答案，明证必定推出明证。先验地看，倘若把问题的项倒转过来，正如同人要么自杀、要么不自杀，哲学上的解答似乎也只有两个：说「是」或说「不」。那未免太美妙了。因为我们还得算上那些既不下结论、却又永远在发问的人。我这话几乎不算反讽：大多数人正是如此。我同样看到，那些口头上回答「不」的人，行动起来却仿佛心里想的是「是」。事实上，假如采纳尼采的评判尺度，他们无论如何都是在想「是」。反过来，那些真正自杀的人，往往倒是些原本深信生命自有意义的人。这类矛盾比比皆是。甚至可以说，在最迫切需要逻辑的这个节骨眼上，矛盾偏偏最为尖锐。拿哲学理论去对照其宣讲者的实际行止，本是老生常谈；但不得不说，在那些否定生命意义的思想家当中，除了属于文学虚构的[基里洛夫]{#g-kirilov}、源于传说的[佩雷格里诺斯]{#g-peregrinos}[^fn-2]，以及仅属猜测的[朱尔 勒基耶]{#g-lequier}之外，竟无一人将自己的逻辑贯彻到底、亲手拒绝这一生命。人们常当笑话提起叔本华，说他在丰盛的餐桌前大肆礼赞自杀。这其实毫不好笑。这种不把悲剧当回事的做派本身虽不算多严重的罪过，却到底给其人下了判词。',
+      zh: '用清晰的语言摆出来，这个问题看似既简单又无解。但人们错误地假定，简单的问题必定引出同样简单的答案，明证必定推出明证。先验地看，倘若把问题的项倒转过来，正如同人要么自杀、要么不自杀，哲学上的解答似乎也只有两个：说「是」或说「不」。那未免太美妙了。因为我们还得算上那些既不下结论、却又永远在发问的人。我这话几乎不算反讽：大多数人正是如此。我同样看到，那些口头上回答「不」的人，行动起来却仿佛心里想的是「是」。事实上，假如采纳尼采的评判尺度，他们无论如何都是在想「是」。反过来，那些真正自杀的人，往往倒是些原本深信生命自有意义的人。这类矛盾比比皆是。甚至可以说，在最迫切需要逻辑的这个节骨眼上，矛盾偏偏最为尖锐。拿哲学理论去对照其宣讲者的实际行止，本是老生常谈；但不得不说，在那些否定生命意义的思想家当中，除了属于文学虚构的[基里洛夫]{#g-kirilov}、源于传说的[佩雷格里诺斯]{#g-peregrinos}[^fn-2]，以及仅属猜测的[朱尔·勒基耶]{#g-lequier}之外，竟无一人将自己的逻辑贯彻到底、亲手拒绝这一生命。人们常当笑话提起叔本华，说他在丰盛的餐桌前大肆礼赞自杀。这其实毫不好笑。这种不把悲剧当回事的做派本身虽不算多严重的罪过，却到底给其人下了判词。',
       authorNotes: [
         {
           id: 'fn-2',
@@ -168,9 +168,9 @@ export const section1: BookSection = {
         },
         {
           id: 'g-lequier',
-          anchor: '朱尔 勒基耶',
+          anchor: '朱尔·勒基耶',
           content:
-            '朱尔 勒基耶（Jules Lequier，1814—1862），法国哲学家，一生困于自由意志与宿命论的悖论。1862 年 2 月，他在布列塔尼海岸脱衣游向冰冷的大西洋深处溺亡。后世始终无法断定他是意外力竭，还是向上帝发起了一场「游到力竭处看上帝是否出手相救」的赌注式自杀，故加缪称其「仅属猜测」。加缪的哲学导师让 格勒尼耶正是研究勒基耶的专家。'
+            '朱尔·勒基耶（Jules Lequier，1814—1862），法国哲学家，一生困于自由意志与宿命论的悖论。1862 年 2 月，他在布列塔尼海岸脱衣游向冰冷的大西洋深处溺亡。后世始终无法断定他是意外力竭，还是向上帝发起了一场「游到力竭处看上帝是否出手相救」的赌注式自杀，故加缪称其「仅属猜测」。加缪的哲学导师让·格勒尼耶正是研究勒基耶的专家。'
         }
       ]
     },
@@ -215,7 +215,7 @@ export const section1: BookSection = {
           id: 'g-jaspers-1',
           anchor: '雅斯贝尔斯',
           content:
-            '卡尔 雅斯贝尔斯（Karl Jaspers，1883—1969），德国存在哲学代表人物。他在《哲学》（1932）中提出著名的「界限处境（Grenzsituationen）」：当人在死亡、痛苦、罪责与斗争中撞上理性无法统合的绝境时，客观科学知识宣告失效，人被迫退回孤独的自我存在。'
+            '卡尔·雅斯贝尔斯（Karl Jaspers，1883—1969），德国存在哲学代表人物。他在《哲学》（1932）中提出著名的「界限处境（Grenzsituationen）」：当人在死亡、痛苦、罪责与斗争中撞上理性无法统合的绝境时，客观科学知识宣告失效，人被迫退回孤独的自我存在。'
         },
         {
           id: 'g-princes',

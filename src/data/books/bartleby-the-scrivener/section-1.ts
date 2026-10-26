@@ -15,7 +15,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-01',
           anchor: '法律文书抄写员，亦即代书人',
           content:
-            '原文作 **law-copyists or scriveners**。Scrivener 源于拉丁语 scrībere（书写），在中世纪与近代早期英格兰原指享有行会特权的公证人与契据撰拟人；但在十九世纪中叶、雷明顿打字机（1874 年后方才普及）与复写纸尚未进入事务所的时代，华尔街的 scrivener 已沦为纯粹出卖手部肌肉与视力的计件文书苦力。任何一份地契、抵押契据或衡平法院庭审证词都必须由抄写员用钢笔或鹅毛笔逐字誊写出四至六份一模一样的副本，按每「页码单位（folio，合一百个英文单词）」四美分计酬。梅尔维尔借这一即将被机械复制时代淘汰的边缘职业，精准捕捉到了现代白领无产阶级与文学写作者共同的异化处境。'
+            '原文作 **law-copyists or scriveners**。Scrivener 源于拉丁语 scrībere（书写），在中世纪与近代早期英格兰原指享有行会特权的公证人与契据撰拟人。在十九世纪中叶、打字机（1874 年后方才普及）与复写纸尚未进入事务所的时代，华尔街的抄写员主要从事按件计酬的手工文书誊写：地契、抵押契据与衡平法院庭审证词均须用钢笔或鹅毛笔逐字誊写出四至六份副本，按每「页码单位（folio，合一百个英文单词）」四美分计酬。'
         }
       ]
     },
@@ -33,7 +33,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-02',
           anchor: '约翰·雅各布·阿斯特',
           content:
-            '约翰·雅各布·阿斯特（John Jacob Astor，1763—1848），德裔美国皮毛贸易垄断商与曼哈顿房地产大亨，美国历史上第一位千万富翁。阿斯特在十九世纪初通过太平洋皮毛公司与对华鸦片、茶叶贸易积累巨额原始资本后，将全部资金投入纽约曼哈顿地产收购，成为名副其实的「纽约房东（Landlord of New York）」，并于 1848 年去世时留下逾两千万美元遗产。叙述者反复摩挲「阿斯特」这一名字的语音质感（Hath a rounded and orbicular sound to it, and rings like unto bullion，其中 Astor 暗谐希腊拉丁词根「星辰 / 金币」），暴露出这位自诩中立温和的老律师在骨子里对华尔街顶级食利资本的拜物教式皈依。'
+            '约翰·雅各布·阿斯特（John Jacob Astor，1763—1848），德裔美国皮毛贸易垄断商与曼哈顿房地产商，美国首位千万富翁。阿斯特在十九世纪初通过太平洋皮毛公司与对华贸易积累巨额资本后，将资金大举投入纽约曼哈顿地产收购，人称「纽约房东（Landlord of New York）」，1848 年去世时留下逾两千万美元遗产。叙述者反复玩味「阿斯特」一名浑圆如金锭碰撞的语音质感（Hath a rounded and orbicular sound to it, and rings like unto bullion），点出其服务于华尔街大地产与金融资本的职业立场。'
         }
       ]
     },
@@ -46,7 +46,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-03',
           anchor: '衡平法院推事',
           content:
-            '原文作 **Master in Chancery**。美国独立后，纽约州沿袭英国司法双轨制，在普通法法院之外设有独立的大法官衡平法院（Court of Chancery），专门审理信托、抵押赎回、遗产清算与地产契据纠纷；推事（Master）由州长任命，负责在私宅或事务所内协助大法官主持听证、核查账目并按件收取丰厚规费。1846 年，纽约州召开制宪会议并通过《1846 年纽约州宪法》（1847 年 7 月正式生效），顺应杰克逊式民主改革浪潮，以该制度腐败昂贵、沦为特权阶层终身肥缺为由，彻底废除了衡平法院及推事一职，将衡平法与普通法管辖权合并归入纽约州最高法院。这一真实历史坐标不仅将小说的故事时间精准锁定在 1843—1847 年之间，更暗示老律师本人同样是旧家长制司法特权的既得利益者。'
+            '原文作 **Master in Chancery**。美国独立后，纽约州沿袭英国司法双轨制，在普通法法院之外设有独立的大法官衡平法院（Court of Chancery），审理信托、抵押赎回、遗产清算与地产契据纠纷；推事（Master）由州长任命，负责在事务所内协助大法官主持听证、核查账目并按件收取规费。1846 年，纽约州召开制宪会议并通过《1846 年纽约州宪法》（1847 年 7 月生效），废除衡平法院及推事一职，将衡平法与普通法管辖权合并归入纽约州最高法院。这一历史事件将小说的叙事时间限定在 1840 年代中叶。'
         }
       ]
     },
@@ -59,7 +59,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-04',
           anchor: '这堵黑墙与我这面墙之间的夹缝，看上去简直就像一口巨大的方形蓄水池',
           content:
-            '十九世纪四十年代的华尔街正经历土地高密度开发的垂直挤压。老律师用十八世纪英国如画派（Picturesque）美学与风景画术语（「生气 life」、「对比 contrast」、「潜藏的美感 lurking beauties」）来反讽性地描摹两面高墙：一面是惨白反光却空无一物的内部采光井白墙（white wall），另一面是距窗不足十英尺、终年不见天日的乌黑砖墙（black brick wall）。一白一黑两堵盲墙将二楼事务所夹成一口深不见底的「方形蓄水池（huge square cistern）」，为整部小说奠定了无路可逃的几何学幽闭空间。'
+            '十九世纪四十年代的华尔街正经历高密度商业开发。老律师借用十八世纪英国如画派（Picturesque）风景画术语（「生气 life」「对比 contrast」「潜藏的美感 lurking beauties」），反讽地描述事务所两端窗外的景致：一端是内部采光井的白墙（white wall），另一端是距窗不足十英尺、终年背阴的乌黑砖墙（black brick wall），两面高墙将二楼事务所夹成一口「方形蓄水池（huge square cistern）」。'
         }
       ]
     },
@@ -72,7 +72,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-05',
           anchor: '火鸡是个身材矮胖的英国人',
           content:
-            '原文作 **Turkey was a short, pursy Englishman**。「火鸡（Turkey）」因面色红润且午饭（痛饮麦芽啤酒）后脖子与脸颊涨得通红、举止虚张声势如雄火鸡开屏而得名。梅尔维尔将他设定为一名年近六旬、滞留纽约华尔街底层混饭吃的英国老文书：他一口一个旧大陆等级制下的谦卑套话「恕我斗胆，先生（With submission, sir）」，在上午表现得像完美的英伦顺民，下午却在酒精刺激下拿着长戒尺幻想自己仍在指挥帝国军队冲锋陷阵——这是对大英帝国荣光没落与老派手工文书匠人悲喜剧式的精妙速写。'
+            '原文作 **Turkey was a short, pursy Englishman**。「火鸡（Turkey）」因面色红润且午饭饮用麦芽啤酒后脖颈与脸颊涨红、举止如雄火鸡开屏而得名。这一角色被设定为一名年近六旬、在纽约华尔街谋生的英国老文书：他习惯使用旧大陆等级制下的谦卑套话「恕我斗胆，先生（With submission, sir）」，上午安分恭顺，下午则在酒精作用下挥舞长戒尺，把文书抄写想象为率军冲锋。'
         }
       ]
     },
@@ -90,7 +90,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-06',
           anchor: '区政客，还时不时在治安推事法庭上揽点小业务，在「坟墓」监狱的台阶上也并非默默无闻之辈',
           content:
-            '原文作 **ward-politician... Justices’ courts... the steps of the Tombs**。与认命守旧的英国老文书「火鸡」相反，二十五岁的美国青年「钳子（Nippers）」代表了杰克逊民主时代渴望阶层跃升却处处碰壁的躁动灵魂。当时纽约市政实行选区政党分肥制，区政客（ward-politician，多依附于民主党坦慕尼协会 Tammany Hall）常在底层移民街区拉票并充当基层治安推事法庭（Justices’ courts）的无照诉讼掮客；而「坟墓（The Tombs）」则是 1838 年建成于曼哈顿下城中央街、仿古埃及陵墓风格建造的纽约市拘留所与刑事法院（亦即小说结尾巴托比死去之地），其门前台阶上终日聚集着专门替微罪嫌犯保释、跑腿捞钱的底层讼棍（pettifoggers）。钳子被卡在「机械抄写桌」与「独立执业律师梦」的夹缝里，其生理上的消化不良正是阶级焦虑的躯体化症状。'
+            '原文作 **ward-politician... Justices’ courts... the steps of the Tombs**。当时纽约市政实行选区政党分肥制，区政客（ward-politician，多依附于民主党坦慕尼协会 Tammany Hall）常在基层街区拉票，并充当治安推事法庭（Justices’ courts）的无照诉讼掮客；「坟墓（The Tombs）」则是 1838 年建成于曼哈顿下城中央街、仿古埃及陵墓风格建造的纽约市监狱与刑事法院，其门前台阶上常年聚集着替微罪嫌犯办理保释与跑腿的底层讼棍（pettifoggers）。青年抄写员「钳子（Nippers）」既不甘于从事机械的文书誊写，又无法成为正式执业律师，只能在这类边缘司法场地揽活。'
         }
       ]
     },
@@ -113,7 +113,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-07',
           anchor: '他俩的发作就像卫兵换岗一样彼此接替。钳子当值时，火鸡便下岗休息；反之亦然',
           content:
-            '原文作 **Their fits relieved each other like guards. When Nippers’ was on, Turkey’s was off; and vice versa**。这是梅尔维尔对资本主义劳动分工（division of labor）最辛辣的讽刺：在华尔街事务所这台精密运转的机器里，没有一个雇员是完整健全的人——老英国人「火鸡」上午清醒驯服、下午酗酒狂躁；美国青年「钳子」上午因阶级野心与胃病而磨牙摔桌、下午则筋疲力尽归于温顺。然而在精于管理算计的老律师眼中，两个半疯的残缺灵魂只要按正午十二点精确错峰，就能拼合成一个全天候高效运转的完整劳动力，甚至被他赞叹为「巧妙的自然安排（a good natural arrangement）」，恰如亚当·斯密与近代自然神学所歌颂的「看不见的手」与自然和谐。'
+            '原文作 **Their fits relieved each other like guards. When Nippers’ was on, Turkey’s was off; and vice versa**。「火鸡」上午清醒温顺、下午饮酒狂躁，「钳子」上午因野心与胃病而烦躁易怒、下午则归于平静。在老律师的管理视角下，两名雇员的发作时间以正午十二点为界彼此错开，恰好拼合成一个全天候运转的劳动力，并被其视为一种「巧妙的自然安排（a good natural arrangement）」。'
         }
       ]
     },
@@ -126,7 +126,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-08',
           anchor: '整门崇高的法学科学全都浓缩在一枚坚果壳里了',
           content:
-            '原文作 **the whole noble science of the law was contained in a nut-shell**。梅尔维尔在此玩了一个绝妙的双关语：英文成语 in a nutshell 意为「一言以蔽之、精炼概括」（源自老普林尼《自然史》记载西塞罗曾见过一部字迹极小、可装入一枚胡桃壳内的《伊利亚特》抄本）；但在十二岁学徒「姜汁饼干」的书桌抽屉里，装的却是字面意义上吃剩的「坚果壳（shells of various sorts of nuts）」。车夫父亲指望儿子通过研习「崇高的法学科学」晋身法官阶层，而事务所真实的日常却是替老抄写员跑腿买苹果与一便士八块的廉价姜汁饼干——所谓神圣法学，在底层学徒眼里不过是一堆空洞无物的果壳。下文提及的「斯皮岑伯格苹果（Spitzenbergs）」则是源于纽约州上州荷兰裔果园的著名红皮酸甜苹果（相传为托马斯·杰斐逊最喜爱的品种）。'
+            '原文作 **the whole noble science of the law was contained in a nut-shell**，双关英语成语 **in a nutshell**（一言以蔽之、浓缩于一壳之中，典出老普林尼《自然史》7.21 载西塞罗曾见一部字迹微缩、可装入胡桃壳内的《伊利亚特》羊皮纸抄本）与字面意义上的「坚果壳（shells of various sorts of nuts）」。十二岁学徒「姜汁饼干」的父亲盼望儿子学法晋身法官，而学徒书桌抽屉里装的却是吃剩的果壳，其日常差事则是替抄写员跑腿采买苹果与廉价姜汁饼干。下文提及的「斯皮岑伯格苹果（Spitzenbergs）」是原产于纽约州上州荷兰裔果园的红皮酸甜苹果品种。'
         }
       ]
     },
@@ -149,7 +149,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-09',
           anchor: '就这样，以某种方式，私密与社交结合在了一起',
           content:
-            '原文作 **And thus, in a manner, privacy and society were conjoined**。这一空间布置堪称现代科层制与全景敞视主义的微缩模型：老律师先用磨砂玻璃折叠门（ground glass folding-doors）将劳工与雇主分隔在两个房间，却又把巴托比单独安插在自己房间一侧、距盲墙不足三英尺的死角里，再立起一扇高耸的绿色折叠屏风（high green folding screen），达成「看不见其人，却随时能听唤其声（isolate Bartleby from my sight, though not remove him from my voice）」的控制效果。老律师自鸣得意地称之为「私密与社交的结合」，实则是剥夺了雇员作为有形他者的面容存在，仅将其保留为屏风后一个随叫随到的纯粹听觉与书写器官。'
+            '原文作 **And thus, in a manner, privacy and society were conjoined**。老律师先用磨砂玻璃折叠门（ground glass folding-doors）将雇员与雇主分隔在两个房间，又把巴托比安置在自己房间一侧、距盲墙不足三英尺的角落里，再设一架绿色折叠屏风（high green folding screen），以达到「将巴托比隔离在我的视线之外，却又不会让他脱离我的呼唤范围（isolate Bartleby from my sight, though not remove him from my voice）」的效果。'
         }
       ]
     },
@@ -167,7 +167,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-10',
           anchor: '我断难相信，那位意气风发的诗人拜伦能够心满意足地同巴托比坐在一起，去校对一份长达五百页、用密密麻麻的小字写成',
           content:
-            '英国浪漫主义诗人拜伦勋爵（Lord Byron，1788—1824）在十九世纪欧美文化中是狂飙突进、反叛常规与天才原创性（originality）的最高象征。老律师将拜伦与巴托比并置在五百页法律契据的校对桌前，构成了尖锐的现代反讽：浪漫主义崇尚自由奔放的「独创」，而华尔街的文书体制则要求绝对抹杀个性的「复制（copying）」与「逐字核验（verifying word by word）」。然而吊诡的是，巴托比恰恰不是通过拜伦式的浪漫反叛，而是通过拒绝核对副本、最终拒绝复制本身，完成了比拜伦更彻底的现代性罢工。'
+            '英国浪漫主义诗人拜伦勋爵（Lord Byron，1788—1824）在十九世纪欧美文化中常被视为浪漫派激情、反叛常规与个人独创性（originality）的代表。老律师将拜伦与巴托比并置在五百页法律契据的校对桌前，以浪漫主义的个人情感对照华尔街文书体制中枯燥机械的「复制（copying）」与「逐字核验（verifying word by word）」。'
         }
       ]
     },
@@ -185,7 +185,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-11',
           anchor: '「我宁可不。」',
           content:
-            '原文作 **“I would prefer not to.”**（后文亦变体为 **“I prefer not to.”**）。这是世界文学与现代大陆哲学中最著名的悬置公式。法国哲学家吉尔·德勒兹在名篇《巴托比，或公式》（Bartleby, ou la formule, 1989）中指出，这五个词在语法上完全合乎规范，在语用上却是一枚炸毁一切日常语言预设的异质炸弹：它既不是直接的否定（“I will not” 带有对抗性意志），也不是对某物的肯定偏好，而是以不定式小品词 to 的悬空截断（anaphoric truncation），开辟出一片「既不接受、亦不拒绝」的无差别地带（zone of indiscernibility）。意大利哲学家乔治·阿甘本则在《巴托比，或论偶然性》（1993）与《潜能》中将其溯源至亚里士多德《形而上学》第九卷关于「潜能（dynamis）」的核心命题——「一切能存在之物，皆同样能不存在（to dynaton endechetai kai mē einai）」：巴托比正是那位守护着「不为之潜能（potenza di non / potentiality not to）」的终极抄写员，他让纯粹潜能从「必须转化为现实功绩（energeia）」的西方形而上学与资本主义律令中彻底解放出来。'
+            '原文作 **“I would prefer not to.”**（后文亦变体为 **“I prefer not to.”**）。吉尔·德勒兹在《巴托比，或公式》（Bartleby, ou la formule, 1989）中指出，这五个词在语法上合乎规范，在语用上却既非直接的抗命否定（“I will not”），也非对其他选项的肯定偏好，而是以不定式小品词 to 的悬空截断（anaphoric truncation），构成了一片「既不接受、亦不拒绝」的无差别地带（zone of indiscernibility）。乔治·阿甘本在《巴托比，或论偶然性》（1993）与《潜能》中则将其联系到亚里士多德《形而上学》第九卷关于「潜能（dynamis）」的命题——「一切能存在之物，皆同样能不存在（to dynaton endechetai kai mē einai）」，认为巴托比体现了「不为之潜能（potenza di non / potentiality not to）」，使潜能不再必然转化为现实功绩（energeia）。'
         }
       ]
     },
@@ -208,7 +208,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-12',
           anchor: '我那尊惨白的巴黎石膏铸西塞罗半身像',
           content:
-            '原文作 **my pale plaster-of-paris bust of Cicero**。马库斯·图利乌斯·西塞罗（Cicero，前 106—前 43）是古罗马共和国最伟大的法庭雄辩家、修辞学家与自然法哲学家，其石膏半身像是十九世纪欧美律师事务所标榜古典共和法治精神与雄辩权威的标准摆设（尽管老律师本人前文刚承认自己「从不对陪审团发表演说」，书房里摆的也只是廉价易碎的巴黎石膏翻模品）。巴托比毫无人类情绪波动的苍白面容，与毫无生命的石膏西塞罗像形成镜像对照：面对「我宁可不」的绝对沉默，西塞罗所代表的整个西方古典说服修辞学（Rhetoric）与法理辩难传统瞬间沦为一具空洞的石膏外壳。'
+            '原文作 **my pale plaster-of-paris bust of Cicero**。马库斯·图利乌斯·西塞罗（Cicero，公元前 106—前 43）是古罗马共和国的法庭演说家、修辞学家与政治家，其石膏半身像是十九世纪欧美律师事务所彰显古典修辞与法理传统的常见陈设（尽管老律师前文刚承认自己「从不对陪审团发表演说」，室内陈设的也是廉价的巴黎石膏翻模像）。巴托比毫无情绪波动的苍白面容，在此与无生命的石膏西塞罗像形成对照。'
         }
       ]
     },
@@ -221,7 +221,7 @@ export const section1: BookSection = {
           id: 'g-bt-s1-13',
           anchor: '整个人变成了一根盐柱',
           content:
-            '原文作 **turned into a pillar of salt**。典出《旧约》之《创世记》第 19 章第 26 节：上帝降下硫磺与天火毁灭罪恶之城所多玛与蛾摩拉时，罗得之妻因违背天使禁令回头张望，当场化为一根盐柱。老律师原本仿照火鸡的军事隐喻，将四名雇员排成一列严整的「办事员纵队（seated column of clerks）」，自己以指挥官姿态立于排头主持四联副本联审；不料巴托比一句轻柔的「我宁可不」便让这场精密的科层制仪式当场坍塌，而发号施令的雇主本人反倒在《圣经》的审判意象中僵化成了动弹不得的盐柱。'
+            '原文作 **turned into a pillar of salt**。典出《旧约·创世记》第 19 章第 26 节：上帝降下硫磺与火毁灭所多玛与蛾摩拉时，罗得之妻因违背禁令回头张望，化为一根盐柱。老律师原本将四名雇员排成一列「办事员纵队（seated column of clerks）」，自己立于排头主持四联副本联审，却在巴托比一句「我宁可不」面前呆立原地。'
         }
       ]
     }
