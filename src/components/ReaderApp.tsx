@@ -158,7 +158,7 @@ function PositionedSidenoteRail({
   return (
     <div
       ref={railRef}
-      className="hidden xl:block relative w-[300px]"
+      className="hidden xl:block relative w-[308px]"
       style={{ minHeight: railMinHeight > 0 ? `${railMinHeight}px` : undefined }}
     >
       {items.map((item) => {
@@ -277,6 +277,8 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   const [fontScale, setFontScale] = useState<FontScale>('md');
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const [mobileTocOpen, setMobileTocOpen] = useState<boolean>(false);
+  const [headerPinned, setHeaderPinned] = useState<boolean>(false);
+  const [headerHidden, setHeaderHidden] = useState<boolean>(false);
   const [currentSpySection, setCurrentSpySection] = useState<string>('liminaire');
   const [activeGlossId, setActiveGlossId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -292,14 +294,17 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   const isRestoringScrollRef = useRef<boolean>(false);
   const lastRailItemRef = useRef<RailNoteItem | null>(null);
   const sheetTouchStartYRef = useRef<number | null>(null);
+  const lastScrollYRef = useRef<number>(0);
+  const scrollDeltaAccRef = useRef<number>(0);
   const [sheetDragY, setSheetDragY] = useState<number>(0);
 
-  // 初始化主题、字号、目录状态、阅读进度与 URL 书籍参数
+  // 初始化主题、字号、目录状态、顶栏图钉状态、阅读进度与 URL 书籍参数
   useEffect(() => {
     try {
       const savedTheme = localStorage.getItem('ebr-theme') as PaperTheme | null;
       const savedScale = localStorage.getItem('ebr-scale') as FontScale | null;
       const savedSidebar = localStorage.getItem('ebr-sidebar');
+      const savedPin = localStorage.getItem('ebr-header-pinned');
       if (savedTheme && ['ivory', 'parchment', 'obsidian'].includes(savedTheme)) {
         setTheme(savedTheme);
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -309,6 +314,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
       }
       if (savedSidebar === 'closed') {
         setSidebarOpen(false);
+      }
+      if (savedPin === 'true') {
+        setHeaderPinned(true);
       }
     } catch {
       // ignore storage errors
@@ -397,6 +405,21 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
       const next = !prev;
       try {
         localStorage.setItem('ebr-sidebar', next ? 'open' : 'closed');
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  };
+
+  const toggleHeaderPin = () => {
+    setHeaderPinned((prev) => {
+      const next = !prev;
+      if (next) {
+        setHeaderHidden(false);
+      }
+      try {
+        localStorage.setItem('ebr-header-pinned', next ? 'true' : 'false');
       } catch {
         // ignore
       }
@@ -625,7 +648,30 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     };
 
     const onScroll = () => {
-      const scrollTop = window.scrollY;
+      const scrollTop = Math.max(0, window.scrollY);
+      const prevY = lastScrollYRef.current;
+      const delta = scrollTop - prevY;
+      lastScrollYRef.current = scrollTop;
+
+      if (!isRestoringScrollRef.current) {
+        if (scrollTop <= 56) {
+          scrollDeltaAccRef.current = 0;
+          setHeaderHidden(false);
+        } else if (delta > 0) {
+          scrollDeltaAccRef.current = Math.max(0, scrollDeltaAccRef.current) + delta;
+          if (scrollDeltaAccRef.current > 28) {
+            setHeaderHidden(true);
+            scrollDeltaAccRef.current = 0;
+          }
+        } else if (delta < 0) {
+          scrollDeltaAccRef.current = Math.min(0, scrollDeltaAccRef.current) + delta;
+          if (scrollDeltaAccRef.current < -14) {
+            setHeaderHidden(false);
+            scrollDeltaAccRef.current = 0;
+          }
+        }
+      }
+
       const docHeight =
         document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const pct = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
@@ -1077,11 +1123,17 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     content: g.content
   }));
 
+  const isHeaderCollapsed = headerHidden && !headerPinned && !mobileTocOpen;
+
   return (
     <div className="min-h-screen flex flex-col overflow-x-clip bg-[var(--bg-canvas)] text-[var(--ink-primary)] selection:bg-[var(--accent-nrf-soft)]">
-      {/* 顶部网格导航栏 */}
-      <header className="sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-strong)]">
-        <div className="max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-10 h-13 sm:h-14 flex items-center justify-between gap-2 sm:gap-3">
+      {/* 顶部网格导航栏（持续下滑自动收起，上滑或置顶时显现，支持右侧图钉常驻锁定） */}
+      <header
+        className={`sticky top-0 z-40 bg-[var(--bg-canvas)]/95 backdrop-blur-sm border-b border-[var(--rule-strong)] will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isHeaderCollapsed ? '-translate-y-full' : 'translate-y-0'
+        }`}
+      >
+        <div className="max-w-[1264px] mx-auto px-3 sm:px-5 xl:px-2 h-13 sm:h-14 flex items-center justify-between gap-2 sm:gap-3">
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             {/* 左上角第一顺位：全端统一的汉堡目录按钮（桌面端切换左侧常驻目录，移动端弹出目录抽屉） */}
             <button
@@ -1191,6 +1243,54 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
             </div>
 
             {renderThemeSwitcher()}
+
+            {/* 顶栏图钉按钮：锁定后持续下滑不再自动收起顶栏 */}
+            <button
+              type="button"
+              onClick={toggleHeaderPin}
+              aria-pressed={headerPinned}
+              aria-label={headerPinned ? '取消固定顶栏' : '固定顶栏'}
+              title={
+                headerPinned
+                  ? '已固定顶栏（点击切换为下滑自动收起）'
+                  : '固定顶栏（当前下滑自动收起）'
+              }
+              className="h-8 w-8 p-0.5 inline-flex items-center justify-center border border-[var(--rule-line)] bg-[var(--bg-panel)] cursor-pointer shrink-0 transition-colors"
+            >
+              <span
+                className={`w-full h-full inline-flex items-center justify-center transition-colors ${
+                  headerPinned
+                    ? 'bg-[var(--surface-solid)] text-[var(--ink-on-solid)]'
+                    : 'text-[var(--ink-primary)] hover:bg-[var(--bg-elevated)]'
+                }`}
+              >
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  className={`transition-transform duration-200 ${
+                    headerPinned ? 'rotate-0' : 'rotate-45'
+                  }`}
+                >
+                  <path
+                    d="M4.5 2H9.5L8.9 5.6L10.75 7.4V8.5H3.25V7.4L5.1 5.6L4.5 2Z"
+                    fill={headerPinned ? 'currentColor' : 'none'}
+                    stroke="currentColor"
+                    strokeWidth="1.25"
+                    strokeLinejoin="miter"
+                  />
+                  <path
+                    d="M7 8.5V12.5"
+                    stroke="currentColor"
+                    strokeWidth="1.35"
+                    strokeLinecap="square"
+                  />
+                </svg>
+              </span>
+            </button>
           </div>
         </div>
 
@@ -1287,12 +1387,14 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </aside>
       </div>
 
-      {/* 桌面端（xl+）左侧常驻目录栏：与主阅读区保持对称的 48px 间距，通过纯 GPU transform 收起/展开 */}
+      {/* 桌面端（xl+）左侧常驻目录栏：208px 目录 + 36px 间距 + 676px 正文 + 36px 间距 + 308px 旁注 = 1264px 居中 */}
       <aside
-        className={`hidden xl:flex fixed top-14 left-[max(0px,calc(50%-640px))] bottom-0 z-30 w-[220px] bg-[var(--bg-canvas)] text-[var(--ink-primary)] border-r border-[var(--rule-line)] px-4 py-8 flex-col justify-between overflow-y-auto overscroll-contain toc-scroll will-change-[transform,opacity] transition-[transform,opacity] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`hidden xl:flex fixed top-0 left-[max(0px,calc(50%-632px))] bottom-0 z-30 w-[208px] bg-[var(--bg-canvas)] text-[var(--ink-primary)] border-r border-[var(--rule-line)] px-3.5 pb-8 ${
+          isHeaderCollapsed ? 'pt-7' : 'pt-20'
+        } flex-col justify-between overflow-y-auto overscroll-contain toc-scroll will-change-[transform,opacity] transition-[transform,opacity,padding-top] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           sidebarOpen
             ? 'translate-x-0 opacity-100 pointer-events-auto'
-            : '-translate-x-[240px] opacity-0 pointer-events-none'
+            : '-translate-x-[230px] opacity-0 pointer-events-none'
         }`}
         aria-label="桌面端章节目录"
         aria-hidden={!sidebarOpen}
@@ -1371,11 +1473,11 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </div>
       </aside>
 
-      {/* 主体网格容器：桌面端 620px 正文 + 48px 间距 + 300px 旁注 = 968px，展开目录时右移 112px 使目录到正文间距亦恰好为 48px */}
+      {/* 主体网格容器：桌面端 676px 正文 + 36px 间距 + 308px 旁注 = 1020px，展开目录时右移 122px 使目录到正文间距同为 36px */}
       <div
         id="top"
-        className={`max-w-[680px] xl:max-w-[968px] w-full mx-auto px-4 sm:px-6 xl:px-0 flex-1 will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          sidebarOpen ? 'xl:translate-x-[112px]' : 'xl:translate-x-0'
+        className={`max-w-[680px] xl:max-w-[1020px] w-full mx-auto px-4 sm:px-6 xl:px-0 flex-1 will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          sidebarOpen ? 'xl:translate-x-[122px]' : 'xl:translate-x-0'
         }`}
       >
         {/* 主阅读画布 */}
@@ -1391,7 +1493,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 <>
                   {/* 1. 献辞/导言标题横幅（去掉顶部分割线与过大内边距，与正文小节标题层级统一） */}
                   <div
-                    className={`max-w-[620px] ${
+                    className={`max-w-[676px] ${
                       chapter.dedication.noteZh
                         ? 'mb-7 sm:mb-8 pb-4 border-b-2 border-[var(--rule-strong)]'
                         : 'py-6 sm:py-8 mb-8 border-b border-[var(--rule-line)] text-center'
@@ -1419,7 +1521,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                       id="dedication-block"
                       data-reading-block="dedication-block"
                       ref={dedicationRowRef}
-                      className="grid grid-cols-1 xl:grid-cols-[620px_300px] gap-6 xl:gap-12 items-start"
+                      className="grid grid-cols-1 xl:grid-cols-[676px_308px] gap-6 xl:gap-9 items-start"
                     >
                       <div>
                         <div>
@@ -1454,7 +1556,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               {/* 3. 独立卷首题词块 */}
               {chapter.epigraph && (
                 <div
-                  className={`max-w-[620px] ${
+                  className={`max-w-[676px] ${
                     chapter.dedication ? 'mt-10 pt-8 border-t border-[var(--rule-line)]' : ''
                   } pb-8 border-b border-[var(--rule-strong)] text-center px-4 sm:px-8`}
                 >
@@ -1489,7 +1591,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   className="scroll-mt-20"
                 >
                   {/* 小节标题横幅 */}
-                  <div className="max-w-[620px] mb-8 sm:mb-10 pb-4 border-b-2 border-[var(--rule-strong)]">
+                  <div className="max-w-[676px] mb-8 sm:mb-10 pb-4 border-b-2 border-[var(--rule-strong)]">
                     <div className="flex items-baseline gap-3">
                       {sec.roman !== 'Vorrede' && sec.roman !== 'Appendice' && (
                         <span className="fr-prose text-2xl sm:text-[28px] text-[var(--accent-nrf)] shrink-0">
@@ -1512,7 +1614,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                     ref={(el) => {
                       sectionRowRefs.current[sec.id] = el;
                     }}
-                    className="grid grid-cols-1 xl:grid-cols-[620px_300px] gap-0 xl:gap-12 items-start"
+                    className="grid grid-cols-1 xl:grid-cols-[676px_308px] gap-0 xl:gap-9 items-start"
                   >
                     {/* 左栏：连续自然段流 */}
                     <div className="space-y-3.5">
@@ -1563,7 +1665,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           </div>
 
           {/* 章节尾声底栏 */}
-          <footer className="mt-24 pt-10 border-t-2 border-[var(--rule-strong)] max-w-[620px]">
+          <footer className="mt-24 pt-10 border-t-2 border-[var(--rule-strong)] max-w-[676px]">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <p className="font-mono-coord text-[11px] uppercase tracking-[0.18em] text-[var(--accent-nrf)]">
