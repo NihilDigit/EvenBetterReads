@@ -125,13 +125,13 @@ export const section1: BookSection = {
       num: '§ 07',
       original:
         'L’établissement des Germains dans le bassin de la Méditerranée ne marque nullement le point de départ d’une époque nouvelle dans l’histoire de l’Europe. Si gros de conséquences qu’il ait été, il n’a point fait table rase du passé et cassé la tradition. Le but des envahisseurs n’était pas d’anéantir l’Empire Romain, mais de s’y installer pour en jouir. À tout prendre, ce qu’ils en ont conservé dépasse de beaucoup ce qu’ils en ont détruit et ce qu’ils y ont apporté de neuf. Certes les royaumes qu’ils constituèrent sur le sol de l’Empire firent disparaître celui-ci en tant qu’État dans l’Europe Occidentale. À envisager les choses du point de vue politique, l’orbis romanus, refoulé désormais en Orient, a perdu le caractère œcuménique qui faisait jadis coïncider ses frontières avec les frontières de la chrétienté. Il s’en faut de beaucoup cependant qu’il devienne dès lors étranger aux provinces qu’il a perdues. Sa civilisation y survit à sa domination. Par l’Église, par la langue, par la supériorité des institutions et du droit, elle s’impose à ses vainqueurs. Au milieu des troubles, de l’insécurité, de la misère et de l’anarchie qui ont accompagné les invasions, elle se dégrade il est vrai, mais dans cette dégradation elle conserve une physionomie encore nettement romaine. Les Germains n’ont pas pu et d’ailleurs n’ont pas voulu se passer d’elle. Ils l’ont barbarisée, mais ils ne l’ont pas consciemment germanisée.',
-      zh: '日耳曼人在地中海盆地的定居，绝不标志着欧洲历史上一个全新时代的开端。无论这一事件带来了多么深远的后果，它都既未将过往一笔勾销，也未曾斩断传统的脉络。入侵者的目的根本不是毁灭罗马帝国，而是住进帝国的屋檐下享用其福祉。通盘权衡起来，他们从罗马保存下来的东西，远远超过他们所摧毁的以及他们新带来的东西。诚然，他们在帝国故土上建立的诸王国，使罗马帝国作为一个主权国家在西欧烟消云散。若从政治视角审视，自此退缩回东方的「罗马世界（orbis romanus）」，固然丧失了昔日使其疆界与整个基督教世界疆界完全重合的那种普世（œcuménique）性质；然而，它距离就此同那些失地行省形同陌路，还差得远呢。**罗马的文明在罗马的统治覆灭之后依然存续。**凭借教会、凭借拉丁语言、凭借制度与罗马法的卓越优势，这一文明反过来降服了它的征服者。诚然，在伴随蛮族入侵而来的动荡、不宁、困顿与无政府状态中，古典文明不可避免地走向粗鄙退化；但即便在这番退化之中，它依然保有一副清晰可辨的罗马面貌。日耳曼人既无能力、更无意愿抛开罗马文明自行其是。[他们使罗马文明「蛮族化」了，却从未有意识地将其「日耳曼化」]{#g-vm-s1-germanise}。',
+      zh: '日耳曼人在地中海盆地的定居，绝不标志着欧洲历史上一个全新时代的开端。无论这一事件带来了多么深远的后果，它都既未将过往一笔勾销，也未曾斩断传统的脉络。入侵者的目的根本不是毁灭罗马帝国，而是住进帝国的屋檐下享用其福祉。通盘权衡起来，他们从罗马保存下来的东西，远远超过他们所摧毁的以及他们新带来的东西。诚然，他们在帝国故土上建立的诸王国，使罗马帝国作为一个主权国家在西欧烟消云散。若从政治视角审视，自此退缩回东方的「罗马世界（orbis romanus）」，固然丧失了昔日使其疆界与整个基督教世界疆界完全重合的那种普世性质；然而，它距离就此同那些失地行省形同陌路，还差得远呢。**罗马的文明在罗马的统治覆灭之后依然存续。**凭借教会、凭借拉丁语言、凭借制度与罗马法的卓越优势，这一文明反过来降服了它的征服者。诚然，在伴随蛮族入侵而来的动荡、不宁、困顿与无政府状态中，古典文明不可避免地走向粗鄙退化；但即便在这番退化之中，它依然保有一副清晰可辨的罗马面貌。日耳曼人既无能力、更无意愿抛开罗马文明自行其是。[他们使罗马文明「蛮族化」了，却从未有意识地将其「日耳曼化」]{#g-vm-s1-germanise}。',
       glosses: [
         {
           id: 'g-vm-s1-germanise',
           anchor: '他们使罗马文明「蛮族化」了，却从未有意识地将其「日耳曼化」',
           content:
-            '十九世纪德国日耳曼法制史学派（Germanisten，如毛雷尔、基尔克、怀茨）认为五世纪日耳曼人的迁徙推翻了罗马旧体制，为西欧引入了自由村社（Markgenossenschaft）与日耳曼制度。皮朗则沿袭法国史家菲斯泰尔·德·古朗日（Fustel de Coulanges）的罗马延续论，指出定居帝国行省的日耳曼人在人口中占比有限（多不足百分之五），并在拉丁语、天主教会与罗马行政体系中被逐渐同化，故五至七世纪的西欧在制度上仍属晚期罗马社会的延续。'
+            '十九世纪德国日耳曼法制史学派（Germanisten，如毛雷尔、基尔克、怀茨）认为五世纪日耳曼人的迁徙推翻了罗马旧体制，为西欧引入了自由村社（Markgenossenschaft）与日耳曼制度。法国史家菲斯泰尔·德·古朗日（Fustel de Coulanges）开创的罗马延续论则指出，定居帝国行省的日耳曼人在总人口中占比极低（多不足百分之五），并在拉丁语、天主教会与罗马行政体系中被逐渐同化。'
         }
       ]
     },
@@ -141,7 +141,7 @@ export const section1: BookSection = {
       num: '§ 08',
       original:
         'Rien ne confirme plus hautement cette observation que la persistance jusqu’au VIIIe siècle du caractère maritime que nous avons constaté tout à l’heure comme essentiel à l’Empire. La Méditerranée ne perd pas son importance après la période des invasions. Elle reste pour les Germains ce qu’elle était avant leur arrivée : le centre même de l’Europe, le mare nostrum. Si considérable qu’elle ait été dans l’ordre politique, la déposition du dernier empereur romain en Occident (476) n’a donc point suffi à faire dévier l’évolution historique de sa direction séculaire. Elle continue, au contraire, à se développer sur le même théâtre et sous les mêmes influences. Aucun indice n’annonce encore la fin de la communauté de civilisation établie par l’Empire des Colonnes d’Hercule à la Mer Egée et des côtes d’Égypte et d’Afrique à celles de Gaule, d’Italie et d’Espagne. Colonisé par les barbares, le monde nouveau conserve dans ses traits généraux la physionomie du monde antique. Pour suivre le cours des événements de Romulus Augustulus à Charlemagne, on est obligé de diriger constamment ses regards vers la Méditerranée.',
-      zh: '没有什么比直到八世纪依然存续的海洋性格更能有力地印证上述观察了——而我们方才已指明，这种海洋性格正是罗马帝国的命脉所在。大迁徙时代落幕之后，地中海并未丧失其中枢地位。对于日耳曼人而言，它依然是他们到来之前的那个模样：欧洲本身的心脏，名副其实的「我们的海」。因此，[476 年西方末代罗马皇帝的废黜]{#g-vm-s1-476}，尽管在政治秩序上影响重大，却远不足以使历史演进偏离其绵延数百年之久的固有航向。恰恰相反，历史依然在同一座舞台上、受着同一些力量的牵引而继续铺展。从赫拉克勒斯之柱（直布罗陀海峡）到爱琴海，从埃及与阿非利加海岸到高卢、意大利与西班牙海岸，由罗马帝国缔造的那个文明共同体，尚无任何行将终结的征兆。这个被蛮族殖民的新世界，在总体轮廓上依然保持着古典世界的容颜。要想追寻从罗慕路斯·奥古斯都路斯直到查理曼之间的历史进程，人们的目光就必须时刻投向地中海[^fn-vm-1-2]。',
+      zh: '没有什么比直到八世纪依然存续的海洋性格更能有力地印证上述观察了——而我们方才已指明，这种海洋性格正是罗马帝国的命脉所在。大迁徙时代落幕之后，地中海并未丧失其中枢地位。对于日耳曼人而言，它依然是他们到来之前的那个模样：欧洲本身的心脏，名副其实的「我们的海」。因此，[476 年西方末代罗马皇帝的废黜]{#g-vm-s1-476}，尽管在政治秩序上影响重大，却远不足以使历史演进偏离其绵延数百年之久的固有航向。恰恰相反，历史依然在同一座舞台上、受着同一些力量的牵引而继续铺展。从赫拉克勒斯之柱到爱琴海，从埃及与阿非利加海岸到高卢、意大利与西班牙海岸，由罗马帝国缔造的那个文明共同体，尚无任何行将终结的征兆。这个被蛮族殖民的新世界，在总体轮廓上依然保持着古典世界的容颜。要想追寻从罗慕路斯·奥古斯都路斯直到查理曼之间的历史进程，人们的目光就必须时刻投向地中海[^fn-vm-1-2]。',
       authorNotes: [
         {
           id: 'fn-vm-1-2',
@@ -155,7 +155,7 @@ export const section1: BookSection = {
           id: 'g-vm-s1-476',
           anchor: '476 年西方末代罗马皇帝的废黜',
           content:
-            '公元 476 年 9 月，日耳曼雇佣军统帅奥多亚塞（Odoacer）在拉文纳废黜西罗马皇帝罗慕路斯·奥古斯都路斯（Romulus Augustulus），并将帝国御林徽记送交君士坦丁堡的东罗马皇帝芝诺（Zeno），自领「意大利贵族（Patricius）」头衔代管意大利。传统史学分期常将 476 年作为古典时代与中世纪的分界；皮朗则认为此事在法理上仅使罗马帝国复归君士坦丁堡单一皇帝的名义统辖，地中海沿岸的经济与文化联系并未因此中断。'
+            '公元 476 年 9 月，日耳曼雇佣军统帅奥多亚塞（Odoacer）在拉文纳废黜西罗马皇帝罗慕路斯·奥古斯都路斯（Romulus Augustulus），并将帝国御林徽记送交君士坦丁堡的东罗马皇帝芝诺（Zeno），自领「意大利贵族（Patricius）」头衔代管意大利。传统史学分期常将 476 年作为古典时代与中世纪的分界；但在当时的帝国公法上，此事仅意味着西方不再单立皇帝，罗马帝国在名义上复归君士坦丁堡单一皇帝统辖。'
         }
       ]
     },
@@ -205,13 +205,13 @@ export const section1: BookSection = {
       num: '§ 12',
       original:
         'L’Église avait calqué, on le sait, ses circonscriptions religieuses sur les circonscriptions administratives de l’Empire. En règle générale, chaque diocèse correspondait à une civitas. Or, l’organisation ecclésiastique n’ayant subi presque aucune altération à l’époque des invasions, il en résulte qu’elle a conservé son caractère municipal dans les royaumes nouveaux fondés par les conquérants germaniques. Cela est tellement vrai qu’à partir du VIe siècle, le mot civitas prend le sens spécial de cité épiscopale, de centre de diocèse. En survivant à l’Empire sur lequel elle s’était fondée, l’Église a donc contribué très largement à sauvegarder l’existence des villes romaines.',
-      zh: '众所周知，教会当初完全是照搬帝国的行政区划来划定自身教区版图的。按照通例，每一个主教区（diocèse）都精确对应着一座罗马[「城邦（civitas）」]{#g-vm-s1-civitas}。既然教会组织在大迁徙时代几乎未曾遭受任何损毁，那么在日耳曼征服者建立的各个新王国里，它自然也就完整保留了自身的市政属性。这一事实是如此确凿，以至于从六世纪起，`civitas`（城）一词便获得了「主教驻跸之城」、「教区中枢」的专门涵义。因此，教会由于在它所依托的罗马帝国覆亡之后依然屹立不倒，便在极大程度上帮助保全了罗马城市的生命。',
+      zh: '众所周知，教会当初完全是照搬帝国的行政区划来划定自身教区版图的。按照通例，每一个主教区都精确对应着一座罗马[「城邦（civitas）」]{#g-vm-s1-civitas}。既然教会组织在大迁徙时代几乎未曾遭受任何损毁，那么在日耳曼征服者建立的各个新王国里，它自然也就完整保留了自身的市政属性。这一事实是如此确凿，以至于从六世纪起，civitas 一词便获得了「主教驻跸之城」、「教区中枢」的专门涵义。因此，教会由于在它所依托的罗马帝国覆亡之后依然屹立不倒，便在极大程度上帮助保全了罗马城市的生命。',
       glosses: [
         {
           id: 'g-vm-s1-civitas',
           anchor: '「城邦（civitas）」',
           content:
-            '在古罗马高卢与西方行省体制中，civitas 指一个以核心城市（caput civitatis）为首府、连同周边广袤乡野（territorium / pagus）构成的自治行政单元。四世纪基督教成为罗马国教后，教会规定每一座行政首府（civitas）设一主教席位。五世纪帝国崩溃后，世俗行省机构渐次瓦解，唯有驻节城内的主教（episcopus）留守不去，致使拉丁语 civitas（古法语演变为 cité）的词义发生历史性收缩：不再指代公民共同体或一般城镇，而专门指称「拥有主教座堂的古罗马主教城」，与中世纪后期新兴的商业「市镇（burgus / ville）」形成严格的概念区分。'
+            '在古罗马高卢与西方行省体制中，civitas 指一个以核心城市（caput civitatis）为首府、连同周边广袤乡野（territorium / pagus）构成的自治行政单元。四世纪基督教成为罗马国教后，教会规定每一座行政首府（civitas）设一主教席位。五世纪帝国崩溃后，世俗行省机构渐次瓦解，唯有驻节城内的主教（episcopus）留守不去，致使拉丁语 civitas（古法语演变为 cité，如巴黎塞纳河中设有主教座堂的西岱岛 Île de la Cité）的词义发生历史性收缩：不再指代公民共同体或一般城镇，而专门指称「拥有主教座堂的古罗马主教城」，与中世纪后期新兴的商业「市镇（burgus / ville）」形成严格的概念区分。'
         }
       ]
     },
@@ -289,7 +289,7 @@ export const section1: BookSection = {
       num: '§ 16',
       original:
         'Remarquons tout d’abord que Marseille n’a pas cessé d’être jusqu’au commencement du VIIIe siècle, le grand port de la Gaule. Les termes employés par Grégoire de Tours dans les nombreuses anecdotes où il lui arrive de parler de cette ville, nous obligent à la considérer comme un centre économique singulièrement animé. Une navigation très active la relie à Constantinople, à la Syrie, à l’Afrique, à l’Égypte, à l’Espagne et à l’Italie. Les produits de l’Orient, le papyrus, les épices, les tissus de luxe, le vin et l’huile y font l’objet d’une importation régulière. Des marchands étrangers, Juifs et Syriens pour la plupart, y sont établis à demeure, et leur nationalité atteste l’étroitesse des rapports entretenus par Marseille avec les régions byzantines. Enfin la quantité extraordinaire des monnaies qui y ont été frappées pendant l’époque mérovingienne nous fournit une preuve matérielle de l’activité même de son commerce. La population de la ville devait comprendre, à côté des négociants, une classe d’artisans assez nombreuse. À tous égards, elle semble donc bien conserver sous le gouvernement des rois francs, le caractère nettement municipal des cités romaines.',
-      zh: '首先应当指出，直到八世纪初叶，[马赛始终不曾停止作为高卢的第一大港]{#g-vm-s1-marseille}。都尔的格雷戈里在众多偶或提及该城的轶事中所使用的字眼，迫使我们将马赛视为一座异常繁华喧腾的经济中心[^fn-vm-1-6]。极为频密的航线将它同君士坦丁堡、叙利亚、阿非利加、埃及、西班牙与意大利连接在一起。来自东方的物产——纸草、香料、名贵织物、美酒与橄榄油——在那里构成了定期的大宗进口商品。大批外籍商人（其中绝大多数是犹太人与叙利亚人）在城内长年定居，他们的族裔身份本身便证实了马赛与拜占庭辖区所保持的密切往来。最后，墨洛温时代在马赛铸造的钱币数量之巨，更为我们提供了其商业繁盛的实物铁证。在批发大商贾之外，城内居民必定还包含着一个人数颇众的手工业工匠阶层。因此，无论从哪个角度看，在法兰克诸王治下，马赛都显然完好地保留着罗马城邦鲜明的市政特征。',
+      zh: '首先应当指出，直到八世纪初叶，[马赛始终不曾停止作为高卢的第一大港]{#g-vm-s1-marseille}。都尔的格雷戈里在众多偶或提及该城的轶事中所使用的字眼，迫使我们将马赛视为一座异常繁华喧腾的经济中心[^fn-vm-1-6]。极为频密的航线将它同君士坦丁堡、叙利亚、阿非利加、埃及、西班牙与意大利连接在一起。来自东方的物产——纸草、香料、名贵织物、美酒与橄榄油——在那里构成了定期的大宗进口商品。大批外籍商人——其中绝大多数是犹太人与叙利亚人——在城内长年定居，他们的族裔身份本身便证实了马赛与拜占庭辖区所保持的密切往来。最后，墨洛温时代在马赛铸造的钱币数量之巨，更为我们提供了其商业繁盛的实物铁证。在批发大商贾之外，城内居民必定还包含着一个人数颇众的手工业工匠阶层。因此，无论从哪个角度看，在法兰克诸王治下，马赛都显然完好地保留着罗马城邦鲜明的市政特征。',
       authorNotes: [
         {
           id: 'fn-vm-1-6',
@@ -313,7 +313,7 @@ export const section1: BookSection = {
       num: '§ 17',
       original:
         'Le mouvement économique de Marseille se propage naturellement dans le hinterland du port. Sous son influence tout le commerce de la Gaule s’oriente vers la Méditerranée. Les tonlieux les plus importants du royaume franc sont situés dans les environs de la ville, à Fos, à Arles, à Toulon, à Sorgues, à Valence, à Vienne, à Avignon.',
-      zh: '马赛的经济脉动自然而然地向该港口的广阔腹地（hinterland）层层辐射。在它的牵引之下，整个高卢的商业悉数朝向地中海。法兰克王国最重要的通行税关卡，全部分布在马赛周遭及罗讷河谷沿线：福斯（Fos）、阿尔勒、土伦、索尔格、瓦朗斯、维埃纳与阿维尼翁。'
+      zh: '马赛的经济脉动自然而然地向该港口的广阔腹地层层辐射。在它的牵引之下，整个高卢的商业悉数朝向地中海。法兰克王国最重要的通行税关卡，全部分布在马赛周遭及罗讷河谷沿线：福斯、阿尔勒、土伦、索尔格、瓦朗斯、维埃纳与阿维尼翁。'
     },
     {
       id: 'vm-s1-p18',
@@ -327,7 +327,7 @@ export const section1: BookSection = {
           id: 'fn-vm-1-7',
           original:
             'L. Levillain, Examen critique des chartes mérovingiennes et carolingiennes de l’abbaye de Corbie, p. 220, 231, 235 (Paris, 1902). Il s’agit du tonlieu de Fos près d’Aix-en-Provence. Une formule de Marculf (éd. Zeumer, p. 11), prouve que le garum, les dattes, le poivre et bien d’autres produits d’Orient faisaient partie de l’alimentation courante dans le Nord de la Gaule. Quant au papyrus, un texte conservé en appendice aux statuts d’Adalard de Corbie (Guérard, Polyptique d’Irminon, t. II, p. 336) atteste qu’il devait être fort répandu et d’emploi journalier. Ce texte le mentionnant cum seburo, permet de croire qu’il servait, comme de nos jours le papier huilé, à former les parois des lanternes. Je sais bien qu’on attribue le texte en question à l’époque carolingienne. Mais on ne peut alléguer d’autres arguments en faveur de cette opinion que le fait qu’il se rencontre à la suite des statuts d’Adalard. C’est là une circonstance qui ne peut passer pour une preuve. La disparition du papyrus à partir du commencement du IXe siècle nous oblige à reporter à une centaine d’années plus haut ce curieux document.',
-          zh: '参看莱昂·勒维兰：《科尔比修道院墨洛温与加洛林特许状考辨》，第 220、231、235 页（巴黎，1902 年）。此处所指系普罗旺斯地区艾克斯附近的福斯（Fos）税关。《马尔库夫文书程式集》（蔡默尔校勘本，第 11 页）中的一则官修驿站供应程式证明，鱼露（garum）、椰枣、胡椒以及许多其他东方物产，在当时高卢北部的日常饮食中司空见惯。至于纸草（papyrus），保存在科尔比修道院院长阿达拉尔规章附录中的一份文献（见盖拉尔编《伊尔米农多联庄园清册》第二卷，第 336 页）证实，纸草在当时必定极为普及且属日常消耗品。该文献将纸草与牛脂蜡（cum seburo）并提，使我们有理由相信它就像今天的油纸一样，被用来糊制灯笼罩壁。我深知学界惯常将上述文献归入加洛林时代；但支持该看法的唯一理由，不过是它被抄录在阿达拉尔规章之后而已，这一编纂位置根本算不上年代铁证。鉴于纸草自九世纪初便在高卢彻底绝迹，我们必须将这份奇特的文献向上推早大约一百年（即归入墨洛温晚期）。'
+          zh: '参看莱昂·勒维兰：《科尔比修道院墨洛温与加洛林特许状考辨》，第 220、231、235 页（巴黎，1902 年）。此处所指系普罗旺斯地区艾克斯附近的福斯（Fos）税关。《马尔库夫文书程式集》（蔡默尔校勘本，第 11 页）中的一则官修驿站供应程式证明，鱼露（garum）、椰枣、胡椒以及许多其他东方物产，在当时高卢北部的日常饮食中司空见惯。至于纸草（papyrus），保存在科尔比修道院院长阿达拉尔规章附录中的一份文献（见盖拉尔编《伊尔米农多联庄园清册》第二卷，第 336 页）证实，纸草在当时必定极为普及且属日常消耗品。该文献将纸草与牛脂蜡（cum seburo）并提，使我们有理由相信它就像今天的油纸一样，被用来糊制灯笼罩壁。我深知学界惯常将上述文献归入加洛林时代；但支持该看法的唯一理由，不过是它被抄录在阿达拉尔规章之后而已，这一编纂位置根本算不上年代铁证。鉴于纸草自九世纪初便在高卢彻底绝迹，我们必须将这份奇特的文献向上推早大约一百年。'
         },
         {
           id: 'fn-vm-1-8',
@@ -341,7 +341,7 @@ export const section1: BookSection = {
           id: 'g-vm-s1-corbie',
           anchor: '科尔比修道院从法兰克国王那里获得的几份特许状：国王豁免了该修道院在福斯税关提取大宗物资与商品时的通行税，而在那份免税清单上，人们惊讶地看到了品类繁多的东方香料，以及埃及纸草',
           content:
-            '科尔比修道院（Abbaye de Corbie）位于法国北部皮卡第索姆河谷（亚眠以东），由克洛泰尔三世与其母后巴蒂尔德于约 657—661 年创立。661 年、695 年与 716 年（希尔佩里克二世特许状），墨洛温王室三次向科尔比修道院颁授提货凭单，准许修道院每年直接从高卢南端地中海福斯海湾（Fos-sur-Mer，古罗马马略运河入海口海关仓库 cellarium fisci）免税提取大宗物资并配备驿马北运：清单中除一万磅橄榄油、三十桶地中海鱼露（garum）外，还列有胡椒（piper）、孜然、丁香（caryophylli）、肉桂（cinnamomum）、甘松香、苦木香、椰枣、无花果、杏仁、开心果、大米以及五十卷埃及进口纸草（carta tomi quinquaginta）。皮朗据此论证墨洛温晚期高卢南北内陆与地中海之间仍存在常设大宗商品转运。'
+            '科尔比修道院（Abbaye de Corbie）位于法国北部皮卡第索姆河谷（亚眠以东），由克洛泰尔三世与其母后巴蒂尔德于约 657—661 年创立。661 年、695 年与 716 年（希尔佩里克二世特许状），墨洛温王室三次向科尔比修道院颁授提货凭单，准许修道院每年直接从高卢南端地中海福斯海湾（Fos-sur-Mer，古罗马马略运河入海口海关仓库 cellarium fisci）免税提取大宗物资并配备驿马北运：清单中除一万磅橄榄油、三十桶地中海鱼露（garum）外，还列有胡椒（piper）、孜然、丁香（caryophylli）、肉桂（cinnamomum）、甘松香、苦木香、椰枣、无花果、杏仁、开心果、大米以及五十卷埃及进口纸草（carta tomi quinquaginta）。'
         },
         {
           id: 'g-vm-s1-quentovic',
@@ -369,7 +369,7 @@ export const section1: BookSection = {
       num: '§ 19',
       original:
         'En voilà sans doute assez pour conclure que les temps mérovingiens ont connu, grâce à la persistance de la navigation méditerranéenne et par l’intermédiaire de Marseille, ce que l’on peut véritablement appeler un grand commerce. Ce serait certainement une erreur que de prétendre restreindre le négoce des marchands orientaux de la Gaule, aux seuls objets de luxe. Sans doute, la vente des orfèvreries, des émaux et des étoffes de soie devait leur fournir d’abondants bénéfices. Mais elle ne suffirait pas à expliquer leur nombre et leur diffusion extraordinaire dans tout le pays. Le trafic de Marseille était, au surplus, alimenté par des denrées de consommation générale, comme le vin et l’huile, sans compter les épices et le papyrus, qui étaient exportés, on l’a vu, jusque dans le Nord. Dès lors, force est bien de considérer les marchands orientaux de la monarchie franque comme pratiquant le commerce en gros. Leurs bateaux, après s’être déchargés sur les quais de Marseille, emportaient certainement, en quittant les rives de Provence, non seulement des voyageurs, mais du fret de retour. Les sources, à vrai dire, ne nous renseignent point sur la nature de ce fret. Parmi les conjectures dont il peut être l’objet, l’une des plus vraisemblables est qu’il consistait, tout au moins pour une bonne partie, en denrées humaines, je veux dire en esclaves. Le commerce des esclaves n’a pas cessé d’être pratiqué dans le royaume franc jusqu’à la fin du IXe siècle. Les guerres menées contre les barbares de Saxe, de Thuringe et des régions slaves lui fournissaient une matière qui semble avoir été assez abondante. Grégoire de Tours nous parle d’esclaves saxons appartenant à un marchand orléanais, et l’on peut conjecturer avec la plus grande vraisemblance que ce Samo, parti dans la première moitié du VIIe siècle avec une bande de compagnons pour le pays des Wendes dont il finit par devenir le roi, n’était qu’un aventurier trafiquant d’esclaves. Rappelons enfin que le commerce d’esclaves auquel les Juifs s’adonnaient encore assez activement au IXe siècle, remonte certainement à une époque plus ancienne.',
-      zh: '以上举证无疑已足以得出结论：墨洛温时代仰仗地中海航运的存续，并通过马赛的中转媒介，确实曾拥有过名副其实的**大宗长途贸易（grand commerce）**。倘若硬要把高卢境内东方商人的买卖局限在单纯的奢侈品上，那必定是错误的。诚然，贩卖金银器皿、珐琅制品与丝绸织物无疑能为他们带来丰厚的利润，但单凭奢侈品买卖，根本不足以解释他们为何人数如此庞大、又为何如此广泛地遍布全境。况且，支撑马赛港贸易量的乃是一般大众消费品，如葡萄酒与橄榄油，更不必说香料与纸草——如前文所见，这些物资一路远销至高卢最北端。既然如此，我们就不能不把法兰克君主国里的东方商人视为从事**批发贸易**的大商贾。他们的商船在马赛码头卸空货舱之后，驶离普罗旺斯海岸返航时，船上装载的必定不只有旅客，还有压舱的回程货（fret de retour）。老实说，现存史料并未明确记载这类回程货的具体品类。在围绕它所能作出的种种推想中，最合乎情理的一种推测便是：回程货至少有相当大一部分是「活人商品」——也就是说，是**奴隶**。直到九世纪末，奴隶贸易在法兰克王国从未中断。针对萨克森、图林根以及斯拉夫地区蛮族连年不断的征战，为奴隶贸易提供了源源不断的充足货源。都尔的格雷戈里曾提到一名奥尔良商人名下蓄有的萨克森奴隶；而且我们极有把握推测，七世纪上半叶率领一伙同伴深入温德人（斯拉夫人）腹地、并最终被拥立为当地国王的那个[萨莫（Samo）]{#g-vm-s1-samo}，原本不过是一名从事奴隶贩运的冒险商客。最后不妨提醒一句，犹太商人在九世纪依然相当活跃地经营着奴隶贸易，这一行业显然可以追溯到更古老的年代。',
+      zh: '以上举证无疑已足以得出结论：墨洛温时代仰仗地中海航运的存续，并通过马赛的中转媒介，确实曾拥有过名副其实的**大宗长途贸易**。倘若硬要把高卢境内东方商人的买卖局限在单纯的奢侈品上，那必定是错误的。诚然，贩卖金银器皿、珐琅制品与丝绸织物无疑能为他们带来丰厚的利润，但单凭奢侈品买卖，根本不足以解释他们为何人数如此庞大、又为何如此广泛地遍布全境。况且，支撑马赛港贸易量的乃是一般大众消费品，如葡萄酒与橄榄油，更不必说香料与纸草——如前文所见，这些物资一路远销至高卢最北端。既然如此，我们就不能不把法兰克君主国里的东方商人视为从事**批发贸易**的大商贾。他们的商船在马赛码头卸空货舱之后，驶离普罗旺斯海岸返航时，船上装载的必定不只有旅客，还有压舱的回程货。老实说，现存史料并未明确记载这类回程货的具体品类。在围绕它所能作出的种种推想中，最合乎情理的一种推测便是：回程货至少有相当大一部分是「活人商品」——也就是说，是**奴隶**。直到九世纪末，奴隶贸易在法兰克王国从未中断。针对萨克森、图林根以及斯拉夫地区蛮族连年不断的征战，为奴隶贸易提供了源源不断的充足货源。都尔的格雷戈里曾提到一名奥尔良商人名下蓄有的萨克森奴隶；而且我们极有把握推测，七世纪上半叶率领一伙同伴深入温德人腹地、并最终被拥立为当地国王的那个[萨莫（Samo）]{#g-vm-s1-samo}，原本不过是一名从事奴隶贩运的冒险商客。最后不妨提醒一句，犹太商人在九世纪依然相当活跃地经营着奴隶贸易，这一行业显然可以追溯到更古老的年代。',
       glosses: [
         {
           id: 'g-vm-s1-samo',
@@ -433,14 +433,8 @@ export const section1: BookSection = {
       num: '§ 23',
       original:
         'Or, ce qui était alors naturel et rationnel de prévoir ne s’est pas réalisé. L’ordre du monde qui avait survécu aux invasions germaniques n’a pu survivre à celle de l’Islam. Elle s’est jetée au travers du cours de l’histoire avec la force élémentaire d’un cataclysme cosmique. Du vivant même de Mahomet (571-632) personne n’avait pu ni y songer ni s’y préparer. Pourtant il n’a pas fallu beaucoup plus de cinquante ans pour qu’elle s’étendît de la mer de Chine à l’Océan Atlantique. Rien ne résiste devant elle. Du premier choc elle renverse l’Empire perse (633-644), elle enlève successivement à l’Empire byzantin la Syrie (634-636), l’Égypte (640-642), l’Afrique (643-708), fait irruption en Espagne (711). Sa marche envahissante ne cessera qu’au commencement du VIIIe siècle, lorsque les murs de Constantinople d’une part (717), les soldats de Charles Martel de l’autre (732) auront brisé sa grande offensive enveloppante contre les deux flancs de la chrétienté. Mais si sa force d’expansion est épuisée, elle a changé la face de la terre. Sa poussée soudaine a détruit le monde antique. C’en est fait de la communauté méditerranéenne en laquelle il se groupait. La mer familière et quasi familiale qui en réunissait toutes les parties va devenir entre elles une barrière. Sur tous ses rivages, depuis des siècles, l’existence sociale, dans ses caractères fondamentaux était la même, la religion la même, les mœurs et les idées les mêmes ou très proches de l’être. L’invasion des barbares du Nord n’avait rien modifié d’essentiel à cette situation. Et voilà que tout à coup les pays mêmes où était née la civilisation lui sont arrachés, que le culte du prophète se substitue à la foi chrétienne, le droit musulman au droit romain, la langue arabe à la langue grecque et à la langue latine. La Méditerranée avait été un lac romain ; elle devient, dans sa plus grande partie, un lac musulman. Elle sépare désormais, au lieu de les unir, l’Orient et l’Occident de l’Europe. Le lien est rompu qui rattachait encore l’Empire byzantin aux royaumes germaniques de l’Ouest.',
-      zh: '然而，当年顺理成章、合乎理性的一切预判，最终却并未成为现实。**那个曾在日耳曼人入侵之后幸存下来的世界秩序，却未能逃过伊斯兰扩张的冲击。**[这场突如其来的征服，挟着宇宙浩劫般的原始伟力，横腰斩断了历史的进程]{#g-vm-s1-cataclysme}。哪怕在穆罕默德（571—632）生前，世上也无人能够预想、更无人能够防范这一巨变。然而，前后不过五十余年光景，伊斯兰的版图便从中国海一直铺展到了大西洋。在它面前，一切抵抗皆土崩瓦解。仅凭第一波冲击，它便推翻了波斯萨珊帝国（633—644），继而从拜占庭帝国手中接连夺取了叙利亚（634—636）、埃及（640—642）与阿非利加（643—708），并于 711 年长驱直入西班牙。它那势如破竹的进军，直到八世纪初叶方才止步——彼时，[东端君士坦丁堡的坚城（717 年）与西端查理·马特麾下的将士（732 年），先后挫败了它从东西两翼对基督教世界发起的大规模合围攻势]{#g-vm-s1-tenaille}。然而，即便它的扩张势头就此耗尽，它却已经彻底改变了大地的面貌。它那雷霆万钧的突进，一举摧毁了古典世界。那个曾环绕地中海凝聚成一体的文明共同体，自此灰飞烟灭。昔日那片把各个部分联结为一家的、熟稔而近乎骨肉至亲的海洋，如今却要在彼此之间化作一道天堑。数百年来，在地中海的所有海岸上，社会生活的基本特征原本是一致的，宗教信仰是一致的，风俗与观念也是相同或极为相近的；北方蛮族的入侵丝毫未曾触动这一格局的根基。可如今，顷刻之间，恰恰是孕育了这一文明的摇篮故土被硬生生从它身上撕走：先知的崇拜取代了基督教信仰，伊斯兰教法取代了罗马法，阿拉伯语取代了希腊语与拉丁语。**地中海昔日曾是一座罗马内湖；如今，它在绝大部分水域里变成了一座穆斯林内湖。**从此以后，它不再将欧洲的东方与西方联结在一起，而是将二者彻底隔绝开来。那条曾把拜占庭帝国与西方日耳曼诸王国维系在一处的纽带，就此崩断。',
+      zh: '然而，当年顺理成章、合乎理性的一切预判，最终却并未成为现实。**那个曾在日耳曼人入侵之后幸存下来的世界秩序，却未能逃过伊斯兰扩张的冲击。**这场突如其来的征服，挟着宇宙浩劫般的原始伟力，横腰斩断了历史的进程。哪怕在穆罕默德（571—632）生前，世上也无人能够预想、更无人能够防范这一巨变。然而，前后不过五十余年光景，伊斯兰的版图便从中国海一直铺展到了大西洋。在它面前，一切抵抗皆土崩瓦解。仅凭第一波冲击，它便推翻了波斯萨珊帝国（633—644），继而从拜占庭帝国手中接连夺取了叙利亚（634—636）、埃及（640—642）与阿非利加（643—708），并于 711 年长驱直入西班牙。它那势如破竹的进军，直到八世纪初叶方才止步——彼时，[东端君士坦丁堡的坚城（717 年）与西端查理·马特麾下的将士（732 年），先后挫败了它从东西两翼对基督教世界发起的大规模合围攻势]{#g-vm-s1-tenaille}。然而，即便它的扩张势头就此耗尽，它却已经彻底改变了大地的面貌。它那雷霆万钧的突进，一举摧毁了古典世界。那个曾环绕地中海凝聚成一体的文明共同体，自此灰飞烟灭。昔日那片把各个部分联结为一家的、熟稔而近乎骨肉至亲的海洋，如今却要在彼此之间化作一道天堑。数百年来，在地中海的所有海岸上，社会生活的基本特征原本是一致的，宗教信仰是一致的，风俗与观念也是相同或极为相近的；北方蛮族的入侵丝毫未曾触动这一格局的根基。可如今，顷刻之间，恰恰是孕育了这一文明的摇篮故土被硬生生从它身上撕走：先知的崇拜取代了基督教信仰，伊斯兰教法取代了罗马法，阿拉伯语取代了希腊语与拉丁语。**地中海昔日曾是一座罗马内湖；如今，它在绝大部分水域里变成了一座穆斯林内湖。**从此以后，它不再将欧洲的东方与西方联结在一起，而是将二者彻底隔绝开来。那条曾把拜占庭帝国与西方日耳曼诸王国维系在一处的纽带，就此崩断。',
       glosses: [
-        {
-          id: 'g-vm-s1-cataclysme',
-          anchor: '这场突如其来的征服，挟着宇宙浩劫般的原始伟力，横腰斩断了历史的进程',
-          content:
-            '皮朗在此对比了日耳曼人迁徙与阿拉伯人扩张的不同历史后果：日耳曼人在越过莱茵河与多瑙河前后已改宗基督教（早期多为阿里乌斯派），总体上沿用了罗马法、拉丁语与地中海社会制度；而七至八世纪的伊斯兰扩张则将全新的宗教、法权（沙里亚法）与语言（阿拉伯语）引入南地中海与东地中海沿岸，使环地中海世界分化为两个在宗教、法律与语言上彼此对立的体系。'
-        },
         {
           id: 'g-vm-s1-tenaille',
           anchor: '东端君士坦丁堡的坚城（717 年）与西端查理·马特麾下的将士（732 年），先后挫败了它从东西两翼对基督教世界发起的大规模合围攻势',

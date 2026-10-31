@@ -29,9 +29,9 @@ function checkInlineMarkup(text: string, loc: string) {
     if (part.startsWith('**') && part.endsWith('**') && part.length > 4) continue;
     if (part.startsWith('[^') && part.endsWith(']')) continue;
 
-    // 剥离印欧语/古日耳曼语历史语言学构拟词根星号（如 *men-、*tūnan、*ghordho-）
+    // 剥离印欧语/古日耳曼语历史语言学构拟词根星号（如 *men-、*tūnan、*ghordho-、*dwenos）
     const withoutLinguisticRoots = part.replace(
-      /(?<=[\s\u4e00-\u9fa5])\*(?:men-|tūnan|ghordho-)/g,
+      /(?<=[\s\u4e00-\u9fa5（(])\*(?:men-|tūnan|ghordho-|dwenos|duenos)/g,
       ''
     );
 

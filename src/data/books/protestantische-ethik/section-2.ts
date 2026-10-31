@@ -22,7 +22,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-01',
           anchor: '「历史个体」',
           content:
-            'Historisches Individuum。韦伯借自新康德主义西南学派哲学家海因里希·李凯尔特（Heinrich Rickert）的核心方法论范畴。不同于自然科学旨在抽离个体差异以建立普遍法则，历史与文化科学面对的是在特定文化价值视角下具有独特意义的复合历史现象（如「文艺复兴」「资本主义精神」）。因此它不能靠亚里士多德逻辑学「属加种差（genus proximum, differentia specifica）」的先验定义框死，而只能通过历史实在中的具体要素逐步拼合与建构。'
+            'Historisches Individuum。新康德主义西南学派哲学家海因里希·李凯尔特（Heinrich Rickert，1863—1936）在《自然科学概念建构的界限》（Die Grenzen der naturwissenschaftlichen Begriffsbildung，1896—1902）中提出的核心方法论范畴：不同于自然科学旨在抽离个体差异以建立普遍法则，历史与文化科学通过「价值关联（Wertbeziehung）」，聚焦于特定文化视角下具有独特意义的复合历史实在（如「文艺复兴」「资本主义精神」）。'
         }
       ]
     },
@@ -102,13 +102,13 @@ export const section2: BookSection = {
           id: 'g-pe-s2-02',
           anchor: '本杰明·富兰克林',
           content:
-            'Benjamin Franklin（1706—1790），美国开国元勋、启蒙思想家、印刷商与科学家。上文引语前八段译自富兰克林 1748 年发表的名篇《致一位年轻商人的忠告》（Advice to a Young Tradesman），末段译自他 1736 年撰写的《致有志致富者的必要提示》（Necessary Hints to Those That Would Be Rich）。韦伯将其视为脱离了直接宗教外衣、却完整保留了清教入世禁欲伦理内核的「资本主义精神」纯粹标本。'
+            'Benjamin Franklin（1706—1790），美国开国元勋、启蒙思想家、印刷商与科学家。上文引语前八段译自富兰克林 1748 年发表的名篇《致一位年轻商人的忠告》（Advice to a Young Tradesman），末段译自他 1736 年撰写的《致有志致富者的必要提示》（Necessary Hints to Those That Would Be Rich）。'
         },
         {
           id: 'g-pe-s2-03',
           anchor: '费迪南德·库恩贝格尔在其妙语连珠又毒辣刺骨的《美国文化写真》中',
           content:
-            '奥地利作家费迪南德·库恩贝格尔（Ferdinand Kürnberger，1821—1879）于 1855 年出版长篇小说《厌倦美国的人：美国文化写真》（Der Amerikamüde: Amerikanisches Kulturbild）。该书以浪漫派诗人尼古劳斯·莱瑙（Nikolaus Lenau）1832 年赴美垦殖失望而归的真实经历为蓝本，借主人公莫尔豪森之口大段引用富兰克林的格言，痛斥美国将一切人性与精神价值还原为金钱计算的功利主义：「从牛身上榨出牛油，从人身上榨出金钱（Aus Rindern macht man Talg, aus Menschen Geld）。」'
+            '奥地利作家费迪南德·库恩贝格尔（Ferdinand Kürnberger，1821—1879）于 1855 年出版长篇小说《厌倦美国的人：美国文化写真》（Der Amerikamüde: Amerikanisches Kulturbild）。该书以奥地利浪漫派诗人尼古劳斯·莱瑙（Nikolaus Lenau）1832 年赴美垦殖失望而归的真实经历为蓝本，借主人公莫尔豪森之口大段征引并讽刺富兰克林的致富格言。'
         }
       ]
     },
@@ -128,7 +128,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-04',
           anchor: '雅各布·富格尔',
           content:
-            'Jakob Fugger（1459—1525），绰号「富豪富格尔（Jakob Fugger der Reiche）」，文艺复兴时期奥格斯堡金融帝国缔造者，曾出巨资操纵神圣罗马帝国皇帝查理五世的选举并垄断欧洲铜银矿业与教廷赎罪券汇兑。韦伯借富格尔与富兰克林的对比划出了一条根本界限：富格尔式的无止境赚钱欲属于商业巨头个人的豪赌气魄与道德中立的嗜好，而富兰克林却把资本增殖上升为每一个人必须严守的日常道德义务。'
+            'Jakob Fugger（1459—1525），绰号「富豪富格尔（Jakob Fugger der Reiche）」，文艺复兴时期德意志奥格斯堡金融与商业帝国缔造者，曾垄断中欧铜银矿业、承包罗马教廷德意志赎罪券汇兑，并于 1519 年出巨资资助哈布斯堡王朝查理五世当选神圣罗马帝国皇帝。'
         }
       ]
     },
@@ -148,7 +148,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-05',
           anchor: '「你看见办事殷勤的人吗？他必站在君王面前。」',
           content:
-            '引自旧约《箴言》22:29（希伯来原文作 mahir，意为敏捷、干练；路德德译本作「in seinem Geschäft」，早期英译本作「in his business」）。富兰克林在《自传》中回忆其清教徒父亲约西亚·富兰克林常以此训诫他，而他晚年真的曾先后受命面见五位君王，并与丹麦国王同席进餐。在韦伯看来，这句经文揭示了功利主义表象之下的宗教道德内核：赚钱本身只是证明自己在世俗天职中「称职干练」的外在尺度。'
+            '引自旧约《箴言》22:29（希伯来原文作 mahir，意为敏捷、干练；路德德译本作「in seinem Geschäft」，早期英译本作「in his business」）。富兰克林在《自传》中回忆其清教徒父亲约西亚·富兰克林常以此训诫他，而他晚年果真曾先后受命面见五位君王，并与丹麦国王同席进餐。'
         }
       ]
     },
@@ -166,7 +166,7 @@ export const section2: BookSection = {
       authorNotes: [
         {
           id: 'fn-pe-2-3',
-          zh: '维尔纳·桑巴特在《布尔乔亚》（1913 年）中声称富兰克林的这套「伦理」是对文艺复兴全才莱昂·巴蒂斯塔·阿尔伯蒂（Leon Battista Alberti，1404—1472）四卷本《论家政》（Della famiglia）的「逐字重复」，这一论断是完全站不住脚的。阿尔伯蒂反复强调自己出身于佛罗伦萨最高贵的骑士名门（nobilissimi cavalieri），他所提倡的「神圣家政（santa masserizia）」首要是一套「量入为出」的家庭财产管理原则，而非资本增殖与营利原则；他的理想是心灵的宁静（tranquillità dell’animo）、伊壁鸠鲁式的隐逸、乡间别墅生活与家族门第荣耀——这一切在任何清教徒眼中都是罪恶的「被造物崇拜（Kreaturvergötterung）」，在富兰克林眼中则是全然陌生的贵族腔调。阿尔伯蒂的《论家政》是面向人文主义城市贵族的文人修养论，而富兰克林的小册子则是面向市民中产阶级大众（尤其是年轻店员）的日常训诫。更关键的区别在于：一种植根于宗教的伦理，会对其所激发的特定行为（在此即有条理的理性生活样式）悬置极其强大的、非经济性质的心理「救赎奖赏（Heilsprämien）」，只要宗教信仰依然鲜活，这种奖赏就会对生活样式进而对经济行为产生自主的塑造力量；而阿尔伯蒂式的世俗处世智慧，恰恰根本不具备这种足以翻转人心的杠杆。这正是本篇论文的核心论旨所在。'
+          zh: '维尔纳·桑巴特在《布尔乔亚》（1913 年）中声称富兰克林的这套「伦理」是对文艺复兴全才莱昂·巴蒂斯塔·阿尔伯蒂（Leon Battista Alberti）四卷本《论家政》（Della famiglia）的「逐字重复」，这一论断是完全站不住脚的。阿尔伯蒂反复强调自己出身于佛罗伦萨最高贵的骑士名门（nobilissimi cavalieri），他所提倡的「神圣家政（santa masserizia）」首要是一套「量入为出」的家庭财产管理原则，而非资本增殖与营利原则；他的理想是心灵的宁静（tranquillità dell’animo）、伊壁鸠鲁式的隐逸、乡间别墅生活与家族门第荣耀——这一切在任何清教徒眼中都是罪恶的「被造物崇拜（Kreaturvergötterung）」，在富兰克林眼中则是全然陌生的贵族腔调。阿尔伯蒂的《论家政》是面向人文主义城市贵族的文人修养论，而富兰克林的小册子则是面向市民中产阶级大众（尤其是年轻店员）的日常训诫。更关键的区别在于：一种植根于宗教的伦理，会对其所激发的特定行为（在此即有条理的理性生活样式）悬置极其强大的、非经济性质的心理「救赎奖赏（Heilsprämien）」，只要宗教信仰依然鲜活，这种奖赏就会对生活样式进而对经济行为产生自主的塑造力量；而阿尔伯蒂式的世俗处世智慧，恰恰根本不具备这种足以翻转人心的杠杆。这正是本篇论文的核心论旨所在。'
         },
         {
           id: 'fn-pe-2-4',
@@ -178,7 +178,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-06',
           anchor: '「该死的黄金饥渴（auri sacra fames）」',
           content:
-            '引自古罗马诗人维尔吉尔《埃涅阿斯纪》卷三第 56—57 行：「Quid non mortalia pectora cogis, / auri sacra fames!（该死的黄金饥渴啊，你有什么不能驱使凡人的胸膛去干！）」典出特洛伊王子波吕多洛斯被贪图黄金的色雷斯王杀害的故事。韦伯引用这一拉丁成句，意在反驳将现代资本主义起源归结为「贪财本能觉醒」的观点：赤裸裸的黄金贪欲亘古有之，现代资本主义的真正诞生物恰恰是对这种非理性本能冲动的理性克制与伦理规训。'
+            '引自古罗马诗人维尔吉尔《埃涅阿斯纪》（Aeneis）卷三第 56—57 行：「Quid non mortalia pectora cogis, / auri sacra fames!（该死的黄金饥渴啊，你有什么不能驱使凡人的胸膛去干！）」典出特洛伊王子波吕多洛斯被贪图黄金的色雷斯王波吕墨斯托尔杀害的故事。'
         }
       ]
     },
@@ -198,7 +198,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-07',
           anchor: '皮特·德·拉·库尔',
           content:
-            'Pieter de la Court（1618—1685），十七世纪荷兰黄金时代著名织造业大亨、共和派政治经济学家，著有《荷兰的利益》（Interest van Holland，1662）。十七至十八世纪欧洲重商主义与早期工厂主普遍信奉「低工资刺激劳动论」，认为底层劳工一旦温饱满足就会陷入怠惰与酗酒，唯有贫穷与饥饿的鞭子才能迫使其持续劳作。韦伯随即指出这一粗放手段在现代高技能、高资本密集度工业中的局限性。'
+            'Pieter de la Court（1618—1685），十七世纪荷兰黄金时代莱顿织造业大亨、共和派政治经济学家，著有《荷兰的利益》（Interest van Holland，1662）。十七至十八世纪欧洲重商主义论者与早期手工工场主普遍主张「低工资刺激劳动论」，认为底层劳工一旦温饱满足便会陷入怠惰与酗酒，唯有贫穷的驱策才能维持其持续劳作。'
         }
       ]
     },
@@ -224,7 +224,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-08',
           anchor: '桑巴特在探讨资本主义的起源时',
           content:
-            '维尔纳·桑巴特（Werner Sombart，1863—1941），德国历史学派经济学家与社会学家，韦伯一生的学术对手与合作者（共同主编《社会科学与社会政策文库》）。桑巴特在 1902 年出版的《现代资本主义》（Der moderne Kapitalismus）第一卷中提出前资本主义「需求满足原则」与资本主义「营利原则」的二元对立。韦伯在此指出：企业组织在形式上的「资本主义化」（货币预付、账簿核算、雇佣交易）完全可能与经营者骨子里的「传统主义精神」（维持既有体面生活与固定利润率）长期共存，二者绝非自动同步。'
+            '维尔纳·桑巴特（Werner Sombart，1863—1941），德国历史学派经济学家与社会学家，1904 年起与韦伯、埃德加·雅费共同接手主编《社会科学与社会政策文库》（Archiv für Sozialwissenschaft und Sozialpolitik，本篇论文即发表于该刊）。桑巴特在 1902 年出版的《现代资本主义》（Der moderne Kapitalismus）第一卷中提出前资本主义手工业的「需求满足原则（Bedarfsdeckungsprinzip）」与资本主义的「营利原则（Erwerbsprinzip）」二元划分。'
         }
       ]
     },
@@ -244,7 +244,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-09',
           anchor: '大型包买商号（Verlag）',
           content:
-            '德语 Verlagssystem（英译 putting-out system，中译包买商制或外包制），近代早期至十九世纪中叶欧洲纺织业最主要的资本主义经营形态：城里的包买商（Verleger）向分散在农村的家庭织工预付原料或收购成品，再转销给远方批发商。韦伯在随后的段落中结合家族背景（其外祖父法伦施泰因与叔父卡尔·大卫·韦伯均为比勒费尔德亚麻纺织包买商），具体描述了包买商制度的转型：在尚未发生蒸汽机或工厂制度变革的情况下，单凭经营方式的理性化与竞争加剧，便足以瓦解传统的包买商经济形态。'
+            '德语 Verlagssystem（英译 putting-out system，中译包买商制或外包制），近代早期至十九世纪中叶欧洲纺织业最主要的资本主义经营形态：城里的包买商（Verleger）向分散在农村的家庭织工预付原料或收购成品，再转销给远方批发商。韦伯本人对此有切身家族经验：其祖父卡尔·奥古斯特·韦伯与叔父卡尔·大卫·韦伯家族长期在威斯特法伦的比勒费尔德经营亚麻纺织包买商号。'
         }
       ]
     },
@@ -294,7 +294,7 @@ export const section2: BookSection = {
           id: 'g-pe-s2-10',
           anchor: '「商人几乎不可能取悦上帝（Deo placere vix potest）」',
           content:
-            '语出伪金口约翰《马太福音未完成评注》，后被十二世纪教会法学家格拉提安收入《教令集》（Decretum Gratiani，D. 88 c. 11）：「Homo mercator vix aut numquam potest Deo placere（商人几乎或永不可能取悦上帝）。」托马斯·阿奎那在《神学大全》（II-II, q. 77, a. 4）中亦据此指出，商业交换若不以维持生计或公益为目的、而纯粹为了追逐利润，本身便带有「卑鄙可耻性（quamdam turpitudinem）」。中世纪意大利银行家与大商人普遍在遗嘱中设立巨额「良心钱」赔偿高利贷罪责，足见当时的商业资本从未获得内在的道德正当性。'
+            '语出伪金口约翰《马太福音未完成评注》（Opus imperfectum in Matthaeum），后被十二世纪教会法学家格拉提安收入《教令集》（Decretum Gratiani，D. 88 c. 11）：「Homo mercator vix aut numquam potest Deo placere（商人几乎或永不可能取悦上帝）。」托马斯·阿奎那在《神学大全》（Summa Theologiae，II-II, q. 77, a. 4）中亦据此指出，商业交换若不以维持生计或公共利益为目的、而纯粹为了追逐利润，本身便带有某种「卑鄙可耻性（quamdam turpitudinem）」。'
         }
       ]
     },

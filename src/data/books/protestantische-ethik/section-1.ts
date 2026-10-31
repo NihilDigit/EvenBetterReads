@@ -18,7 +18,7 @@ export const section1: BookSection = {
           id: 'fn-pe-1-1',
           original:
             'Einer meiner Schüler hat s.Z. das eingehendste statistische Material, welches wir über diese Dinge besitzen: die badische Konfessionsstatistik, durchgearbeitet. Vgl. Martin Offenbacher, Konfession und soziale Schichtung. Eine Studie über die wirtschaftliche Lage der Katholiken und Protestanten in Baden. Tübingen und Leipzig 1901 (Bd. IV, Heft 5 der volkswirtschaftlichen Abhandlungen der badischen Hochschulen). Die Tatsachen und Zahlen, die nachstehend zur Illustration vorgeführt werden, entstammen alle dieser Arbeit. Es kam z.B. im Jahre 1895 in Baden auf je 1000 Evangelische ein Kapitalrentensteuerkapital von 954 060 Mk., auf je 1000 Katholiken ein Kapitalrentensteuerkapital von 589 000 Mk. Die Juden mit über 4 Millionen auf 1000 marschieren freilich weit an der Spitze.',
-          zh: '我的一个学生当年曾对我们所掌握的有关这一课题最详尽的统计材料——巴登大公国的教派统计数据——做过彻底的梳理。参看马丁·奥芬巴赫：《教派归属与社会分层：巴登天主教徒与新教徒经济状况研究》，蒂宾根与莱比锡 1901 年版（《巴登高校国民经济学论丛》第四卷第五册）。下文为举例说明而引用的事实与数据，全部出自这项研究。例如 1895 年在巴登，每千名福音派（新教）教徒拥有的资本利得税应税资本为 954,060 马克，而每千名天主教徒仅为 589,000 马克。当然，犹太人以每千人逾 400 万马克的数字遥遥领先。'
+          zh: '我的一个学生当年曾对我们所掌握的有关这一课题最详尽的统计材料——巴登大公国的教派统计数据——做过彻底的梳理。参看马丁·奥芬巴赫：《教派归属与社会分层：巴登天主教徒与新教徒经济状况研究》，蒂宾根与莱比锡 1901 年版（《巴登高校国民经济学论丛》第四卷第五册）。下文为举例说明而引用的事实与数据，全部出自这项研究。例如 1895 年在巴登，每千名福音派教徒拥有的资本利得税应税资本为 954,060 马克，而每千名天主教徒仅为 589,000 马克。当然，犹太人以每千人逾 400 万马克的数字遥遥领先。'
         }
       ],
       glosses: [
@@ -32,7 +32,7 @@ export const section1: BookSection = {
           id: 'g-pe-s1-02',
           anchor: '「我们最后的英雄主义」',
           content:
-            '引自苏格兰历史学家与散文家托马斯·卡莱尔（Thomas Carlyle，1795—1881）在《奥利弗·克伦威尔书信与演说集》（1845）导言及《论英雄、英雄崇拜和历史上的英雄业绩》（1841）第六讲中的著名论断：「清教主义是我们一切英雄主义中的最后一种（Puritanism was the last of all our Heroisms）。」韦伯借卡莱尔之语指出，近代资产阶级并非从一开始就只有世俗的功利算计，在十七世纪加尔文宗与清教革命中，他们曾凭借严酷的入世禁欲信仰展现出强悍的战斗精神。'
+            '引自苏格兰历史学家与散文家托马斯·卡莱尔（Thomas Carlyle，1795—1881）在《奥利弗·克伦威尔书信与演说集》（1845）导言及《论英雄、英雄崇拜和历史上的英雄业绩》（1841）第六讲中的著名论断：「清教主义是我们一切英雄主义中的最后一种（Puritanism was the last of all our Heroisms）。」'
         }
       ]
     },
@@ -65,7 +65,7 @@ export const section1: BookSection = {
           id: 'fn-pe-1-2',
           original:
             'Das schließt natürlich nicht aus, daß auch die letztere höchst wichtige Konsequenzen gehabt hat und steht namentlich damit nicht im Widerspruch, daß es, wie späterhin zu erörtern, für die Entwicklung der ganzen Lebensatmosphäre mancher protestantischer Sekten von ausschlaggebender, auch auf ihre Beteiligung am Wirtschaftsleben zurückwirkender Bedeutung war, daß sie kleine und deshalb homogene Minoritäten repräsentierten, wie dies z.B. bei den strengen Calvinisten außerhalb von Genf und Neu-England eigentlich überall, selbst da wo sie politisch herrschten, der Fall war. – Daß Emigranten aller Konfessionen der Erde: indische, arabische, chinesische, syrische, phönikische, griechische, lombardische, »cawerzische« als Träger kaufmännischer Schulung hochentwickelter Länder in andere übersiedelten, war eine ganz universelle Erscheinung und hat mit unserem Problem nichts zu tun. (Brentano in dem öfter zu zitierenden Aufsatz über »Die Anfänge des modernen Kapitalismus« verweist auf seine eigene Familie. Aber: Bankiers fremder Provenienz als vorzugsweise Träger kaufmännischer Erfahrung und Beziehungen hat es zu allen Zeiten in allen Ländern gegeben. Sie sind kein Spezifikum des modernen Kapitalismus und wurden – s. später – von den Protestanten mit ethischem Mißtrauen beachtet. Anders stand es mit den nach Zürich gewanderten Locarneser Protestantenfamilien Muralt, Pestalozzi usw., welche in Zürich sehr bald zu den Trägern einer spezifisch modernen kapitalistischen [industriellen] Entwicklung gehörten).',
-          zh: '这当然并不排除外部历史—政治处境同样产生过极其重要的后果，尤其与稍后将要讨论的以下事实并不矛盾：对于许多新教教派整体生活氛围的形成而言，它们往往只构成人数较少、因而高度同质化的少数派群体（例如严格派加尔文宗在日内瓦和新英格兰之外几乎在所有地方——哪怕在他们掌握政治统治权的地方——都是如此），这一点具有决定性的意义，并反过来深刻影响了他们对经济生活的参与。——至于地球上一切宗教信仰的移民——印度的、阿拉伯的、中国的、叙利亚的、腓尼基的、希腊的、伦巴第的、「卡奥尔的（cawerzische，中世纪对法国南部放贷商人的统称）」——作为高度发达国家商业训练的承载者迁居他国，那完全是一种普遍现象，与我们这里探讨的问题毫不相干。（卢约·布伦塔诺在后文将多次引述的《现代资本主义的起源》一文中拿他自己的家族举例。但是：外籍银行家作为商业经验与关系网的主要承载者，在任何时代、任何国家都存在过。他们并非现代资本主义的特有产物，而且——详见后文——曾受到新教徒带有伦理猜忌的审视。反观从洛迦诺迁往苏黎世的新教家族，如穆拉尔特家族、裴斯泰洛齐家族等，情况就截然不同了：他们抵达苏黎世后不久，便成为一种特有的现代资本主义［工业］发展的核心担纲者。）'
+          zh: '这当然并不排除外部历史—政治处境同样产生过极其重要的后果，尤其与稍后将要讨论的以下事实并不矛盾：对于许多新教教派整体生活氛围的形成而言，它们往往只构成人数较少、因而高度同质化的少数派群体（例如严格派加尔文宗在日内瓦和新英格兰之外几乎在所有地方——哪怕在他们掌握政治统治权的地方——都是如此），这一点具有决定性的意义，并反过来深刻影响了他们对经济生活的参与。——至于地球上一切宗教信仰的移民——印度的、阿拉伯的、中国的、叙利亚的、腓尼基的、希腊的、伦巴第的、「卡奥尔的（cawerzische）」——作为高度发达国家商业训练的承载者迁居他国，那完全是一种普遍现象，与我们这里探讨的问题毫不相干。（卢约·布伦塔诺在后文将多次引述的《现代资本主义的起源》一文中拿他自己的家族举例。但是：外籍银行家作为商业经验与关系网的主要承载者，在任何时代、任何国家都存在过。他们并非现代资本主义的特有产物，而且——详见后文——曾受到新教徒带有伦理猜忌的审视。反观从洛迦诺迁往苏黎世的新教家族，如穆拉尔特家族、裴斯泰洛齐家族等，情况就截然不同了：他们抵达苏黎世后不久，便成为一种特有的现代资本主义［工业］发展的核心担纲者。）'
         }
       ],
       glosses: [
@@ -97,7 +97,7 @@ export const section1: BookSection = {
           id: 'fn-pe-1-3',
           original:
             'Denn daß die bloße Tatsache des Heimatwechsels bei der Arbeit zu den mächtigsten Mitteln ihrer Intensivierung gehört, steht durchaus fest. – Dasselbe polnische Mädchen, welches in der Heimat durch keine noch so günstigen Verdienstchancen aus seiner traditionalistischen Trägheit herauszubringen war, wandelt scheinbar seine ganze Natur und ist ungemessener Ausnutzung fähig, wenn es als Sachsengängerin in der Fremde arbeitet. Bei den italienischen Wanderarbeitern zeigte sich genau die gleiche Erscheinung. Daß hier keineswegs nur der erziehende Einfluß des Eintrittes in ein höheres »Kulturmilieu« das Entscheidende ist – so sehr er natürlich mitspielt, – zeigt sich darin, daß die gleiche Erscheinung eintritt, auch wo – wie in der Landwirtschaft – die Art der Beschäftigung genau die gleiche ist wie in der Heimat und die Unterbringung in Wanderarbeiterkasernen usw. sogar ein temporäres Herabsteigen auf ein Niveau der Lebenshaltung bedingt, wie es in der Heimat nie ertragen werden würde. Die bloße Tatsache des Arbeitens in ganz anderen Umgebungen als den gewohnten bricht hier den Traditionalismus und ist das »Erziehliche«. Es braucht kaum angedeutet zu werden, wieviel von der amerikanischen ökonomischen Entwicklung auf solchen Wirkungen ruht. Für das Altertum ist die ganz ähnliche Bedeutung des babylonischen Exils für die Juden, man möchte sagen, mit Händen in den Inschriften zu greifen und trifft das Gleiche z.B. für die Parsen zu. – Aber für die Protestanten spielt, wie schon der unverkennbare Unterschied in der ökonomischen Eigenart der puritanischen Neu-England-Kolonien gegenüber dem katholischen Maryland, dem episkopalistischen Süden und dem interkonfessionellen Rhode Island zeigt, der Einfluß ihrer religiösen Eigenart ganz offenbar als selbständiger Faktor eine Rolle, ähnlich wie in Indien etwa bei den Jaina.',
-          zh: '因为单是劳动时离开故土这一事实本身，便属于强化劳动强度最强大的手段之一，这一点是确凿无疑的。——同一个波兰农村姑娘，在老家时哪怕有再优厚的挣钱机会，也休想把她从传统主义的惰性中拽出来；可一旦她作为「赴萨克森季节女工（Sachsengängerin）」在异乡干活，看上去便仿佛彻底脱胎换骨，能够承受无休止的劳役压榨。在意大利流动劳工身上也呈现出完全相同的现象。在这里，决不能仅仅把进入更高「文化环境」所受到的熏陶视为决定性因素（尽管这自然也起了一定作用），因为即便在诸如农业这样工作性质与故乡完全相同、甚至住进流动劳工营房会导致生活水平暂时跌落到在老家绝无法忍受的地步时，同样的现象依然会发生。仅仅是在完全不同于惯常环境的异地劳动这一赤裸裸的事实，便打破了传统主义，构成了那种「规训力量」。至于美国的经济发展有多少建立在这类效应之上，几乎无需多言。在古代世界，巴比伦之囚对犹太人所具有的完全相似的意义，在铭文中可谓触手可及；对于帕西人（流亡印度的波斯琐罗亚斯德教徒）而言也同样如此。——但是对于新教徒而言，正如清教的新英格兰殖民地与天主教的马里兰、圣公会的南方各州以及跨教派的罗得岛在经济特质上的鲜明差异所显示的，他们自身宗教特质的影响，显然作为一个独立因素发挥着作用，这恰如印度的耆那教徒。'
+          zh: '因为单是劳动时离开故土这一事实本身，便属于强化劳动强度最强大的手段之一，这一点是确凿无疑的。——同一个波兰农村姑娘，在老家时哪怕有再优厚的挣钱机会，也休想把她从传统主义的惰性中拽出来；可一旦她作为「赴萨克森季节女工（Sachsengängerin）」在异乡干活，看上去便仿佛彻底脱胎换骨，能够承受无休止的劳役压榨。在意大利流动劳工身上也呈现出完全相同的现象。在这里，决不能仅仅把进入更高「文化环境」所受到的熏陶视为决定性因素（尽管这自然也起了一定作用），因为即便在诸如农业这样工作性质与故乡完全相同、甚至住进流动劳工营房会导致生活水平暂时跌落到在老家绝无法忍受的地步时，同样的现象依然会发生。仅仅是在完全不同于惯常环境的异地劳动这一赤裸裸的事实，便打破了传统主义，构成了那种「规训力量」。至于美国的经济发展有多少建立在这类效应之上，几乎无需多言。在古代世界，巴比伦之囚对犹太人所具有的完全相似的意义，在铭文中可谓触手可及；对于帕西人而言也同样如此。——但是对于新教徒而言，正如清教的新英格兰殖民地与天主教的马里兰、圣公会的南方各州以及跨教派的罗得岛在经济特质上的鲜明差异所显示的，他们自身宗教特质的影响，显然作为一个独立因素发挥着作用，这恰如印度的耆那教徒。'
         }
       ],
       glosses: [
@@ -120,7 +120,7 @@ export const section1: BookSection = {
           anchor:
             '孟德斯鸠（《论法的精神》第二十卷第七章）谈到英国人时曾说，他们「在三桩要紧事上比世上任何民族都走得更远：那便是虔诚、商业与自由」',
           content:
-            '引自孟德斯鸠《论法的精神》（1748）第二十卷第七章《英国的商业精神》。法文原文为：「C’est le peuple du monde qui a le mieux su se prévaloir à la fois de ces trois grandes choses : la religion, le commerce et la liberté.（这是世上最善于同时借重三桩伟大事务的民族：宗教、商业与自由。）」韦伯在此故意将孟德斯鸠原文泛指的「宗教（la religion）」译作更具个人体验色彩的「虔诚（Frömmigkeit）」，并把启蒙思想家眼中看似并列的英国国民性三要素，转化为全书的核心问题意识：十七世纪英格兰清教徒那种狂热冷峻的宗教虔诚，究竟如何从内部孕育出近代资本主义商业精神与现代宪政自由？'
+            '引自孟德斯鸠《论法的精神》（1748）第二十卷第七章《英国的商业精神》。法文原文为：「C’est le peuple du monde qui a le mieux su se prévaloir à la fois de ces trois grandes choses : la religion, le commerce et la liberté.（这是世上最善于同时借重三桩伟大事务的民族：宗教、商业与自由。）」韦伯在引述时将孟德斯鸠原文泛指的「宗教（la religion）」译作更具个人信仰体验色彩的「虔诚（Frömmigkeit）」。'
         }
       ]
     },

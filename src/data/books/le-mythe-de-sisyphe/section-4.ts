@@ -18,13 +18,13 @@ export const section4: BookSection = {
       type: 'paragraph',
       num: '§ 02',
       fr: "Si j'étais arbre parmi les arbres, chat parmi les animaux, cette vie aurait un sens ou plutôt ce problème n'en aurait point car je ferais partie de ce monde. Je serais ce monde auquel je m'oppose maintenant par toute ma conscience et par toute mon exigence de familiarité. Cette raison si dérisoire, c'est elle qui m'oppose à toute la création. Je ne puis la nier d'un trait de plume. Ce que je crois vrai, je dois donc le maintenir. Ce qui m'apparaît si évident, même contre moi, je dois le soutenir. Et qu'est-ce qui fait le fond de ce conflit, de cette fracture entre le monde et mon esprit, sinon la conscience que j'en ai ? Si donc je veux le maintenir, c'est par une conscience perpétuelle, toujours renouvelée, toujours tendue. Voilà ce que, pour le moment, il me faut retenir. À ce moment, l'absurde, à la fois si évident et si difficile à conquérir, rentre dans la vie d'un homme et retrouve sa patrie. À ce moment encore, l'esprit peut quitter la route aride et desséchée de l'effort lucide. Elle débouche maintenant dans la vie quotidienne. Elle retrouve le monde de l'« on » anonyme, mais l'homme y rentre désormais avec sa révolte et sa clairvoyance. Il a désappris d'espérer. Cet enfer du présent, c'est enfin son royaume. Tous les problèmes reprennent leur tranchant. L'évidence abstraite se retire devant le lyrisme des formes et des couleurs. Les conflits spirituels s'incarnent et retrouvent l'abri misérable et magnifique du cœur de l'homme. Aucun n'est résolu. Mais tous sont transfigurés. Va-t-on mourir, échapper par le saut, reconstruire une maison d'idées et de formes à sa mesure ? Va-t-on au contraire soutenir le pari déchirant et merveilleux de l'absurde ? Faisons à cet égard un dernier effort et tirons toutes nos conséquences. Le corps, la tendresse, la création, l'action, la noblesse humaine, reprendront alors leur place dans ce monde insensé. L'homme y retrouvera enfin le vin de l'absurde et le pain de l'indifférence dont il nourrit sa grandeur.",
-      zh: '[倘若我是树木中的一棵树、百兽中的一只猫，这一生便自有意义；或者更确切地说，这个问题根本就不会存在，因为我将是这个世界的一部分]{#g-arbre-chat}，我将就是这个如今被我凭全部意识与全部熟稔感要求去对抗的世界本身。恰恰是这微不足道的理性，将我置于整个造物的对立面。我无法一笔勾销它。因此，凡是我信以为真的东西，我就必须维系它；凡是在我看来如此确凿无疑的东西，哪怕它与我为敌，我也必须撑住它。而构成这场冲突、构成世界与我心智之间这道裂痕之根柢的，除了我对它的**意识**之外，还能是什么？因此，倘若我要维系它，就必须靠一种恒常的、时刻更新的、永远绷紧的意识。这就是我眼下必须牢记在心的东西。就在这一刻，既如此显而易见又如此难以征服的荒谬，重新步入一个人的生活，重归它的故土。也就在这一刻，心智终于可以离开那条干涸荒芜的苦思之路，重新汇入日常生活。它重返匿名「常人」的世界，但人从此是带着自己的**反抗**与**明澈**重返其中的。他已经戒掉了希望。**这座当下的地狱，终于成了他的王国。**所有问题都重新找回了它们的锋芒。抽象的明证在形式与色彩的抒情面前退隐，精神的冲突获得肉身，重新找回人类心灵那既凄苦又壮丽的庇护所。没有任何一个冲突得到了解决，但所有冲突都改变了面貌。人究竟是要去死，靠跳跃逃遁，按自己的尺寸重新搭建一座观念与形式的房屋？还是反过来，撑住荒谬那既撕裂人心又奇妙无比的赌注？让我们在这件事上作最后一次努力，把全部后果推导出来吧。到那时，肉体、温情、创造、行动与人的高贵，都将在这个无意义的世界里重获它们的位置；人也终将在其中重获那滋养自身伟大的**荒谬之酒与冷漠之粮**。',
+      zh: '倘若我是树木中的一棵树、百兽中的一只猫，这一生便自有意义；或者更确切地说，这个问题根本就不会存在，因为我将是这个世界的一部分，我将就是这个如今被我凭全部意识与全部熟稔感要求去对抗的世界本身。恰恰是这微不足道的理性，将我置于整个造物的对立面。我无法一笔勾销它。因此，凡是我信以为真的东西，我就必须维系它；凡是在我看来如此确凿无疑的东西，哪怕它与我为敌，我也必须撑住它。而构成这场冲突、构成世界与我心智之间这道裂痕之根柢的，除了我对它的**意识**之外，还能是什么？因此，倘若我要维系它，就必须靠一种恒常的、时刻更新的、永远绷紧的意识。这就是我眼下必须牢记在心的东西。就在这一刻，既如此显而易见又如此难以征服的荒谬，重新步入一个人的生活，重归它的故土。也就在这一刻，心智终于可以离开那条干涸荒芜的苦思之路，重新汇入日常生活。它重返匿名「常人」的世界，但人从此是带着自己的**反抗**与**明澈**重返其中的。他已经戒掉了希望。**这座当下的地狱，终于成了他的王国。**所有问题都重新找回了它们的锋芒。抽象的明证在形式与色彩的抒情面前退隐，精神的冲突获得肉身，重新找回人类心灵那既凄苦又壮丽的庇护所。没有任何一个冲突得到了解决，但所有冲突都改变了面貌。人究竟是要去死，靠跳跃逃遁，按自己的尺寸重新搭建一座观念与形式的房屋？还是反过来，撑住荒谬那既撕裂人心又奇妙无比的赌注？让我们在这件事上作最后一次努力，把全部后果推导出来吧。到那时，肉体、温情、创造、行动与人的高贵，都将在这个无意义的世界里重获它们的位置；人也终将在其中重获那滋养自身伟大的[荒谬之酒与冷漠之粮]{#g-arbre-chat}。',
       glosses: [
         {
           id: 'g-arbre-chat',
-          anchor: '倘若我是树木中的一棵树、百兽中的一只猫，这一生便自有意义；或者更确切地说，这个问题根本就不会存在，因为我将是这个世界的一部分',
+          anchor: '荒谬之酒与冷漠之粮',
           content:
-            '自然界中的草木与动物完全浸没在自然整体之中，没有自我意识的抽离，因此不存在「生命意义」的追问。唯有人的意识在自身与自然之间劈开了一道无法弥合的裂隙。段末「荒谬之酒与冷漠之粮（le vin de l’absurde et le pain de l’indifférence）」则反转了基督教圣餐礼中的圣血（酒）与圣体（饼）：不再靠神圣救赎的饼酒滋养灵魂，而是以直面荒谬的清醒与对彼岸的冷漠作为人世高贵的食粮。'
+            '原文 le vin de l’absurde et le pain de l’indifférence 倒转了基督教圣餐礼（Eucharistia）中象征基督圣血与圣体的「酒与饼（le vin et le pain）」礼仪意象。'
         }
       ]
     },
@@ -46,13 +46,13 @@ export const section4: BookSection = {
       type: 'paragraph',
       num: '§ 04',
       fr: "Je puis aborder maintenant la notion de suicide. On a senti déjà quelle solution il est possible de lui donner. À ce point, le problème est inversé. Il s'agissait précédemment de savoir si la vie devait avoir un sens pour être vécue. Il apparaît ici au contraire qu'elle sera d'autant mieux vécue qu'elle n'aura pas de sens. Vivre une expérience, un destin, c'est l'accepter pleinement. Or on ne vivra pas ce destin, le sachant absurde, si on ne fait pas tout pour maintenir devant soi cet absurde mis à jour par la conscience. Nier l'un des termes de l'opposition dont il vit, c'est lui échapper. Abolir la révolte consciente, c'est éluder le problème. Le thème de la révolution permanente se transporte ainsi dans l'expérience individuelle. Vivre, c'est faire vivre l'absurde. Le faire vivre, c'est avant tout le regarder. Au contraire d'Eurydice, l'absurde ne meurt que lorsqu'on s'en détourne. L'une des seules positions philosophiques cohérentes, c'est ainsi la révolte. Elle est un confrontement perpétuel de l'homme et de sa propre obscurité. Elle est exigence d'une impossible transparence. Elle remet le monde en question à chacune de ses secondes. De même que le danger fournit à l'homme l'irremplaçable occasion de la saisir, de même la révolte métaphysique étend la conscience tout le long de l'expérience. Elle est cette présence constante de l'homme à lui-même. Elle n'est pas aspiration, elle est sans espoir. Cette révolte n'est que l'assurance d'un destin écrasant, moins la résignation qui devrait l’accompagner.",
-      zh: '现在我可以正面处理自杀这一概念了。读者想必已经感受到，可以给它一个怎样的解答。到了这一步，整个问题被彻底倒转了过来：起初我们追问的是，生命是否必须具有意义才值得活；现在却反过来显明，**生命越是没有意义，便越能被活得充实透彻**。活出一段经验、一种宿命，就是去彻底承当它。然而，倘若明知这宿命是荒谬的，却不竭尽全力把由意识揭示出来的这一荒谬时刻保持在自己眼前，那就根本算不上活出了这一宿命。抹杀荒谬赖以存活的对立双方中的任何一方，都是在逃避它；取消自觉的反抗，就是在规避问题。[「不断革命」的母题，就这样被移植到了个体经验之中。]{#g-eurydice}活着，就是让荒谬活着；而让荒谬活着，首先就是逼视它。**与欧律狄刻截然相反，荒谬唯有在人转过头去不看它时，才会死去。**因此，唯一前后一贯的哲学立场之一，便是**反抗**。反抗，是人与自身晦暗处境的永恒对峙，是对一种不可能企及的透明性的苛求，是在每一秒钟里重新向世界发难。正如险境为人提供了把握自身的不可替代的契机，形而上学的反抗也将意识延展到全部经验的始终。它是人对自身的恒常在场。它不是企盼，它不抱任何希望。**这种反抗，不过是对压顶宿命的确信，再减去本该伴随这宿命而来的逆来顺受。**',
+      zh: '现在我可以正面处理自杀这一概念了。读者想必已经感受到，可以给它一个怎样的解答。到了这一步，整个问题被彻底倒转了过来：起初我们追问的是，生命是否必须具有意义才值得活；现在却反过来显明，**生命越是没有意义，便越能被活得充实透彻**。活出一段经验、一种宿命，就是去彻底承当它。然而，倘若明知这宿命是荒谬的，却不竭尽全力把由意识揭示出来的这一荒谬时刻保持在自己眼前，那就根本算不上活出了这一宿命。抹杀荒谬赖以存活的对立双方中的任何一方，都是在逃避它；取消自觉的反抗，就是在规避问题。「不断革命」的母题，就这样被移植到了个体经验之中。活着，就是让荒谬活着；而让荒谬活着，首先就是逼视它。[与欧律狄刻截然相反]{#g-eurydice}，**荒谬唯有在人转过头去不看它时，才会死去。**因此，唯一前后一贯的哲学立场之一，便是**反抗**。反抗，是人与自身晦暗处境的永恒对峙，是对一种不可能企及的透明性的苛求，是在每一秒钟里重新向世界发难。正如险境为人提供了把握自身的不可替代的契机，形而上学的反抗也将意识延展到全部经验的始终。它是人对自身的恒常在场。它不是企盼，它不抱任何希望。**这种反抗，不过是对压顶宿命的确信，再减去本该伴随这宿命而来的逆来顺受。**',
       glosses: [
         {
           id: 'g-eurydice',
-          anchor: '「不断革命」的母题，就这样被移植到了个体经验之中。',
+          anchor: '与欧律狄刻截然相反',
           content:
-            '加缪在此接连化用了两个跨度极大的意象：其一是托洛茨基的政治理论「不断革命论（la révolution permanente）」，加缪将其从社会暴动转化为个体意识一刻不停的内部反抗；紧接着下一句则化用古希腊俄耳甫斯（Orpheus）下冥界救妻欧律狄刻（Eurydice）的神话——俄耳甫斯因为忍不住回头看了一眼欧律狄刻而令她重坠冥界死去，荒谬却恰恰相反，唯有一直睁眼逼视它，它才活着，一旦背过脸去（跳入信仰或自杀），荒谬便立刻死去。'
+            '古希腊神话（见维吉尔《农事诗》第四卷与奥维德《变形记》第十卷）中，诗人俄耳甫斯（Orpheus）深入冥界以琴声感动冥王与冥后，获准领亡妻欧律狄刻（Eurydice）重返阳间，唯一禁令是在抵达地面前不得回头张望；俄耳甫斯在临近出口处忍不住回头看了一眼，欧律狄刻遂重坠冥界死去。前句「不断革命（la révolution permanente）」则借自马克思与托洛茨基的政治革命理论术语。'
         }
       ]
     },
@@ -102,7 +102,7 @@ export const section4: BookSection = {
           id: 'g-epicure',
           anchor: '人们熟知那个二难推理：要么我们并不自由，那么全能的上帝就必须为世间的恶负责；要么我们是自由的且须自己负责，那么上帝就不是全能的。',
           content:
-            '即西方神义论史上最著名的「伊壁鸠鲁悖论」（由早期基督教护教学家拉克坦修斯在《论上帝的愤怒》中引述流传，后经休谟在《自然宗教对话录》中重申）：如果上帝全知、全能且全善，世间为何会有恶？奥古斯丁与莱布尼茨试图用「上帝赐予人自由意志，恶源于人滥用自由」来为上帝开脱，但加缪指出这依然逃不出二难困境：若人的自由能够违抗或溢出上帝的意志，上帝便不再是全能的主宰。'
+            '西方神义论史上著名的「伊壁鸠鲁悖论」（由早期基督教护教学家拉克坦修斯在《论上帝的愤怒》第 13 章中引述流传，后经休谟在《自然宗教对话录》第十部分重申）：若上帝全知、全能且全善，世间何以有恶？针对这一质难，奥古斯丁《论自由意志》与莱布尼茨《神义论》均试图以「上帝赋予受造物自由意志，恶源于人滥用自由」来为上帝辩护。'
         }
       ]
     },
@@ -131,7 +131,7 @@ export const section4: BookSection = {
           id: 'g-ptt',
           anchor: '邮电局候补办事员',
           content:
-            '原文 P.T.T. 即法国邮政、电报与电话部（Postes, télégraphes et téléphones）。在第三共和国时期，考入邮电局当一名候补办事员、熬年头等转正与退休金，是法国小资产阶级按部就班规划一生的典型写照。加缪把「民族领袖」与「邮电局候补办事员」并列，指出无论目标显得多么宏大还是多么琐碎，只要人把当下抵押给某个未来角色，就会沦为社会角色与未来规划的囚徒。'
+            '原文 P.T.T. 即法兰西第三共和国邮政、电报与电话部（Postes, télégraphes et téléphones）的缩写。在二十世纪上半叶的法国社会语境中，考入邮电局担任不领全薪的「候补办事员（surnuméraire）」、按资历熬年头等待转正与退休金，是小资产阶级循规蹈矩规划一生的典型常模。'
         }
       ]
     },
@@ -263,7 +263,7 @@ export const section4: BookSection = {
           id: 'g-nietzsche-obey',
           anchor: '尼采写道',
           content:
-            '引自尼采《善恶的彼岸》（1886）第五章《道德自然史》第 188 节。尼采在该节中指出，任何高等文化与精神创造都并非源于放任自流，而是源于长久、严苛的自我约束与朝着单一方向的执拗服从。'
+            '引自尼采《善恶的彼岸》（Jenseits von Gut und Böse，1886）第五章《道德自然史》第 188 节（加缪据亨利·阿尔贝法译本转引），尼采在该节开篇以此反驳斯多葛派与近代卢梭式的「顺应自然（laisser-aller，放任自流）」道德观。'
         }
       ]
     },
@@ -278,7 +278,7 @@ export const section4: BookSection = {
           id: 'g-alain-nuit',
           anchor: '阿兰说：「所谓祈祷，就是黑夜降临在思想之上。——但心智总得迎遇黑夜」，神秘主义者与存在哲学家们如是回应道。',
           content:
-            '阿兰（Alain，原名 Émile Chartier，1868—1951）是法国二十世纪上半叶极具影响力的理性主义哲学家与散文家，西蒙娜·薇依与萨特等人的老师。而神秘主义者所谓的「迎遇黑夜」，则指向十六世纪西班牙神秘主义修士十字若望（San Juan de la Cruz）的名著《灵魂的暗夜》——十字若望主张灵魂必须主动熄灭感官与理智之光，进入「暗夜」才能与上帝合一；加缪则以北极永夜中睁大双眼的「极夜守望（nuit polaire, veille de l’esprit）」与之抗衡。'
+            '阿兰（Alain，原名 Émile Chartier，1868—1951）是二十世纪上半叶法国代表性的理性主义哲学家与散文家，西蒙娜·薇依与萨特等人的老师，此语出自其《宗教语录》（Propos sur la religion）。神秘主义者所谓的「迎遇黑夜」，则指向十六世纪西班牙加尔默罗会修士十字若望（San Juan de la Cruz，1542—1591）的神秘神学经典《灵魂的暗夜》（Noche oscura del alma）：十字若望主张灵魂必须主动熄灭感官与理智之光，穿过幽暗之夜方能与上帝实现神秘合一。'
         }
       ]
     }

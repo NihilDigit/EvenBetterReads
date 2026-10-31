@@ -18,7 +18,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-01',
           anchor: '面壁沉思',
           content:
-            '原文作 **dead-wall revery**（后文亦作复数 **dead-wall reveries**）。建筑学上的 **dead wall**（盲墙、死墙）指不设任何门窗孔洞、用于阻隔视线与防火的实心砖墙；在十九世纪中叶建筑密集的华尔街，巴托比紧邻的侧窗距对面实心砖墙不足三英尺。梅尔维尔将浪漫主义文学中凭窗远眺自然风景的「遐想（reverie）」与「盲墙（dead wall）」组合在一起，用以指称巴托比长时间面对砖墙站立不动的凝视状态。'
+            '原文作 **dead-wall revery**。建筑学上的 **dead wall**（盲墙、死墙）指不设任何门窗孔洞、用于阻隔视线与防火的实心砖墙；原文将其与浪漫主义文学中凭窗远眺自然风景的「白日遐想（reverie）」拼接成复合词。'
         }
       ]
     },
@@ -42,7 +42,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-02',
           anchor: '永远放弃抄写了',
           content:
-            '原文作 **permanently given up copying**。老律师起初试图将巴托比的停笔解释为用眼过度导致的暂时性视力受损；巴托比则明确表示，即便视力完全恢复，他也「已经放弃抄写了」。在传记背景上，梅尔维尔于 1851 年出版《白鲸》、1852 年出版《皮埃尔》后接连遭遇评论冷遇与商业挫败，且本人长期受眼疾困扰，学者常将此处的「放弃书写」与作者当时的创作处境相联系。'
+            '原文作 **permanently given up copying**。在传记背景上，梅尔维尔于 1851 年出版《白鲸》（Moby-Dick）、1852 年出版《皮埃尔》（Pierre）后接连遭遇评论恶评与商业惨败，且本人长期受严重眼疾与神经痛困扰；梅尔维尔传记学者常将此篇发表于 1853 年底的「放弃书写」母题与作者当时的创作危机相参照。'
         }
       ]
     },
@@ -82,7 +82,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-03',
           anchor: '某座荒废神庙的最后一根石柱',
           content:
-            '原文作 **like the last column of some ruined temple**。这一比喻与前文「马略凝视迦太基废墟」相呼应。十九世纪三十至四十年代的华尔街盛行希腊复兴式（Greek Revival）建筑，如建于 1834—1842 年、仿雅典帕特农神庙形制的美国海关大楼（今联邦大厅国家纪念馆）以及老证券交易所，均采用大理石多立克或爱奥尼柱廊。此处将下班后空无一人的华尔街办公室比作倾颓的古典神庙，而拒绝取走二十美元遣散费的巴托比则如废墟中孤立的石柱。'
+            '十九世纪三十至四十年代的华尔街盛行希腊复兴式（Greek Revival）大理石神庙建筑，如建于 1834—1842 年、仿雅典帕特农神庙形制的华尔街美国海关大楼（今联邦大厅国家纪念馆）以及老商贸交易所，均以巨型多立克或爱奥尼石柱廊为标志。'
         }
       ]
     },
@@ -92,13 +92,13 @@ export const section3: BookSection = {
       num: '§ 08',
       original:
         'As I walked home in a pensive mood, my vanity got the better of my pity. I could not but highly plume myself on my masterly management in getting rid of Bartleby. Masterly I call it, and such it must appear to any dispassionate thinker. The beauty of my procedure seemed to consist in its perfect quietness. There was no vulgar bullying, no bravado of any sort, no choleric hectoring, and striding to and fro across the apartment, jerking out vehement commands for Bartleby to bundle himself off with his beggarly traps. Nothing of the kind. Without loudly bidding Bartleby depart—as an inferior genius might have done—I _assumed_ the ground that depart he must; and upon that assumption built all I had to say. The more I thought over my procedure, the more I was charmed with it. Nevertheless, next morning, upon awakening, I had my doubts,—I had somehow slept off the fumes of vanity. One of the coolest and wisest hours a man has, is just after he awakes in the morning. My procedure seemed as sagacious as ever.—but only in theory. How it would prove in practice—there was the rub. It was truly a beautiful thought to have assumed Bartleby’s departure; but, after all, that assumption was simply my own, and none of Bartleby’s. The great point was, not whether I had assumed that he would quit me, but whether he would prefer so to do. He was more a man of preferences than assumptions.',
-      zh: '我若有所思地步行回家，一路上，我的虚荣心渐渐压倒了怜悯之情。我不禁为自己打发巴托比时那手老练高明的处置而沾沾自喜。我称之为老练高明，任何头脑冷静的思想者看来也必定如此。我这一手妙就妙在它**绝对的平和从容**：既没有粗鄙的恐吓，也没有任何虚张声势，更没有暴跳如雷地呼喝威逼，在房间里来回踱步、气急败坏地勒令巴托比卷起他那点寒酸破烂滚蛋。完全没有这一套。我并没有像才智平庸之辈那样大声斥令巴托比离开，而是直接**假定**他必定会离开，并把我要说的一切话都建立在这一假定之上。我越是回味自己的处置手法，就越是为之陶醉。然而第二天清晨一觉醒来，我心里却犯起了嘀咕——睡了一觉，虚荣心的微醺不知怎的已经消散了。一个人最冷静、最明智的时刻，莫过于清晨刚醒来的那一刻。我的做法固然一如既往地显得睿智非凡——但那只是在理论上。它在实践中究竟成效如何——症结正在于此（there was the rub，化用《哈姆雷特》第三幕第一场生存或毁灭独白）。假定巴托比已然离开，这的确是个美妙绝伦的念头；可归根结底，那个假定纯粹是我自己一厢情愿的假定，而绝非巴托比的假定。问题的关键，不在于我是否**假定**他会离开我，而在于他是否**宁可**这样做。[与其说他是一个遵从假定的人，不如说他是一个只认宁可的人]{#g-bt-s3-04}。',
+      zh: '我若有所思地步行回家，一路上，我的虚荣心渐渐压倒了怜悯之情。我不禁为自己打发巴托比时那手老练高明的处置而沾沾自喜。我称之为老练高明，任何头脑冷静的思想者看来也必定如此。我这一手妙就妙在它**绝对的平和从容**：既没有粗鄙的恐吓，也没有任何虚张声势，更没有暴跳如雷地呼喝威逼，在房间里来回踱步、气急败坏地勒令巴托比卷起他那点寒酸破烂滚蛋。完全没有这一套。我并没有像才智平庸之辈那样大声斥令巴托比离开，而是直接**假定**他必定会离开，并把我要说的一切话都建立在这一假定之上。我越是回味自己的处置手法，就越是为之陶醉。然而第二天清晨一觉醒来，我心里却犯起了嘀咕——睡了一觉，虚荣心的微醺不知怎的已经消散了。一个人最冷静、最明智的时刻，莫过于清晨刚醒来的那一刻。我的做法固然一如既往地显得睿智非凡——但那只是在理论上。它在实践中究竟成效如何——[症结正在于此]{#g-bt-s3-rub}。假定巴托比已然离开，这的确是个美妙绝伦的念头；可归根结底，那个假定纯粹是我自己一厢情愿的假定，而绝非巴托比的假定。问题的关键，不在于我是否**假定**他会离开我，而在于他是否**宁可**这样做。与其说他是一个遵从假定的人，不如说他是一个只认宁可的人。',
       glosses: [
         {
-          id: 'g-bt-s3-04',
-          anchor: '与其说他是一个遵从假定的人，不如说他是一个只认宁可的人',
+          id: 'g-bt-s3-rub',
+          anchor: '症结正在于此',
           content:
-            '原文作 **He was more a man of preferences than assumptions**。老律师所依循的法律与日常交易秩序建立在「假定（assumption）」之上：雇主假定支付工钱与遣散费即可终止雇佣关系，假定常人必然服从产权、契约与社会暗示。巴托比的「宁可（preference）」则不服从这类预先设定的默契，使老律师的「假定」在实践中落空为单方面的一厢情愿。'
+            '原文作 **there was the rub**，化用莎士比亚《哈姆雷特》（Hamlet）第三幕第一场「生存还是毁灭」独白中的名句 **“ay, there’s the rub”**（英语 rub 原系草地滚球戏术语，指草坪表面使滚球偏离预定路线的凸起障碍）。'
         }
       ]
     },
@@ -114,7 +114,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-05',
           anchor: '百老汇大道与运河街的街角',
           content:
-            '百老汇大道（Broadway）与运河街（Canal Street）交界处是十九世纪中叶曼哈顿连接中城住宅区与下城金融区的交通要道，也是纽约政党集会与街头赌盘活跃的场所。当时正值纽约市长选举日（election day），路人围绕候选人能否当选打赌，而心事重重的老律师则误以为人们在赌巴托比是否会离开事务所。'
+            '百老汇大道（Broadway）与运河街（Canal Street）交界处是十九世纪中叶曼哈顿连接中城住宅区与下城金融区的交通咽喉，也是当时纽约市政集聚、报童叫卖与街头公开盘口赌博最为活跃的街角之一。'
         }
       ]
     },
@@ -138,7 +138,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-06',
           anchor: '在弗吉尼亚某个万里无云的午后，嘴里叼着烟斗被一道夏日闪电劈死的那个人',
           content:
-            '这一比喻源于十九世纪美国报刊流传的一则弗吉尼亚自然奇闻（梅尔维尔在随后的短篇小说《避雷针推销员》〔The Lightning-Rod Man, 1854〕中亦曾提及雷击现象）。已经被解雇且不再抄写的巴托比在紧锁的办公室门内回答「还没呢；我正忙着（Not yet; I am occupied）」，令门外的老律师呆立原地。'
+            '这一典故源于十九世纪四十年代美国报刊广为转载的一则弗吉尼亚自然奇闻：一名男子在晴朗午后凭窗吸烟时遭远方雷暴的横向闪电（俗称旱天雷）瞬间击毙，遗体仍保持凭窗斜倚的生前姿态，直至旁人触碰方才倒下。梅尔维尔次年发表的短篇小说《避雷针推销员》（The Lightning-Rod Man, 1854）亦再次探讨了雷击恐惧。'
         }
       ]
     },
@@ -186,7 +186,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-07',
           anchor: '不幸的亚当斯与更为不幸的柯尔特在后者那间孤寂的办公室里酿成的惨剧',
           content:
-            '指 1841 年 9 月 17 日发生于纽约的一桩真实命案。左轮手枪发明家塞缪尔·柯尔特（Samuel Colt）的兄长、会计学教材作者约翰·考德威尔·柯尔特（John Caldwell Colt，1810—1842），在纽约百老汇大道与钱伯斯街转角大楼二层的办公室里，因教材印制账目纠纷与印刷商塞缪尔·亚当斯（Samuel Adams）发生争执，用锤斧将亚当斯击毙，随后将尸体装入木箱涂满墨水，企图借货船运往新奥尔良。案发被捕后，柯尔特被判处绞刑；1842 年 11 月 18 日行刑当天，他在曼哈顿「坟墓」监狱（The Tombs，即本篇第四部分巴托比最终被关押之地）死囚牢房内与女友举行婚礼后持刀自尽，当时监狱圆顶恰好失火。老律师由此认为，缺乏家庭温情熏陶的孤立商业办公室（unhallowed by humanizing domestic associations）容易加剧人的暴躁与失控。'
+            '指 1841 年 9 月 17 日轰动全美的纽约真实命案。左轮手枪发明家塞缪尔·柯尔特之兄、会计学教材作者约翰·考德威尔·柯尔特（John Caldwell Colt，1810—1842），在纽约百老汇大道与钱伯斯街转角大楼二层的独居办公室里，因教材印制账目纠纷与印刷商塞缪尔·亚当斯（Samuel Adams）发生口角，用锤斧将亚当斯击毙，随后将尸体装入木箱涂满墨水，企图借货船运往新奥尔良。柯尔特被捕后获判绞刑，于 1842 年 11 月 18 日行刑当天在曼哈顿「坟墓」监狱死囚牢房内与女友成婚后持刀自尽，当时监狱圆顶恰好失火。'
         }
       ]
     },
@@ -196,13 +196,19 @@ export const section3: BookSection = {
       num: '§ 17',
       original:
         'But when this old Adam of resentment rose in me and tempted me concerning Bartleby, I grappled him and threw him. How? Why, simply by recalling the divine injunction: “A new commandment give I unto you, that ye love one another.” Yes, this it was that saved me. Aside from higher considerations, charity often operates as a vastly wise and prudent principle—a great safeguard to its possessor. Men have committed murder for jealousy’s sake, and anger’s sake, and hatred’s sake, and selfishness’ sake, and spiritual pride’s sake; but no man that ever I heard of, ever committed a diabolical murder for sweet charity’s sake. Mere self-interest, then, if no better motive can be enlisted, should, especially with high-tempered men, prompt all beings to charity and philanthropy. At any rate, upon the occasion in question, I strove to drown my exasperated feelings towards the scrivener by benevolently construing his conduct. Poor fellow, poor fellow! thought I, he don’t mean any thing; and besides, he has seen hard times, and ought to be indulged.',
-      zh: '然而，当心中这股怨毒的「老亚当」（《罗马书》与《以弗所书》中指代未蒙救赎的原罪本性，亦暗扣前文被杀的印刷商亚当斯之姓）在我体内抬头、就巴托比之事试探诱惑我时，我当即揪住他，将他摔倒在地。怎么摔倒的呢？无他，全靠回想起那条神圣的诫命：[「我赐给你们一条新命令，乃是叫你们彼此相爱。」]{#g-bt-s3-08}是的，正是这句话拯救了我。姑且不论更高尚的考量，仁爱往往能作为一种极其明智、极其审慎的处世原则发挥效用——它是其拥有者的一道绝佳护身符。世人曾因嫉妒、因愤怒、因仇恨、因自私、乃至因精神上的傲慢而犯下谋杀罪；但我从不曾听说有谁为了甜美的仁爱而犯下穷凶极恶的谋杀罪。因此，即便找不到更高尚的动机，单凭纯粹的自利之心，也足以促使一切生灵——尤其是那些脾气暴躁的人——去躬行仁爱与博施。无论如何，在眼下这一关头，我竭力对那抄写员的行径作善意的揣度，以此浇灭我对他满腔的恼火。可怜虫，可怜虫啊！我暗自思忖，他并无任何恶意；再说了，他定是经历过不少苦难沧桑，理应受到宽容体谅。',
+      zh: '然而，当心中[这股怨毒的「老亚当」]{#g-bt-s3-old-adam}在我体内抬头、就巴托比之事试探诱惑我时，我当即揪住他，将他摔倒在地。怎么摔倒的呢？无他，全靠回想起那条神圣的诫命：[「我赐给你们一条新命令，乃是叫你们彼此相爱。」]{#g-bt-s3-08}是的，正是这句话拯救了我。姑且不论更高尚的考量，仁爱往往能作为一种极其明智、极其审慎的处世原则发挥效用——它是其拥有者的一道绝佳护身符。世人曾因嫉妒、因愤怒、因仇恨、因自私、乃至因精神上的傲慢而犯下谋杀罪；但我从不曾听说有谁为了甜美的仁爱而犯下穷凶极恶的谋杀罪。因此，即便找不到更高尚的动机，单凭纯粹的自利之心，也足以促使一切生灵——尤其是那些脾气暴躁的人——去躬行仁爱与博施。无论如何，在眼下这一关头，我竭力对那抄写员的行径作善意的揣度，以此浇灭我对他满腔的恼火。可怜虫，可怜虫啊！我暗自思忖，他并无任何恶意；再说了，他定是经历过不少苦难沧桑，理应受到宽容体谅。',
       glosses: [
+        {
+          id: 'g-bt-s3-old-adam',
+          anchor: '这股怨毒的「老亚当」',
+          content:
+            '原文作 **this old Adam of resentment**。基督教神学中的「老亚当（the old Adam / old man）」源自新约保罗书信（《罗马书》6:6、《以弗所书》4:22），指代人身上承自始祖亚当、未蒙恩典更新的原罪血气；此处亦与上一段命案死者塞缪尔·亚当斯（Samuel Adams）之姓构成双关。'
+        },
         {
           id: 'g-bt-s3-08',
           anchor: '「我赐给你们一条新命令，乃是叫你们彼此相爱。」',
           content:
-            '引自《新约·约翰福音》第 13 章第 34 节耶稣在最后晚餐上对门徒的嘱咐（钦定本 King James Version：「A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.」）。基督原本要求门徒以舍己的圣爱（agape）彼此相待，而在老律师的权衡中，这条诫命被转化为一种防止自己因一时冲动犯下命案、从而保全自身安全的「纯粹自利（mere self-interest）」与「护身符（great safeguard to its possessor）」。'
+            '引自《新约·约翰福音》第 13 章第 34 节耶稣在最后晚餐上对门徒颁布的诫命（钦定本 King James Version：「A new commandment I give unto you, That ye love one another; as I have loved you, that ye also love one another.」）。'
         }
       ]
     },
@@ -226,7 +232,7 @@ export const section3: BookSection = {
           id: 'g-bt-s3-09',
           anchor: '《爱德华兹论意志》与《普里斯特利论必然性》',
           content:
-            '分别指北美大觉醒运动领袖、加尔文宗神学家乔纳森·爱德华兹（Jonathan Edwards，1703—1758）的《论意志的自由》（A Careful and Strict Enquiry into the Modern Prevailing Notions of That Freedom of Will, Which is Supposed to be Essential to Moral Agency, 1754），以及英国自然哲学家、氧气发现者与一位论派神学家约瑟夫·普里斯特利（Joseph Priestley，1733—1804）的《哲学必然性学说阐微》（The Doctrine of Philosophical Necessity Illustrated, 1777）。爱德华兹从加尔文宗神学预定论出发，论证人的意志受制于当下最强烈的动机（终极上取决于上帝主权），不存在脱离因果链条的自决自由；普里斯特利则从唯物主义因果决定论出发得出相似的必然性结论。老律师在现实中无力驱逐那个只讲「我宁可（I would prefer）」的巴托比，遂借助这两部否定自由意志的著作，将自己的处境解释为「从亘古以来便早已命中注定（predestinated from eternity）」的天意安排。'
+            '分别指北美大觉醒运动领袖、加尔文宗神学家乔纳森·爱德华兹（Jonathan Edwards，1703—1758）的《论意志的自由》（Freedom of the Will, 1754），以及英国自然哲学家、氧气发现者与一位论派神学家约瑟夫·普里斯特利（Joseph Priestley，1733—1804）的《哲学必然性学说阐微》（The Doctrine of Philosophical Necessity Illustrated, 1777）。爱德华兹从神学预定论出发，论证人的意志始终受当下最强烈的动机支配（终极上系于上帝主权），不存在脱离因果链条的自决自由；普里斯特利则从唯物主义因果决定论出发得出了相似的必然性结论。'
         }
       ]
     },
@@ -250,13 +256,13 @@ export const section3: BookSection = {
           id: 'g-bt-s3-10',
           anchor: '衡平法院的委托审理听证',
           content:
-            '原文作 **Reference**。在纽约州大法官法庭（Court of Chancery）的诉讼程序中，大法官常将涉及复杂账目核算、地产契据核查或证人讯问的案件「委托（refer）」给叙述者所任职的「衡平法院推事（Master in Chancery）」主持非公开听证，并由推事传唤双方律师与证人到其私人事务所内出庭作证、提交审理报告，推事则按审理时长与文书页数收取丰厚规费。正是在这种高度依赖同行声誉与体面秩序的司法审理现场，巴托比当众拒绝为出庭律师跑腿且依然呆立不动的身影，直接动摇了老律师在同行圈中的职业威信。'
+            '原文作 **Reference**。在纽约州大法官衡平法院（Court of Chancery）的诉讼程序中，大法官常将涉及繁复账目核算、地产契据核查或证人取证的案件「委托（refer）」给衡平法院推事（Master in Chancery）主持非公开听证：推事传唤双方出庭律师与证人到其私人事务所内讯问作证并撰写审理报告，按听证时长与笔录页数收取规费。'
         },
         {
           id: 'g-bt-s3-11',
           anchor: '凭着永久占有的权利主张对我这间事务所的所有权',
           content:
-            '原文作 **claim possession of my office by right of his perpetual occupancy**。英美普通法与不动产法中设有「时效取得 / 逆权侵占（adverse possession）」原则：当无产权者公开、持续且排他地占有他人不动产达到法定年限（十九世纪纽约州通常为二十年），原所有权人若未能将其驱逐，占有人即可取得该不动产的合法产权。作为专办房地产契据的律师，叙述者甚至担忧巴托比会通过长期居留而取得其事务所的所有权。'
+            '原文作 **claim possession of my office by right of his perpetual occupancy**。英美不动产法设有「时效取得 / 逆权侵占（adverse possession）」制度：无产权者若公开、持续且排他地占有他人不动产达到法定年限（十九世纪纽约州法定年限为二十年），而原所有权人未依法采取驱逐行动，占有人即可取得该不动产的合法产权。'
         }
       ]
     },

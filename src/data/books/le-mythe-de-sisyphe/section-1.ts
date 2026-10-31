@@ -51,13 +51,13 @@ export const section1: BookSection = {
           id: 'g-categories',
           anchor: '心智究竟拥有九个还是十二个范畴',
           content:
-            '十二个范畴指康德在《纯粹理性批判》中按量、质、关系、模态四组排列的十二先验知性范畴；九个范畴则指亚里士多德十范畴中除去第一实体后的九种偶性范畴。加缪借此将近代认识论与古典形而上学的核心争端一并归为次要的「智力游戏」。'
+            '十二个范畴指康德在《纯粹理性批判》中按量、质、关系、模态四组排列的十二先验知性范畴；九个范畴则指亚里士多德《范畴篇》十范畴中除去第一实体后的九种偶性范畴。'
         },
         {
           id: 'g-evidences-coeur',
           anchor: '心灵可直接感触的明证',
           content:
-            '化用帕斯卡《思想录》中「心灵秩序（cœur）」与「理智秩序（esprit）」的对立。帕斯卡认为第一原理是由心灵直接感触的，理智则负责随后的推演；加缪借这一传统框架指出，生死问题首先源于切肤的直觉，但不能停留在情绪里，必须交由理智清算到底。'
+            '化用帕斯卡《思想录》中「心灵秩序（cœur）」与「理智秩序（esprit）」的对立：帕斯卡认为第一原理是由心灵直接感触的，理智则负责随后的推演证明。'
         }
       ]
     },
@@ -72,13 +72,13 @@ export const section1: BookSection = {
           id: 'g-ontologique',
           anchor: '本体论证明',
           content:
-            '中世纪神学家安瑟伦提出、后经笛卡尔与莱布尼茨发展的经院哲学论证：既然上帝按定义是「最完满的存在者」，而「存在」属于完满性的一部分，那么上帝必然存在。加缪以此代表完全脱离人类肉身处境的纯概念推演。'
+            '中世纪神学家安瑟伦在《宣讲篇》中提出、后经笛卡尔与莱布尼茨发展的经院哲学论证：既然上帝按定义是「最完满的存在者」，而「存在」属于完满性的一部分，那么上帝必然存在。'
         },
         {
           id: 'g-lapalisse',
           anchor: '拉帕利斯的方法与堂吉诃德的方法',
           content:
-            '拉帕利斯（La Palisse，1470—1525）是阵亡于帕维亚战役的法国元帅，因墓志铭被后世传唱为「他在死前十五分钟还活着」，在法国文化中成为「不言自明的大白话、朴素常识」的代名词。加缪以拉帕利斯指代紧贴地面、不自欺的常识明证，以堂吉诃德指代悲壮的抒情激情。'
+            '拉帕利斯（La Palisse，1470—1525）是阵亡于帕维亚战役的法国元帅，因挽歌被后世讹传为「他在死前十五分钟还活着」，在法国文化中成为「不言自明的大白话、朴素常识」的代名词（法语遂有 lapalissade 一词）。'
         }
       ]
     },
@@ -93,7 +93,7 @@ export const section1: BookSection = {
           id: 'g-social',
           anchor: '社会现象',
           content:
-            '指向法国社会学奠基人涂尔干（Émile Durkheim）1897 年的名著《自杀论》。涂尔干主张自杀率完全取决于社会整合与道德规范的程度，与个人内心的哲学思辨无关。加缪在此明确将讨论从涂尔干式的社会学统计拉回到个体意识的内部深渊。'
+            '指向法国社会学奠基人涂尔干（Émile Durkheim）1897 年的专著《自杀论》（Le Suicide）：涂尔干主张自杀率取决于社会整合与道德规范的程度，与个体私密的哲学思辨无关。'
         }
       ]
     },
@@ -129,7 +129,7 @@ export const section1: BookSection = {
           id: 'g-exil',
           anchor: '人感到自己是个局外异乡人。这场流放毫无救赎可言，因为它既没有失落故土的回忆，也没有应许之地的希望',
           content:
-            '《西西弗神话》与小说《局外人》（L’Étranger）于 1942 年同年出版，此处「局外异乡人（un étranger）」正是两部作品共同的枢纽。「失落故土」对应柏拉图主义的灵魂先在回忆与伊甸园，「应许之地」对应犹太—基督教的末世救赎；加缪一次性斩断了回望过去与寄望未来的两条宗教退路。'
+            '《西西弗神话》与小说《局外人》（L’Étranger）于 1942 年同年出版，此处「局外异乡人（un étranger）」正是两部作品共同的枢纽。「失落故土」对应柏拉图主义的灵魂先在回忆与伊甸园，「应许之地」则对应《旧约》迦南地与犹太—基督教的末世救赎。'
         }
       ]
     },
@@ -185,7 +185,7 @@ export const section1: BookSection = {
           id: 'g-esquive',
           anchor: '「闪避」',
           content:
-            '帕斯卡在《思想录》中用「消遣（divertissement）」分析世人为何热衷打猎、赌博、社交与政务：人之所以需要终日忙碌，是为了逃避独处时对死亡与虚无的凝视。加缪在此推进了一步：比日常消遣更隐蔽的「闪避」，是直接制造出「希望」——不论是基督教的彼岸永生，还是现代政治意识形态中「为未来历史目标献身」的宏大叙事，本质上都是用未来的幻影来逃避当下的荒谬。'
+            '帕斯卡在《思想录》中以「消遣（divertissement，原义为转移视线、分心）」剖析世人为何热衷打猎、赌博、社交与政务：人之所以终日寻觅喧嚣与忙碌，是为了转移注意力，逃避独处时对自身必死处境与虚无的直视。'
         }
       ]
     },
@@ -194,15 +194,7 @@ export const section1: BookSection = {
       type: 'paragraph',
       num: '§ 10',
       fr: "Tout contribue ainsi à brouiller les cartes. Ce n'est pas en vain qu'on a jusqu'ici joué sur les mots et feint de croire que refuser un sens à la vie conduit forcément à déclarer qu'elle ne vaut pas la peine d'être vécue. En vérité, il n'y a aucune mesure forcée entre ces deux jugements. Il faut seulement refuser de se laisser égarer par les confusions, les divorces et les inconséquences jusqu'ici signalés. Il faut tout écarter et aller droit au vrai problème. On se tue parce que la vie ne vaut pas la peine d'être vécue, voilà une vérité sans doute — inféconde cependant parce qu'elle est truisme. Mais est-ce que cette insulte à l'existence, ce démenti où on la plonge vient de ce qu'elle n'a point de sens ? Est-ce que son absurdité exige qu'on lui échappe, par l'espoir ou le suicide, voilà ce qu'il faut mettre à jour, poursuivre et illustrer en écartant tout le reste. L'absurde commande-t-il la mort, il faut donner à ce problème le pas sur les autres, en dehors de toutes les méthodes de pensée et des jeux de l'esprit désintéressé. Les nuances, les contradictions, la psychologie qu'un esprit « objectif » sait toujours introduire dans tous les problèmes, n'ont pas leur place dans cette recherche et cette passion. Il y faut seulement une pensée injuste, c'est-à-dire logique. Cela n'est pas facile. Il est toujours aisé d'être logique. Il est presque impossible d'être logique jusqu'au bout. Les hommes qui meurent de leurs propres mains suivent ainsi jusqu'à sa fin la pente de leur sentiment. La réflexion sur le suicide me donne alors l'occasion de poser le seul problème qui m'intéresse : y a-t-il une logique jusqu'à la mort ? Je ne puis le savoir qu'en poursuivant sans passion désordonnée, dans la seule lumière de l'évidence, le raisonnement dont j'indique ici l'origine. C'est ce que j'appelle un raisonnement absurde. Beaucoup l'ont commencé. Je ne sais pas encore s'ils s'y sont tenus.",
-      zh: '就这样，一切都在把牌局搅浑。人们迄今在字眼上捉迷藏，佯装相信[「否定生命具有意义」就必然导出「生命不值得活下去」]{#g-deux-jugements}，绝非偶然。其实，这两个判断之间并无任何必然的等号。我们只需拒绝被上文指出的种种混淆、脱节与言行不一所误导，拨开一切枝蔓，直取真正的问题。人自杀是因为生命不值得活，这固然是不争的事实——却是个不毛的事实，因为它不过是句同义反复的废话。但真正需要揪出来、追到底并彻底阐明的是：这种对生存的侮辱、这种将生存推入其中的全盘否定，果真源于生命毫无意义吗？生命的荒谬，果真要求我们通过**希望**或**自杀**去逃离它吗？**荒谬是否必然指令死亡**——这个问题必须优先于其他一切问题，超然于一切思维方法与无利害关系的智力游戏之外。一个所谓「客观」的头脑总懂得往任何问题里塞进微妙的折中、矛盾与心理学分析，但在这场探索与这股激情里，它们毫无容身之地。这里只需要一种不公允的思想，也就是说，彻底讲逻辑的思想。这绝非易事。讲逻辑总是容易的；但**把逻辑贯彻到底，却几乎是不可能的**。亲手结束自己生命的人，便是沿着情感的斜坡一直滑到了底。由是，对自杀的省思给了我一个契机，去提出唯一令我感兴趣的问题：**是否存在一种贯彻至死的逻辑？**要获知答案，我只能摒弃杂乱的激情，单凭明证之光，将我在此标明起点的那条推理一路推演下去。这就是我所说的**荒谬的推理**。许多人曾开启过它；但我尚不知晓，他们是否真正坚守到了最后。',
-      glosses: [
-        {
-          id: 'g-deux-jugements',
-          anchor: '「否定生命具有意义」就必然导出「生命不值得活下去」',
-          content:
-            '传统道德家与虚无主义者往往共享着同一个隐蔽前提——「生命必须有终极意义，才值得活」。加缪试图拆毁的正是这一预设：生命完全可以没有任何终极意义，但依然值得被炽烈地活下去。'
-        }
-      ]
+      zh: '就这样，一切都在把牌局搅浑。人们迄今在字眼上捉迷藏，佯装相信「否定生命具有意义」就必然导出「生命不值得活下去」，绝非偶然。其实，这两个判断之间并无任何必然的等号。我们只需拒绝被上文指出的种种混淆、脱节与言行不一所误导，拨开一切枝蔓，直取真正的问题。人自杀是因为生命不值得活，这固然是不争的事实——却是个不毛的事实，因为它不过是句同义反复的废话。但真正需要揪出来、追到底并彻底阐明的是：这种对生存的侮辱、这种将生存推入其中的全盘否定，果真源于生命毫无意义吗？生命的荒谬，果真要求我们通过**希望**或**自杀**去逃离它吗？**荒谬是否必然指令死亡**——这个问题必须优先于其他一切问题，超然于一切思维方法与无利害关系的智力游戏之外。一个所谓「客观」的头脑总懂得往任何问题里塞进微妙的折中、矛盾与心理学分析，但在这场探索与这股激情里，它们毫无容身之地。这里只需要一种不公允的思想，也就是说，彻底讲逻辑的思想。这绝非易事。讲逻辑总是容易的；但**把逻辑贯彻到底，却几乎是不可能的**。亲手结束自己生命的人，便是沿着情感的斜坡一直滑到了底。由是，对自杀的省思给了我一个契机，去提出唯一令我感兴趣的问题：**是否存在一种贯彻至死的逻辑？**要获知答案，我只能摒弃杂乱的激情，单凭明证之光，将我在此标明起点的那条推理一路推演下去。这就是我所说的**荒谬的推理**。许多人曾开启过它；但我尚不知晓，他们是否真正坚守到了最后。'
     },
     {
       id: 's1-p11',
@@ -221,7 +213,7 @@ export const section1: BookSection = {
           id: 'g-princes',
           anchor: '那些精神王国的王侯，同样交出了王冠，只不过他们是在思想最纯粹的叛逆中，亲手实施了思想的自杀',
           content:
-            '与选择结束肉体生命的普通人相对，「精神王国的王侯」指克尔凯郭尔、舍斯托夫、雅斯贝尔斯等思想家。他们敏锐地把思想推到了理性的悬崖边，却在最后一刻因无法忍受无意义的荒漠，转而投向神秘主义或宗教信仰，用放弃理性清醒的方式换取精神慰藉。'
+            '与前句放弃肉体生命的凡人相对，「精神王国的王侯」指克尔凯郭尔、舍斯托夫、雅斯贝尔斯等现代存在哲学家。'
         }
       ]
     }
