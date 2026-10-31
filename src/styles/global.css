@@ -185,6 +185,73 @@ body {
   height: 0;
 }
 
+/* ==================== 阅读器多级响应式网格几何系统 ====================
+ * < 900px        : 移动端单栏 + 滑出目录抽屉 + 底部弹出注疏 Sheet
+ * 900px – 1099px : 桌面双栏（流体正文 + 右侧常驻旁注轨道）+ 滑出目录抽屉
+ * 1100px – 1199px: 紧凑桌面三栏（176 目录 + 24 + 584 正文 + 24 + 268 旁注 = 1076px）
+ * 1200px – 1279px: 标准桌面三栏（196 目录 + 32 + 632 正文 + 32 + 284 旁注 = 1176px）
+ * >= 1280px      : 宽屏桌面三栏（208 目录 + 36 + 676 正文 + 36 + 308 旁注 = 1264px）
+ */
+:root {
+  --ebr-header-max: 960px;
+  --ebr-stage-max: 680px;
+  --ebr-prose-max: 676px;
+  --ebr-note-w: 264px;
+  --ebr-rail-gap: 28px;
+  --ebr-toc-w: 176px;
+  --ebr-toc-half-span: 538px;
+  --ebr-toc-shift: 0px;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --ebr-header-max: 960px;
+    --ebr-stage-max: 960px;
+    --ebr-prose-max: calc(100% - 292px);
+    --ebr-note-w: 264px;
+    --ebr-rail-gap: 28px;
+  }
+}
+
+@media (min-width: 1100px) {
+  :root {
+    --ebr-header-max: 1076px;
+    --ebr-stage-max: 876px;
+    --ebr-prose-max: 584px;
+    --ebr-note-w: 268px;
+    --ebr-rail-gap: 24px;
+    --ebr-toc-w: 176px;
+    --ebr-toc-half-span: 538px;
+    --ebr-toc-shift: 100px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --ebr-header-max: 1176px;
+    --ebr-stage-max: 948px;
+    --ebr-prose-max: 632px;
+    --ebr-note-w: 284px;
+    --ebr-rail-gap: 32px;
+    --ebr-toc-w: 196px;
+    --ebr-toc-half-span: 588px;
+    --ebr-toc-shift: 114px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --ebr-header-max: 1264px;
+    --ebr-stage-max: 1020px;
+    --ebr-prose-max: 676px;
+    --ebr-note-w: 308px;
+    --ebr-rail-gap: 36px;
+    --ebr-toc-w: 208px;
+    --ebr-toc-half-span: 632px;
+    --ebr-toc-shift: 122px;
+  }
+}
+
 /* ==================== 统一交互与视图过渡动效 ==================== */
 @keyframes ebr-view-enter {
   from {
