@@ -55,7 +55,7 @@ export const vorlesung1Sections: BookSection[] = [
             id: 'g-wim-v1-03',
             anchor: '此在',
             content:
-              '德文 Dasein（在海德格尔手稿与晚期著作中常加连字符写作 Da-sein）。日常德语中指一般事物的「存在」或「现存」，自《存在与时间》（Sein und Zeit，1927）起被海德格尔改造为核心存在论术语，专指人这种能够在其存在中领会并追问存在之意义的独特存在者。字面拆解为 Da（此/敞开之澄明境域）与 Sein（存在）：人并非封闭的主体实体，而是作为存在本身得以遮蔽与解蔽的「此」之境域而生存。',
+              '德文 **Dasein**（本篇第 08 段及后文多处特意加连字符写作 **Da-sein**）。日常德语中指一般事物的「存在」或「现存」，自《存在与时间》（Sein und Zeit，1927）起被海德格尔改造为核心存在论术语，专指人这种能够在其存在中领会并追问存在之意义的独特存在者。加连字符的 **Da-sein** 旨在凸显 **Da**（此、林中空地般的敞开之境）与 **Sein**（存在）的构词张力：人并非近代笛卡尔哲学中封闭的「自我主体」（Subjekt），而是为存在之遮蔽与解蔽驻守那个「此」（Da）的承受者。',
           },
         ],
       },
@@ -101,7 +101,7 @@ export const vorlesung1Sections: BookSection[] = [
         num: '§ 08',
         original:
           'Dieses Dreifache — Weltbezug, Haltung, Einbruch — bringt in seiner wurzelhaften Einheit eine befeuernde Einfachheit und Schärfe des Da-seins in die wissenschaftliche Existenz. Wenn wir das so durchleuchtete wissenschaftliche Da-sein für uns ausdrücklich in Besitz nehmen, dann müssen wir sagen:',
-        zh: '这三重结构——与世界的关联、态度、突入——在其同根共源的统一性中，为科学生存带来了一种振奋人心的此在之单纯与锐利。如果我们为我们自己明确地占有这样被照亮的科学此在，那么我们就必须说：',
+        zh: '这三重结构——与世界的关联、态度、突入——在其同根共源的统一性中，为科学生存带来了一种振奋人心的此—在之单纯与锐利。如果我们为我们自己明确地占有这样被照亮的科学此—在，那么我们就必须说：',
       },
       {
         id: 'wim-v1-p09',
@@ -113,12 +113,12 @@ export const vorlesung1Sections: BookSection[] = [
             id: 'wim-v1-fn01',
             original:
               '1. Auflage 1929: Man hat diesen Zusatz hinter dem Gedankenstrich als willkürlich und künstlich ausgegeben und weiß nicht, daß Taine, der als Vertreter und Zeichen eines ganzen, noch herrschenden Zeitalters genommen werden kann, wissentlich diese Formel zur Kennzeichnung seiner Grundstellung und Absicht gebraucht.',
-            zh: '1929年第一版注：人们把破折号后面的这个补充说成是任意而造作的，却不知道泰纳——他可以被视为整整一个至今仍占统治地位的时代的代表与标志——曾有意识地使用这一公式来刻画他自己的基本立场与意图。',
+            zh: '1929 年第一版注：人们把破折号后面的这个补充说成是任意而造作的，却不知道泰纳——他可以被视为整整一个至今仍占统治地位的时代的代表与标志——曾有意识地使用这一公式来刻画他自己的基本立场与意图。',
           },
           {
             id: 'wim-v1-fn02',
             original: '5. Auflage 1949: die positive und ausschließliche Haltung zum Seienden.',
-            zh: '1949年第五版注：对存在者的实证的、排他的态度。',
+            zh: '1949 年第五版注：对存在者的实证的、排他的态度。',
           },
         ],
         glosses: [
@@ -168,7 +168,7 @@ export const vorlesung1Sections: BookSection[] = [
             id: 'g-wim-v1-07',
             anchor: '科学对「无」一无所知，也不想知',
             content:
-              '原文为 die Wissenschaft will vom Nichts nichts wissen。德语习语 von etwas nichts wissen wollen 意为「不愿理睬某事、对某事毫无兴趣」，但字面直译则是「关于『无』（vom Nichts）想要知道『无/什么也不』（nichts）」。三年后，逻辑实证主义代表人物卡尔纳普（Rudolf Carnap）在《认识》（Erkenntnis）杂志发表名篇《通过语言的逻辑分析清除形而上学》（1932），正是专门截取海德格尔此处至后文关于「无本身无化着」的段落作为靶子，指控海德格尔将逻辑全称否定算子（¬∃x）误作主词名词（das Nichts），制造了违背逻辑句法的「伪命题」（Scheinsätze）。',
+              '原文为 **die Wissenschaft will vom Nichts nichts wissen**。德语习语 **von etwas nichts wissen wollen** 日常意为「不愿理睬某事、对某事毫无兴趣」，字面直译则是「关于『无』（vom Nichts）想要知道『什么也不 / 无』（nichts）」，以名词化的「无」（das Nichts）与不定否定代词「什么也不」（nichts）构成双关。',
           },
         ],
       },
@@ -182,7 +182,7 @@ export const vorlesung1Sections: BookSection[] = [
           {
             id: 'wim-v1-fn03',
             original: '3. Auflage 1931: ontologische Differenz.\n5. Auflage 1949: Nichts als »Sein«.',
-            zh: '1931年第三版注：存在论差异。1949年第五版注：作为「存在」的「无」。',
+            zh: '1931 年第三版注：存在论差异。1949 年第五版注：作为「存在」的「无」。',
           },
         ],
       },
@@ -218,7 +218,7 @@ export const vorlesung1Sections: BookSection[] = [
           {
             id: 'wim-v1-fn04',
             original: '5. Auflage 1949: der Unterschied, die Differenz.',
-            zh: '1949年第五版注：区别，差异。',
+            zh: '1949 年第五版注：区别，差异。',
           },
         ],
       },
@@ -254,7 +254,7 @@ export const vorlesung1Sections: BookSection[] = [
           {
             id: 'wim-v1-fn05',
             original: '1. Auflage 1929: d. h. Logik im gewöhnlichen Sinne, was man so dafür nimmt.',
-            zh: '1929年第一版注：即通常意义上的逻辑，人们通常当作逻辑的那种东西。',
+            zh: '1929 年第一版注：即通常意义上的逻辑，人们通常当作逻辑的那种东西。',
           },
         ],
       },
@@ -268,7 +268,7 @@ export const vorlesung1Sections: BookSection[] = [
           {
             id: 'wim-v1-fn06',
             original: '5. Auflage 1949: Ursprungsordnung.',
-            zh: '1949年第五版注：源始性秩序。',
+            zh: '1949 年第五版注：源始性秩序。',
           },
         ],
         glosses: [
@@ -276,7 +276,7 @@ export const vorlesung1Sections: BookSection[] = [
             id: 'g-wim-v1-09',
             anchor: '否定与「非」',
             content:
-              '自亚里士多德《范畴篇》《解释篇》至康德《纯粹理性批判》先验分析论的「判断表」，传统逻辑学始终将「否定」（Verneinung / Negation）界定为知性（Verstand）连接或拆解主谓概念的判断功能（如「S 不是 P」），而把「无」（das Nichts）视为将这一否定判断推至极限（否定一切存在者之总体）所派生的空概念（康德在《纯粹理性批判》A290/B346「论无的概念之歧义」中即按范畴表将「无」划分为四种知性空形式）。海德格尔在此直接倒转了近两千年的逻辑谱系：不是先有形式逻辑的「不/非（das Nicht）」才有「无」，而是人类此在先在生存论上遭遇了「无」，知性才可能做出说「不」的判断行为。',
+              '自亚里士多德《范畴篇》《解释篇》至康德《纯粹理性批判》先验分析论的「判断表」，传统逻辑学始终将「否定」（Verneinung / Negation）界定为知性（Verstand）连接或拆解主谓概念的判断功能（如「S 不是 P」），而把「无」（das Nichts）视为将这一否定判断推至极限（否定一切存在者之总体）所派生的空概念。康德在《纯粹理性批判》先验分析论附录「论反思概念之歧义」末尾（A 290 / B 346）即按范畴表将「无」划分为四种知性空形式（无对象的空概念 ens rationis、某物的匮乏 nihil privativum、纯粹直观形式 ens imaginarium、自相矛盾的无对象空概念 nihil negativum）。',
           },
         ],
       },
@@ -291,7 +291,7 @@ export const vorlesung1Sections: BookSection[] = [
             id: 'wim-v1-fn07',
             original:
               '5. Auflage 1949: die blinde Eigensinnigkeit: die certitudo des ego cogito, Subjektivität.',
-            zh: '1949年第五版注：盲目的固执己见：自我我思（ego cogito）的确定性（certitudo），主体性。',
+            zh: '1949 年第五版注：盲目的固执己见：「我思」的确定性，主体性。',
           },
         ],
       },
@@ -370,7 +370,7 @@ export const vorlesung1Sections: BookSection[] = [
         num: '§ 32',
         original:
           'Solches Gestimmtsein, darin einem so und so »ist«, läßt uns — von ihm durchstimmt — inmitten des Seienden im Ganzen befinden. Die Befindlichkeit der Stimmung enthüllt nicht nur je nach ihrer Weise das Seiende im Ganzen, sondern dieses Enthüllen ist zugleich — weit entfernt von einem bloßen Vorkommnis — das Grundgeschehen unseres Da-seins.',
-        zh: '这种让人觉得如此这般的被调定的情调，让我们——被它彻底贯通并调定——现身于存在者整体中央。[现身情态]{#g-wim-v1-12}的情绪不仅各自按其方式揭示着存在者整体，而且这种揭示同时——绝非仅仅是一桩偶发事件——就是我们此在的基本发生。',
+        zh: '这种让人觉得如此这般的被调定的情调，让我们——被它彻底贯通并调定——现身于存在者整体中央。[现身情态]{#g-wim-v1-12}的情绪不仅各自按其方式揭示着存在者整体，而且这种揭示同时——绝非仅仅是一桩偶发事件——就是我们此—在的基本发生。',
         glosses: [
           {
             id: 'g-wim-v1-12',
@@ -433,7 +433,7 @@ export const vorlesung1Sections: BookSection[] = [
           {
             id: 'wim-v1-fn08',
             original: '5. Auflage 1949: das Seiende spricht nicht mehr an.',
-            zh: '1949年第五版注：存在者不再向人发话（不再触动人）。',
+            zh: '1949 年第五版注：存在者不再向人发话。',
           },
         ],
         glosses: [
@@ -441,7 +441,7 @@ export const vorlesung1Sections: BookSection[] = [
             id: 'g-wim-v1-14',
             anchor: '让人觉得阴森不适',
             content:
-              '原文为无人称句 es ist einem unheimlich。形容词 unheimlich 日常意为「阴森的、怪异的、令人毛骨悚然的」，但其词根 Heim 即「家/家园」（heimlich 原意为「居家的、熟悉的、隐秘的」），加上否定前缀 un-，字面本义即是「不在家、无家可归的（nicht-zuhause-sein）」。在日常操劳中，此在总是安居并沉沦于熟悉的世内事物之「家」中；而在「畏」袭来的瞬间，整个熟悉的世界抽身隐退，暴露出此在在世界之中原初的「无家可归状态」（Unheimlichkeit）。',
+              '原文为无人称句 **es ist einem unheimlich**。形容词 **unheimlich** 与抽象名词 **Unheimlichkeit**（见第 41 段及后文）日常意为「阴森不适、怪异莫名」，其词根 **Heim** 意为「家、家园」（heimlich 原意为「居家的、熟悉的、隐秘的」），加上否定前缀 **un-**，字面本义即「不在家、无家可归（nicht-zu-Hause-sein）」。海德格尔在《存在与时间》第 40 节中将这一日常语词还原为存在论上的「不在家状态」（Un-heim-lichkeit）：日常此在沉沦于「常人」（das Man）的熟悉世界而自以为「在家」；当畏袭来、日常熟悉的意蕴关联隐退时，便暴露出此在在世界之中原初的「不在家状态」。',
           },
         ],
       },
@@ -456,17 +456,17 @@ export const vorlesung1Sections: BookSection[] = [
         num: '§ 40',
         original:
           'Wir »schweben« in Angst. Deutlicher: die Angst läßt uns schweben, weil sie das Seiende im Ganzen zum Entgleiten bringt. Darin liegt, daß wir selbst — diese seienden Menschen — inmitten des Seienden uns mitentgleiten. Daher ist im Grunde nicht »dir« und »mir« unheimlich, sondern »einem« ist es so. Nur das reine Da-sein in der Durchschütterung dieses Schwebens, darin es sich an nichts halten kann, ist noch da.',
-        zh: '我们在畏中「悬荡」。说得更清楚些：畏让我们悬荡，因为它使存在者整体滑脱而去。这其中就包含着：我们自己——这些存在着的人[^wim-v1-fn09]——在存在者中央也从我们自己这里一道滑脱而去。因此，归根结底并不是「你」和「我」觉得阴森不适，而是「让人」觉得如此。唯有纯粹的此在[^wim-v1-fn10]，在这场无所依傍的悬荡的彻底震撼之中，还依然在场。',
+        zh: '我们在畏中「悬荡」。说得更清楚些：畏让我们悬荡，因为它使存在者整体滑脱而去。这其中就包含着：我们自己——这些存在着的人[^wim-v1-fn09]——在存在者中央也从我们自己这里一道滑脱而去。因此，归根结底并不是「你」和「我」觉得阴森不适，而是「让人」觉得如此。唯有纯粹的此—在[^wim-v1-fn10]，在这场无所依傍的悬荡的彻底震撼之中，还依然在场。',
         authorNotes: [
           {
             id: 'wim-v1-fn09',
             original: '5. Auflage 1949: aber nicht der Mensch als Mensch des Da-seins.',
-            zh: '1949年第五版注：但不是作为此在之人的那个人。',
+            zh: '1949 年第五版注：但不是作为此—在之人的那个人。',
           },
           {
             id: 'wim-v1-fn10',
             original: '5. Auflage 1949: das Da-sein »im« Menschen.',
-            zh: '1949年第五版注：人「之中」的此—在。',
+            zh: '1949 年第五版注：人「之中」的此—在。',
           },
         ],
       },
@@ -480,7 +480,7 @@ export const vorlesung1Sections: BookSection[] = [
           {
             id: 'wim-v1-fn11',
             original: '5. Auflage 1949: heißt: enthüllte sich; Entbergung und Stimmung.',
-            zh: '1949年第五版注：意思是：自行揭示了；解蔽与情绪。',
+            zh: '1949 年第五版注：意思是：自行揭示了；解蔽与情绪。',
           },
         ],
       },

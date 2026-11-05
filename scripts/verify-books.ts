@@ -72,6 +72,24 @@ function checkParagraphText(text: string, loc: string) {
   }
 }
 
+function checkChineseQuotes(text: string, loc: string, allowForeignQuotes = false) {
+  if (!text) return;
+  if (!allowForeignQuotes) {
+    if (/[“”]/.test(text)) {
+      errors.push(
+        `[中文弯引号 “”] ${loc}: 严禁使用弯引号 “”，请统一使用直角引号「……」与『……』`
+      );
+    }
+  } else {
+    // 在 gloss.content 中允许纯外文引句保留 “...”，但禁止包裹中文字符
+    if (/[“”][\u4e00-\u9fa5]|[\u4e00-\u9fa5][“”]/.test(text)) {
+      errors.push(
+        `[中文弯引号 “”] ${loc}: 旁注释文中对中文引语严禁使用弯引号 “”，请统一使用「……」`
+      );
+    }
+  }
+}
+
 for (const book of books) {
   if (!coverSvgSource.includes(`case '${book.slug}':`)) {
     errors.push(
@@ -79,16 +97,20 @@ for (const book of books) {
     );
   }
   checkInlineMarkup(book.descriptionZh, `${book.slug}/descriptionZh`);
+  checkChineseQuotes(book.descriptionZh, `${book.slug}/descriptionZh`);
 
   const seenBlockIds = new Set<string>();
   const seenGlossIds = new Set<string>();
   const seenFnIds = new Set<string>();
+  const seenAnchors = new Map<string, string>();
 
   for (const ch of book.chapters) {
     if (ch.dedication) {
       checkInlineMarkup(ch.dedication.toZh, `${book.slug}/dedication/toZh`);
+      checkChineseQuotes(ch.dedication.toZh, `${book.slug}/dedication/toZh`);
       if (ch.dedication.noteZh) {
         checkParagraphText(ch.dedication.noteZh, `${book.slug}/dedication/noteZh`);
+        checkChineseQuotes(ch.dedication.noteZh, `${book.slug}/dedication/noteZh`);
       }
       for (const g of ch.dedication.glosses ?? []) {
         if (seenGlossIds.has(g.id)) {
@@ -98,12 +120,15 @@ for (const book of books) {
         if (g.anchor.includes('*')) {
           errors.push(`[旁注 anchor 含 *] ${book.slug}/dedication/${g.id}: ${g.anchor}`);
         }
+        checkChineseQuotes(g.anchor, `${book.slug}/dedication/${g.id}/anchor`);
         checkInlineMarkup(g.content, `${book.slug}/dedication/${g.id}/content`);
+        checkChineseQuotes(g.content, `${book.slug}/dedication/${g.id}/content`, true);
       }
     }
 
     if (ch.epigraph) {
       checkInlineMarkup(ch.epigraph.quoteZh, `${book.slug}/epigraph/quoteZh`);
+      checkChineseQuotes(ch.epigraph.quoteZh, `${book.slug}/epigraph/quoteZh`);
     }
 
     for (const sec of ch.sections) {
@@ -116,7 +141,11 @@ for (const book of books) {
         if (blk.type === 'divider') continue;
 
         const loc = `${book.slug}/${sec.id}/${blk.id}`;
+        if (blk.num && !blk.num.startsWith('§ ')) {
+          errors.push(`[段落编号格式] ${loc}: num 必须以 "§ " 开头 -> ${JSON.stringify(blk.num)}`);
+        }
         checkParagraphText(blk.zh, `${loc}/zh`);
+        checkChineseQuotes(blk.zh, `${loc}/zh`);
 
         const zhGlossIds = [
           ...blk.zh.matchAll(/\[([^\]]+)\]\{#([a-zA-Z0-9_-]+)\}/g)
@@ -142,7 +171,27 @@ for (const book of books) {
           if (g.anchor.includes('*')) {
             errors.push(`[旁注 anchor 含 *] ${loc}/${g.id}: ${g.anchor}`);
           }
+          const prevAnchorLoc = seenAnchors.get(g.anchor);
+          if (prevAnchorLoc && g.anchor.length >= 2) {
+            errors.push(
+              `[同书重复旁注锚点] ${loc}/${g.id}: 锚点 "${g.anchor}" 与 ${prevAnchorLoc} 重复设注`
+            );
+          } else {
+            seenAnchors.set(g.anchor, `${loc}/${g.id}`);
+          }
+          if (
+            book.slug !== 'protestantische-ethik' &&
+            book.slug !== 'les-villes-du-moyen-age' &&
+            g.id !== 'g-gm-manas' &&
+            /(?<!》)（[A-Za-z\u00C0-\u024F\s.,:;'-]{2,}）/.test(g.anchor)
+          ) {
+            errors.push(
+              `[旁注 anchor 含外文夹注] ${loc}/${g.id}: 锚点与正文严禁私塞译者外文圆括号 -> ${g.anchor}`
+            );
+          }
+          checkChineseQuotes(g.anchor, `${loc}/${g.id}/anchor`);
           checkInlineMarkup(g.content, `${loc}/${g.id}/content`);
+          checkChineseQuotes(g.content, `${loc}/${g.id}/content`, true);
         }
 
         const zhFnIds = [...blk.zh.matchAll(/\[\^([a-zA-Z0-9_-]+)\]/g)].map((m) => m[1]);
@@ -165,6 +214,7 @@ for (const book of books) {
           }
           seenFnIds.add(fn.id);
           checkInlineMarkup(fn.zh, `${loc}/${fn.id}/zh`);
+          checkChineseQuotes(fn.zh, `${loc}/${fn.id}/zh`);
         }
       }
     }

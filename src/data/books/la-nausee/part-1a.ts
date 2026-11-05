@@ -39,7 +39,7 @@ export const laNauseePart1ASections: BookSection[] = [
             id: 'g-ln-1a-01',
             anchor: '出版者按语',
             content:
-              '卷首题词引自路易-费迪南·塞利纳（Louis-Ferdinand Céline，1894—1961）写于 1926 至 1927 年、1933 年出版的五幕讽刺剧《教会》（L’Église，主人公巴尔达米即次年名作《漫漫黑夜行》的前身）。该剧第三幕直接讽刺国际联盟的官僚机器，台词出自国联官员对一位不属于任何党派与利益集团的小人物的轻蔑评价。萨特最初将书稿命名为《忧郁》（Melancholia，取自丢勒 1514 年同名铜版画），1937 年被伽利玛出版社（Éditions Gallimard）接受后，出版人加斯东·伽利玛建议改用更具生理冲击力的书名《恶心》（La Nausée）。开篇的「出版者按语」则借用自十八世纪卢梭《新爱洛伊丝》以来的「遗稿发现」叙事框架，将整部哲学小说伪托为偶然整理出版的私人日记。'
+              '卷首题词引自路易-费迪南·塞利纳（Louis-Ferdinand Céline，1894—1961）写于 1926 至 1927 年、1933 年出版的五幕讽刺剧《教会》（L’Église，主人公巴尔达米即次年长篇小说《漫漫黑夜行》的前身）。该剧第三幕讽刺国际联盟的官僚机器，台词出自国联官员对一位不属于任何党派与利益集团的小人物的评价。开篇的「出版者按语」则借用自十八世纪卢梭《新爱洛伊丝》以来的「遗稿发现」叙事传统，将整部哲学小说托名为偶然整理出版的私人日记。'
           }
         ]
       },
@@ -134,20 +134,12 @@ export const laNauseePart1ASections: BookSection[] = [
         type: 'paragraph',
         num: '§ 09',
         fr: "Eh bien, c’est un parallélépipède rectangle, il se détache sur — c’est idiot, il n’y a rien à en dire. Voilà ce qu’il faut éviter, il ne faut pas mettre de l’étrange où il n’y a rien. Je pense que c’est le danger si l’on tient un journal : on s’exagère tout, on est aux aguets, on force continuellement la vérité. D’autre part, il est certain que je peux, d’un moment à l’autre — et précisément à propos de cet étui ou de n’importe quel autre objet — retrouver cette impression d’avant-hier. Je dois être toujours prêt, sinon elle me glisserait encore entre les doigts. Il ne faut rien mais noter soigneusement et dans le plus grand détail tout ce qui se produit.",
-        zh: '好吧，它是个[直角平行六面体]{#g-ln-1a-06}，凸现于——真蠢，关于它根本没什么好说的。这正是必须避免的事：绝不能在本来什么都没有的地方硬塞进古怪。我想这就是记日记的危险所在：人会把一切都夸大，时刻竖着耳朵戒备，没完没了地强扭真相。但另一方面，千真万确的是，我随时都可能——而且恰恰是在面对这个纸盒或随便什么别的物件时——重新撞见前天那种印象。我必须时刻有所准备，否则它又会从我指缝间溜走。绝不能[^ln-1a-fn02]任何东西，而要仔仔细细、极尽详尽地记下所发生的一切。',
+        zh: '好吧，它是个直角平行六面体，凸现于——真蠢，关于它根本没什么好说的。这正是必须避免的事：绝不能在本来什么都没有的地方硬塞进古怪。我想这就是记日记的危险所在：人会把一切都夸大，时刻竖着耳朵戒备，没完没了地强扭真相。但另一方面，千真万确的是，我随时都可能——而且恰恰是在面对这个纸盒或随便什么别的物件时——重新撞见前天那种印象。我必须时刻有所准备，否则它又会从我指缝间溜走。绝不能[^ln-1a-fn02]任何东西，而要仔仔细细、极尽详尽地记下所发生的一切。',
         authorNotes: [
           {
             id: 'ln-1a-fn02',
             fr: 'Un mot est raturé (peut-être « forcer » ou « forger »), un autre rajouté en surcharge est illisible.',
             zh: '原稿此处涂掉了一词（似为「强扭」或「杜撰」），上方叠写的另一词字迹漫漶不可辨。'
-          }
-        ],
-        glosses: [
-          {
-            id: 'g-ln-1a-06',
-            anchor: '直角平行六面体',
-            content:
-              '欧几里得立体几何学术语（parallélépipède rectangle，即长方体）。洛冈丹试图用纯粹几何学的抽象观念去概括眼前的墨水瓶纸盒，话说到一半便骤然中断，显露出抽象概念与具体物感之间的断裂。'
           }
         ]
       },
@@ -206,7 +198,7 @@ export const laNauseePart1ASections: BookSection[] = [
         type: 'paragraph',
         num: '§ 15',
         fr: "Peut-être bien, après tout, que c’était une petite crise de folie. Il n’y en a plus trace. Mes drôles de sentiments de l’autre semaine me semblent bien ridicules aujourd’hui : je n’y entre plus. Ce soir, je suis bien à l’aise, bien bourgeoisement dans le monde. Ici c’est ma chambre, orientée vers le nord-est. En dessous, la rue des Mutilés et le chantier de la nouvelle gare. Je vois de ma fenêtre, au coin du boulevard Victor-Noir, la flamme rouge et blanche du Rendez-vous des Cheminots. Le train de Paris vient d’arriver. Les gens sortent de l’ancienne gare et se répandent dans les rues. J’entends des pas et des voix. Beaucoup de personnes attendent le dernier tramway. Elles doivent faire un petit groupe triste autour du bec de gaz, juste sous ma fenêtre. Eh bien, il faut qu’elles attendent encore quelques minutes : le tram ne passera pas avant dix heures quarante-cinq. Pourvu qu’il ne vienne pas de voyageurs de commerce cette nuit : j’ai tellement envie de dormir et tellement de sommeil en retard. Une bonne nuit, une seule, et toutes ces histoires seraient balayées.",
-        zh: '说到底，那没准只是一场小小的精神失常发作罢了。如今已经踪影全无。上星期我那些古怪的感触，今天想来实在荒唐可笑：我已经完全进不到那种心境里去了。今晚，我自在极了，规规矩矩、颇具资产阶级腔调地安居于这个世界之中。这里是我的房间，朝向东北。楼下是伤残军人街，还有[新火车站的建筑工地]{#g-ln-1a-08}。从窗口望出去，在[维克多·努瓦尔大道]{#g-ln-1a-09}的拐角处，我能看见「铁道员聚会咖啡馆」红白相间的灯火。巴黎开来的列车刚刚进站。人们走出老火车站，四散到街巷里。我听见脚步声和人声。许多人在等末班有轨电车。他们准是正聚在我窗子正下方的煤气街灯四周，围成凄清的一小簇。好吧，他们还得再等上几分钟：十点四十五分之前电车是不会来的。但愿今夜别有什么旅行推销员住店：我困极了，欠了太多太多的觉。只需美美睡上一夜，只要一夜，所有这些怪事便会一扫而空。',
+        zh: '说到底，那没准只是一场小小的精神失常发作罢了。如今已经踪影全无。上星期我那些古怪的感触，今天想来实在荒唐可笑：我已经完全进不到那种心境里去了。今晚，我自在极了，规规矩矩、颇具资产阶级腔调地安居于这个世界之中。这里是我的房间，朝向东北。楼下是伤残军人街，还有[新火车站的建筑工地]{#g-ln-1a-08}。从窗口望出去，在[维克多·努瓦尔林荫道]{#g-ln-1a-09}的拐角处，我能看见「铁道员聚会咖啡馆」红白相间的灯火。巴黎开来的列车刚刚进站。人们走出老火车站，四散到街巷里。我听见脚步声和人声。许多人在等末班有轨电车。他们准是正聚在我窗子正下方的煤气街灯四周，围成凄清的一小簇。好吧，他们还得再等上几分钟：十点四十五分之前电车是不会来的。但愿今夜别有什么旅行推销员住店：我困极了，欠了太多太多的觉。只需美美睡上一夜，只要一夜，所有这些怪事便会一扫而空。',
         glosses: [
           {
             id: 'g-ln-1a-08',
@@ -216,7 +208,7 @@ export const laNauseePart1ASections: BookSection[] = [
           },
           {
             id: 'g-ln-1a-09',
-            anchor: '维克多·努瓦尔大道',
+            anchor: '维克多·努瓦尔林荫道',
             content:
               '维克多·努瓦尔（Victor Noir，1848—1870），法兰西第二帝国末期的年轻共和派记者，1870 年 1 月因报刊争端前往与拿破仑三世的堂弟皮埃尔·波拿巴王子交涉决斗事宜时，被后者当场开枪射杀。其葬礼引发十余万巴黎市民上街抗议，成为法兰西第三共和国的标志性殉道者之一。法国外省许多城镇的市政当局热衷以第三共和国名人命名街道，此处连同「伤残军人街（rue des Mutilés，纪念一战伤兵）」共同构成典型的外省市政空间。'
           }
@@ -348,7 +340,7 @@ export const laNauseePart1ASections: BookSection[] = [
             id: 'g-ln-1a-12',
             anchor: '高棉小雕像',
             content:
-              '指法属印度支那柬埔寨吴哥古迹出土的高棉石雕或青铜造像。1923 年，22 岁的安德烈·马尔罗（André Malraux）曾携妻深入柬埔寨丛林盗凿女王宫（Banteay Srei）高棉浮雕，在金边被殖民当局逮捕受审，随后于 1930 年出版小说《王家大道》（La Voie royale），将远东考古探险塑造成当时法国知识界对抗平庸命运的英雄主义范式。萨特在此借洛冈丹面对高棉雕像时突然涌起的虚空与厌倦，直接瓦解了马尔罗式的异域考古冒险神话。'
+              '指法属印度支那柬埔寨吴哥古迹出土的高棉石雕或青铜造像。1923 年，22 岁的安德烈·马尔罗（André Malraux）曾携妻深入柬埔寨丛林盗凿女王宫（Banteay Srei）高棉浮雕，在金边被殖民当局逮捕受审，随后于 1930 年出版以远东丛林考古为主题的小说《王家大道》（La Voie royale）。萨特本人从未到访印度支那，此处洛冈丹随梅西耶考古团赴远东的经历即化用自这一背景。'
           }
         ]
       },
@@ -591,7 +583,7 @@ export const laNauseePart1ASections: BookSection[] = [
             id: 'g-ln-1a-19',
             anchor: '我既不是待字闺中的处女，也不是神父，犯不着去玩弄什么「内在精神生活」',
             content:
-              '直接矛头指向十九世纪末至二十世纪三十年代统治法国文坛与学院哲学的「内在生活（vie intérieure）」传统——文学上以阿米耶尔（Amiel）、保罗·布尔热（Paul Bourget）与早期纪德的私密心理日记为代表，哲学上则以莱昂·布伦瑞克（Léon Brunschvicg）的新康德主义唯心论与柏格森的内省绵延论为代表。萨特在《胡塞尔现象学的一个基本观念：意向性》（1939）与挚友保罗·尼赞（Paul Nizan）的《看门狗》（Les Chiens de garde，1932）中，均猛烈批判这种将意识当作封闭消化箱的资产阶级「内在生活」神话，主张意识本质上是指向外部世界的「意向性」投射，「意识没有『内部』，它不过是它自身的外部」。'
+              '直接针对十九世纪末至二十世纪三十年代法国文坛与学院哲学的「内在生活（vie intérieure）」传统——文学上以阿米耶尔（Amiel）、保罗·布尔热（Paul Bourget）与早期纪德的私密心理日记为代表，哲学上则以莱昂·布伦瑞克（Léon Brunschvicg）的新康德主义唯心论与柏格森的内省绵延论为代表。萨特在《胡塞尔现象学的一个基本观念：意向性》（1939）与保罗·尼赞（Paul Nizan）的《看门狗》（Les Chiens de garde，1932）中，均批判这种将意识当作封闭容器的「内在生活」观念，主张意识本质上是指向外部世界的「意向性」投射，「意识没有『内部』，它不过是它自身的外部」。'
           }
         ]
       },

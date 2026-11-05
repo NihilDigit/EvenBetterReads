@@ -599,13 +599,10 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
       if (secId === 'liminaire') return '卷首与题词';
       const found = chapter.sections.find((s) => s.id === secId);
       if (!found) return '';
-      const prefix =
-        found.roman === 'Vorrede'
-          ? '序言'
-          : found.roman === 'Appendice'
-            ? '附录'
-            : found.roman;
-      return `${prefix} ${found.titleZh}`;
+      if (found.roman === 'Vorrede' || found.roman === 'Appendice') {
+        return found.titleZh;
+      }
+      return `${found.roman} ${found.titleZh}`;
     };
 
     const persistReadingPosition = (
@@ -743,7 +740,11 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   const currentSectionTitle = useMemo(() => {
     if (currentSpySection === 'liminaire') return '卷首与题词';
     const found = chapter.sections.find((s) => s.id === currentSpySection);
-    return found ? `${found.roman} ${found.titleZh}` : '';
+    if (!found) return '';
+    if (found.roman === 'Vorrede' || found.roman === 'Appendice') {
+      return found.titleZh;
+    }
+    return `${found.roman} ${found.titleZh}`;
   }, [currentSpySection, chapter.sections]);
 
   // 纸张主题切换组件（书架与阅读器共用，高度与字号切换器严格统一为 h-8）
@@ -959,9 +960,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               {/* 弹窗固定顶栏：滚动到底部时依然常驻 */}
               <div className="shrink-0 px-4 sm:px-7 py-3 border-b border-[var(--rule-strong)] bg-[var(--bg-panel)] flex items-center justify-between gap-3">
                 <div className="flex items-baseline gap-2.5 min-w-0 truncate">
-                  <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
-                    {previewBook.vol}
-                  </span>
                   <span className="zh-title-bold text-base sm:text-lg truncate">
                     {previewBook.titleZh}
                   </span>
@@ -1053,30 +1051,22 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   ))}
                 </div>
 
-                {/* 弹窗底部：章节目录速览（点击可直接跳入对应章节） */}
+                {/* 弹窗底部：章节目录 */}
                 {previewBook.chapters[0] && (
                   <div className="pt-5 border-t border-[var(--rule-line)]">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-mono-coord text-xs uppercase tracking-[0.15em] text-[var(--accent-nrf)]">
-                        章节目录（点击直达）
-                      </span>
-                      <span className="font-mono-coord text-[11px]">
-                        {previewBook.chapters[0].number}
-                      </span>
-                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                       {previewBook.chapters[0].sections.map((sec) => (
                         <button
                           key={sec.id}
                           type="button"
                           onClick={() => openBook(previewBook.slug, sec.id)}
-                          className="text-left px-3 py-2 text-xs border border-[var(--rule-line)] hover:border-[var(--rule-strong)] hover:bg-[var(--bg-elevated)]/60 transition-colors grid grid-cols-[minmax(32px,auto)_1fr] gap-2 items-baseline cursor-pointer"
+                          className="text-left px-3 py-2 text-xs border border-[var(--rule-line)] hover:border-[var(--rule-strong)] hover:bg-[var(--bg-elevated)]/60 transition-colors grid grid-cols-[minmax(28px,auto)_1fr] gap-2 items-baseline cursor-pointer"
                         >
                           <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)]">
                             {sec.roman === 'Vorrede'
-                              ? '序言'
+                              ? '序'
                               : sec.roman === 'Appendice'
-                                ? '附录'
+                                ? '附'
                                 : sec.roman}
                           </span>
                           <span className="truncate">{sec.titleZh}</span>
@@ -1113,6 +1103,22 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
             </div>
 
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <a
+                href="/ebooks/EvenBetterReads-EPUB.zip"
+                download="EvenBetterReads-EPUB.zip"
+                className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
+              >
+                全集 EPUB ↓
+              </a>
+              <span className="hidden sm:inline-block h-3 w-[1px] bg-[var(--rule-line)]" />
+              <a
+                href="/ebooks/EvenBetterReads-AZW3.zip"
+                download="EvenBetterReads-AZW3.zip"
+                className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
+              >
+                全集 AZW3 ↓
+              </a>
+              <span className="hidden sm:inline-block h-3 w-[1px] bg-[var(--rule-line)]" />
               <span>
                 中文译文与伴读旁注采用{' '}
                 <a
@@ -1348,7 +1354,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
             <div className="flex items-start justify-between gap-2 pb-4 border-b border-[var(--rule-line)]">
               <div className="min-w-0">
                 <p className="font-mono-coord text-[10px] tracking-[0.2em] uppercase text-[var(--accent-nrf)] truncate">
-                  {book.authorOriginal} / {chapter.number}
+                  {book.authorOriginal}
                 </p>
                 <h2 className="text-base sm:text-lg font-medium mt-1 leading-snug">
                   {book.titleZh}
@@ -1398,9 +1404,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 >
                   <span className="font-mono-coord text-xs text-[var(--accent-nrf)] shrink-0">
                     {sec.roman === 'Vorrede'
-                      ? '序言'
+                      ? '序'
                       : sec.roman === 'Appendice'
-                        ? '附录'
+                        ? '附'
                         : sec.roman}
                   </span>
                   <div className="min-w-0">
@@ -1413,9 +1419,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           </div>
 
           <div className="pt-4 mt-6 border-t border-[var(--rule-line)]">
-            <div className="font-mono-coord text-[10px] tracking-[0.15em] uppercase mb-2">
-              电子书副本下载
-            </div>
             <div className="grid grid-cols-2 gap-2">
               <a
                 href={`/ebooks/${book.slug}.epub`}
@@ -1462,12 +1465,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           </div>
 
           <div>
-            <div className="mb-2.5 px-2">
-              <span className="font-mono-coord text-[10px] tracking-[0.18em] uppercase">
-                {chapter.number}
-              </span>
-            </div>
-
             <nav ref={tocNavRef} className="space-y-1.5">
               {hasLiminaire && (
                 <button
@@ -1503,9 +1500,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   >
                     <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)] shrink-0">
                       {sec.roman === 'Vorrede'
-                        ? '序言'
+                        ? '序'
                         : sec.roman === 'Appendice'
-                          ? '附录'
+                          ? '附'
                           : sec.roman}
                     </span>
                     <div className="min-w-0">
@@ -1522,9 +1519,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
         </div>
 
         <div className="pt-4 mt-6 border-t border-[var(--rule-line)] px-2">
-          <div className="font-mono-coord text-[10px] tracking-[0.15em] uppercase mb-2">
-            电子书副本下载
-          </div>
           <div className="grid grid-cols-2 gap-1.5">
             <a
               href={`/ebooks/${book.slug}.epub`}

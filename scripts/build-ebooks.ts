@@ -1,7 +1,11 @@
-import { mkdirSync, existsSync, readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import { mkdirSync, mkdtempSync, readdirSync, rmSync, existsSync, readFileSync, writeFileSync } from 'fs';
+import { join, resolve } from 'path';
+import { tmpdir } from 'os';
+import { parseArgs } from 'util';
+import { Resvg } from '@resvg/resvg-js';
+import { decompress } from 'wawoff2';
 import { deflateRawSync } from 'zlib';
-import { spawn } from 'child_process';
+import { spawn, spawnSync } from 'child_process';
 import { createHash } from 'crypto';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -9,7 +13,12 @@ import { books } from '../src/data/books/index';
 import BookCoverSvg from '../src/components/BookCoverSvg';
 import type { BookMeta, GlossItem, AuthorNote, ParagraphBlock } from '../src/types/book';
 
-const OUT_DIR = join(process.cwd(), 'public', 'ebooks');
+const { values: options } = parseArgs({
+  args: process.argv.slice(2),
+  options: { book: { type: 'string' }, 'out-dir': { type: 'string' } },
+  strict: true
+});
+const OUT_DIR = resolve(options['out-dir'] ?? join('public', 'ebooks'));
 const MANIFEST_PATH = join(OUT_DIR, '.manifest.json');
 
 function escapeXml(str: string): string {
@@ -117,16 +126,41 @@ function buildEpubZip(entries: ZipEntry[]): Buffer {
 
 function renderBookCoverSvgString(slug: string): string {
   const raw = renderToStaticMarkup(React.createElement(BookCoverSvg, { slug }));
-  const resolved = raw
+  const svg = raw.match(/<svg\b[^>]*>[\s\S]*<\/svg>/)?.[0];
+  if (!svg) throw new Error(`未找到书封 SVG: ${slug}`);
+  const resolved = svg
     .replace(/currentColor/g, '#161514')
     .replace(/var\(--accent-nrf\)/g, '#9e2a2b')
     .replace(/var\(--bg-canvas\)/g, '#f8f5ee')
     .replace(/class="[^"]*"/g, '');
 
   return resolved.replace(
-    /^<svg([^>]*)>/,
-    '<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg"$1><rect x="0" y="0" width="200" height="280" fill="#f8f5ee"/>'
+    /^<svg\b[^>]*>/,
+    '<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1400" viewBox="0 0 200 280"><rect x="0" y="0" width="200" height="280" fill="#f8f5ee"/>'
   );
+}
+
+// resvg accepts SFNT fonts, not the WOFF2 files used by the website. Decode into
+// a temporary directory so CI and local builds use the same project typefaces.
+async function prepareCoverFonts(dir: string): Promise<string[]> {
+  const sources = [
+    join(process.cwd(), 'public/fonts/LXGWNeoZhiSong-subset.woff2'),
+    join(process.cwd(), 'public/fonts/LXGWWenKai-subset.woff2')
+  ];
+  for (const family of ['eb-garamond', 'jetbrains-mono']) {
+    const fontDir = new URL('./files/', import.meta.resolve(`@fontsource/${family}/400.css`));
+    for (const file of readdirSync(fontDir)) {
+      if (file.endsWith('.woff2')) sources.push(new URL(file, fontDir).href);
+    }
+  }
+  const fontFiles: string[] = [];
+  for (const [index, source] of sources.entries()) {
+    const target = join(dir, `${index}.ttf`);
+    const input = source.startsWith('file:') ? new URL(source) : source;
+    writeFileSync(target, await decompress(readFileSync(input)));
+    fontFiles.push(target);
+  }
+  return fontFiles;
 }
 
 interface BookMaps {
@@ -255,7 +289,6 @@ function renderNotesSectionXhtml(
 
   return `
     <section class="notes-rail" epub:type="footnotes" role="doc-endnotes">
-      <div class="notes-rail-title">伴读注疏与原注</div>
       ${itemsHtml.join('\n')}
     </section>`;
 }
@@ -521,9 +554,18 @@ ${bodyContent}
 </html>`;
 }
 
-function buildBookEpubBuffer(book: BookMeta): { epubBuf: Buffer; contentHash: string } {
+function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Buffer; contentHash: string } {
   const maps = buildBookMaps(book);
   const coverSvg = renderBookCoverSvgString(book.slug);
+  const coverPng = new Resvg(coverSvg, {
+    font: {
+      loadSystemFonts: true,
+      fontFiles,
+      defaultFontFamily: 'LXGW Neo ZhiSong',
+      serifFamily: 'LXGW Neo ZhiSong',
+      monospaceFamily: 'JetBrains Mono'
+    }
+  }).render().asPng();
 
   const entries: ZipEntry[] = [
     {
@@ -552,11 +594,15 @@ function buildBookEpubBuffer(book: BookMeta): { epubBuf: Buffer; contentHash: st
       data: Buffer.from(coverSvg, 'utf8')
     },
     {
+      name: 'OEBPS/cover.png',
+      data: coverPng
+    },
+    {
       name: 'OEBPS/cover.xhtml',
       data: Buffer.from(
         wrapXhtmlDoc(
           `${book.titleZh} — 书封`,
-          `<div class="cover-wrap"><img src="cover.svg" alt="${escapeXml(book.titleZh)}" /></div>`
+          `<div class="cover-wrap"><img src="cover.png" alt="${escapeXml(book.titleZh)}" /></div>`
         ),
         'utf8'
       )
@@ -589,15 +635,14 @@ function buildBookEpubBuffer(book: BookMeta): { epubBuf: Buffer; contentHash: st
 
   const introBody = `
     <div class="title-card">
-      <p class="meta-vol">${escapeXml(book.vol)} / ${escapeXml(book.year)} / ${escapeXml(book.langOriginal)}</p>
+      <p class="meta-vol">${escapeXml(book.year)}</p>
       <h1 class="book-title-zh">${escapeXml(book.titleZh)}</h1>
       <p class="book-subtitle-zh">${escapeXml(book.subtitleZh)}</p>
       <p class="book-title-orig">${escapeXml(book.titleOriginal)} — ${escapeXml(book.subtitleOriginal)}</p>
       <p class="book-author">${escapeXml(book.authorZh)}（${escapeXml(book.authorOriginal)}）</p>
-      <p class="book-author">${escapeXml(book.publisher)} / ${escapeXml(book.collection)}</p>
+      <p class="book-author">${escapeXml(book.publisher)}</p>
     </div>
     <div class="intro-section">
-      <div class="intro-heading">学术导读 / INTRODUCTION</div>
       ${renderParagraphXhtml(book.descriptionZh, maps, book.authorNoteLabel)}
     </div>
     ${dedicationHtml}
@@ -723,8 +768,9 @@ function buildBookEpubBuffer(book: BookMeta): { epubBuf: Buffer; contentHash: st
   // Build content.opf
   const manifestItems = [
     `<item id="css" href="styles.css" media-type="text/css"/>`,
-    `<item id="cover-image" href="cover.svg" media-type="image/svg+xml" properties="cover-image"/>`,
-    `<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>`,
+    `<item id="cover-image" href="cover.png" media-type="image/png" properties="cover-image"/>`,
+    `<item id="cover-svg" href="cover.svg" media-type="image/svg+xml"/>`,
+    `<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>`,
     `<item id="intro" href="intro.xhtml" media-type="application/xhtml+xml"/>`,
     `<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>`,
     `<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>`,
@@ -760,6 +806,11 @@ function buildBookEpubBuffer(book: BookMeta): { epubBuf: Buffer; contentHash: st
   <spine toc="ncx">
     ${spineItems}
   </spine>
+  <guide>
+    <reference type="cover" title="书封" href="cover.xhtml"/>
+    <reference type="text" title="导读与卷首" href="intro.xhtml"/>
+    <reference type="toc" title="目录" href="nav.xhtml"/>
+  </guide>
 </package>`;
 
   entries.push({
@@ -768,6 +819,7 @@ function buildBookEpubBuffer(book: BookMeta): { epubBuf: Buffer; contentHash: st
   });
 
   const hasher = createHash('sha256');
+  hasher.update('azw3-cover-v2-share-not-sync');
   for (const e of entries) {
     hasher.update(e.name);
     hasher.update(e.data);
@@ -778,15 +830,23 @@ function buildBookEpubBuffer(book: BookMeta): { epubBuf: Buffer; contentHash: st
 }
 
 function resolveEbookConvertBin(): string | null {
-  const winPortable =
-    'C:\\Users\\rosetta\\.local\\calibre\\Calibre Portable\\Calibre\\ebook-convert.exe';
-  if (existsSync(winPortable)) return winPortable;
-  return 'ebook-convert';
+  const candidates = [
+    'C:\\Program Files\\Calibre2\\ebook-convert.exe',
+    'C:\\Users\\rosetta\\.local\\calibre\\Calibre Portable\\Calibre\\ebook-convert.exe'
+  ];
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) return candidate;
+  }
+  return spawnSync('ebook-convert', ['--version'], { stdio: 'ignore' }).status === 0
+    ? 'ebook-convert'
+    : null;
 }
 
 function convertEpubToAzw3(bin: string, epubPath: string, azw3Path: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    const child = spawn(bin, [epubPath, azw3Path], {
+    // --share-not-sync 避免写入伪造 UUID 的 EXTH 113 (ASIN) 与 EXTH 501 (EBOK)，
+    // 防止 Kindle E-Ink 设备在联网状态下拿伪 ASIN 请求亚马逊封面服务器 404 后冲掉本地书架封面缩略图
+    const child = spawn(bin, [epubPath, azw3Path, '--share-not-sync'], {
       stdio: ['ignore', 'pipe', 'pipe']
     });
     let stderr = '';
@@ -803,7 +863,9 @@ function convertEpubToAzw3(bin: string, epubPath: string, azw3Path: string): Pro
   });
 }
 
-async function main() {
+async function main(fontFiles: string[]) {
+  const selectedBooks = options.book ? books.filter((book) => book.slug === options.book) : books;
+  if (selectedBooks.length === 0) throw new Error(`未知书目: ${options.book}`);
   mkdirSync(OUT_DIR, { recursive: true });
 
   let prevManifest: Record<string, string> = {};
@@ -815,11 +877,11 @@ async function main() {
     }
   }
 
-  const nextManifest: Record<string, string> = {};
+  const nextManifest: Record<string, string> = options.book ? { ...prevManifest } : {};
   const convertQueue: { slug: string; epubPath: string; azw3Path: string }[] = [];
 
-  for (const book of books) {
-    const { epubBuf, contentHash: hash } = buildBookEpubBuffer(book);
+  for (const book of selectedBooks) {
+    const { epubBuf, contentHash: hash } = buildBookEpubBuffer(book, fontFiles);
     nextManifest[book.slug] = hash;
 
     const epubPath = join(OUT_DIR, `${book.slug}.epub`);
@@ -832,9 +894,10 @@ async function main() {
     }
   }
 
-  console.log(`✓ 已生成全馆 ${books.length} 部作品的 EPUB 3 电子书（public/ebooks/*.epub）`);
+  console.log(`✓ 已生成 ${selectedBooks.length} 部作品的 EPUB 3 电子书（${OUT_DIR}）`);
 
   const bin = resolveEbookConvertBin();
+  if (convertQueue.length > 0 && !bin) throw new Error('未找到 Calibre ebook-convert');
   if (convertQueue.length > 0 && bin) {
     console.log(`正在调用 Calibre ebook-convert 编译 ${convertQueue.length} 部 AZW3 (KF8) 副本...`);
     const CONCURRENCY = 4;
@@ -850,10 +913,51 @@ async function main() {
   }
 
   writeFileSync(MANIFEST_PATH, JSON.stringify(nextManifest, null, 2));
-  console.log(`✓ 全馆 ${books.length} 部作品 EPUB 与 AZW3 副本准备就绪`);
+
+  if (!options.book) {
+    const epubBundleEntries: ZipEntry[] = [];
+    const azw3BundleEntries: ZipEntry[] = [];
+
+    selectedBooks.forEach((book, i) => {
+      const prefix = String(i + 1).padStart(2, '0');
+      const safeTitle = `${prefix}-${book.titleZh}-${book.authorZh}`.replace(/[\\/:*?"<>|]/g, '_');
+      const epubFile = join(OUT_DIR, `${book.slug}.epub`);
+      const azw3File = join(OUT_DIR, `${book.slug}.azw3`);
+
+      if (existsSync(epubFile)) {
+        epubBundleEntries.push({
+          name: `${safeTitle}.epub`,
+          data: readFileSync(epubFile),
+          store: true
+        });
+      }
+      if (existsSync(azw3File)) {
+        azw3BundleEntries.push({
+          name: `${safeTitle}.azw3`,
+          data: readFileSync(azw3File),
+          store: true
+        });
+      }
+    });
+
+    writeFileSync(join(OUT_DIR, 'EvenBetterReads-EPUB.zip'), buildEpubZip(epubBundleEntries));
+    writeFileSync(join(OUT_DIR, 'EvenBetterReads-AZW3.zip'), buildEpubZip(azw3BundleEntries));
+    console.log('✓ 已打包全集压缩包 EvenBetterReads-EPUB.zip 与 EvenBetterReads-AZW3.zip');
+  }
+
+  console.log(`✓ ${selectedBooks.length} 部作品 EPUB 与 AZW3 副本准备就绪`);
 }
 
-main().catch((err) => {
+async function run() {
+  const fontDir = mkdtempSync(join(tmpdir(), 'ebr-cover-fonts-'));
+  try {
+    await main(await prepareCoverFonts(fontDir));
+  } finally {
+    rmSync(fontDir, { recursive: true, force: true });
+  }
+}
+
+run().catch((err) => {
   console.error('❌ 电子书构建失败:', err);
   process.exit(1);
 });

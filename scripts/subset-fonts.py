@@ -42,6 +42,7 @@ def build_subsets():
             '--flavor=woff2',
             f'--output-file={out_path}',
             '--layout-features=*',
+            '--drop-tables+=feat,morx',
         ]
         subset_main(args)
         size_kb = os.path.getsize(out_path) / 1024
