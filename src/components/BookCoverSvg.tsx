@@ -14,7 +14,7 @@ interface BookCoverSvgProps {
 export default function BookCoverSvg({ slug, className = '' }: BookCoverSvgProps) {
   return (
     <div
-      className={`relative aspect-[5/7] w-full select-none overflow-hidden bg-[var(--bg-canvas)] text-[var(--ink-primary)] border border-[var(--rule-strong)] shadow-[2px_3px_0px_var(--rule-line)] group-hover:-translate-y-0.5 group-hover:-translate-x-0.5 group-hover:border-[var(--accent-nrf)] group-hover:shadow-[3.5px_4.5px_0px_var(--accent-nrf)] transition-all duration-250 ease-out ${className}`}
+      className={`book-cover-object relative aspect-[5/7] w-full select-none overflow-hidden bg-[var(--bg-panel)] text-[var(--ink-primary)] border border-[var(--rule-strong)]/85 transition-all duration-300 ease-out ${className}`}
       aria-hidden="true"
     >
       {renderCoverBySlug(slug)}
@@ -23,34 +23,34 @@ export default function BookCoverSvg({ slug, className = '' }: BookCoverSvgProps
 }
 
 function SpineAndFrame({
-  vol,
   year,
   accentFrame = false
 }: {
-  vol: string;
+  vol?: string;
   year: string;
   accentFrame?: boolean;
 }) {
   return (
     <>
-      {/* 左侧装订书脊压槽线与装订针脚刻度 */}
+      {/* 左侧装订书脊压槽线与装订阴影层次 */}
+      <rect x="0" y="0" width="11" height="280" fill="currentColor" fillOpacity="0.035" />
       <line
         x1="11"
         y1="0"
         x2="11"
         y2="280"
         stroke="currentColor"
-        strokeOpacity="0.25"
-        strokeWidth="1"
+        strokeOpacity="0.28"
+        strokeWidth="0.9"
       />
       <line
-        x1="13.5"
+        x1="13.2"
         y1="0"
-        x2="13.5"
+        x2="13.2"
         y2="280"
         stroke="currentColor"
-        strokeOpacity="0.1"
-        strokeWidth="0.6"
+        strokeOpacity="0.12"
+        strokeWidth="0.5"
       />
 
       {/* 外层实墨线框 */}
@@ -61,10 +61,10 @@ function SpineAndFrame({
         height="260"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.15"
       />
 
-      {/* 内层朱砂或细墨复线框（四角带古典版刻十字花饰） */}
+      {/* 内层朱砂或细墨复线框 */}
       <rect
         x="23.5"
         y="13.5"
@@ -72,40 +72,40 @@ function SpineAndFrame({
         height="253"
         fill="none"
         stroke={accentFrame ? 'var(--accent-nrf)' : 'currentColor'}
-        strokeOpacity={accentFrame ? '0.85' : '0.45'}
-        strokeWidth="0.75"
+        strokeOpacity={accentFrame ? '0.85' : '0.42'}
+        strokeWidth="0.7"
       />
 
-      {/* 顶部栏：馆藏卷号与初版年份 */}
+      {/* 顶部古典纪年栏（去除程序员等宽 VOL.XX 标签，改用 EB Garamond 斜体纪年） */}
+      <line
+        x1="32"
+        y1="23"
+        x2="86"
+        y2="23"
+        stroke="currentColor"
+        strokeOpacity="0.25"
+        strokeWidth="0.5"
+      />
       <text
-        x="30"
-        y="24.5"
+        x="104"
+        y="25.5"
+        textAnchor="middle"
         fill="var(--accent-nrf)"
-        fontSize="7"
-        fontFamily="JetBrains Mono, monospace"
-        letterSpacing="1"
-      >
-        {vol}
-      </text>
-      <text
-        x="178"
-        y="24.5"
-        textAnchor="end"
-        fill="currentColor"
-        fontSize="7"
-        fontFamily="JetBrains Mono, monospace"
-        letterSpacing="0.8"
+        fontSize="8"
+        fontFamily="EB Garamond, Georgia, serif"
+        fontStyle="italic"
+        letterSpacing="1.2"
       >
         {year}
       </text>
       <line
-        x1="28"
-        y1="28.5"
-        x2="180"
-        y2="28.5"
+        x1="122"
+        y1="23"
+        x2="176"
+        y2="23"
         stroke="currentColor"
-        strokeOpacity="0.3"
-        strokeWidth="0.6"
+        strokeOpacity="0.25"
+        strokeWidth="0.5"
       />
     </>
   );
@@ -1536,10 +1536,11 @@ function renderCoverBySlug(slug: string) {
               y="120"
               textAnchor="middle"
               fill="currentColor"
-              fontSize="7.5"
-              fontFamily="JetBrains Mono, monospace"
+              fontSize="8"
+              fontFamily="EB Garamond, Georgia, serif"
+              fontWeight="600"
             >
-              2×2=4
+              2 × 2 = 4
             </text>
             <line x1="80" y1="125" x2="128" y2="110" stroke="var(--accent-nrf)" strokeWidth="1.6" />
 
@@ -2281,7 +2282,7 @@ function renderCoverBySlug(slug: string) {
               <ellipse cx="-5" cy="-6" rx="2.5" ry="1.8" fill="currentColor" />
               <ellipse cx="5" cy="-6" rx="2.5" ry="1.8" fill="currentColor" />
               <path d="M -6 9 Q 0 3, 6 9" fill="none" stroke="currentColor" strokeWidth="1.3" />
-              <text x="0" y="30" textAnchor="middle" fill="currentColor" fontSize="6.8" fontFamily="JetBrains Mono, monospace">
+              <text x="0" y="30" textAnchor="middle" fill="currentColor" fontSize="7.2" fontFamily="EB Garamond, Georgia, serif" fontStyle="italic">
                 1799
               </text>
             </g>
@@ -2300,7 +2301,7 @@ function renderCoverBySlug(slug: string) {
               {/* 波拿巴标志性尖翘八字胡 */}
               <path d="M -11 2 Q -4 0, 0 3 Q 4 0, 11 2" fill="none" stroke="currentColor" strokeWidth="1.3" />
               <path d="M -6 7 Q 0 13, 6 7" fill="none" stroke="var(--accent-nrf)" strokeWidth="1.3" />
-              <text x="0" y="30" textAnchor="middle" fill="var(--accent-nrf)" fontSize="6.8" fontFamily="JetBrains Mono, monospace">
+              <text x="0" y="30" textAnchor="middle" fill="var(--accent-nrf)" fontSize="7.2" fontFamily="EB Garamond, Georgia, serif" fontStyle="italic">
                 1851
               </text>
             </g>

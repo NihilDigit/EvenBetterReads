@@ -215,12 +215,12 @@ function renderInnerRichXhtml(
     .map((part) => {
       if (!part) return '';
       if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
-        return `<strong class="zh-emphasis">${escapeXml(part.slice(2, -2))}</strong>`;
+        return `<strong>${escapeXml(part.slice(2, -2))}</strong>`;
       }
       if (part.startsWith('[^') && part.endsWith(']')) {
         const fnId = part.slice(2, -1);
         const fnNum = maps.fnNumMap[fnId] ?? 1;
-        return `<a id="ref-${escapeXml(fnId)}" href="#note-${escapeXml(fnId)}" epub:type="noteref" role="doc-noteref" class="fn-ref">[${escapeXml(authorNoteLabel)} ${fnNum}]</a>`;
+        return `<sup><a id="ref-${escapeXml(fnId)}" href="#note-${escapeXml(fnId)}" epub:type="noteref" role="doc-noteref">[${escapeXml(authorNoteLabel)} ${fnNum}]</a></sup>`;
       }
       return escapeXml(part);
     })
@@ -230,8 +230,7 @@ function renderInnerRichXhtml(
 function renderParagraphXhtml(
   text: string,
   maps: BookMaps,
-  authorNoteLabel: string,
-  className = 'zh-prose'
+  authorNoteLabel: string
 ): string {
   const paragraphs = text.split('\n\n');
   return paragraphs
@@ -245,12 +244,12 @@ function renderParagraphXhtml(
           if (match) {
             const [, anchorText, glossId] = match;
             const num = maps.glossNumMap[glossId] ?? '00';
-            return `<span class="gloss-anchor">${renderInnerRichXhtml(anchorText, maps, authorNoteLabel)}</span><a id="ref-${escapeXml(glossId)}" href="#note-${escapeXml(glossId)}" epub:type="noteref" role="doc-noteref" class="gloss-ref">[${num}]</a>`;
+            return `${renderInnerRichXhtml(anchorText, maps, authorNoteLabel)}<sup><a id="ref-${escapeXml(glossId)}" href="#note-${escapeXml(glossId)}" epub:type="noteref" role="doc-noteref">[${num}]</a></sup>`;
           }
           return renderInnerRichXhtml(seg, maps, authorNoteLabel);
         })
         .join('');
-      return `<p class="${className}">${innerHtml}</p>`;
+      return `<p>${innerHtml}</p>`;
     })
     .join('\n');
 }
@@ -268,42 +267,27 @@ function renderNotesSectionXhtml(
   for (const g of glosses) {
     const num = maps.glossNumMap[g.id] ?? '00';
     itemsHtml.push(`
-      <aside id="note-${escapeXml(g.id)}" epub:type="footnote" role="doc-footnote" class="note-aside gloss-aside">
-        <p class="note-head">
-          <a href="#ref-${escapeXml(g.id)}" class="note-backlink">[${num}]</a>
-          <strong class="note-anchor-label">${escapeXml(g.anchor)}</strong>
-        </p>
-        <p class="note-body">${renderInnerRichXhtml(g.content, maps, authorNoteLabel)} <a href="#ref-${escapeXml(g.id)}" class="note-return">↩</a></p>
+      <aside id="note-${escapeXml(g.id)}" epub:type="footnote" role="doc-footnote">
+        <p><a href="#ref-${escapeXml(g.id)}">[${num}]</a> <strong>${escapeXml(g.anchor)}：</strong>${renderInnerRichXhtml(g.content, maps, authorNoteLabel)}</p>
       </aside>`);
   }
 
   for (const fn of authorNotes) {
     const num = maps.fnNumMap[fn.id] ?? 1;
     itemsHtml.push(`
-      <aside id="note-${escapeXml(fn.id)}" epub:type="footnote" role="doc-footnote" class="note-aside fn-aside">
-        <p class="note-head">
-          <a href="#ref-${escapeXml(fn.id)}" class="fn-badge">${escapeXml(authorNoteLabel)} [${num}]</a>
-        </p>
-        <p class="note-body">${renderInnerRichXhtml(fn.zh, maps, authorNoteLabel)} <a href="#ref-${escapeXml(fn.id)}" class="note-return">↩</a></p>
+      <aside id="note-${escapeXml(fn.id)}" epub:type="footnote" role="doc-footnote">
+        <p><a href="#ref-${escapeXml(fn.id)}">[${escapeXml(authorNoteLabel)} ${num}]</a> ${renderInnerRichXhtml(fn.zh, maps, authorNoteLabel)}</p>
       </aside>`);
   }
 
   return `
-    <section class="notes-rail" epub:type="footnotes" role="doc-endnotes">
+    <section epub:type="footnotes" role="doc-endnotes">
       ${itemsHtml.join('\n')}
     </section>`;
 }
 
 const EPUB_CSS = `
 @charset "UTF-8";
-
-body {
-  font-family: "LXGW Neo ZhiSong", "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "SimSun", serif;
-  line-height: 1.85;
-  color: #161514;
-  margin: 0;
-  padding: 0 4%;
-}
 
 .cover-wrap {
   text-align: center;
@@ -318,225 +302,35 @@ body {
   height: auto;
 }
 
-.title-card {
-  border-top: 2px solid #161514;
-  border-bottom: 1px solid #161514;
-  padding: 1.5em 0 1.2em;
-  margin: 1.5em 0 1.8em;
-}
-
-.meta-vol {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.78em;
-  letter-spacing: 0.08em;
-  margin: 0 0 0.5em 0;
-}
-
-.book-title-zh {
-  font-size: 1.75em;
-  font-weight: bold;
-  line-height: 1.25;
-  margin: 0 0 0.25em 0;
-}
-
-.book-subtitle-zh {
-  font-size: 1.02em;
-  margin: 0 0 0.6em 0;
-}
-
-.book-title-orig {
-  font-family: "EB Garamond", Georgia, serif;
-  font-style: italic;
-  font-size: 0.95em;
-  margin: 0 0 0.8em 0;
-}
-
-.book-author {
-  font-size: 0.92em;
-  margin: 0;
-}
-
-.intro-heading {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.82em;
-  letter-spacing: 0.1em;
-  border-top: 1px solid #161514;
-  padding-top: 0.6em;
-  margin: 1.8em 0 0.8em;
-}
-
-.dedication-box, .epigraph-box {
-  border-top: 1px solid #161514;
-  border-bottom: 1px solid #161514;
-  padding: 1.2em 0.5em;
-  margin: 1.8em 0;
-}
-
-.dedication-to {
-  font-weight: bold;
-  text-align: center;
-  font-size: 1.05em;
-  margin: 0 0 0.6em 0;
-  text-indent: 0;
-}
-
-.epigraph-quote {
-  font-weight: bold;
-  margin: 0 0 0.5em 0;
-  text-indent: 0;
-}
-
-.epigraph-source {
-  text-align: right;
-  font-size: 0.88em;
-  margin: 0;
-  text-indent: 0;
-}
-
-.section-header {
-  border-top: 2px solid #161514;
-  border-bottom: 1px solid #161514;
-  padding: 1.1em 0 0.9em;
-  margin: 1.2em 0 1.5em;
-}
-
-.section-roman {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.8em;
-  color: #9e2a2b;
-  letter-spacing: 0.08em;
-  margin: 0 0 0.25em 0;
-  text-indent: 0;
-}
-
-.section-title-zh {
-  font-size: 1.35em;
+h1 {
+  font-size: 1.25em;
   font-weight: bold;
   line-height: 1.35;
-  margin: 0 0 0.2em 0;
+  margin: 1.2em 0 0.35em 0;
   text-indent: 0;
 }
 
-.section-title-orig {
-  font-family: "EB Garamond", Georgia, serif;
-  font-style: italic;
-  font-size: 0.95em;
-  margin: 0;
-  text-indent: 0;
-}
-
-.zh-prose {
-  text-indent: 2em;
-  margin: 0 0 0.75em 0;
-  text-align: justify;
-}
-
-.zh-emphasis {
-  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", serif;
+h2 {
+  font-size: 1.1em;
   font-weight: bold;
+  line-height: 1.35;
+  margin: 1em 0 0.3em 0;
+  text-indent: 0;
 }
 
-.gloss-anchor {
-  border-bottom: 1px solid #9e2a2b;
+p {
+  text-indent: 2em;
+  margin: 0 0 0.6em 0;
 }
 
-.gloss-ref {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.75em;
-  vertical-align: super;
-  line-height: 1;
-  color: #9e2a2b;
-  text-decoration: none;
-  margin-left: 1px;
-}
-
-.fn-ref {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.72em;
-  vertical-align: super;
-  line-height: 1;
-  color: #161514;
-  border: 1px solid #161514;
-  padding: 0 3px;
-  text-decoration: none;
-  margin: 0 2px;
+blockquote p, aside p, .no-indent {
+  text-indent: 0;
 }
 
 .block-divider {
   text-align: center;
-  margin: 1.5em 0;
-  font-family: "EB Garamond", Georgia, serif;
-  letter-spacing: 0.4em;
   text-indent: 0;
-}
-
-.notes-rail {
-  margin-top: 2.4em;
-  padding-top: 1em;
-  border-top: 2px solid #161514;
-}
-
-.notes-rail-title {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.8em;
-  letter-spacing: 0.1em;
-  margin-bottom: 1em;
-  font-weight: bold;
-}
-
-.note-aside {
-  border-top: 1px solid #c5bfb3;
-  padding: 0.65em 0 0.75em;
-  margin: 0;
-}
-
-.fn-aside {
-  border: 1px solid #161514;
-  padding: 0.65em 0.8em;
-  margin: 0.6em 0;
-}
-
-.note-head {
-  margin: 0 0 0.25em 0;
-  text-indent: 0;
-  font-size: 0.88em;
-}
-
-.note-backlink {
-  font-family: "JetBrains Mono", monospace;
-  color: #9e2a2b;
-  text-decoration: none;
-  font-weight: bold;
-  margin-right: 0.4em;
-}
-
-.fn-badge {
-  font-family: "JetBrains Mono", monospace;
-  background-color: #161514;
-  color: #f8f5ee;
-  padding: 1px 5px;
-  font-size: 0.82em;
-  text-decoration: none;
-}
-
-.note-anchor-label {
-  font-family: "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", serif;
-  font-weight: bold;
-}
-
-.note-body {
-  margin: 0;
-  text-indent: 0;
-  font-size: 0.86em;
-  line-height: 1.7;
-  text-align: justify;
-}
-
-.note-return {
-  font-family: "JetBrains Mono", monospace;
-  text-decoration: none;
-  color: #9e2a2b;
-  margin-left: 0.3em;
+  margin: 1.2em 0;
 }
 `;
 
@@ -620,65 +414,51 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
     }
   ];
 
-  // Build intro.xhtml (Title Card + Academic Introduction + Dedication + Epigraph)
+  // 原书卷首献辞与题词（不含学术导读 descriptionZh）
   const firstChapter = book.chapters[0];
   const dedicationGlosses = firstChapter?.dedication?.glosses ?? [];
-  let dedicationHtml = '';
+  let liminaireHtml = '';
   if (firstChapter?.dedication) {
     const ded = firstChapter.dedication;
-    dedicationHtml = `
-      <div class="dedication-box">
-        <p class="dedication-to">${escapeXml(ded.toZh)}</p>
+    liminaireHtml += `
+      <blockquote>
+        <p><strong>${escapeXml(ded.toZh)}</strong></p>
         ${ded.noteZh ? renderParagraphXhtml(ded.noteZh, maps, book.authorNoteLabel) : ''}
-        ${ded.signatureZh ? `<p class="epigraph-source">${escapeXml(ded.signatureZh)}</p>` : ''}
-      </div>`;
+        ${ded.signatureZh ? `<p>${escapeXml(ded.signatureZh)}</p>` : ''}
+      </blockquote>`;
   }
 
-  let epigraphHtml = '';
   if (firstChapter?.epigraph) {
     const epi = firstChapter.epigraph;
-    epigraphHtml = `
-      <div class="epigraph-box">
-        <p class="epigraph-quote">${escapeXml(epi.quoteZh)}</p>
-        <p class="epigraph-source">— ${escapeXml(epi.authorZh)}，${escapeXml(epi.sourceZh)}</p>
-      </div>`;
+    liminaireHtml += `
+      <blockquote>
+        <p>「${escapeXml(epi.quoteZh)}」</p>
+        <p>—— ${escapeXml(epi.authorZh)} ${escapeXml(epi.sourceZh)}</p>
+      </blockquote>`;
   }
 
-  const introBody = `
-    <div class="title-card">
-      <p class="meta-vol">${escapeXml(book.year)}</p>
-      <h1 class="book-title-zh">${escapeXml(book.titleZh)}</h1>
-      <p class="book-subtitle-zh">${escapeXml(book.subtitleZh)}</p>
-      <p class="book-title-orig">${escapeXml(book.titleOriginal)} — ${escapeXml(book.subtitleOriginal)}</p>
-      <p class="book-author">${escapeXml(book.authorZh)}（${escapeXml(book.authorOriginal)}）</p>
-      <p class="book-author">${escapeXml(book.publisher)}</p>
-    </div>
-    <div class="intro-section">
-      ${renderParagraphXhtml(book.descriptionZh, maps, book.authorNoteLabel)}
-    </div>
-    ${dedicationHtml}
-    ${epigraphHtml}
-    ${renderNotesSectionXhtml(dedicationGlosses, [], maps, book.authorNoteLabel)}
-  `;
-
-  entries.push({
-    name: 'OEBPS/intro.xhtml',
-    data: Buffer.from(wrapXhtmlDoc(`${book.titleZh} — 导读与卷首`, introBody), 'utf8')
-  });
-
-  // Build section files
+  // Build section files (原生标题 + 正文 + 尾注，生成真实二级目录树)
   const allSections = book.chapters.flatMap((ch) => ch.sections);
-  const sectionFiles: { id: string; href: string; title: string }[] = [];
+  interface TocNode {
+    id: string;
+    href: string;
+    title: string;
+    children?: TocNode[];
+  }
+  const sectionFiles: { id: string; href: string; title: string; roman: string; subNodes: TocNode[] }[] = [];
 
   allSections.forEach((sec, idx) => {
     const fileNum = String(idx + 1).padStart(2, '0');
     const filename = `sec-${fileNum}.xhtml`;
     const itemId = `sec-${fileNum}`;
-    const navTitle = `${sec.roman}  ${sec.titleZh}`;
-    sectionFiles.push({ id: itemId, href: filename, title: navTitle });
+    const navTitle =
+      sec.roman === 'Vorrede' || sec.roman === 'Appendice'
+        ? sec.titleZh
+        : `${sec.roman}. ${sec.titleZh}`;
 
-    const sectionGlosses: GlossItem[] = [];
+    const sectionGlosses: GlossItem[] = idx === 0 ? [...dedicationGlosses] : [];
     const sectionFn: AuthorNote[] = [];
+    const subNodes: TocNode[] = [];
 
     const blocksHtml = sec.blocks
       .map((blk: ParagraphBlock) => {
@@ -687,23 +467,47 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
         }
         if (blk.glosses) sectionGlosses.push(...blk.glosses);
         if (blk.authorNotes) sectionFn.push(...blk.authorNotes);
-        return renderParagraphXhtml(blk.zh, maps, book.authorNoteLabel);
+
+        // 识别段落开头的二级小节号/日记时间点（如《道德谱系》的 **一**~**二十八**、《恶心》的日期/钟点标题）
+        let subAnchorId = '';
+        if (book.slug === 'zur-genealogie-der-moral') {
+          const m = blk.zh.match(/^\*\*([一二三四五六七八九十]+)\*\*/);
+          if (m) {
+            subAnchorId = blk.id;
+            subNodes.push({
+              id: `sub-${blk.id}`,
+              href: `${filename}#${blk.id}`,
+              title: `§ ${m[1]}`
+            });
+          }
+        } else if (book.slug === 'la-nausee') {
+          const m = blk.zh.match(/^\*\*([^*]{2,18})\*\*/);
+          if (m && !m[1].includes('选择') && !m[1].includes('变化')) {
+            subAnchorId = blk.id;
+            const cleanSub = m[1].replace(/[。：:]$/, '');
+            subNodes.push({
+              id: `sub-${blk.id}`,
+              href: `${filename}#${blk.id}`,
+              title: cleanSub
+            });
+          }
+        }
+
+        const rendered = renderParagraphXhtml(blk.zh, maps, book.authorNoteLabel);
+        if (subAnchorId) {
+          return rendered.replace(/^<p>/, `<p id="${escapeXml(subAnchorId)}">`);
+        }
+        return rendered;
       })
       .join('\n');
 
+    sectionFiles.push({ id: itemId, href: filename, title: navTitle, roman: sec.roman, subNodes });
+
     const secBody = `
-      <header class="section-header">
-        <p class="section-roman">${escapeXml(sec.roman)}</p>
-        <h1 class="section-title-zh">${escapeXml(sec.titleZh)}</h1>
-        ${
-          sec.titleOriginal
-            ? `<p class="section-title-orig">${escapeXml(sec.titleOriginal)}</p>`
-            : ''
-        }
-      </header>
-      <div class="section-body">
-        ${blocksHtml}
-      </div>
+      ${idx === 0 && liminaireHtml ? liminaireHtml : ''}
+      <h2>${escapeXml(navTitle)}</h2>
+      ${sec.titleOriginal ? `<p class="no-indent"><em>${escapeXml(sec.titleOriginal)}</em></p>` : ''}
+      ${blocksHtml}
       ${renderNotesSectionXhtml(sectionGlosses, sectionFn, maps, book.authorNoteLabel)}
     `;
 
@@ -713,12 +517,76 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
     });
   });
 
-  // Build nav.xhtml (EPUB 3 Navigation Document)
-  const navItemsHtml = [
-    `<li><a href="cover.xhtml">书封</a></li>`,
-    `<li><a href="intro.xhtml">导读与卷首</a></li>`,
-    ...sectionFiles.map((s) => `<li><a href="${s.href}">${escapeXml(s.title)}</a></li>`)
-  ].join('\n        ');
+  // 构建二级目录树（支持按章分组或章内子节展开）
+  const tocTree: TocNode[] = [];
+  if (book.slug === 'le-mythe-de-sisyphe') {
+    const groups: { prefix: string; title: string }[] = [
+      { prefix: 'I.', title: 'I. 荒谬的推论' },
+      { prefix: 'II.', title: 'II. 荒谬的人' },
+      { prefix: 'III.', title: 'III. 荒谬的创造' }
+    ];
+    for (const grp of groups) {
+      const children = sectionFiles
+        .filter((s) => s.roman.startsWith(grp.prefix))
+        .map((s) => ({ id: s.id, href: s.href, title: s.title }));
+      if (children.length > 0) {
+        tocTree.push({ id: `grp-${grp.prefix}`, href: children[0].href, title: grp.title, children });
+      }
+    }
+    for (const s of sectionFiles.filter((s) => !s.roman.includes('.'))) {
+      tocTree.push({ id: s.id, href: s.href, title: s.title });
+    }
+  } else if (book.slug === 'was-ist-metaphysik') {
+    const lectureSecs = sectionFiles.slice(0, 3).map((s) => ({ id: s.id, href: s.href, title: s.title }));
+    const nachwortSec = sectionFiles[3];
+    if (lectureSecs.length > 0) {
+      tocTree.push({
+        id: 'grp-vorlesung',
+        href: lectureSecs[0].href,
+        title: '形而上学是什么？（一九二九年弗赖堡就职演说）',
+        children: lectureSecs
+      });
+    }
+    if (nachwortSec) {
+      tocTree.push({ id: nachwortSec.id, href: nachwortSec.href, title: nachwortSec.title });
+    }
+  } else if (book.slug === 'protestantische-ethik') {
+    const part1 = sectionFiles.slice(0, 3).map((s) => ({ id: s.id, href: s.href, title: s.title }));
+    const part2 = sectionFiles.slice(3).map((s) => ({ id: s.id, href: s.href, title: s.title }));
+    if (part1.length > 0) {
+      tocTree.push({ id: 'grp-pe-1', href: part1[0].href, title: '第一卷：问题', children: part1 });
+    }
+    if (part2.length > 0) {
+      tocTree.push({
+        id: 'grp-pe-2',
+        href: part2[0].href,
+        title: '第二卷：禁欲主义新教诸分支的职业伦理',
+        children: part2
+      });
+    }
+  } else {
+    for (const s of sectionFiles) {
+      tocTree.push({
+        id: s.id,
+        href: s.href,
+        title: s.title,
+        children: s.subNodes.length > 0 ? s.subNodes : undefined
+      });
+    }
+  }
+
+  // Build nav.xhtml (EPUB 3 Navigation Document，支持二级嵌套 <ol>)
+  const navItemsHtml = tocTree
+    .map((node) => {
+      if (node.children && node.children.length > 0) {
+        const subItems = node.children
+          .map((c) => `<li><a href="${escapeXml(c.href)}">${escapeXml(c.title)}</a></li>`)
+          .join('\n            ');
+        return `<li><a href="${escapeXml(node.href)}">${escapeXml(node.title)}</a>\n          <ol>\n            ${subItems}\n          </ol>\n        </li>`;
+      }
+      return `<li><a href="${escapeXml(node.href)}">${escapeXml(node.title)}</a></li>`;
+    })
+    .join('\n        ');
 
   const navXhtml = `<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
@@ -730,7 +598,7 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
 </head>
 <body>
   <nav epub:type="toc" id="toc">
-    <h1 class="section-title-zh">目录</h1>
+    <h2>目录</h2>
     <ol>
         ${navItemsHtml}
     </ol>
@@ -743,25 +611,36 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
     data: Buffer.from(navXhtml, 'utf8')
   });
 
-  // Build toc.ncx (EPUB 2 backward-compatible TOC)
-  const ncxPoints = [
-    { id: 'nav-intro', href: 'intro.xhtml', title: '导读与卷首' },
-    ...sectionFiles.map((s) => ({ id: `nav-${s.id}`, href: s.href, title: s.title }))
-  ]
-    .map(
-      (pt, i) => `
-    <navPoint id="${pt.id}" playOrder="${i + 1}">
+  // Build toc.ncx (EPUB 2 & Kindle KF8 原生二级目录树)
+  let playOrder = 0;
+  const hasSecondLevel = tocTree.some((n) => n.children && n.children.length > 0);
+  const ncxPoints = tocTree
+    .map((pt) => {
+      playOrder++;
+      const parentOrder = playOrder;
+      const childrenXml = (pt.children ?? [])
+        .map((c) => {
+          playOrder++;
+          return `
+      <navPoint id="nav-${escapeXml(c.id)}" playOrder="${playOrder}">
+        <navLabel><text>${escapeXml(c.title)}</text></navLabel>
+        <content src="${escapeXml(c.href)}"/>
+      </navPoint>`;
+        })
+        .join('');
+      return `
+    <navPoint id="nav-${escapeXml(pt.id)}" playOrder="${parentOrder}">
       <navLabel><text>${escapeXml(pt.title)}</text></navLabel>
-      <content src="${pt.href}"/>
-    </navPoint>`
-    )
+      <content src="${escapeXml(pt.href)}"/>${childrenXml}
+    </navPoint>`;
+    })
     .join('');
 
   const tocNcx = `<?xml version="1.0" encoding="UTF-8"?>
 <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
   <head>
     <meta name="dtb:uid" content="urn:ebr:${escapeXml(book.slug)}"/>
-    <meta name="dtb:depth" content="1"/>
+    <meta name="dtb:depth" content="${hasSecondLevel ? '2' : '1'}"/>
     <meta name="dtb:totalPageCount" content="0"/>
     <meta name="dtb:maxPageNumber" content="0"/>
   </head>
@@ -782,7 +661,6 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
     `<item id="cover-image" href="cover.jpg" media-type="image/jpeg" properties="cover-image"/>`,
     `<item id="cover-svg" href="cover.svg" media-type="image/svg+xml"/>`,
     `<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>`,
-    `<item id="intro" href="intro.xhtml" media-type="application/xhtml+xml"/>`,
     `<item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>`,
     `<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>`,
     ...sectionFiles.map(
@@ -792,8 +670,6 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
 
   const spineItems = [
     `<itemref idref="cover"/>`,
-    `<itemref idref="intro"/>`,
-    `<itemref idref="nav"/>`,
     ...sectionFiles.map((s) => `<itemref idref="${s.id}"/>`)
   ].join('\n    ');
 
@@ -819,8 +695,8 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
   </spine>
   <guide>
     <reference type="cover" title="书封" href="cover.xhtml"/>
-    <reference type="text" title="导读与卷首" href="intro.xhtml"/>
     <reference type="toc" title="目录" href="nav.xhtml"/>
+    <reference type="text" title="正文" href="sec-01.xhtml"/>
   </guide>
 </package>`;
 
@@ -830,7 +706,7 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
   });
 
   const hasher = createHash('sha256');
-  hasher.update('azw3-cover-v3-jpeg-pdoc');
+  hasher.update('azw3-native-toc2-v5');
   for (const e of entries) {
     if (e.name === 'OEBPS/cover.jpg') continue;
     hasher.update(e.name);
@@ -877,7 +753,7 @@ function patchAzw3ExthToPdoc(azw3Path: string): void {
 
 function convertEpubToAzw3(bin: string, epubPath: string, azw3Path: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    const child = spawn(bin, [epubPath, azw3Path], {
+    const child = spawn(bin, [epubPath, azw3Path, '--disable-font-rescaling'], {
       stdio: ['ignore', 'pipe', 'pipe']
     });
     let stderr = '';

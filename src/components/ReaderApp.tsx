@@ -70,7 +70,9 @@ interface PositionedSidenoteRailProps {
   containerRef: React.RefObject<HTMLDivElement | null>;
   items: RailNoteItem[];
   activeId: string | null;
+  hoveredId?: string | null;
   onSelect: (id: string) => void;
+  onHover?: (id: string | null) => void;
   layoutDeps: unknown[];
 }
 
@@ -84,7 +86,9 @@ function PositionedSidenoteRail({
   containerRef,
   items,
   activeId,
+  hoveredId,
   onSelect,
+  onHover,
   layoutDeps
 }: PositionedSidenoteRailProps) {
   const railRef = useRef<HTMLDivElement | null>(null);
@@ -166,7 +170,7 @@ function PositionedSidenoteRail({
       style={{ minHeight: railMinHeight > 0 ? `${railMinHeight}px` : undefined }}
     >
       {items.map((item) => {
-        const isActive = activeId === item.id;
+        const isHighlighted = activeId === item.id || hoveredId === item.id;
         const top = positions[item.id] ?? 0;
 
         if (item.kind === 'authorNote') {
@@ -177,10 +181,12 @@ function PositionedSidenoteRail({
                 noteRefs.current[item.id] = el;
               }}
               onClick={() => handleNoteClick(item.id)}
+              onMouseEnter={() => onHover?.(item.id)}
+              onMouseLeave={() => onHover?.(null)}
               style={{ top: `${top}px` }}
               className={`absolute left-0 right-0 border px-3.5 py-3 transition-[top,background-color,border-color] duration-200 ease-out cursor-pointer ${
-                isActive
-                  ? 'border-[var(--ink-primary)] bg-[var(--bg-elevated)]/45'
+                isHighlighted
+                  ? 'border-[var(--accent-nrf)] bg-[var(--accent-nrf-soft)]'
                   : 'border-[var(--rule-strong)] bg-transparent hover:bg-[var(--bg-elevated)]/25'
               }`}
             >
@@ -203,15 +209,17 @@ function PositionedSidenoteRail({
               noteRefs.current[item.id] = el;
             }}
             onClick={() => handleNoteClick(item.id)}
+            onMouseEnter={() => onHover?.(item.id)}
+            onMouseLeave={() => onHover?.(null)}
             style={{ top: `${top}px` }}
             className={`absolute left-0 right-0 border-t-2 pt-2.5 pb-3 px-3 transition-[top,background-color,border-color] duration-200 ease-out cursor-pointer gloss-prose ${
-              isActive
+              isHighlighted
                 ? 'border-[var(--accent-nrf)] bg-[var(--accent-nrf-soft)]'
                 : 'border-[var(--rule-line)] bg-transparent hover:border-[var(--rule-strong)]'
             }`}
           >
             <div className="grid grid-cols-[26px_1fr] items-baseline mb-1">
-              <span className="font-mono-coord text-xs text-[var(--accent-nrf)] font-medium">
+              <span className="font-mono-coord italic text-xs text-[var(--accent-nrf)] font-medium">
                 {item.formattedIndex}
               </span>
               <span className="zh-emphasis text-[13.5px] leading-snug">{item.anchor}</span>
@@ -284,7 +292,10 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
   const [headerPinned, setHeaderPinned] = useState<boolean>(false);
   const [headerHidden, setHeaderHidden] = useState<boolean>(false);
   const [currentSpySection, setCurrentSpySection] = useState<string>('liminaire');
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+  const [introExpanded, setIntroExpanded] = useState<boolean>(false);
   const [activeGlossId, setActiveGlossId] = useState<string | null>(null);
+  const [hoveredGlossId, setHoveredGlossId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [previewBookSlug, setPreviewBookSlug] = useState<string | null>(null);
   const [progressStore, setProgressStore] = useState<ReadingProgressStore>({
@@ -331,10 +342,18 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     const syncFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
       const slug = params.get('book');
+      const sec = params.get('section');
       if (slug && books.some((b) => b.slug === slug)) {
+        const targetBook = books.find((b) => b.slug === slug)!;
+        const sections = targetBook.chapters[0]?.sections ?? [];
+        const validSec =
+          sec && sections.some((s) => s.id === sec) ? sec : (sections[0]?.id ?? null);
         setActiveBookSlug(slug);
+        setActiveSectionId(validSec);
+        if (validSec) setCurrentSpySection(validSec);
       } else {
         setActiveBookSlug(null);
+        setActiveSectionId(null);
       }
     };
 
@@ -366,9 +385,11 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     setPreviewBookSlug(null);
     setActiveBookSlug(slug);
     setActiveGlossId(null);
+    setHoveredGlossId(null);
     setMobileTocOpen(false);
     const url = new URL(window.location.href);
     url.searchParams.set('book', slug);
+    url.searchParams.delete('section');
     window.history.pushState({ book: slug }, '', url.toString());
     if (initialSectionId) {
       window.setTimeout(() => {
@@ -377,17 +398,26 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           const y = target.getBoundingClientRect().top + window.scrollY - 72;
           window.scrollTo({ top: y, behavior: 'smooth' });
         }
+        isRestoringScrollRef.current = false;
+      }, 60);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      window.setTimeout(() => {
+        isRestoringScrollRef.current = false;
       }, 60);
     }
   };
 
   const returnToShelf = () => {
     setActiveBookSlug(null);
+    setActiveSectionId(null);
     setActiveGlossId(null);
+    setHoveredGlossId(null);
     setMobileTocOpen(false);
     setProgressStore(loadProgressStore());
     const url = new URL(window.location.href);
     url.searchParams.delete('book');
+    url.searchParams.delete('section');
     window.history.pushState({}, '', url.toString());
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
@@ -756,9 +786,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
     >
       {(
         [
-          { id: 'ivory', label: '棉纸', dot: '#f6f3ec' },
-          { id: 'parchment', label: '暖卷', dot: '#ede6d6' },
-          { id: 'obsidian', label: '玄夜', dot: '#181a17' }
+          { id: 'ivory', label: '素白', dot: '#faf9f6' },
+          { id: 'parchment', label: '雾灰', dot: '#f1f2f0' },
+          { id: 'obsidian', label: '玄夜', dot: '#111214' }
         ] as const
       ).map((t) => (
         <button
@@ -819,7 +849,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 <div>
                   <div className="flex items-baseline justify-between gap-2 pb-1.5 border-b border-[var(--rule-line)]">
                     <span className="text-xs font-medium truncate">{b.authorZh}</span>
-                    <span className="font-mono-coord text-[11px] text-[var(--accent-nrf)] shrink-0">
+                    <span className="font-mono-coord italic text-xs text-[var(--accent-nrf)] shrink-0">
                       {b.year}
                     </span>
                   </div>
@@ -1018,7 +1048,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                       <span className="fr-prose uppercase tracking-[0.12em] text-xs">
                         {previewBook.authorOriginal}
                       </span>
-                      <span className="font-mono-coord text-xs text-[var(--accent-nrf)] ml-auto">
+                      <span className="font-mono-coord italic text-xs text-[var(--accent-nrf)] ml-auto">
                         {previewBook.year}
                       </span>
                     </div>
@@ -1548,7 +1578,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
           sidebarOpen ? 'min-[1100px]:translate-x-[var(--ebr-toc-shift)]' : 'min-[1100px]:translate-x-0'
         }`}
       >
-        {/* 主阅读画布 */}
         <main key={activeBookSlug} className="anim-view-enter py-8 sm:py-10 min-w-0 w-full">
           {/* 卷首：献辞/导言标题 + 卷首说明 + 卷首题词 */}
           {(chapter.dedication || chapter.epigraph) && (
@@ -1559,7 +1588,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
             >
               {chapter.dedication && (
                 <>
-                  {/* 1. 献辞/导言标题横幅（去掉顶部分割线与过大内边距，与正文小节标题层级统一） */}
                   <div
                     className={`max-w-[var(--ebr-prose-max)] ${
                       chapter.dedication.noteZh
@@ -1583,7 +1611,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                     )}
                   </div>
 
-                  {/* 2. 卷首说明与对应旁注（如有） */}
                   {chapter.dedication.noteZh && (
                     <div
                       id="dedication-block"
@@ -1596,7 +1623,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                           {renderZhParagraph(chapter.dedication.noteZh, {
                             glossIndexMap,
                             activeGlossId,
+                            hoveredGlossId,
                             onSelectGloss: handleSelectGloss,
+                            onHoverGloss: setHoveredGlossId,
                             authorNoteLabel: book.authorNoteLabel,
                             fontSizeClass
                           })}
@@ -1613,7 +1642,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                         containerRef={dedicationRowRef}
                         items={dedicationRailItems}
                         activeId={activeGlossId}
+                        hoveredId={hoveredGlossId}
                         onSelect={handleSelectGloss}
+                        onHover={setHoveredGlossId}
                         layoutDeps={[fontScale, activeBookSlug]}
                       />
                     </div>
@@ -1621,7 +1652,6 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 </>
               )}
 
-              {/* 3. 独立卷首题词块 */}
               {chapter.epigraph && (
                 <div
                   className={`max-w-[var(--ebr-prose-max)] ${
@@ -1658,11 +1688,10 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   data-section-anchor={sec.id}
                   className="scroll-mt-20"
                 >
-                  {/* 小节标题横幅 */}
                   <div className="max-w-[var(--ebr-prose-max)] mb-8 sm:mb-10 pb-4 border-b-2 border-[var(--rule-strong)]">
                     <div className="flex items-baseline gap-3">
                       {sec.roman !== 'Vorrede' && sec.roman !== 'Appendice' && (
-                        <span className="fr-prose text-2xl sm:text-[28px] text-[var(--accent-nrf)] shrink-0">
+                        <span className="fr-prose italic text-2xl sm:text-[28px] text-[var(--accent-nrf)] shrink-0">
                           {sec.roman}.
                         </span>
                       )}
@@ -1677,14 +1706,12 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                     </div>
                   </div>
 
-                  {/* 双列主体：左栏连续自然段流，右栏独立计算旁注与作者原注坐标 */}
                   <div
                     ref={(el) => {
                       sectionRowRefs.current[sec.id] = el;
                     }}
                     className="grid grid-cols-1 min-[900px]:grid-cols-[minmax(0,1fr)_var(--ebr-note-w)] gap-0 min-[900px]:gap-[var(--ebr-rail-gap)] items-start"
                   >
-                    {/* 左栏：连续自然段流 */}
                     <div className="space-y-3.5">
                       {sec.blocks.map((blk: ParagraphBlock) => {
                         if (blk.type === 'divider') {
@@ -1695,7 +1722,7 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                               aria-hidden="true"
                             >
                               <span className="w-12 h-[1px] bg-[var(--rule-line)]" />
-                              <span className="font-mono-coord text-sm text-[var(--accent-nrf)]">
+                              <span className="fr-prose italic text-sm text-[var(--accent-nrf)]">
                                 *
                               </span>
                               <span className="w-12 h-[1px] bg-[var(--rule-line)]" />
@@ -1708,7 +1735,9 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                             {renderZhParagraph(blk.zh, {
                               glossIndexMap,
                               activeGlossId,
+                              hoveredGlossId,
                               onSelectGloss: handleSelectGloss,
+                              onHoverGloss: setHoveredGlossId,
                               footnoteMap,
                               authorNoteLabel: book.authorNoteLabel,
                               fontSizeClass
@@ -1718,12 +1747,13 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                       })}
                     </div>
 
-                    {/* 右栏：独立旁注与原注轨道 */}
                     <PositionedSidenoteRail
                       containerRef={sectionContainerRef}
                       items={sectionRailItems}
                       activeId={activeGlossId}
+                      hoveredId={hoveredGlossId}
                       onSelect={handleSelectGloss}
+                      onHover={setHoveredGlossId}
                       layoutDeps={[fontScale, activeBookSlug]}
                     />
                   </div>

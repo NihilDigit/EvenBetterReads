@@ -10,7 +10,9 @@ export interface GlossIndexMap {
 interface ParseZhOptions {
   glossIndexMap: GlossIndexMap;
   activeGlossId: string | null;
+  hoveredGlossId?: string | null;
   onSelectGloss: (glossId: string) => void;
+  onHoverGloss?: (glossId: string | null) => void;
   footnoteMap?: Record<string, number>;
   authorNoteLabel?: string;
   fontSizeClass?: string;
@@ -24,7 +26,12 @@ function renderInnerZh(
   keyPrefix: string,
   options?: Pick<
     ParseZhOptions,
-    'footnoteMap' | 'authorNoteLabel' | 'activeGlossId' | 'onSelectGloss'
+    | 'footnoteMap'
+    | 'authorNoteLabel'
+    | 'activeGlossId'
+    | 'hoveredGlossId'
+    | 'onSelectGloss'
+    | 'onHoverGloss'
   >
 ): React.ReactNode[] {
   const tokenRegex = /(\*\*[^*]+\*\*|\[\^[^\]]+\])/g;
@@ -43,7 +50,8 @@ function renderInnerZh(
     if (part.startsWith('[^') && part.endsWith(']')) {
       const fnId = part.slice(2, -1);
       const fnNum = options?.footnoteMap?.[fnId] ?? 1;
-      const isActive = options?.activeGlossId === fnId;
+      const isHighlighted =
+        options?.activeGlossId === fnId || options?.hoveredGlossId === fnId;
       const label = options?.authorNoteLabel ?? '作者原注';
       return (
         <button
@@ -55,9 +63,11 @@ function renderInnerZh(
             e.stopPropagation();
             options?.onSelectGloss?.(fnId);
           }}
+          onMouseEnter={() => options?.onHoverGloss?.(fnId)}
+          onMouseLeave={() => options?.onHoverGloss?.(null)}
           title={`查看${label}`}
-          className={`inline-flex items-center mx-0.5 px-1.5 py-[1.5px] text-[10.5px] leading-none font-mono-coord align-super -top-[0.18em] relative border transition-colors cursor-pointer touch-manipulation after:content-[''] after:absolute after:-inset-y-2 after:-inset-x-1.5 ${
-            isActive
+          className={`inline-flex items-center mx-0.5 px-1.5 py-[1.5px] text-[11px] leading-none font-mono-coord align-super -top-[0.18em] relative border transition-colors cursor-pointer touch-manipulation after:content-[''] after:absolute after:-inset-y-2 after:-inset-x-1.5 ${
+            isHighlighted
               ? 'bg-[var(--accent-nrf)] text-[#fbf9f5] border-[var(--accent-nrf)]'
               : 'bg-[var(--bg-panel)] text-[var(--ink-primary)] border-[var(--rule-strong)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)]'
           }`}
@@ -109,7 +119,8 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
       if (match) {
         const [, anchorText, glossId] = match;
         const meta = options.glossIndexMap[glossId];
-        const isActive = options.activeGlossId === glossId;
+        const isHighlighted =
+          options.activeGlossId === glossId || options.hoveredGlossId === glossId;
 
         if (!meta) {
           return (
@@ -131,6 +142,8 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
               if (sel && !sel.isCollapsed && sel.toString().trim().length > 0) return;
               options.onSelectGloss(glossId);
             }}
+            onMouseEnter={() => options.onHoverGloss?.(glossId)}
+            onMouseLeave={() => options.onHoverGloss?.(null)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -138,7 +151,7 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
               }
             }}
             className={`group/gloss inline cursor-pointer touch-manipulation border-b-[1.5px] pb-[1px] transition-colors duration-150 ${
-              isActive
+              isHighlighted
                 ? 'bg-[var(--accent-nrf-soft)] border-solid border-[var(--accent-nrf)]'
                 : 'border-solid border-[var(--accent-nrf)]/65 hover:border-[var(--accent-nrf)] hover:bg-[var(--accent-nrf-soft)]'
             }`}
@@ -146,7 +159,7 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
             {renderInnerZh(anchorText, `p${pIdx}-s${sIdx}`, options)}
             <sup
               style={{ textIndent: 0 }}
-              className="inline-block ml-0.5 font-mono-coord text-[11px] leading-none select-none text-[var(--accent-nrf)]"
+              className="inline-block ml-0.5 font-mono-coord italic text-[11.5px] leading-none select-none text-[var(--accent-nrf)]"
             >
               {meta.formattedIndex}
             </sup>

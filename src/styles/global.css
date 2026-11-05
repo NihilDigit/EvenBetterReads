@@ -27,44 +27,44 @@
 :root,
 [data-theme='ivory'] {
   color-scheme: light;
-  --bg-canvas: #f6f3ec;
-  --bg-elevated: #ece7dc;
-  --bg-panel: #fbf9f5;
+  --bg-canvas: #faf9f6;
+  --bg-elevated: #f1f0ec;
+  --bg-panel: #ffffff;
   --ink-primary: #141413;
-  --rule-line: #d6cfc2;
-  --rule-strong: #141413;
-  --accent-nrf: #c83e2b;
-  --accent-nrf-soft: rgba(200, 62, 43, 0.12);
-  --surface-solid: #141413;
-  --ink-on-solid: #fbf9f5;
+  --rule-line: #e2e0d8;
+  --rule-strong: #181817;
+  --accent-nrf: #9e1b32;
+  --accent-nrf-soft: rgba(158, 27, 50, 0.1);
+  --surface-solid: #181817;
+  --ink-on-solid: #faf9f6;
 }
 
 [data-theme='parchment'] {
   color-scheme: light;
-  --bg-canvas: #ede6d6;
-  --bg-elevated: #e2d9c5;
-  --bg-panel: #f4efe2;
-  --ink-primary: #181614;
-  --rule-line: #cbbda4;
-  --rule-strong: #181614;
-  --accent-nrf: #b53624;
-  --accent-nrf-soft: rgba(181, 54, 36, 0.14);
-  --surface-solid: #181614;
-  --ink-on-solid: #f4efe2;
+  --bg-canvas: #f1f2f0;
+  --bg-elevated: #e5e7e4;
+  --bg-panel: #f8f9f7;
+  --ink-primary: #161817;
+  --rule-line: #d5d8d4;
+  --rule-strong: #1c1f1d;
+  --accent-nrf: #1d4e89;
+  --accent-nrf-soft: rgba(29, 78, 137, 0.11);
+  --surface-solid: #1c1f1d;
+  --ink-on-solid: #f8f9f7;
 }
 
 [data-theme='obsidian'] {
   color-scheme: dark;
-  --bg-canvas: #121311;
-  --bg-elevated: #222520;
-  --bg-panel: #181a17;
-  --ink-primary: #eae6dd;
-  --rule-line: #2d302a;
-  --rule-strong: #d8d3c8;
-  --accent-nrf: #e05e4a;
-  --accent-nrf-soft: rgba(224, 94, 74, 0.18);
-  --surface-solid: #30342d;
-  --ink-on-solid: #f5f2eb;
+  --bg-canvas: #111214;
+  --bg-elevated: #1e2024;
+  --bg-panel: #16181b;
+  --ink-primary: #e6e6e3;
+  --rule-line: #2a2d32;
+  --rule-strong: #d4d4d0;
+  --accent-nrf: #e05263;
+  --accent-nrf-soft: rgba(224, 82, 99, 0.16);
+  --surface-solid: #282b30;
+  --ink-on-solid: #f5f5f3;
 }
 
 html {
@@ -139,8 +139,38 @@ body {
 }
 
 .font-mono-coord {
-  font-family: 'JetBrains Mono', 'LXGW WenKai Mono', monospace;
-  font-variant-numeric: tabular-nums;
+  font-family: 'EB Garamond', 'LXGW Neo ZhiSong', Georgia, serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.03em;
+}
+
+.font-serif-oldstyle {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* 馆藏实体书封质感：柔和多层纸本投影与书脊折痕微光，摒弃生硬直角黑块阴影 */
+.book-cover-object {
+  box-shadow:
+    0 1px 2px rgba(20, 20, 19, 0.08),
+    0 6px 16px -4px rgba(20, 20, 19, 0.12),
+    inset 1px 0 0 rgba(255, 255, 255, 0.22);
+}
+
+[data-theme='obsidian'] .book-cover-object {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45),
+    0 10px 24px -6px rgba(0, 0, 0, 0.65),
+    inset 1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.group:hover .book-cover-object {
+  transform: translateY(-2px);
+  border-color: var(--accent-nrf);
+  box-shadow:
+    0 3px 6px rgba(20, 20, 19, 0.1),
+    0 12px 24px -6px rgba(200, 62, 43, 0.18),
+    inset 1px 0 0 rgba(255, 255, 255, 0.25);
 }
 
 /* 全局滚动条：移除 Windows 默认白底轨道与上下箭头，统一为纸墨极细线条 */
