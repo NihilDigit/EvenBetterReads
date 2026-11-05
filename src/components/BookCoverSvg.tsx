@@ -1910,6 +1910,276 @@ function renderCoverBySlug(slug: string) {
         </svg>
       );
 
+    case 'was-ist-metaphysik':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <SpineAndFrame vol="VOL.13" year="1929" accentFrame />
+
+          {/* 1929 波恩 Friedrich Cohen / 法兰克福 Vittorio Klostermann 初版规制 */}
+          <text
+            x="104"
+            y="43"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="8.6"
+            fontFamily="EB Garamond, Georgia, serif"
+            letterSpacing="1.8"
+          >
+            MARTIN HEIDEGGER
+          </text>
+          <text
+            x="104"
+            y="59"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="9.8"
+            fontFamily="EB Garamond, Georgia, serif"
+            letterSpacing="1"
+          >
+            WAS IST
+          </text>
+          <text
+            x="104"
+            y="74"
+            textAnchor="middle"
+            fill="var(--accent-nrf)"
+            fontSize="12.5"
+            fontFamily="EB Garamond, Georgia, serif"
+            fontWeight="600"
+            letterSpacing="1.2"
+          >
+            METAPHYSIK?
+          </text>
+          <text
+            x="104"
+            y="85"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="7.2"
+            fontFamily="EB Garamond, Georgia, serif"
+            fontStyle="italic"
+          >
+            Freiburger Antrittsvorlesung
+          </text>
+
+          {/* 中心版画：整体滑落的存在者圆环（das Seiende im Ganzen）、悬入虚无深渊（das Nichts）的此在钟摆与在深渊中显露的存在之光 */}
+          <g>
+            <rect
+              x="32"
+              y="92"
+              width="144"
+              height="130"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.9"
+            />
+
+            {/* 背景经纬刻度：代表科学算计性思维（rechnendes Denken）的网格在「畏」的边缘断裂消散 */}
+            <line x1="32" y1="122" x2="66" y2="122" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 2" />
+            <line x1="142" y1="122" x2="176" y2="122" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 2" />
+            <line x1="32" y1="186" x2="66" y2="186" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 2" />
+            <line x1="142" y1="186" x2="176" y2="186" stroke="currentColor" strokeWidth="0.6" strokeDasharray="2 2" />
+
+            {/* 外环：正在向下方滑落、远去的存在者整体（Entgleiten des Seienden im Ganzen） */}
+            <circle
+              cx="104"
+              cy="154"
+              r="42"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.1"
+              strokeDasharray="6 3"
+            />
+            <path
+              d="M 68 176 A 42 42 0 0 0 140 176"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+            />
+
+            {/* 核心日食般的深渊之圆：「无本身无化（Das Nichts selbst nichtet）」 */}
+            <circle
+              cx="104"
+              cy="154"
+              r="26"
+              fill="currentColor"
+            />
+            <circle
+              cx="104"
+              cy="154"
+              r="29"
+              fill="none"
+              stroke="var(--accent-nrf)"
+              strokeWidth="1.4"
+            />
+
+            {/* 悬入「无」之中的此在（Da-sein）：从天顶垂入黑圆中心的朱砂悬线与菱形锚点 */}
+            <line
+              x1="104"
+              y1="92"
+              x2="104"
+              y2="154"
+              stroke="var(--accent-nrf)"
+              strokeWidth="1.3"
+            />
+            <polygon
+              points="104,146 109,154 104,162 99,154"
+              fill="var(--bg-canvas)"
+              stroke="var(--accent-nrf)"
+              strokeWidth="1.2"
+            />
+
+            {/* 下方：从虚无深渊回荡向终极根基的悬荡弧线（Ausschwingenlassen dieses Schwebens） */}
+            <path
+              d="M 78 202 Q 104 214, 130 202"
+              fill="none"
+              stroke="var(--accent-nrf)"
+              strokeWidth="1.1"
+            />
+            <circle cx="78" cy="202" r="1.8" fill="var(--accent-nrf)" />
+            <circle cx="130" cy="202" r="1.8" fill="var(--accent-nrf)" />
+            <circle cx="104" cy="208" r="2.2" fill="currentColor" />
+          </g>
+
+          {/* 底部牌记 */}
+          <text
+            x="104"
+            y="239"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="7.4"
+            fontFamily="EB Garamond, Georgia, serif"
+            letterSpacing="1.8"
+          >
+            FREIBURG 1929 / 1943
+          </text>
+          <text
+            x="104"
+            y="254"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="7"
+            fontFamily="EB Garamond, Georgia, serif"
+            fontStyle="italic"
+          >
+            Vittorio Klostermann, Frankfurt a. M.
+          </text>
+        </svg>
+      );
+
+    case 'la-nausee':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <SpineAndFrame vol="VOL.14" year="1938" accentFrame />
+
+          {/* 1938 巴黎 Gallimard NRF 白皮丛书初版规制 */}
+          <text
+            x="104"
+            y="43"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="8.6"
+            fontFamily="EB Garamond, Georgia, serif"
+            letterSpacing="1.8"
+          >
+            JEAN-PAUL SARTRE
+          </text>
+          <text
+            x="104"
+            y="64"
+            textAnchor="middle"
+            fill="var(--accent-nrf)"
+            fontSize="15"
+            fontFamily="EB Garamond, Georgia, serif"
+            fontWeight="600"
+            letterSpacing="2"
+          >
+            LA NAUSÉE
+          </text>
+          <text
+            x="104"
+            y="78"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="7.5"
+            fontFamily="EB Garamond, Georgia, serif"
+            fontStyle="italic"
+            letterSpacing="1.2"
+          >
+            ROMAN / NRF
+          </text>
+
+          {/* 中心版画：上方为旋转的百代蓝宝石唱针黑胶唱片《Some of These Days》（几何必然性），下方为布维尔公园盘曲涌溢的黑色栗树根与海滩鹅卵石（偶然存在之黏稠） */}
+          <g>
+            <rect
+              x="32"
+              y="92"
+              width="144"
+              height="130"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.9"
+            />
+
+            {/* 上半部：铁道员聚会咖啡馆旋转的留声机唱片（Some of These Days）与切向唱针 */}
+            <g transform="translate(104, 130)">
+              <circle cx="0" cy="0" r="26" fill="none" stroke="currentColor" strokeWidth="1.3" />
+              <circle cx="0" cy="0" r="21" fill="none" stroke="currentColor" strokeWidth="0.6" />
+              <circle cx="0" cy="0" r="16" fill="none" stroke="currentColor" strokeWidth="0.6" />
+              <circle cx="0" cy="0" r="9" fill="var(--accent-nrf)" />
+              <circle cx="0" cy="0" r="2.5" fill="var(--bg-canvas)" />
+              {/* 蓝宝石唱针臂（像悬崖劈入海面般刚硬的几何线条） */}
+              <line x1="38" y1="-22" x2="14" y2="-8" stroke="var(--accent-nrf)" strokeWidth="1.5" />
+              <circle cx="38" cy="-22" r="2.5" fill="currentColor" />
+            </g>
+
+            {/* 分隔实存与形式的水平地平线 */}
+            <line x1="38" y1="166" x2="170" y2="166" stroke="currentColor" strokeWidth="0.9" />
+
+            {/* 下半部：盘结蠕动、漫溢边界的黑色栗树根（la racine du marronnier）与海滩鹅卵石 */}
+            <path
+              d="M 96 166 C 94 176, 82 184, 62 194 C 52 199, 44 206, 40 214 L 54 214 C 62 204, 78 194, 94 186 C 92 196, 84 206, 74 214 L 88 214 C 96 204, 102 194, 104 184 C 108 194, 116 206, 128 214 L 142 214 C 128 202, 118 192, 114 182 C 128 190, 146 198, 164 212 L 168 204 C 148 190, 126 180, 112 166 Z"
+              fill="currentColor"
+            />
+            {/* 海滩上那块一面干燥一面沾满泥泞的扁平鹅卵石（le galet） */}
+            <ellipse
+              cx="60"
+              cy="180"
+              rx="10"
+              ry="5.5"
+              transform="rotate(-14 60 180)"
+              fill="var(--bg-canvas)"
+              stroke="var(--accent-nrf)"
+              strokeWidth="1.2"
+            />
+          </g>
+
+          {/* 底部 1938 巴黎 Gallimard 牌记 */}
+          <text
+            x="104"
+            y="239"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="7.5"
+            fontFamily="EB Garamond, Georgia, serif"
+            letterSpacing="2"
+          >
+            PARIS 1938
+          </text>
+          <text
+            x="104"
+            y="254"
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="7"
+            fontFamily="EB Garamond, Georgia, serif"
+            fontStyle="italic"
+          >
+            Éditions Gallimard
+          </text>
+        </svg>
+      );
+
     case 'achtzehnte-brumaire':
     default:
       return (

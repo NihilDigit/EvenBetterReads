@@ -11,9 +11,13 @@ import { achtzehnteBrumaire } from './achtzehnte-brumaire';
 import { zapiskiIzPodpolya } from './zapiski-iz-podpolya';
 import { viesImaginaires } from './vies-imaginaires';
 import { beimBauDerChinesischenMauer } from './beim-bau-der-chinesischen-mauer';
+import { wasIstMetaphysik } from './was-ist-metaphysik';
+import { laNausee } from './la-nausee';
 
 export const books: BookMeta[] = [
   leMytheDeSisyphe,
+  laNausee,
+  wasIstMetaphysik,
   zurGenealogieDerMoral,
   protestantischeEthik,
   commonSense,

@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "astro dev",
     "verify": "bun scripts/verify-books.ts",
-    "build": "bun scripts/verify-books.ts && astro build",
+    "ebooks": "bun scripts/build-ebooks.ts",
+    "build": "bun scripts/verify-books.ts && bun scripts/build-ebooks.ts && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

@@ -970,11 +970,27 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  <a
+                    href={`/ebooks/${previewBook.slug}.epub`}
+                    download={`${previewBook.titleZh}.epub`}
+                    title="下载 EPUB 电子书副本（内嵌伴读旁注与原注）"
+                    className="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-mono-coord border border-[var(--rule-strong)] bg-[var(--bg-canvas)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+                  >
+                    EPUB ↓
+                  </a>
+                  <a
+                    href={`/ebooks/${previewBook.slug}.azw3`}
+                    download={`${previewBook.titleZh}.azw3`}
+                    title="下载 Kindle AZW3 电子书副本（内嵌伴读旁注与原注）"
+                    className="px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-mono-coord border border-[var(--rule-strong)] bg-[var(--bg-canvas)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+                  >
+                    AZW3 ↓
+                  </a>
                   <button
                     type="button"
                     onClick={() => openBook(previewBook.slug)}
-                    className="group/mbtn px-3.5 sm:px-4 py-1.5 text-xs sm:text-[13px] font-medium bg-[var(--accent-nrf)] text-[#fbf9f5] hover:opacity-90 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center gap-1"
+                    className="group/mbtn px-3 sm:px-4 py-1.5 text-xs sm:text-[13px] font-medium bg-[var(--accent-nrf)] text-[#fbf9f5] hover:opacity-90 active:scale-[0.98] transition-all duration-200 cursor-pointer flex items-center gap-1"
                   >
                     <span>开始阅读</span>
                     <span className="font-mono-coord inline-block group-hover/mbtn:translate-x-0.5 transition-transform duration-200">
@@ -1395,6 +1411,28 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               ))}
             </nav>
           </div>
+
+          <div className="pt-4 mt-6 border-t border-[var(--rule-line)]">
+            <div className="font-mono-coord text-[10px] tracking-[0.15em] uppercase mb-2">
+              电子书副本下载
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <a
+                href={`/ebooks/${book.slug}.epub`}
+                download={`${book.titleZh}.epub`}
+                className="py-1.5 px-2 text-center font-mono-coord text-xs border border-[var(--rule-strong)] bg-[var(--bg-panel)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+              >
+                EPUB ↓
+              </a>
+              <a
+                href={`/ebooks/${book.slug}.azw3`}
+                download={`${book.titleZh}.azw3`}
+                className="py-1.5 px-2 text-center font-mono-coord text-xs border border-[var(--rule-strong)] bg-[var(--bg-panel)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+              >
+                AZW3 ↓
+              </a>
+            </div>
+          </div>
         </aside>
       </div>
 
@@ -1480,6 +1518,30 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
                 );
               })}
             </nav>
+          </div>
+        </div>
+
+        <div className="pt-4 mt-6 border-t border-[var(--rule-line)] px-2">
+          <div className="font-mono-coord text-[10px] tracking-[0.15em] uppercase mb-2">
+            电子书副本下载
+          </div>
+          <div className="grid grid-cols-2 gap-1.5">
+            <a
+              href={`/ebooks/${book.slug}.epub`}
+              download={`${book.titleZh}.epub`}
+              title="下载 EPUB 电子书副本"
+              className="py-1.5 px-2 text-center font-mono-coord text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+            >
+              EPUB ↓
+            </a>
+            <a
+              href={`/ebooks/${book.slug}.azw3`}
+              download={`${book.titleZh}.azw3`}
+              title="下载 Kindle AZW3 电子书副本"
+              className="py-1.5 px-2 text-center font-mono-coord text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+            >
+              AZW3 ↓
+            </a>
           </div>
         </div>
       </aside>
