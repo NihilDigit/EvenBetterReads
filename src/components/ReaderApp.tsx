@@ -1102,22 +1102,23 @@ export default function ReaderApp({ books = defaultBooks }: ReaderAppProps) {
               <span>依据外文权威底本直接精译并撰注</span>
             </div>
 
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <a
-                href="/ebooks/EvenBetterReads-EPUB.zip"
-                download="EvenBetterReads-EPUB.zip"
-                className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
-              >
-                全集 EPUB ↓
-              </a>
-              <span className="hidden sm:inline-block h-3 w-[1px] bg-[var(--rule-line)]" />
-              <a
-                href="/ebooks/EvenBetterReads-AZW3.zip"
-                download="EvenBetterReads-AZW3.zip"
-                className="font-mono-coord text-[11px] underline underline-offset-4 decoration-[var(--rule-strong)] hover:text-[var(--accent-nrf)] transition-colors"
-              >
-                全集 AZW3 ↓
-              </a>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <div className="inline-flex items-center gap-1.5">
+                <a
+                  href="/ebooks/EvenBetterReads-EPUB.zip"
+                  download="EvenBetterReads-EPUB.zip"
+                  className="px-2.5 py-1 font-mono-coord text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+                >
+                  全集 EPUB ↓
+                </a>
+                <a
+                  href="/ebooks/EvenBetterReads-AZW3.zip"
+                  download="EvenBetterReads-AZW3.zip"
+                  className="px-2.5 py-1 font-mono-coord text-[11px] border border-[var(--rule-strong)] bg-[var(--bg-panel)] text-[var(--ink-primary)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)] transition-colors"
+                >
+                  全集 AZW3 ↓
+                </a>
+              </div>
               <span className="hidden sm:inline-block h-3 w-[1px] bg-[var(--rule-line)]" />
               <span>
                 中文译文与伴读旁注采用{' '}

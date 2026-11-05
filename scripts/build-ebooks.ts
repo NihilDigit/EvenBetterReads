@@ -821,6 +821,7 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
   const hasher = createHash('sha256');
   hasher.update('azw3-cover-v2-share-not-sync');
   for (const e of entries) {
+    if (e.name === 'OEBPS/cover.png') continue;
     hasher.update(e.name);
     hasher.update(e.data);
   }
@@ -897,7 +898,8 @@ async function main(fontFiles: string[]) {
   console.log(`✓ 已生成 ${selectedBooks.length} 部作品的 EPUB 3 电子书（${OUT_DIR}）`);
 
   const bin = resolveEbookConvertBin();
-  if (convertQueue.length > 0 && !bin) throw new Error('未找到 Calibre ebook-convert');
+  const missingAzw3 = convertQueue.filter((q) => !existsSync(q.azw3Path));
+  if (missingAzw3.length > 0 && !bin) throw new Error('未找到 Calibre ebook-convert');
   if (convertQueue.length > 0 && bin) {
     console.log(`正在调用 Calibre ebook-convert 编译 ${convertQueue.length} 部 AZW3 (KF8) 副本...`);
     const CONCURRENCY = 4;
