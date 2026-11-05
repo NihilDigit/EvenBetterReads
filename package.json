@@ -27,6 +27,7 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@types/wawoff2": "^1.0.2",
+    "jpeg-js": "^0.4.4",
     "typescript": "^5.8.2",
     "wawoff2": "^2.0.1"
   }

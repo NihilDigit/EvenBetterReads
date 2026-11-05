@@ -3,6 +3,7 @@ import { join, resolve } from 'path';
 import { tmpdir } from 'os';
 import { parseArgs } from 'util';
 import { Resvg } from '@resvg/resvg-js';
+import jpeg from 'jpeg-js';
 import { decompress } from 'wawoff2';
 import { deflateRawSync } from 'zlib';
 import { spawn, spawnSync } from 'child_process';
@@ -557,15 +558,25 @@ ${bodyContent}
 function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Buffer; contentHash: string } {
   const maps = buildBookMaps(book);
   const coverSvg = renderBookCoverSvgString(book.slug);
-  const coverPng = new Resvg(coverSvg, {
+  const renderedCover = new Resvg(coverSvg, {
     font: {
-      loadSystemFonts: true,
+      loadSystemFonts: false,
       fontFiles,
       defaultFontFamily: 'LXGW Neo ZhiSong',
       serifFamily: 'LXGW Neo ZhiSong',
       monospaceFamily: 'JetBrains Mono'
     }
-  }).render().asPng();
+  }).render();
+  const coverJpg = Buffer.from(
+    jpeg.encode(
+      {
+        data: renderedCover.pixels,
+        width: renderedCover.width,
+        height: renderedCover.height
+      },
+      92
+    ).data
+  );
 
   const entries: ZipEntry[] = [
     {
@@ -594,15 +605,15 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
       data: Buffer.from(coverSvg, 'utf8')
     },
     {
-      name: 'OEBPS/cover.png',
-      data: coverPng
+      name: 'OEBPS/cover.jpg',
+      data: coverJpg
     },
     {
       name: 'OEBPS/cover.xhtml',
       data: Buffer.from(
         wrapXhtmlDoc(
           `${book.titleZh} — 书封`,
-          `<div class="cover-wrap"><img src="cover.png" alt="${escapeXml(book.titleZh)}" /></div>`
+          `<div class="cover-wrap"><img src="cover.jpg" alt="${escapeXml(book.titleZh)}" /></div>`
         ),
         'utf8'
       )
@@ -768,7 +779,7 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
   // Build content.opf
   const manifestItems = [
     `<item id="css" href="styles.css" media-type="text/css"/>`,
-    `<item id="cover-image" href="cover.png" media-type="image/png" properties="cover-image"/>`,
+    `<item id="cover-image" href="cover.jpg" media-type="image/jpeg" properties="cover-image"/>`,
     `<item id="cover-svg" href="cover.svg" media-type="image/svg+xml"/>`,
     `<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>`,
     `<item id="intro" href="intro.xhtml" media-type="application/xhtml+xml"/>`,
@@ -819,9 +830,9 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
   });
 
   const hasher = createHash('sha256');
-  hasher.update('azw3-cover-v2-share-not-sync');
+  hasher.update('azw3-cover-v3-jpeg-pdoc');
   for (const e of entries) {
-    if (e.name === 'OEBPS/cover.png') continue;
+    if (e.name === 'OEBPS/cover.jpg') continue;
     hasher.update(e.name);
     hasher.update(e.data);
   }
@@ -843,11 +854,30 @@ function resolveEbookConvertBin(): string | null {
     : null;
 }
 
+/**
+ * 将 AZW3 EXTH 501 (CDEContentType) 从 EBOK 替换为等长 4 字节的 PDOC，
+ * 使 Kindle 固件直接从文件内置的 EXTH 201 Baseline JPEG 提取本地封面缩略图，
+ * 避免 EBOK 模式下联网请求亚马逊服务器 404 导致无封面。
+ */
+function patchAzw3ExthToPdoc(azw3Path: string): void {
+  const buf = readFileSync(azw3Path);
+  const ebokRecord = Buffer.from([0x00, 0x00, 0x01, 0xf5, 0x00, 0x00, 0x00, 0x0c, 0x45, 0x42, 0x4f, 0x4b]);
+  const pdocRecord = Buffer.from([0x00, 0x00, 0x01, 0xf5, 0x00, 0x00, 0x00, 0x0c, 0x50, 0x44, 0x4f, 0x43]);
+  let idx = 0;
+  let patched = false;
+  while ((idx = buf.indexOf(ebokRecord, idx)) !== -1) {
+    pdocRecord.copy(buf, idx);
+    idx += ebokRecord.length;
+    patched = true;
+  }
+  if (patched) {
+    writeFileSync(azw3Path, buf);
+  }
+}
+
 function convertEpubToAzw3(bin: string, epubPath: string, azw3Path: string): Promise<void> {
   return new Promise((resolve, reject) => {
-    // --share-not-sync 避免写入伪造 UUID 的 EXTH 113 (ASIN) 与 EXTH 501 (EBOK)，
-    // 防止 Kindle E-Ink 设备在联网状态下拿伪 ASIN 请求亚马逊封面服务器 404 后冲掉本地书架封面缩略图
-    const child = spawn(bin, [epubPath, azw3Path, '--share-not-sync'], {
+    const child = spawn(bin, [epubPath, azw3Path], {
       stdio: ['ignore', 'pipe', 'pipe']
     });
     let stderr = '';
@@ -858,8 +888,12 @@ function convertEpubToAzw3(bin: string, epubPath: string, azw3Path: string): Pro
       reject(err);
     });
     child.on('close', (code) => {
-      if (code === 0) resolve();
-      else reject(new Error(`ebook-convert exited with code ${code}: ${stderr}`));
+      if (code === 0) {
+        patchAzw3ExthToPdoc(azw3Path);
+        resolve();
+      } else {
+        reject(new Error(`ebook-convert exited with code ${code}: ${stderr}`));
+      }
     });
   });
 }
