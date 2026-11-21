@@ -46,6 +46,7 @@ const plainDesc = book.descriptionZh.split('\n\n')[0]?.replace(/\*\*/g, '') ?? '
 <BaseLayout
   title={`${book.titleZh} — ${book.authorZh} | EvenBetterReads`}
   description={plainDesc}
+  preloadReadingFont={true}
 >
   <BookReaderApp book={book} client:load />
 </BaseLayout>

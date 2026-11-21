@@ -9,7 +9,6 @@ export interface GlossIndexMap {
 
 interface ParseZhOptions {
   glossIndexMap: GlossIndexMap;
-  activeGlossId: string | null;
   onSelectGloss: (glossId: string) => void;
   footnoteMap?: Record<string, number>;
   authorNoteLabel?: string;
@@ -22,10 +21,7 @@ interface ParseZhOptions {
 function renderInnerZh(
   text: string,
   keyPrefix: string,
-  options?: Pick<
-    ParseZhOptions,
-    'footnoteMap' | 'authorNoteLabel' | 'activeGlossId' | 'onSelectGloss'
-  >
+  options?: Pick<ParseZhOptions, 'footnoteMap' | 'authorNoteLabel' | 'onSelectGloss'>
 ): React.ReactNode[] {
   const tokenRegex = /(\*\*[^*]+\*\*|\[\^[^\]]+\])/g;
   const parts = text.split(tokenRegex);
@@ -43,7 +39,6 @@ function renderInnerZh(
     if (part.startsWith('[^') && part.endsWith(']')) {
       const fnId = part.slice(2, -1);
       const fnNum = options?.footnoteMap?.[fnId] ?? 1;
-      const isActive = options?.activeGlossId === fnId;
       const label = options?.authorNoteLabel ?? '原注';
       return (
         <button
@@ -56,14 +51,10 @@ function renderInnerZh(
             options?.onSelectGloss?.(fnId);
           }}
           title={`查看${label} ${fnNum}`}
-          className={`inline-flex items-center gap-0.5 mx-1 px-2 py-[2px] rounded-full text-[11px] font-medium leading-none tabular-nums-ui align-baseline -translate-y-[2px] relative transition-all duration-150 cursor-pointer touch-manipulation after:content-[''] after:absolute after:-inset-y-2 after:-inset-x-1 ${
-            isActive
-              ? 'bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] shadow-xs'
-              : 'bg-[var(--md-sys-color-tertiary-container)] text-[var(--md-sys-color-on-tertiary-container)] hover:brightness-95'
-          }`}
+          className="fn-trigger inline-flex items-center gap-0.5 mx-1 px-2 py-[2px] rounded-full text-[11px] font-medium leading-none tabular-nums-ui align-baseline -translate-y-[2px] relative transition-colors duration-150 cursor-pointer touch-manipulation after:content-[''] after:absolute after:-inset-y-2 after:-inset-x-1"
         >
           <span>{label}</span>
-          <span>{fnNum}</span>
+          <span className="hidden min-[960px]:inline">{fnNum}</span>
         </button>
       );
     }
@@ -109,7 +100,6 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
       if (match) {
         const [, anchorText, glossId] = match;
         const meta = options.glossIndexMap[glossId];
-        const isActive = options.activeGlossId === glossId;
 
         if (!meta) {
           return (
@@ -137,20 +127,12 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
                 options.onSelectGloss(glossId);
               }
             }}
-            className={`inline cursor-pointer touch-manipulation rounded-[6px] px-[2px] -mx-[2px] decoration-[1.5px] underline-offset-[5px] transition-colors duration-150 ${
-              isActive
-                ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] underline decoration-[var(--md-sys-color-primary)]'
-                : 'underline decoration-dotted decoration-[color-mix(in_srgb,var(--md-sys-color-primary)_48%,transparent)] hover:bg-[color-mix(in_srgb,var(--md-sys-color-secondary-container)_75%,transparent)] hover:decoration-solid hover:decoration-[var(--md-sys-color-primary)]'
-            }`}
+            className="gloss-trigger inline cursor-pointer touch-manipulation rounded-[6px] px-[2px] -mx-[2px] transition-colors duration-150"
           >
             {renderInnerZh(anchorText, `p${pIdx}-s${sIdx}`, options)}
             <sup
               style={{ textIndent: 0, fontFamily: 'var(--font-ui)' }}
-              className={`inline-block ml-[2px] text-[10.5px] font-semibold leading-none tabular-nums-ui select-none ${
-                isActive
-                  ? 'text-[var(--md-sys-color-primary)]'
-                  : 'text-[color-mix(in_srgb,var(--md-sys-color-primary)_82%,transparent)]'
-              }`}
+              className="gloss-trigger-sup hidden min-[960px]:inline-block ml-[2px] text-[10.5px] font-semibold leading-none tabular-nums-ui select-none"
             >
               {meta.index}
             </sup>

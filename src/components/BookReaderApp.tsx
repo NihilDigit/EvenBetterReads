@@ -50,6 +50,7 @@ export interface AnnotationCardItem {
   anchor?: string;
   authorLabel?: string;
   content: string;
+  renderedContent: React.ReactNode[];
   sectionId: string;
   sectionLabel: string;
   aiModel: string;
@@ -64,6 +65,31 @@ interface FlatSectionEntry {
   resolvedAiModel: string;
 }
 
+interface SectionMetric {
+  id: string;
+  title: string;
+  top: number;
+}
+
+interface TriggerMetric {
+  id: string;
+  top: number;
+  bottom: number;
+}
+
+interface BlockMetric {
+  id: string;
+  bottom: number;
+}
+
+interface SearchIndexItem {
+  kind: 'prose' | 'gloss' | 'authorNote';
+  targetId: string;
+  title: string;
+  text: string;
+  lower: string;
+}
+
 function formatRomanLabel(roman: string): string {
   if (roman === 'Vorrede') return '序言';
   if (roman === 'Appendice') return '附录';
@@ -75,6 +101,373 @@ function stripMarkupForSearch(raw: string): string {
     .replace(/\[([^\]]+)\]\{#[a-zA-Z0-9_-]+\}/g, '$1')
     .replace(/\[\^[a-zA-Z0-9_-]+\]/g, '')
     .replace(/\*\*/g, '');
+}
+
+/** 二分查找最后一个满足 top <= threshold 的索引 */
+function findLastLe<T>(arr: T[], threshold: number, getVal: (item: T) => number): number {
+  let lo = 0;
+  let hi = arr.length - 1;
+  let ans = -1;
+  while (lo <= hi) {
+    const mid = (lo + hi) >>> 1;
+    if (getVal(arr[mid]) <= threshold) {
+      ans = mid;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+  return ans;
+}
+
+/** 二分查找第一个满足 val > threshold 的索引 */
+function findFirstGt<T>(arr: T[], threshold: number, getVal: (item: T) => number): number {
+  let lo = 0;
+  let hi = arr.length - 1;
+  let ans = arr.length;
+  while (lo <= hi) {
+    const mid = (lo + hi) >>> 1;
+    if (getVal(arr[mid]) > threshold) {
+      ans = mid;
+      hi = mid - 1;
+    } else {
+      lo = mid + 1;
+    }
+  }
+  return ans;
+}
+
+interface BookProseStreamProps {
+  flatSections: FlatSectionEntry[];
+  glossIndexMap: GlossIndexMap;
+  footnoteMap: Record<string, number>;
+  authorNoteLabel: string;
+  fontSizeClass: string;
+  onSelectGloss: (noteId: string) => void;
+}
+
+/**
+ * 独立记忆化的正文流组件：
+ * 滚动进度、注疏高亮（通过 data-active 属性直改 DOM）、弹窗开关均不触发全书正文重渲染。
+ */
+const BookProseStream = React.memo(function BookProseStream({
+  flatSections,
+  glossIndexMap,
+  footnoteMap,
+  authorNoteLabel,
+  fontSizeClass,
+  onSelectGloss
+}: BookProseStreamProps) {
+  return (
+    <div className="space-y-20">
+      {flatSections.map((entry) => {
+        const { chapter, isFirstInChapter, section, resolvedAiModel } = entry;
+
+        return (
+          <article
+            key={section.id}
+            id={`section-${section.id}`}
+            data-reader-section={section.id}
+            className="space-y-8 scroll-mt-20 reader-contain"
+          >
+            {isFirstInChapter && (chapter.dedication || chapter.epigraph) && (
+              <div className="rounded-[24px] bg-[var(--md-sys-color-surface-container-low)] p-6 sm:p-8 space-y-6">
+                {chapter.dedication && (
+                  <div className="space-y-4">
+                    <div className={chapter.dedication.noteZh ? '' : 'text-center py-1'}>
+                      <p className="zh-emphasis text-lg sm:text-xl text-[var(--md-sys-color-on-surface)]">
+                        {chapter.dedication.toZh}
+                      </p>
+                      {chapter.dedication.toOriginal && (
+                        <p className="fr-prose italic text-sm text-[var(--md-sys-color-on-surface-variant)] mt-0.5">
+                          {chapter.dedication.toOriginal}
+                        </p>
+                      )}
+                    </div>
+
+                    {chapter.dedication.noteZh && (
+                      <div>
+                        {renderZhParagraph(chapter.dedication.noteZh, {
+                          glossIndexMap,
+                          onSelectGloss,
+                          authorNoteLabel,
+                          fontSizeClass
+                        })}
+                        {chapter.dedication.signatureZh && (
+                          <p className="zh-emphasis text-base mt-4 text-right text-[var(--md-sys-color-on-surface-variant)]">
+                            {chapter.dedication.signatureZh}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {chapter.epigraph && (
+                  <blockquote
+                    className={`${
+                      chapter.dedication
+                        ? 'pt-6 border-t border-[var(--md-sys-color-outline-variant)]/45'
+                        : ''
+                    } text-center px-2 sm:px-6 space-y-2.5`}
+                  >
+                    <p className="zh-emphasis text-[17px] sm:text-[19px] leading-relaxed">
+                      「{chapter.epigraph.quoteZh}」
+                    </p>
+                    <footer className="text-xs sm:text-[13px] text-[var(--md-sys-color-on-surface-variant)]">
+                      —— {chapter.epigraph.authorZh} {chapter.epigraph.sourceZh}
+                    </footer>
+                  </blockquote>
+                )}
+              </div>
+            )}
+
+            <header className="space-y-1.5 pt-2 pb-4 border-b border-[var(--md-sys-color-outline-variant)]/50">
+              <div className="flex items-center justify-between gap-2">
+                <span className="fr-prose text-sm font-semibold tracking-wide text-[var(--md-sys-color-primary)]">
+                  {formatRomanLabel(section.roman)}
+                </span>
+                <span
+                  title={`本节译注模型：${resolvedAiModel}`}
+                  className="inline-flex items-center gap-1 text-[11px] text-[var(--md-sys-color-on-surface-variant)]/85"
+                >
+                  <Sparkles className="w-2.5 h-2.5 text-[var(--md-sys-color-primary)]" />
+                  <span>{resolvedAiModel}</span>
+                </span>
+              </div>
+              <h2 className="zh-display-serif text-2xl sm:text-[26px] leading-snug text-[var(--md-sys-color-on-surface)]">
+                {section.titleZh}
+              </h2>
+              <p className="fr-prose italic text-sm sm:text-base text-[var(--md-sys-color-on-surface-variant)]">
+                {section.titleOriginal}
+              </p>
+            </header>
+
+            {section.epigraph && (
+              <blockquote className="rounded-[20px] bg-[var(--md-sys-color-surface-container-low)] py-5 px-6 text-center space-y-2">
+                <p className="zh-emphasis text-base sm:text-[17.5px] leading-relaxed">
+                  「{section.epigraph.quoteZh}」
+                </p>
+                <footer className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
+                  —— {section.epigraph.authorZh} {section.epigraph.sourceZh}
+                </footer>
+              </blockquote>
+            )}
+
+            <div className="space-y-4">
+              {section.blocks.map((blk: ParagraphBlock) => {
+                if (blk.type === 'divider') {
+                  return (
+                    <div
+                      key={blk.id}
+                      className="py-5 flex items-center justify-center gap-3 select-none text-[var(--md-sys-color-outline)]"
+                      aria-hidden="true"
+                    >
+                      <span className="w-10 h-[1px] bg-[var(--md-sys-color-outline-variant)]" />
+                      <span className="fr-prose text-sm text-[var(--md-sys-color-primary)]">
+                        ✦
+                      </span>
+                      <span className="w-10 h-[1px] bg-[var(--md-sys-color-outline-variant)]" />
+                    </div>
+                  );
+                }
+
+                return (
+                  <div key={blk.id} id={blk.id} data-reading-block={blk.id}>
+                    {renderZhParagraph(blk.zh, {
+                      glossIndexMap,
+                      onSelectGloss,
+                      footnoteMap,
+                      authorNoteLabel,
+                      fontSizeClass
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+});
+
+interface AnnotationCardProps {
+  item: AnnotationCardItem;
+  isSelected: boolean;
+  isSyncedLead: boolean;
+  isInViewport: boolean;
+  hasCustomNoteModel: boolean;
+  onToggleSelect: (id: string) => void;
+  onLocate: (id: string) => void;
+  registerRef: (id: string, el: HTMLElement | null) => void;
+}
+
+const AnnotationCard = React.memo(function AnnotationCard({
+  item,
+  isSelected,
+  isSyncedLead,
+  isInViewport,
+  hasCustomNoteModel,
+  onToggleSelect,
+  onLocate,
+  registerRef
+}: AnnotationCardProps) {
+  return (
+    <article
+      ref={(el) => registerRef(item.id, el)}
+      onClick={() => {
+        const sel = window.getSelection();
+        if (sel && !sel.isCollapsed && sel.toString().trim().length > 0) return;
+        onToggleSelect(item.id);
+      }}
+      className={`reader-contain rounded-[20px] p-4 transition-colors duration-200 cursor-pointer ${
+        isSelected
+          ? 'bg-[var(--md-sys-color-secondary-container)] ring-1.5 ring-[var(--md-sys-color-primary)] shadow-xs'
+          : isSyncedLead
+            ? 'bg-[var(--md-sys-color-secondary-container)]/65 ring-1 ring-[var(--md-sys-color-primary)]/45'
+            : isInViewport
+              ? 'bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+              : 'bg-[var(--md-sys-color-surface-container-lowest)]/75 hover:bg-[var(--md-sys-color-surface-container)]'
+      }`}
+    >
+      <div className="flex items-start justify-between gap-2 mb-2">
+        {item.kind === 'authorNote' ? (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--md-sys-color-tertiary-container)] text-[var(--md-sys-color-on-tertiary-container)] tabular-nums-ui">
+            {item.authorLabel} {item.numLabel}
+          </span>
+        ) : (
+          <div className="flex items-baseline gap-2 min-w-0">
+            <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full text-[11px] font-semibold tabular-nums-ui bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] shrink-0">
+              {item.numLabel}
+            </span>
+            <span className="zh-emphasis text-[14px] leading-snug text-[var(--md-sys-color-on-surface)]">
+              {item.anchor}
+            </span>
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onLocate(item.id);
+          }}
+          title="定位原文"
+          aria-label="定位原文"
+          className="w-7 h-7 rounded-full inline-flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-highest)] hover:text-[var(--md-sys-color-primary)] transition-colors shrink-0 cursor-pointer"
+        >
+          <LocateFixed className="w-3.5 h-3.5" />
+        </button>
+      </div>
+
+      <p className="gloss-prose text-[13.5px] leading-relaxed cursor-text">
+        {item.renderedContent}
+      </p>
+
+      {hasCustomNoteModel && (
+        <div className="mt-2 pt-1.5 border-t border-[var(--md-sys-color-outline-variant)]/35 flex items-center gap-1 text-[10.5px] text-[var(--md-sys-color-on-surface-variant)]">
+          <Sparkles className="w-2.5 h-2.5 text-[var(--md-sys-color-primary)]" />
+          <span>{item.aiModel}</span>
+        </div>
+      )}
+    </article>
+  );
+});
+
+interface MobilePlainNoteSheetProps {
+  note: AnnotationCardItem;
+  defaultBookModel: string;
+  onClose: () => void;
+}
+
+/**
+ * 窄屏 M3E Plain ModalBottomSheet (< 960px)：
+ * 纯粹承载释文，不重复引文、不展示编号与全书注疏入口，支持下滑手势关闭。
+ */
+function MobilePlainNoteSheet({ note, defaultBookModel, onClose }: MobilePlainNoteSheetProps) {
+  const sheetRef = useRef<HTMLDivElement | null>(null);
+  const bodyRef = useRef<HTMLDivElement | null>(null);
+  const dragStartYRef = useRef<number | null>(null);
+  const dragDeltaRef = useRef<number>(0);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const body = bodyRef.current;
+    if (body && body.scrollTop > 0) return;
+    dragStartYRef.current = e.touches[0]?.clientY ?? null;
+    dragDeltaRef.current = 0;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (dragStartYRef.current === null || !sheetRef.current) return;
+    const dy = (e.touches[0]?.clientY ?? dragStartYRef.current) - dragStartYRef.current;
+    if (dy > 0) {
+      dragDeltaRef.current = dy;
+      sheetRef.current.style.transition = 'none';
+      sheetRef.current.style.transform = `translateY(${dy}px)`;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (dragStartYRef.current === null || !sheetRef.current) return;
+    const dy = dragDeltaRef.current;
+    dragStartYRef.current = null;
+    dragDeltaRef.current = 0;
+    if (dy > 64) {
+      onClose();
+    } else {
+      sheetRef.current.style.transition = 'transform 220ms var(--md-sys-motion-spring-spatial)';
+      sheetRef.current.style.transform = 'translateY(0)';
+    }
+  };
+
+  const hasCustomModel = note.aiModel !== defaultBookModel;
+
+  return (
+    <div
+      className="min-[960px]:hidden fixed inset-0 z-50 bg-[var(--md-sys-color-scrim)] flex flex-col justify-end"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={note.kind === 'authorNote' ? (note.authorLabel ?? '原注') : '伴读旁注'}
+    >
+      <div
+        ref={sheetRef}
+        onClick={(e) => e.stopPropagation()}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        className="anim-m3e-sheet w-full max-w-[640px] mx-auto max-h-[72vh] rounded-t-[28px] bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)] shadow-[var(--md-sys-elevation-3)] flex flex-col overflow-hidden"
+      >
+        <div
+          className="pt-3.5 pb-2.5 flex justify-center cursor-pointer shrink-0"
+          onClick={onClose}
+          aria-hidden="true"
+        >
+          <span className="w-8 h-1 rounded-full bg-[var(--md-sys-color-outline)]/40" />
+        </div>
+
+        <div
+          ref={bodyRef}
+          className="px-6 pt-1 pb-[calc(1.75rem+env(safe-area-inset-bottom))] overflow-y-auto overscroll-contain"
+        >
+          {note.kind === 'authorNote' && note.authorLabel && (
+            <p className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] mb-2">
+              {note.authorLabel}
+            </p>
+          )}
+          <p className="gloss-prose text-[15px] leading-[1.85] text-[var(--md-sys-color-on-surface)]">
+            {note.renderedContent}
+          </p>
+          {hasCustomModel && (
+            <p className="mt-3 text-[11px] text-[var(--md-sys-color-on-surface-variant)]">
+              {note.aiModel}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function BookReaderApp({ book }: BookReaderAppProps) {
@@ -117,11 +510,12 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     return Array.from(set);
   }, [flatSections, introAiModel]);
 
-  // 全书统一编号映射与注疏列表
-  const { glossIndexMap, footnoteMap, allAnnotations } = useMemo(() => {
+  // 全书统一编号映射与注疏列表（预解析释文 ReactNode，避免后续重渲染重复正则切分）
+  const { glossIndexMap, footnoteMap, allAnnotations, annotationById } = useMemo(() => {
     const gMap: GlossIndexMap = {};
     const fnMap: Record<string, number> = {};
     const notes: AnnotationCardItem[] = [];
+    const byId = new Map<string, AnnotationCardItem>();
     let gCounter = 1;
     let fnCounter = 1;
 
@@ -134,16 +528,19 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
           const idx = gCounter++;
           const formatted = String(idx).padStart(2, '0');
           gMap[g.id] = { index: idx, formattedIndex: formatted };
-          notes.push({
+          const item: AnnotationCardItem = {
             kind: 'gloss',
             id: g.id,
             numLabel: String(idx),
             anchor: g.anchor,
             content: g.content,
+            renderedContent: renderGlossContent(g.content),
             sectionId: section.id,
             sectionLabel: '卷首献辞',
             aiModel: g.aiModel ?? chapter.aiModel ?? defaultBookModel
-          });
+          };
+          notes.push(item);
+          byId.set(item.id, item);
         }
       }
 
@@ -166,6 +563,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                 numLabel: String(idx),
                 anchor: g.anchor,
                 content: g.content,
+                renderedContent: renderGlossContent(g.content),
                 sectionId: section.id,
                 sectionLabel: secLabel,
                 aiModel: g.aiModel ?? blockModel
@@ -187,6 +585,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                 numLabel: String(num),
                 authorLabel: book.authorNoteLabel,
                 content: fn.zh,
+                renderedContent: renderGlossContent(fn.zh),
                 sectionId: section.id,
                 sectionLabel: secLabel,
                 aiModel: blockModel
@@ -198,16 +597,25 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         localEntries.sort((a, b) => a.pos - b.pos);
         for (const le of localEntries) {
           notes.push(le.item);
+          byId.set(le.item.id, le.item);
         }
       }
     }
 
-    return { glossIndexMap: gMap, footnoteMap: fnMap, allAnnotations: notes };
+    return {
+      glossIndexMap: gMap,
+      footnoteMap: fnMap,
+      allAnnotations: notes,
+      annotationById: byId
+    };
   }, [book.authorNoteLabel, defaultBookModel, flatSections]);
 
   const [palette, setPalette] = useState<PaletteId>('terracotta');
   const [colorMode, setColorMode] = useState<ColorMode>('light');
   const [fontScale, setFontScale] = useState<FontScale>('md');
+
+  // 响应式断点 (>= 960px 为宽屏双栏 Supporting Pane)
+  const [isDesktopLayout, setIsDesktopLayout] = useState<boolean>(false);
 
   const [introExpanded, setIntroExpanded] = useState<boolean>(false);
   const [introSheetOpen, setIntroSheetOpen] = useState<boolean>(false);
@@ -218,21 +626,34 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [inBookQuery, setInBookQuery] = useState<string>('');
 
-  // 右侧注疏面板同步滚动状态机
+  // 右侧注疏面板同步滚动状态机（仅宽屏且面板展开时活跃）
   const [isAutoSync, setIsAutoSync] = useState<boolean>(true);
   const [syncedNoteId, setSyncedNoteId] = useState<string | null>(null);
   const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
-  const [visibleNoteIds, setVisibleNoteIds] = useState<Set<string>>(new Set());
+  const [visibleNoteIds, setVisibleNoteIds] = useState<Set<string>>(() => new Set());
   const [noteFilter, setNoteFilter] = useState<NoteFilter>('all');
 
   const [currentSectionTitle, setCurrentSectionTitle] = useState<string>('');
-  const [overallProgress, setOverallProgress] = useState<number>(0);
 
+  const mainRef = useRef<HTMLElement | null>(null);
+  const progressBarRef = useRef<HTMLDivElement | null>(null);
   const sidePaneScrollRef = useRef<HTMLDivElement | null>(null);
   const noteCardRefs = useRef<Record<string, HTMLElement | null>>({});
   const settingsRef = useRef<HTMLDivElement | null>(null);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const activeDomTriggerRef = useRef<HTMLElement | null>(null);
 
+  // 缓存的文档几何坐标（避免滚动帧内全量 querySelectorAll 与 getBoundingClientRect 重排）
+  const sectionMetricsRef = useRef<SectionMetric[]>([]);
+  const triggerMetricsRef = useRef<TriggerMetric[]>([]);
+  const blockMetricsRef = useRef<BlockMetric[]>([]);
+  const docScrollableHeightRef = useRef<number>(1);
+  const currentSectionTitleRef = useRef<string>('');
+
+  const isDesktopLayoutRef = useRef<boolean>(false);
+  isDesktopLayoutRef.current = isDesktopLayout;
+  const desktopPaneOpenRef = useRef<boolean>(true);
+  desktopPaneOpenRef.current = desktopPaneOpen;
   const isAutoSyncRef = useRef<boolean>(true);
   isAutoSyncRef.current = isAutoSync;
   const selectedNoteIdRef = useRef<string | null>(null);
@@ -301,7 +722,6 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
 
       let desiredTop = Math.max(0, topCard.offsetTop - 16);
 
-      // 若同一屏内有多条长注疏，确保已进入阅读视线中下带（68% 高度内）的注疏完整露出底部，绝不被上方长注挤出视野
       if (mustRevealNoteId && mustRevealNoteId !== noteId) {
         const focalCard = noteCardRefs.current[mustRevealNoteId];
         if (focalCard) {
@@ -318,8 +738,94 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     [scrollPaneToOffset]
   );
 
+  const registerNoteCardRef = useCallback((id: string, el: HTMLElement | null) => {
+    if (el) {
+      noteCardRefs.current[id] = el;
+    } else {
+      delete noteCardRefs.current[id];
+    }
+  }, []);
+
+  // 批量测量并缓存正文小节、段落与注疏触发器坐标
+  const measureLayout = useCallback(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const scrollY = window.scrollY;
+    docScrollableHeightRef.current = Math.max(
+      1,
+      document.documentElement.scrollHeight - window.innerHeight
+    );
+
+    const secTitleMap = new Map<string, string>();
+    for (const entry of flatSections) {
+      secTitleMap.set(
+        entry.section.id,
+        `${formatRomanLabel(entry.section.roman)} ${entry.section.titleZh}`
+      );
+    }
+
+    const sections: SectionMetric[] = [];
+    main.querySelectorAll<HTMLElement>('[data-reader-section]').forEach((el) => {
+      const id = el.dataset.readerSection;
+      if (!id) return;
+      sections.push({
+        id,
+        title: secTitleMap.get(id) ?? '',
+        top: el.getBoundingClientRect().top + scrollY
+      });
+    });
+    sectionMetricsRef.current = sections;
+
+    const blocks: BlockMetric[] = [];
+    main.querySelectorAll<HTMLElement>('[data-reading-block]').forEach((el) => {
+      const id = el.dataset.readingBlock;
+      if (!id) return;
+      blocks.push({
+        id,
+        bottom: el.getBoundingClientRect().bottom + scrollY
+      });
+    });
+    blockMetricsRef.current = blocks;
+
+    if (isDesktopLayoutRef.current && desktopPaneOpenRef.current) {
+      const triggers: TriggerMetric[] = [];
+      main.querySelectorAll<HTMLElement>('[data-gloss-trigger]').forEach((el) => {
+        const id = el.dataset.glossTrigger;
+        if (!id) return;
+        const r = el.getBoundingClientRect();
+        triggers.push({
+          id,
+          top: r.top + scrollY,
+          bottom: r.bottom + scrollY
+        });
+      });
+      triggerMetricsRef.current = triggers;
+    } else {
+      triggerMetricsRef.current = [];
+    }
+  }, [flatSections]);
+
   useEffect(() => {
     return () => stopPaneAnimation();
+  }, [stopPaneAnimation]);
+
+  // 监听响应式宽度断点 (>= 960px)
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 960px)');
+    const update = () => {
+      const desktop = mql.matches;
+      setIsDesktopLayout(desktop);
+      if (!desktop) {
+        stopPaneAnimation();
+        setSyncedNoteId(null);
+        setVisibleNoteIds((prev) => (prev.size === 0 ? prev : new Set()));
+      } else {
+        setMobileSheetOpen(false);
+      }
+    };
+    update();
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
   }, [stopPaneAnimation]);
 
   // 初始化偏好与上次阅读进度恢复
@@ -364,7 +870,9 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         }
       });
     } else if (saved && saved.progress > 1 && saved.progress < 99) {
-      setOverallProgress(saved.progress);
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${saved.progress / 100})`;
+      }
       window.requestAnimationFrame(() => {
         const target =
           (saved.blockId ? document.getElementById(saved.blockId) : null) ||
@@ -384,6 +892,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         setSearchOpen(false);
         setSettingsOpen(false);
         setMobileSheetOpen(false);
+        setSelectedNoteId(null);
         setIntroSheetOpen(false);
       }
     };
@@ -417,7 +926,38 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     };
   }, [mobileSheetOpen, searchOpen, introSheetOpen]);
 
-  // 左栏滚动监听：驱动阅读进度、小节感知与右侧同步焦点锚点计算
+  // 当版式、字号、导读展开状态或字体加载完成时重新测量缓存坐标
+  useEffect(() => {
+    let measureRaf: number | null = null;
+    const scheduleMeasure = () => {
+      if (measureRaf !== null) return;
+      measureRaf = window.requestAnimationFrame(() => {
+        measureRaf = null;
+        measureLayout();
+      });
+    };
+
+    scheduleMeasure();
+
+    const ro =
+      typeof ResizeObserver !== 'undefined' && mainRef.current
+        ? new ResizeObserver(scheduleMeasure)
+        : null;
+    if (ro && mainRef.current) {
+      ro.observe(mainRef.current);
+    }
+
+    window.addEventListener('resize', scheduleMeasure, { passive: true });
+    document.fonts?.ready?.then(scheduleMeasure);
+
+    return () => {
+      if (measureRaf !== null) window.cancelAnimationFrame(measureRaf);
+      ro?.disconnect();
+      window.removeEventListener('resize', scheduleMeasure);
+    };
+  }, [measureLayout, fontScale, introExpanded, isDesktopLayout, desktopPaneOpen]);
+
+  // 左栏滚动监听：基于缓存坐标与二分查找驱动进度条、小节感知与宽屏右侧同步焦点
   useEffect(() => {
     let rafPending = false;
     let saveTimer: number | null = null;
@@ -426,12 +966,17 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       rafPending = false;
       const scrollTop = Math.max(0, window.scrollY);
       const vh = window.innerHeight;
-      const docH = Math.max(1, document.documentElement.scrollHeight - vh);
+      const docH = docScrollableHeightRef.current;
       const pct = Math.min(100, Math.max(0, (scrollTop / docH) * 100));
-      setOverallProgress(pct);
 
-      // 当用户点击某条注疏后继续上下滚动阅读（超过 48px），自动释放手动点选锁定，恢复动态阅读焦点高亮
+      // 零 React 重渲染、GPU 合成的阅读进度条更新
+      if (progressBarRef.current) {
+        progressBarRef.current.style.transform = `scaleX(${pct / 100})`;
+      }
+
+      // 宽屏点选某条注疏后继续上下滚动超过 48px，自动释放锁定恢复动态跟随
       if (
+        isDesktopLayoutRef.current &&
         selectedNoteIdRef.current !== null &&
         selectedAtScrollYRef.current !== null &&
         Math.abs(scrollTop - selectedAtScrollYRef.current) > 48
@@ -441,76 +986,93 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         setSelectedNoteId(null);
       }
 
-      const secEls = document.querySelectorAll<HTMLElement>('[data-reader-section]');
-      let activeSecEntry = flatSections[0];
-      for (const el of secEls) {
-        if (el.getBoundingClientRect().top <= 160) {
-          const sid = el.dataset.readerSection;
-          const found = flatSections.find((e) => e.section.id === sid);
-          if (found) activeSecEntry = found;
-        }
+      // O(log S) 二分查找当前小节
+      const sections = sectionMetricsRef.current;
+      let activeSecId = flatSections[0]?.section.id ?? '';
+      let activeSecTitle = flatSections[0]
+        ? `${formatRomanLabel(flatSections[0].section.roman)} ${flatSections[0].section.titleZh}`
+        : '';
+      if (sections.length > 0) {
+        const idx = findLastLe(sections, scrollTop + 160, (s) => s.top);
+        const hit = idx >= 0 ? sections[idx] : sections[0];
+        activeSecId = hit.id;
+        activeSecTitle = hit.title;
       }
-      if (activeSecEntry) {
-        setCurrentSectionTitle(
-          `${formatRomanLabel(activeSecEntry.section.roman)} ${activeSecEntry.section.titleZh}`
-        );
+      if (activeSecTitle && activeSecTitle !== currentSectionTitleRef.current) {
+        currentSectionTitleRef.current = activeSecTitle;
+        setCurrentSectionTitle(activeSecTitle);
       }
 
-      const triggers = document.querySelectorAll<HTMLElement>('[data-gloss-trigger]');
-      // 阅读活跃视带：句子从视口下方 82% 处刚一进入即提前预载入轨；滚过上方 28% 后即让位于下一则注疏
-      const bandTop = Math.max(88, vh * 0.28);
-      const bandBottom = vh * 0.82;
-      const mustRevealHorizon = vh * 0.78;
+      // 仅宽屏且注疏面板展开时执行注疏同步追踪；移动端绝不自动高亮注疏
+      if (isDesktopLayoutRef.current && desktopPaneOpenRef.current) {
+        const triggers = triggerMetricsRef.current;
+        if (triggers.length > 0) {
+          const viewTop = scrollTop + 72;
+          const viewBottom = scrollTop + vh - 32;
+          const bandTop = scrollTop + Math.max(88, vh * 0.28);
+          const bandBottom = scrollTop + vh * 0.82;
+          const mustRevealHorizon = scrollTop + vh * 0.78;
+          const enterLimit = scrollTop + vh * 0.96;
 
-      const nextVisible = new Set<string>();
-      let firstInBandId: string | null = null;
-      let latestMustRevealId: string | null = null;
-      let lastPassedAboveBandId: string | null = null;
-      let nextEnteringBelowId: string | null = null;
-      let lastTriggerId: string | null = null;
+          const nextVisible = new Set<string>();
+          let firstInBandId: string | null = null;
+          let latestMustRevealId: string | null = null;
+          let lastPassedAboveBandId: string | null = null;
+          let nextEnteringBelowId: string | null = null;
+          const lastTriggerId = triggers[triggers.length - 1].id;
 
-      for (const tr of triggers) {
-        const id = tr.dataset.glossTrigger;
-        if (!id) continue;
-        lastTriggerId = id;
-        const rect = tr.getBoundingClientRect();
-
-        if (rect.bottom >= 72 && rect.top <= vh - 32) {
-          nextVisible.add(id);
-        }
-
-        if (rect.bottom < bandTop) {
-          lastPassedAboveBandId = id;
-        } else if (rect.top <= bandBottom) {
-          if (!firstInBandId) {
-            firstInBandId = id;
+          // 找到第一个可能进入视口的触发器（前移 2 条以覆盖多行折行锚点）
+          const approxStart = Math.max(
+            0,
+            findLastLe(triggers, viewTop - 120, (t) => t.top) - 1
+          );
+          if (approxStart > 0) {
+            lastPassedAboveBandId = triggers[approxStart - 1].id;
           }
-          if (rect.top <= mustRevealHorizon) {
-            latestMustRevealId = id;
+
+          for (let i = approxStart; i < triggers.length; i++) {
+            const t = triggers[i];
+            if (t.top > enterLimit) break;
+
+            if (t.bottom >= viewTop && t.top <= viewBottom) {
+              nextVisible.add(t.id);
+            }
+
+            if (t.bottom < bandTop) {
+              lastPassedAboveBandId = t.id;
+            } else if (t.top <= bandBottom) {
+              if (!firstInBandId) {
+                firstInBandId = t.id;
+              }
+              if (t.top <= mustRevealHorizon) {
+                latestMustRevealId = t.id;
+              }
+            } else if (!nextEnteringBelowId) {
+              nextEnteringBelowId = t.id;
+            }
           }
-        } else if (!nextEnteringBelowId && rect.top <= vh * 0.96) {
-          nextEnteringBelowId = id;
-        }
-      }
 
-      const nearBottom = scrollTop >= docH - 32;
-      const resolvedTopAnchor = nearBottom
-        ? (lastTriggerId ?? firstInBandId ?? lastPassedAboveBandId)
-        : (firstInBandId ?? nextEnteringBelowId ?? lastPassedAboveBandId);
-      const resolvedReveal = nearBottom ? lastTriggerId : latestMustRevealId;
+          const nearBottom = scrollTop >= docH - 32;
+          const resolvedTopAnchor = nearBottom
+            ? (lastTriggerId ?? firstInBandId ?? lastPassedAboveBandId)
+            : (firstInBandId ?? nextEnteringBelowId ?? lastPassedAboveBandId);
+          const resolvedReveal = nearBottom ? lastTriggerId : latestMustRevealId;
 
-      setVisibleNoteIds((prev) => {
-        if (prev.size === nextVisible.size && [...prev].every((x) => nextVisible.has(x))) {
-          return prev;
-        }
-        return nextVisible;
-      });
+          setVisibleNoteIds((prev) => {
+            if (prev.size === nextVisible.size && [...prev].every((x) => nextVisible.has(x))) {
+              return prev;
+            }
+            return nextVisible;
+          });
 
-      if (resolvedTopAnchor) {
-        syncTargetsRef.current = { topId: resolvedTopAnchor, revealId: resolvedReveal };
-        setSyncedNoteId(resolvedReveal ?? resolvedTopAnchor);
-        if (isAutoSyncRef.current) {
-          scrollNoteIntoPane(resolvedTopAnchor, resolvedReveal);
+          if (resolvedTopAnchor) {
+            syncTargetsRef.current = { topId: resolvedTopAnchor, revealId: resolvedReveal };
+            const nextLead = resolvedReveal ?? resolvedTopAnchor;
+            setSyncedNoteId((prev) => (prev === nextLead ? prev : nextLead));
+            if (isAutoSyncRef.current) {
+              scrollNoteIntoPane(resolvedTopAnchor, resolvedReveal);
+            }
+          }
         }
       }
 
@@ -522,21 +1084,21 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         }
         if (scrollTop < 60) return;
 
-        const blocks = document.querySelectorAll<HTMLElement>('[data-reading-block]');
+        const blocks = blockMetricsRef.current;
         let currentBlockId: string | null = null;
-        for (const bEl of blocks) {
-          if (bEl.getBoundingClientRect().bottom > 88) {
-            currentBlockId = bEl.dataset.readingBlock ?? null;
-            break;
+        if (blocks.length > 0) {
+          const bIdx = findFirstGt(blocks, scrollTop + 88, (b) => b.bottom);
+          if (bIdx < blocks.length) {
+            currentBlockId = blocks[bIdx].id;
           }
         }
 
-        if (activeSecEntry) {
+        if (activeSecId) {
           updateBookProgress({
             slug: book.slug,
             blockId: currentBlockId,
-            sectionId: activeSecEntry.section.id,
-            sectionTitle: `${formatRomanLabel(activeSecEntry.section.roman)} ${activeSecEntry.section.titleZh}`,
+            sectionId: activeSecId,
+            sectionTitle: activeSecTitle,
             progress: Math.min(99, Math.max(1, Math.round(pct))),
             updatedAt: Date.now()
           });
@@ -561,14 +1123,35 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   }, [book.slug, flatSections, scrollNoteIntoPane]);
 
   useEffect(() => {
-    if (!isAutoSync || !desktopPaneOpen) return;
+    if (!isDesktopLayout || !isAutoSync || !desktopPaneOpen) return;
     const { topId, revealId } = syncTargetsRef.current;
     if (topId) {
       scrollNoteIntoPane(topId, revealId);
     }
-  }, [isAutoSync, desktopPaneOpen, noteFilter, scrollNoteIntoPane]);
+  }, [isDesktopLayout, isAutoSync, desktopPaneOpen, noteFilter, scrollNoteIntoPane]);
 
-  // 仅当用户在右侧面板发生真实输入行为（滚轮、触控、拖拽滚动条、方向键）时才解除同步滚动
+  // 直改单个 DOM 元素的 data-active 属性实现高亮，零正文树 React 重渲染
+  const activeHighlightId = isDesktopLayout
+    ? selectedNoteId ?? (desktopPaneOpen && isAutoSync ? syncedNoteId : null)
+    : mobileSheetOpen
+      ? selectedNoteId
+      : null;
+
+  useEffect(() => {
+    if (activeDomTriggerRef.current) {
+      activeDomTriggerRef.current.removeAttribute('data-active');
+      activeDomTriggerRef.current = null;
+    }
+    if (!activeHighlightId || !mainRef.current) return;
+    const el = mainRef.current.querySelector<HTMLElement>(
+      `[data-gloss-trigger="${activeHighlightId}"]`
+    );
+    if (el) {
+      el.setAttribute('data-active', 'true');
+      activeDomTriggerRef.current = el;
+    }
+  }, [activeHighlightId]);
+
   const pauseAutoSyncByManualAction = useCallback(() => {
     stopPaneAnimation();
     if (isAutoSyncRef.current) {
@@ -588,17 +1171,16 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   }, [scrollNoteIntoPane]);
 
   const handleSelectTrigger = useCallback(
-    (noteId: string) => {
-      setNoteFilter('all');
-
-      if (typeof window !== 'undefined' && window.innerWidth < 960) {
+    (noteId: string, forceOpen = false) => {
+      if (!isDesktopLayoutRef.current) {
         setSelectedNoteId(noteId);
-        selectedAtScrollYRef.current = window.scrollY;
         setMobileSheetOpen(true);
         return;
       }
 
-      if (selectedNoteIdRef.current === noteId) {
+      setNoteFilter('all');
+
+      if (!forceOpen && selectedNoteIdRef.current === noteId) {
         setSelectedNoteId(null);
         selectedAtScrollYRef.current = null;
         return;
@@ -615,6 +1197,21 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     },
     [scrollNoteIntoPane]
   );
+
+  const handleCloseMobileSheet = useCallback(() => {
+    setMobileSheetOpen(false);
+    setSelectedNoteId(null);
+  }, []);
+
+  const handleToggleCardSelect = useCallback((id: string) => {
+    if (selectedNoteIdRef.current === id) {
+      setSelectedNoteId(null);
+      selectedAtScrollYRef.current = null;
+    } else {
+      setSelectedNoteId(id);
+      selectedAtScrollYRef.current = window.scrollY;
+    }
+  }, []);
 
   const scrollProseToTrigger = useCallback((noteId: string) => {
     setSelectedNoteId(noteId);
@@ -660,33 +1257,22 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     }
   };
 
-  const toggleSupportingPane = () => {
-    if (typeof window !== 'undefined' && window.innerWidth >= 960) {
-      setDesktopPaneOpen((prev) => {
-        const next = !prev;
-        try {
-          localStorage.setItem('ebr-m3e-pane', next ? 'open' : 'closed');
-        } catch {
-          // ignore
-        }
-        return next;
-      });
-    } else {
-      setMobileSheetOpen((v) => !v);
-    }
+  const toggleDesktopSupportingPane = () => {
+    setDesktopPaneOpen((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('ebr-m3e-pane', next ? 'open' : 'closed');
+      } catch {
+        // ignore
+      }
+      return next;
+    });
   };
 
-  // 书内全文与注疏检索
-  const searchResults = useMemo(() => {
-    const q = inBookQuery.trim().toLowerCase();
-    if (!q) return [];
-    const hits: {
-      kind: 'prose' | 'gloss' | 'authorNote';
-      targetId: string;
-      title: string;
-      snippet: string;
-    }[] = [];
-
+  // 惰性构建书内检索索引：仅在打开检索弹窗时首次剥离标记
+  const searchIndex = useMemo<SearchIndexItem[] | null>(() => {
+    if (!searchOpen) return null;
+    const list: SearchIndexItem[] = [];
     for (const entry of flatSections) {
       const { section } = entry;
       const secLabel = `${formatRomanLabel(section.roman)} ${section.titleZh}`;
@@ -694,55 +1280,69 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       for (const blk of section.blocks) {
         if (blk.type === 'divider') continue;
         const cleanZh = stripMarkupForSearch(blk.zh);
-        const matchIdx = cleanZh.toLowerCase().indexOf(q);
-        if (matchIdx >= 0) {
-          const start = Math.max(0, matchIdx - 28);
-          const end = Math.min(cleanZh.length, matchIdx + q.length + 52);
-          hits.push({
-            kind: 'prose',
-            targetId: blk.id,
-            title: secLabel,
-            snippet: `${start > 0 ? '…' : ''}${cleanZh.slice(start, end)}${end < cleanZh.length ? '…' : ''}`
-          });
-        }
+        list.push({
+          kind: 'prose',
+          targetId: blk.id,
+          title: secLabel,
+          text: cleanZh,
+          lower: cleanZh.toLowerCase()
+        });
 
         for (const g of blk.glosses ?? []) {
           const cleanG = `${g.anchor} — ${stripMarkupForSearch(g.content)}`;
-          const gIdx = cleanG.toLowerCase().indexOf(q);
-          if (gIdx >= 0) {
-            const start = Math.max(0, gIdx - 20);
-            const end = Math.min(cleanG.length, gIdx + q.length + 56);
-            hits.push({
-              kind: 'gloss',
-              targetId: g.id,
-              title: g.anchor,
-              snippet: `${start > 0 ? '…' : ''}${cleanG.slice(start, end)}${end < cleanG.length ? '…' : ''}`
-            });
-          }
+          list.push({
+            kind: 'gloss',
+            targetId: g.id,
+            title: g.anchor,
+            text: cleanG,
+            lower: cleanG.toLowerCase()
+          });
         }
 
         for (const fn of blk.authorNotes ?? []) {
           const cleanFn = stripMarkupForSearch(fn.zh);
-          const fIdx = cleanFn.toLowerCase().indexOf(q);
-          if (fIdx >= 0) {
-            const start = Math.max(0, fIdx - 20);
-            const end = Math.min(cleanFn.length, fIdx + q.length + 56);
-            hits.push({
-              kind: 'authorNote',
-              targetId: fn.id,
-              title: `${book.authorNoteLabel} (${secLabel})`,
-              snippet: `${start > 0 ? '…' : ''}${cleanFn.slice(start, end)}${end < cleanFn.length ? '…' : ''}`
-            });
-          }
+          list.push({
+            kind: 'authorNote',
+            targetId: fn.id,
+            title: `${book.authorNoteLabel} (${secLabel})`,
+            text: cleanFn,
+            lower: cleanFn.toLowerCase()
+          });
         }
+      }
+    }
+    return list;
+  }, [searchOpen, book.authorNoteLabel, flatSections]);
 
+  const searchResults = useMemo(() => {
+    const q = inBookQuery.trim().toLowerCase();
+    if (!q || !searchIndex) return [];
+    const hits: {
+      kind: 'prose' | 'gloss' | 'authorNote';
+      targetId: string;
+      title: string;
+      snippet: string;
+    }[] = [];
+
+    for (const item of searchIndex) {
+      const idx = item.lower.indexOf(q);
+      if (idx >= 0) {
+        const padBefore = item.kind === 'prose' ? 28 : 20;
+        const padAfter = item.kind === 'prose' ? 52 : 56;
+        const start = Math.max(0, idx - padBefore);
+        const end = Math.min(item.text.length, idx + q.length + padAfter);
+        hits.push({
+          kind: item.kind,
+          targetId: item.targetId,
+          title: item.title,
+          snippet: `${start > 0 ? '…' : ''}${item.text.slice(start, end)}${end < item.text.length ? '…' : ''}`
+        });
         if (hits.length >= 40) break;
       }
-      if (hits.length >= 40) break;
     }
 
     return hits;
-  }, [book.authorNoteLabel, flatSections, inBookQuery]);
+  }, [searchIndex, inBookQuery]);
 
   const fontSizeClass =
     fontScale === 'sm'
@@ -753,93 +1353,17 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
           ? 'text-[21px] sm:text-[22.5px]'
           : 'text-[17.5px] sm:text-[18.5px]';
 
-  const activeHighlightId = selectedNoteId ?? (isAutoSync ? syncedNoteId : null);
-  const activeMobileNote = useMemo(
-    () => (selectedNoteId ? (allAnnotations.find((n) => n.id === selectedNoteId) ?? null) : null),
-    [selectedNoteId, allAnnotations]
+  const activeMobileNote = selectedNoteId ? (annotationById.get(selectedNoteId) ?? null) : null;
+
+  const introParagraphs = useMemo(
+    () => book.descriptionZh.split('\n\n').map((para) => renderGlossContent(para)),
+    [book.descriptionZh]
   );
 
   const firstIntroSnippet = useMemo(
     () => (book.descriptionZh.split('\n\n')[0] ?? '').replace(/\*\*/g, ''),
     [book.descriptionZh]
   );
-
-  const renderAnnotationCard = (item: AnnotationCardItem, showModelOverride = true) => {
-    const isSelected = selectedNoteId === item.id;
-    const isSyncedLead = isAutoSync && !selectedNoteId && syncedNoteId === item.id;
-    const isInViewport = visibleNoteIds.has(item.id);
-    const hasCustomNoteModel = showModelOverride && item.aiModel !== defaultBookModel;
-
-    return (
-      <article
-        key={item.id}
-        ref={(el) => {
-          noteCardRefs.current[item.id] = el;
-        }}
-        onClick={() => {
-          const sel = window.getSelection();
-          if (sel && !sel.isCollapsed && sel.toString().trim().length > 0) return;
-          if (isSelected) {
-            setSelectedNoteId(null);
-            selectedAtScrollYRef.current = null;
-          } else {
-            setSelectedNoteId(item.id);
-            selectedAtScrollYRef.current = window.scrollY;
-          }
-        }}
-        className={`rounded-[20px] p-4 transition-colors duration-200 cursor-pointer ${
-          isSelected
-            ? 'bg-[var(--md-sys-color-secondary-container)] ring-1.5 ring-[var(--md-sys-color-primary)] shadow-xs'
-            : isSyncedLead
-              ? 'bg-[var(--md-sys-color-secondary-container)]/65 ring-1 ring-[var(--md-sys-color-primary)]/45'
-              : isInViewport
-                ? 'bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)]'
-                : 'bg-[var(--md-sys-color-surface-container-lowest)]/75 hover:bg-[var(--md-sys-color-surface-container)]'
-        }`}
-      >
-        <div className="flex items-start justify-between gap-2 mb-2">
-          {item.kind === 'authorNote' ? (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--md-sys-color-tertiary-container)] text-[var(--md-sys-color-on-tertiary-container)] tabular-nums-ui">
-              {item.authorLabel} {item.numLabel}
-            </span>
-          ) : (
-            <div className="flex items-baseline gap-2 min-w-0">
-              <span className="inline-flex items-center justify-center min-w-[22px] h-[22px] px-1.5 rounded-full text-[11px] font-semibold tabular-nums-ui bg-[var(--md-sys-color-primary-container)] text-[var(--md-sys-color-on-primary-container)] shrink-0">
-                {item.numLabel}
-              </span>
-              <span className="zh-emphasis text-[14px] leading-snug text-[var(--md-sys-color-on-surface)]">
-                {item.anchor}
-              </span>
-            </div>
-          )}
-
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              scrollProseToTrigger(item.id);
-            }}
-            title="定位原文"
-            aria-label="定位原文"
-            className="w-7 h-7 rounded-full inline-flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-highest)] hover:text-[var(--md-sys-color-primary)] transition-colors shrink-0 cursor-pointer"
-          >
-            <LocateFixed className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        <p className="gloss-prose text-[13.5px] leading-relaxed cursor-text">
-          {renderGlossContent(item.content)}
-        </p>
-
-        {hasCustomNoteModel && (
-          <div className="mt-2 pt-1.5 border-t border-[var(--md-sys-color-outline-variant)]/35 flex items-center gap-1 text-[10.5px] text-[var(--md-sys-color-on-surface-variant)]">
-            <Sparkles className="w-2.5 h-2.5 text-[var(--md-sys-color-primary)]" />
-            <span>{item.aiModel}</span>
-          </div>
-        )}
-      </article>
-    );
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--md-sys-color-background)] text-[var(--md-sys-color-on-surface)] selection:bg-[var(--md-sys-color-primary-container)] selection:text-[var(--md-sys-color-on-primary-container)]">
@@ -975,14 +1499,15 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
               )}
             </div>
 
+            {/* 仅宽屏展示注疏侧栏开关；移动端点击正文词条直接以 Plain Sheet 呈现 */}
             <button
               type="button"
-              onClick={toggleSupportingPane}
+              onClick={toggleDesktopSupportingPane}
               title="切换注疏面板"
               aria-label="切换注疏面板"
-              className={`h-10 px-3.5 rounded-full inline-flex items-center gap-1.5 text-xs font-medium transition-colors cursor-pointer ${
+              className={`hidden min-[960px]:inline-flex h-10 px-3.5 rounded-full items-center gap-1.5 text-xs font-medium transition-colors cursor-pointer ${
                 desktopPaneOpen
-                  ? 'min-[960px]:bg-[var(--md-sys-color-secondary-container)] min-[960px]:text-[var(--md-sys-color-on-secondary-container)] bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)]'
+                  ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]'
                   : 'bg-[var(--md-sys-color-surface-container-low)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]'
               }`}
             >
@@ -995,8 +1520,9 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
 
         <div className="h-[2px] w-full bg-[var(--md-sys-color-surface-container-high)] overflow-hidden">
           <div
-            className="h-full bg-[var(--md-sys-color-primary)] transition-all duration-150"
-            style={{ width: `${overallProgress}%` }}
+            ref={progressBarRef}
+            className="h-full w-full bg-[var(--md-sys-color-primary)] origin-left will-change-transform"
+            style={{ transform: 'scaleX(0)' }}
           />
         </div>
       </header>
@@ -1005,6 +1531,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       <div className="max-w-[1280px] w-full mx-auto px-4 sm:px-6 flex-1 flex items-start justify-center gap-8 xl:gap-10 py-6 sm:py-9">
         {/* 左栏：正文连续流 */}
         <main
+          ref={mainRef}
           onClick={() => {
             if (!selectedNoteIdRef.current) return;
             const sel = window.getSelection();
@@ -1085,12 +1612,12 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
 
               {introExpanded && (
                 <div className="px-5 sm:px-6 pb-5 pt-2 space-y-3.5 border-t border-[var(--md-sys-color-outline-variant)]/35">
-                  {book.descriptionZh.split('\n\n').map((para, idx) => (
+                  {introParagraphs.map((nodes, idx) => (
                     <p
                       key={idx}
                       className="zh-prose zh-indent text-[15px] sm:text-[15.5px] leading-relaxed"
                     >
-                      {renderGlossContent(para)}
+                      {nodes}
                     </p>
                   ))}
                   <div className="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--md-sys-color-on-surface-variant)]">
@@ -1122,139 +1649,15 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
             </div>
           </header>
 
-          {/* 全书正文章节流 */}
-          <div className="space-y-20">
-            {flatSections.map((entry) => {
-              const { chapter, isFirstInChapter, section, resolvedAiModel } = entry;
-
-              return (
-                <article
-                  key={section.id}
-                  id={`section-${section.id}`}
-                  data-reader-section={section.id}
-                  className="space-y-8 scroll-mt-20"
-                >
-                  {isFirstInChapter && (chapter.dedication || chapter.epigraph) && (
-                    <div className="rounded-[24px] bg-[var(--md-sys-color-surface-container-low)] p-6 sm:p-8 space-y-6">
-                      {chapter.dedication && (
-                        <div className="space-y-4">
-                          <div className={chapter.dedication.noteZh ? '' : 'text-center py-1'}>
-                            <p className="zh-emphasis text-lg sm:text-xl text-[var(--md-sys-color-on-surface)]">
-                              {chapter.dedication.toZh}
-                            </p>
-                            {chapter.dedication.toOriginal && (
-                              <p className="fr-prose italic text-sm text-[var(--md-sys-color-on-surface-variant)] mt-0.5">
-                                {chapter.dedication.toOriginal}
-                              </p>
-                            )}
-                          </div>
-
-                          {chapter.dedication.noteZh && (
-                            <div>
-                              {renderZhParagraph(chapter.dedication.noteZh, {
-                                glossIndexMap,
-                                activeGlossId: activeHighlightId,
-                                onSelectGloss: handleSelectTrigger,
-                                authorNoteLabel: book.authorNoteLabel,
-                                fontSizeClass
-                              })}
-                              {chapter.dedication.signatureZh && (
-                                <p className="zh-emphasis text-base mt-4 text-right text-[var(--md-sys-color-on-surface-variant)]">
-                                  {chapter.dedication.signatureZh}
-                                </p>
-                              )}
-                            </div>
-                          )}
-                        </div>
-                      )}
-
-                      {chapter.epigraph && (
-                        <blockquote
-                          className={`${
-                            chapter.dedication
-                              ? 'pt-6 border-t border-[var(--md-sys-color-outline-variant)]/45'
-                              : ''
-                          } text-center px-2 sm:px-6 space-y-2.5`}
-                        >
-                          <p className="zh-emphasis text-[17px] sm:text-[19px] leading-relaxed">
-                            「{chapter.epigraph.quoteZh}」
-                          </p>
-                          <footer className="text-xs sm:text-[13px] text-[var(--md-sys-color-on-surface-variant)]">
-                            —— {chapter.epigraph.authorZh} {chapter.epigraph.sourceZh}
-                          </footer>
-                        </blockquote>
-                      )}
-                    </div>
-                  )}
-
-                  <header className="space-y-1.5 pt-2 pb-4 border-b border-[var(--md-sys-color-outline-variant)]/50">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="fr-prose text-sm font-semibold tracking-wide text-[var(--md-sys-color-primary)]">
-                        {formatRomanLabel(section.roman)}
-                      </span>
-                      <span
-                        title={`本节译注模型：${resolvedAiModel}`}
-                        className="inline-flex items-center gap-1 text-[11px] text-[var(--md-sys-color-on-surface-variant)]/85"
-                      >
-                        <Sparkles className="w-2.5 h-2.5 text-[var(--md-sys-color-primary)]" />
-                        <span>{resolvedAiModel}</span>
-                      </span>
-                    </div>
-                    <h2 className="zh-display-serif text-2xl sm:text-[26px] leading-snug text-[var(--md-sys-color-on-surface)]">
-                      {section.titleZh}
-                    </h2>
-                    <p className="fr-prose italic text-sm sm:text-base text-[var(--md-sys-color-on-surface-variant)]">
-                      {section.titleOriginal}
-                    </p>
-                  </header>
-
-                  {section.epigraph && (
-                    <blockquote className="rounded-[20px] bg-[var(--md-sys-color-surface-container-low)] py-5 px-6 text-center space-y-2">
-                      <p className="zh-emphasis text-base sm:text-[17.5px] leading-relaxed">
-                        「{section.epigraph.quoteZh}」
-                      </p>
-                      <footer className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
-                        —— {section.epigraph.authorZh} {section.epigraph.sourceZh}
-                      </footer>
-                    </blockquote>
-                  )}
-
-                  <div className="space-y-4">
-                    {section.blocks.map((blk: ParagraphBlock) => {
-                      if (blk.type === 'divider') {
-                        return (
-                          <div
-                            key={blk.id}
-                            className="py-5 flex items-center justify-center gap-3 select-none text-[var(--md-sys-color-outline)]"
-                            aria-hidden="true"
-                          >
-                            <span className="w-10 h-[1px] bg-[var(--md-sys-color-outline-variant)]" />
-                            <span className="fr-prose text-sm text-[var(--md-sys-color-primary)]">
-                              ✦
-                            </span>
-                            <span className="w-10 h-[1px] bg-[var(--md-sys-color-outline-variant)]" />
-                          </div>
-                        );
-                      }
-
-                      return (
-                        <div key={blk.id} id={blk.id} data-reading-block={blk.id}>
-                          {renderZhParagraph(blk.zh, {
-                            glossIndexMap,
-                            activeGlossId: activeHighlightId,
-                            onSelectGloss: handleSelectTrigger,
-                            footnoteMap,
-                            authorNoteLabel: book.authorNoteLabel,
-                            fontSizeClass
-                          })}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+          {/* 全书正文章节流（独立记忆化） */}
+          <BookProseStream
+            flatSections={flatSections}
+            glossIndexMap={glossIndexMap}
+            footnoteMap={footnoteMap}
+            authorNoteLabel={book.authorNoteLabel}
+            fontSizeClass={fontSizeClass}
+            onSelectGloss={handleSelectTrigger}
+          />
 
           <footer className="mt-20 pt-8 border-t border-[var(--md-sys-color-outline-variant)]/50 space-y-6">
             <div className="rounded-[24px] bg-[var(--md-sys-color-surface-container-low)] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -1310,11 +1713,11 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
           </footer>
         </main>
 
-        {/* 右栏：M3E 连续阻尼同步滚动注疏面板 (宽屏 >= 960px) */}
-        {desktopPaneOpen && (
+        {/* 右栏：M3E 连续阻尼同步滚动注疏面板（仅宽屏 >= 960px 挂载，移动端零 DOM 开销） */}
+        {isDesktopLayout && desktopPaneOpen && (
           <aside
             aria-label="伴读注疏面板"
-            className="hidden min-[960px]:flex sticky top-[84px] w-[348px] xl:w-[384px] h-[calc(100vh-104px)] shrink-0 rounded-[28px] bg-[var(--md-sys-color-surface-container-low)] flex-col overflow-hidden relative"
+            className="flex sticky top-[84px] w-[348px] xl:w-[384px] h-[calc(100vh-104px)] shrink-0 rounded-[28px] bg-[var(--md-sys-color-surface-container-low)] flex-col overflow-hidden relative"
           >
             <div className="px-4 pt-4 pb-3 bg-[var(--md-sys-color-surface-container)]/65 flex flex-col gap-2.5 shrink-0">
               <div className="flex items-center justify-between gap-2">
@@ -1345,7 +1748,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
 
                 <button
                   type="button"
-                  onClick={() => setDesktopPaneOpen(false)}
+                  onClick={toggleDesktopSupportingPane}
                   title="收起注疏面板"
                   aria-label="收起注疏面板"
                   className="w-8 h-8 rounded-full inline-flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] hover:text-[var(--md-sys-color-on-surface)] cursor-pointer shrink-0"
@@ -1405,7 +1808,19 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                   暂无此类注疏
                 </div>
               ) : (
-                filteredNotes.map((item) => renderAnnotationCard(item))
+                filteredNotes.map((item) => (
+                  <AnnotationCard
+                    key={item.id}
+                    item={item}
+                    isSelected={selectedNoteId === item.id}
+                    isSyncedLead={isAutoSync && !selectedNoteId && syncedNoteId === item.id}
+                    isInViewport={visibleNoteIds.has(item.id)}
+                    hasCustomNoteModel={item.aiModel !== defaultBookModel}
+                    onToggleSelect={handleToggleCardSelect}
+                    onLocate={scrollProseToTrigger}
+                    registerRef={registerNoteCardRef}
+                  />
+                ))
               )}
             </div>
 
@@ -1428,7 +1843,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       {/* ==================== 作品导读弹窗 ==================== */}
       {introSheetOpen && (
         <div
-          className="fixed inset-0 z-50 bg-[var(--md-sys-color-scrim)] backdrop-blur-[2px] flex items-end sm:items-center justify-center p-0 sm:p-6"
+          className="fixed inset-0 z-50 bg-[var(--md-sys-color-scrim)] flex items-end sm:items-center justify-center p-0 sm:p-6"
           onClick={() => setIntroSheetOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -1456,9 +1871,9 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
             </div>
 
             <div className="p-6 overflow-y-auto space-y-4">
-              {book.descriptionZh.split('\n\n').map((para, idx) => (
+              {introParagraphs.map((nodes, idx) => (
                 <p key={idx} className="zh-prose zh-indent text-[15.5px] leading-relaxed">
-                  {renderGlossContent(para)}
+                  {nodes}
                 </p>
               ))}
             </div>
@@ -1490,65 +1905,19 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         </div>
       )}
 
-      {/* ==================== 窄屏 Modal Bottom Sheet (< 960px) ==================== */}
-      {mobileSheetOpen && (
-        <div
-          className="min-[960px]:hidden fixed inset-0 z-50 bg-[var(--md-sys-color-scrim)] backdrop-blur-[2px] flex flex-col justify-end"
-          onClick={() => setMobileSheetOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-label="伴读注疏"
-        >
-          <div
-            className="anim-m3e-dialog w-full max-h-[78vh] rounded-t-[28px] bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface)] shadow-[var(--md-sys-elevation-3)] flex flex-col overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              className="pt-3 pb-1 flex justify-center cursor-pointer"
-              onClick={() => setMobileSheetOpen(false)}
-            >
-              <span className="w-9 h-1 rounded-full bg-[var(--md-sys-color-outline-variant)]" />
-            </div>
-
-            <div className="px-5 py-3 flex items-center justify-between gap-3 border-b border-[var(--md-sys-color-outline-variant)]/40">
-              <div className="flex items-center gap-2">
-                <h2 className="text-sm font-semibold">
-                  {activeMobileNote ? '当前注疏' : `全书注疏 (${filteredNotes.length})`}
-                </h2>
-                {activeMobileNote && (
-                  <button
-                    type="button"
-                    onClick={() => setSelectedNoteId(null)}
-                    className="text-xs font-medium text-[var(--md-sys-color-primary)] px-2 py-0.5 rounded-full bg-[var(--md-sys-color-primary-container)]/60 cursor-pointer"
-                  >
-                    全部注疏
-                  </button>
-                )}
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setMobileSheetOpen(false)}
-                aria-label="关闭注疏面板"
-                className="w-8 h-8 rounded-full inline-flex items-center justify-center bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-4 overflow-y-auto overscroll-contain space-y-3">
-              {activeMobileNote
-                ? renderAnnotationCard(activeMobileNote)
-                : filteredNotes.map((item) => renderAnnotationCard(item))}
-            </div>
-          </div>
-        </div>
+      {/* ==================== 窄屏 Plain ModalBottomSheet (< 960px) ==================== */}
+      {!isDesktopLayout && mobileSheetOpen && activeMobileNote && (
+        <MobilePlainNoteSheet
+          note={activeMobileNote}
+          defaultBookModel={defaultBookModel}
+          onClose={handleCloseMobileSheet}
+        />
       )}
 
       {/* ==================== 书内全文与注疏检索弹窗 ==================== */}
       {searchOpen && (
         <div
-          className="fixed inset-0 z-50 bg-[var(--md-sys-color-scrim)] backdrop-blur-[2px] flex items-start justify-center p-4 sm:pt-16"
+          className="fixed inset-0 z-50 bg-[var(--md-sys-color-scrim)] flex items-start justify-center p-4 sm:pt-16"
           onClick={() => setSearchOpen(false)}
           role="dialog"
           aria-modal="true"
@@ -1571,6 +1940,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
               <button
                 type="button"
                 onClick={() => setSearchOpen(false)}
+                aria-label="关闭检索"
                 className="w-8 h-8 rounded-full inline-flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] cursor-pointer"
               >
                 <X className="w-4 h-4" />
@@ -1601,7 +1971,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                         }
                       } else {
                         scrollProseToTrigger(hit.targetId);
-                        window.setTimeout(() => handleSelectTrigger(hit.targetId), 150);
+                        window.setTimeout(() => handleSelectTrigger(hit.targetId, true), 150);
                       }
                     }}
                     className="w-full p-3.5 rounded-[16px] hover:bg-[var(--md-sys-color-surface-container-high)] text-left space-y-1 transition-colors cursor-pointer"
