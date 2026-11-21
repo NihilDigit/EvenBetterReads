@@ -218,7 +218,7 @@ export const russellPart3Sections: BookSection[] = [
             id: 'g-imp-c5-06',
             anchor: '一个给定类的诸置换构成了所谓的一个「群」',
             content:
-              '群论（group theory）起源于拉格朗日、柯西与埃瓦里斯特·伽罗瓦（Évariste Galois，1830—1832）对代数方程根的对称置换（groupe de permutations）的研究，1854 年经阿瑟·凯莱（Arthur Cayley）推广为抽象群公理。在罗素的关系逻辑框架下，给定类 α 上的「置换」即满足定义域与逆域皆等于 α 的一一关系；以关系积「|」作为复合运算，α 上全体置换不仅满足封闭性与结合律（关系积普遍满足结合律），且以 α 上的同一关系为单位元、以每一置换自身的逆关系为逆元，从而无需借助任何算术计数或量度概念，仅凭纯粹逻辑关系便直接构成了对称群（此处三元类的六个置换即三阶对称群 S₃）。',
+              '群论（group theory）起源于拉格朗日、柯西与埃瓦里斯特·伽罗瓦（Évariste Galois，1811—1832）对代数方程根的对称置换（groupe de permutations）的研究，1854 年经阿瑟·凯莱（Arthur Cayley）推广为抽象群公理。在罗素的关系逻辑框架下，给定类 α 上的「置换」即定义域与逆域皆等于 α 的一一关系；以关系积「|」作为复合运算，α 上全体置换满足封闭性与结合律，且以 α 上的同一关系为单位元、以每一置换自身的逆关系为逆元，从而构成对称群（此处三元类的六个置换即三阶对称群 S₃）。',
           },
         ],
       },
@@ -275,7 +275,7 @@ export const russellPart3Sections: BookSection[] = [
             id: 'g-imp-c6-01',
             anchor: '一个关系唯有在属于我们所谓「同质的」关系时才具有「场」',
             content:
-              '罗素为消解他在 1901 年发现的「不属于自身的类」悖论（罗素悖论），先在《数学原理》（1903）附录 B 中提出初步的类型层级构想，继而于 1908 年论文《以类型论为基础的数理逻辑》（刊于《美国数学杂志》第 30 卷）及《数学纲要》第 1 卷导论第 2 章中建立起完整的类型论。按照这一理论，逻辑全集按构成层级严格划分为个体、个体之类、类之类、个体间二元关系等不同类型，跨类型的对象合集在语法上不构成合法的单一类；《数学纲要》第 1 卷第 33 节与第 63 节遂规定，唯有当前项与后项分属同一逻辑类型（即关系为「同质的」，homogeneous）时，其定义域 D‘R 与逆域 Ɑ‘R 的并集才构成合法的「场」（C‘R）。',
+              '罗素在 1908 年论文《以类型论为基础的数理逻辑》（刊于《美国数学杂志》第三十卷）及《数学原理》第一卷导论第二章中建立逻辑类型论（详见本书第十三章）：逻辑全集按构成层级划分为个体、个体之类、类的类、个体间关系等不同类型，跨类型的对象合集不构成合法的单一之类。《数学原理》第一卷第 33 节与第 63 节遂规定，唯有当前项与后项属于同一逻辑类型（即关系为「同质的」，homogeneous）时，其定义域 D‘R 与逆域 Ɑ‘R 的并集才构成合法的「场」（C‘R）。',
           },
         ],
       },
@@ -301,13 +301,13 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 07',
         original:
           'A relation S is said to be a “correlator” or an “ordinal correlator” of two relations P and Q if S is one-one, has the field of Q for its converse domain, and is such that P is the relative product of S and Q and the converse of S.\n\nTwo relations P and Q are said to be “similar,” or to have “likeness,” when there is at least one correlator of P and Q.',
-        zh: '若关系 S 是一一关系，以 Q 的场作为其逆域，且使得 [P 等于 S、Q 以及 S 的逆关系这三者的关系积]{#g-imp-c6-02}，则称关系 S 为两个关系 P 与 Q 的一个**「关联子」**或**「序关联子」**。\n\n当至少存在一个 P 与 Q 的关联子时，便称两个关系 P 与 Q 是**「相似的」**，或具有**「相像」**性。',
+        zh: '若关系 S 是一一关系，以 Q 的场作为其逆域，且使得 [P 等于 S、Q 以及 S 的逆关系这三者的关系积]{#g-imp-c6-02}，则称关系 S 为两个关系 P 与 Q 的一个「**关联子**」或「**序关联子**」。\n\n当至少存在一个 P 与 Q 的关联子时，便称两个关系 P 与 Q 是「**相似的**」，或具有「**相像**」性。',
         glosses: [
           {
             id: 'g-imp-c6-02',
             anchor: 'P 等于 S、Q 以及 S 的逆关系这三者的关系积',
             content:
-              '在《数学纲要》第 2 卷第 4 编「关系算术」（1912，第 150 至第 151 节）中，这一同构方程记作 P = S | Q | S̆，即现代抽象代数与模型论中**关系同构**（relational isomorphism）的精确原型。罗素在上一节特意指出可省去「S 的定义域是 P 的场」这一条件以消除冗余，其逻辑依据见于《数学纲要》第 150.12 条定理：由于 Q 的场（C‘Q）按定义不含孤立项（其中每一项必对某项具有 Q 或 Q̆），当 S 是一一关系且其逆域恰好等于 C‘Q 时，等式 P = S | Q | S̆ 一方面保证 P 的前项与后项均只能取自 S 的定义域，另一方面又迫使 S 定义域中的每一项都经由 S 映射到 C‘Q 内参与 Q 或 Q̆ 的配对、再由 S̆ 折返而进入 P 的场，从而自动推出 S 的定义域严格等于 P 的场（D‘S = C‘P），且等价地给出逆向同构式 Q = S̆ | P | S。',
+              '在《数学原理》第二卷第四编「关系算术」（第 150—151 节）中，这一同构方程记作 P = S | Q | S̆，即现代抽象代数与模型论中**关系同构**（relational isomorphism）的形式原型。罗素在上一节指出可省去「S 的定义域是 P 的场」这一条件以消去冗余，其依据见于《数学原理》第 150.12 条定理：由于 Q 的场（C‘Q）按定义不含孤立项（其中每一项必对某项具有 Q 或 Q̆），当 S 是一一关系且其逆域等于 C‘Q 时，等式 P = S | Q | S̆ 一方面保证 P 的前项与后项均取自 S 的定义域，另一方面又迫使 S 定义域中的每一项都经由 S 映射入 C‘Q 内参与 Q 或 Q̆ 的配对、再由 S̆ 折返而进入 P 的场，从而推出 S 的定义域等于 P 的场（D‘S = C‘P），并等价给出逆向同构式 Q = S̆ | P | S。',
           },
         ],
       },
@@ -333,7 +333,7 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 10',
         original:
           'The reason that this question is important is that it represents, much more nearly than might be supposed, the state of our knowledge of nature. We know that certain scientific propositions—which, in the most advanced sciences, are expressed in mathematical symbols—are more or less true of the world, but we are very much at sea as to the interpretation to be put upon the terms which occur in these propositions. We know much more (to use, for a moment, an old-fashioned pair of terms) about the form of nature than about the matter. Accordingly, what we really know when we enunciate a law of nature is only that there is probably some interpretation of our terms which will make the law approximately true. Thus great importance attaches to the question: What are the possible meanings of a law expressed in terms of which we do not know the substantive meaning, but only the grammar and syntax? And this question is the one suggested above.',
-        zh: '这个问题之所以重要，是因为它对我们关于自然之认识现状的刻画，远比人们通常设想的更为贴切。我们知道，某些科学命题——在最精密的科学中均以数学符号表述——对于这个世界而言或多或少是真的，但至于应当对这些命题中所出现的各项作出怎样的解释，我们却茫然无措。借用一对略显陈旧的哲学术语来说，我们对自然之**形式**的了解，远远多于对自然之**质料**的了解。因此，当我们陈述一条自然律时，我们真正知道的仅仅是：对我们所使用的各项，大概存在某种解释，能够使这条定律近似为真。于是，下面这个问题便显得至关重要：一条由我们不知其实质意义、仅知其语法与句法的项所表述出来的定律，究竟具有哪些可能的意义？而这正是上一段所提出的问题。',
+        zh: '这个问题之所以重要，是因为它对我们关于自然之认识现状的刻画，远比人们通常设想的更为贴切。我们知道，某些科学命题——在最精密的科学中均以数学符号表述——对于这个世界而言或多或少是真的，但至于应当对这些命题中所出现的各词项作出怎样的解释，我们却茫然无措。暂时借用一对略显陈旧的哲学术语来说，我们对自然之**形式**的了解，远远多于对自然之**质料**的了解。因此，当我们陈述一条自然律时，我们真正知道的仅仅是：对我们所使用的词项，大概存在某种解释，能够使这条定律近似为真。于是，下面这个问题便显得至关重要：一条由我们不知其实质意义、仅知其语法与句法的词项所表述出来的定律，究竟具有哪些可能的意义？而这正是上一段所提出的问题。',
       },
       {
         id: 'imp-ch06-p11',
@@ -349,13 +349,13 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 12',
         original:
           'Owing to the fact that, when two relations are similar, their properties are the same except when they depend upon the fields being composed of just the terms of which they are composed, it is desirable to have a nomenclature which collects together all the relations that are similar to a given relation. Just as we called the set of those classes that are similar to a given class the “number” of that class, so we may call the set of all those relations that are similar to a given relation the “number” of that relation. But in order to avoid confusion with the numbers appropriate to classes, we will speak, in this case, of a “relation-number.” Thus we have the following definitions:—\n\nThe “relation-number” of a given relation is the class of all those relations that are similar to the given relation.\n\n“Relation-numbers” are the set of all those classes of relations that are relation-numbers of various relations; or, what comes to the same thing, a relation-number is a class of relations consisting of all those relations that are similar to one member of the class.',
-        zh: '既然两个关系只要相似，除了那些取决于其场恰好由哪些特定项所组成的性质之外，其余一切性质全都相同，我们便很有必要制定一套命名法，把与某一给定关系相似的一切关系归集在一起。正如我们把与某一给定类相似的那些类所组成的集合称为该类的「数」，我们同样可以把与某一给定关系相似的一切关系所组成的集合称为该关系的「数」。但为了避免同适用于类的数相混淆，在这种场合我们将称之为「关系数」。于是我们有如下定义：\n\n[一个给定关系的**「关系数」**，就是与该给定关系相似的一切关系所组成的类]{#g-imp-c6-03}。\n\n**「关系数」**之总体，就是作为各个关系之关系数的那些关系类所组成的集合；或者换一种等价的说法，一个关系数就是一个关系之类，它由同该类中某一成员相似的一切关系所组成。',
+        zh: '既然两个关系只要相似，除了那些取决于其场恰好由哪些特定项所组成的性质之外，其余一切性质全都相同，我们便很有必要制定一套命名法，把与某一给定关系相似的一切关系归集在一起。正如我们把与某一给定类相似的那些类所组成的集合称为该类的「数」，我们同样可以把与某一给定关系相似的一切关系所组成的集合称为该关系的「数」。但为了避免同适用于类的数相混淆，在这种场合我们将称之为「关系数」。于是我们有如下定义：\n\n[一个给定关系的「**关系数**」，就是与该给定关系相似的一切关系所组成的类]{#g-imp-c6-03}。\n\n「**关系数**」之总体，就是作为各个关系之关系数的那些关系类所组成的集合；或者换一种等价的说法，一个关系数就是一个关系之类，它由同该类中某一成员相似的一切关系所组成。',
         glosses: [
           {
             id: 'g-imp-c6-03',
             anchor: '一个给定关系的「关系数」，就是与该给定关系相似的一切关系所组成的类',
             content:
-              '格奥尔格·康托尔在《超穷集合论基础文集》（1895—1897）中曾针对线性全序集引入**「序型」**（Ordnungstypus），针对良序集引入**「序数」**（Ordnungszahl），但康托尔一方面仅限于一维线性序列，另一方面仍依赖心理学色彩的「抽去元素本性而仅保留秩序的抽象行为」来界定序型。罗素与怀特海在《数学纲要》第 2 卷第 152 节中将给定关系 P 的关系数记作 Nr‘P，同时完成了双重革新：第一，沿用弗雷格—罗素的等价类构造法，将关系数严格定义为全体与 P 同构之关系所组成的等价类，彻底消除了心理主义抽象；第二，将序型的概念从一维线性序列推广到**任意同质关系**（包括树状谱系、几何网格、偏序格乃至任意有向图），使康托尔的序列序型与良序序数退化为关系数的特例。',
+              '康托尔在《超穷集合论基础文集》（1895—1897）中曾针对线性全序集引入「**序型**」（Ordnungstypus），针对良序集引入「**序数**」（Ordnungszahl），但一方面仅限于一维线性序列，另一方面仍诉诸「抽去元素本性而保留秩序」的心理抽象来界定序型。《数学原理》第二卷第 152 节将给定关系 P 的关系数记作 Nr‘P，一方面沿用弗雷格—罗素构造法，将关系数定义为全体与 P 相似之关系所组成的等价类，另一方面将序型概念从一维线性序列推广至任意同质关系（涵盖树状谱系、几何网络与偏序结构），使康托尔的序列序型与良序序数成为关系数的特例。',
           },
         ],
       },
@@ -365,7 +365,7 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 13',
         original:
           'When it is necessary to speak of the numbers of classes in a way which makes it impossible to confuse them with relation-numbers, we shall call them “cardinal numbers.” Thus cardinal numbers are the numbers appropriate to classes. These include the ordinary integers of daily life, and also certain infinite numbers, of which we shall speak later. When we speak of “numbers” without qualification, we are to be understood as meaning cardinal numbers. The definition of a cardinal number, it will be remembered, is as follows:—\n\nThe “cardinal number” of a given class is the set of all those classes that are similar to the given class.',
-        zh: '在需要以绝不至于同关系数相混淆的方式来谈论类的数时，我们将称类的数为「基数」。因此，基数是专属于类的数。其中既包括日常生活中的普通整数，也包括后文将要谈到的某些无穷数。凡是我们不加限定地单说「数」的时候，一概应当理解为指基数。读者想必还记得，基数的定义如下：\n\n一个给定类的**「基数」**，就是与该给定类相似的一切类所组成的集合。',
+        zh: '在需要以绝不至于同关系数相混淆的方式来谈论类的数时，我们将称类的数为「基数」。因此，基数是专属于类的数。其中既包括日常生活中的普通整数，也包括后文将要谈到的某些无穷数。凡是我们不加限定地单说「数」的时候，一概应当理解为指基数。读者想必还记得，基数的定义如下：\n\n一个给定类的「**基数**」，就是与该给定类相似的一切类所组成的集合。',
       },
       {
         id: 'imp-ch06-p14',
@@ -373,7 +373,7 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 14',
         original:
           'The most obvious application of relation-numbers is to series. Two series may be regarded as equally long when they have the same relation-number. Two finite series will have the same relation-number when their fields have the same cardinal number of terms, and only then—i.e. a series of (say) 15 terms will have the same relation-number as any other series of fifteen terms, but will not have the same relation-number as a series of 14 or 16 terms, nor, of course, the same relation-number as a relation which is not serial. Thus, in the quite special case of finite series, there is parallelism between cardinal and relation-numbers. The relation-numbers applicable to series may be called “serial numbers” (what are commonly called “ordinal numbers” are a sub-class of these); thus a finite serial number is determinate when we know the cardinal number of terms in the field of a series having the serial number in question. If n is a finite cardinal number, the relation-number of a series which has n terms is called the “ordinal” number n. (There are also infinite ordinal numbers, but of them we shall speak in a later chapter.) When the cardinal number of terms in the field of a series is infinite, the relation-number of the series is not determined merely by the cardinal number, indeed an infinite number of relation-numbers exist for one infinite cardinal number, as we shall see when we come to consider infinite series. When a series is infinite, what we may call its “length,” i.e. its relation-number, may vary without change in the cardinal number; but when a series is finite, this cannot happen.',
-        zh: '关系数最显而易见的应用是在序列领域。当两个序列具有相同的关系数时，它们便可被视作同样长。两个有穷序列唯有在其场的项数具有相同基数时，才具有相同的关系数——举例来说，一个含 15 项的序列与任何另一个含 15 项的序列都具有相同的关系数，却不会同含 14 项或 16 项的序列具有相同的关系数，当然更不会同某个并非序列关系的关系具有相同的关系数。因此，在有穷序列这一相当特殊的情形下，基数与关系数之间存在着一一平行的对应。适用于序列的关系数可以称为「序列数」（通常所谓「序数」只是其中的一个子类）；于是，只要知道具有某有穷序列数的序列之场中含有多少项的基数，该有穷序列数便完全确定了。若 n 是一个有穷基数，则含 n 项的序列之关系数便称为「序数」n。（此外也存在无穷序数，但那留待后面的章节再谈。）反之，当序列之场中项的基数为无穷时，该序列的关系数便不再单凭基数就能确定；事实上，正如我们后文考察无穷序列时将要看到的那样，同一个无穷基数之下存在着无穷多个不同的关系数。当一个序列为无穷时，我们不妨称之为其「长度」的东西——即它的关系数——可以在基数毫不变动的情况下发生改变；但在序列有穷时，这种事绝不可能发生。',
+        zh: '关系数最显而易见的应用是在序列领域。当两个序列具有相同的关系数时，它们便可被视作同样长。两个有穷序列唯有在其场的项数具有相同基数时，才具有相同的关系数——举例来说，一个含（比方说）15 项的序列与任何另一个含十五项的序列都具有相同的关系数，却不会同含 14 项或 16 项的序列具有相同的关系数，当然更不会同某个并非序列关系的关系具有相同的关系数。因此，在有穷序列这一相当特殊的情形下，基数与关系数之间存在着一一平行的对应。适用于序列的关系数可以称为「序列数」（通常所谓「序数」只是其中的一个子类）；于是，只要知道具有某有穷序列数的序列之场中含有多少项的基数，该有穷序列数便完全确定了。若 n 是一个有穷基数，则含 n 项的序列之关系数便称为「序数」n。（此外也存在无穷序数，但那留待后面的章节再谈。）反之，当序列之场中项的基数为无穷时，该序列的关系数便不再单凭基数就能确定；事实上，正如我们后文考察无穷序列时将要看到的那样，同一个无穷基数之下存在着无穷多个不同的关系数。当一个序列为无穷时，我们不妨称之为其「长度」的东西——即它的关系数——可以在基数毫不变动的情况下发生改变；但在序列有穷时，这种事绝不可能发生。',
       },
       {
         id: 'imp-ch06-p15',
@@ -387,7 +387,7 @@ export const russellPart3Sections: BookSection[] = [
             id: 'g-imp-c6-04',
             anchor: '但它服从结合律、分配律的一种形式，以及幂运算的两条形式定律',
             content:
-              '各项形式定律的严格证明载于《数学纲要》第 2 卷第 4 编（第 160 至第 186 节）。设 μ、ν、π 为任意关系数：（一）加法与乘法结合律（μ + ν）+ π = μ +（ν + π）及（μ × ν）× π = μ ×（ν × π）恒成立；（二）在《数学纲要》第 172 节的乘法次序约定下（P × Q 表示以 Q 的整体架构逐项置换为 P 的副本，与康托尔的左右因子写法正好对调），右分配律（ν + π）× μ =（ν × μ）+（π × μ）恒成立（第 174 节），而左分配律 μ ×（ν + π）=（μ × ν）+（μ × π）一般不成立；（三）在初等代数的三条指数律中，同底数幂相乘律 μ^(ν + π) = μ^ν × μ^π 与幂的乘方律（μ^ν）^π = μ^(ν × π) 恒成立（第 176 节），唯独积的乘方律（μ × ν）^π = μ^π × ν^π 因关系乘法不满足交换律而不再成立。',
+              '各项形式定律的严格证明载于《数学原理》第二卷第四编（第 160—186 节）。设 μ、ν、π 为任意关系数：（一）加法与乘法结合律 (μ + ν) + π = μ + (ν + π) 及 (μ × ν) × π = μ × (ν × π) 恒成立；（二）在《数学原理》第 172 节的乘法次序约定下（P × Q 表示将 Q 的各项逐一置换为 P 的副本，与康托尔的左右因子写法对调），右分配律 (ν + π) × μ = (ν × μ) + (π × μ) 恒成立（第 174 节），而左分配律 μ × (ν + π) = (μ × ν) + (μ × π) 一般不成立；（三）在初等代数的三条指数律中，同底数幂相乘律 μ^(ν + π) = μ^ν × μ^π 与幂的乘方律 (μ^ν)^π = μ^(ν × π) 恒成立（第 176 节），唯独积的乘方律 (μ × ν)^π = μ^π × ν^π 因关系乘法不满足交换律而不再成立。',
           },
         ],
       },
@@ -397,13 +397,13 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 16',
         original:
           'It must not be supposed, merely because series afford the most obvious application of the idea of likeness, that there are no other applications that are important. We have already mentioned maps, and we might extend our thoughts from this illustration to geometry generally. If the system of relations by which a geometry is applied to a certain set of terms can be brought fully into relations of likeness with a system applying to another set of terms, then the geometry of the two sets is indistinguishable from the mathematical point of view, i.e. all the propositions are the same, except for the fact that they are applied in one case to one set of terms and in the other to another. We may illustrate this by the relations of the sort that may be called “between,” which we considered in Chapter IV. We there saw that, provided a three-term relation has certain formal logical properties, it will give rise to series, and may be called a “between-relation.” Given any two points, we can use the between-relation to define the straight line determined by those two points; it consists of a and b together with all points x, such that the between-relation holds between the three points a, b, x in some order or other. It has been shown by O. Veblen that we may regard our whole space as the field of a three-term between-relation, and define our geometry by the properties we assign to our between-relation.[1] Now likeness is just as easily definable between three-term relations as between two-term relations. If B and B′ are two between-relations, so that “xB(y, z)” means “x is between y and z with respect to B,” we shall call S a correlator of B and B′ if it has the field of B′ for its converse domain, and is such that the relation B holds between three terms when B′ holds between their S-correlates, and only then. And we shall say that B is like B′ when there is at least one correlator of B with B′. The reader can easily convince himself that, if B is like B′ in this sense, there can be no difference between the geometry generated by B and that generated by B′.',
-        zh: '切莫仅仅因为序列提供了相像观念最显而易见的应用，便以为除此之外再无其他重要的应用了。我们前面已经提到过地图，从这个例子出发，不妨把思路推广到一般的几何学。倘若借以把某种几何学施用于某一组项的关系系统，能够同施用于另一组项的关系系统建立起完备的相像关系，那么从数学观点来看，这两组项的几何学便是毫无二致的——也就是说，除了在一个场合施用于这一组项、在另一个场合施用于另一组项之外，其余一切命题全都相同。我们可以用第四章讨论过的可称为「居间」的那类关系来阐明这一点。我们在那里已经看到，只要一个三元关系具备特定的形式逻辑性质，它就能生成序列，并可称为「居间关系」。给定任意两点，我们可以用居间关系来定义由这两点所确定的直线：它由 a 与 b 连同一切满足如下条件的点 x 所组成，即居间关系按某种次序在 a、b、x 三点之间成立。O. 维布伦已经证明，我们可以把整个空间视作某个三元居间关系的场，并借由赋予该居间关系的各项性质来定义我们的几何学。[^imp-fn-06-1]而三元关系之间的相像，定义起来同二元关系之间的相像一样轻而易举。设 B 与 B′ 是两个居间关系，使得「xB(y, z)」意为「相对于 B 而言 x 居于 y 与 z 之间」；若一一关系 S 以 B′ 的场作为其逆域，且使得当且仅当 B′ 在三项各自的 S 关联项之间成立时，关系 B 在这三项之间成立，我们便称 S 为 B 与 B′ 的一个关联子。并且，当至少存在一个 B 与 B′ 的关联子时，我们便说 B 与 B′ 相像。读者不难自行确信，倘若 B 与 B′ 在这一意义上相像，那么由 B 所生成的几何学与由 B′ 所生成的几何学之间便不可能有任何差别。',
+        zh: '切莫仅仅因为序列提供了相像观念最显而易见的应用，便以为除此之外再无其他重要的应用了。我们前面已经提到过地图，从这个例子出发，不妨把思路推广到一般的几何学。倘若借以把某种几何学施用于某一组项的关系系统，能够同施用于另一组项的关系系统建立起完备的相像关系，那么从数学观点来看，这两组项的几何学便是毫无二致的——也就是说，除了在一个场合施用于这一组项、在另一个场合施用于另一组项之外，其余一切命题全都相同。我们可以用第四章讨论过的可称为「介于」的那类关系来阐明这一点。我们在那里已经看到，只要一个三项关系具备特定的形式逻辑性质，它就能生成序列，并可称为「介于关系」。给定任意两点，我们可以用介于关系来定义由这两点所确定的直线：它由 a 与 b 连同一切满足如下条件的点 x 所组成，即介于关系按某种次序在 a、b、x 三点之间成立。O. 维布伦已经证明，我们可以把整个空间视作某个三项介于关系的场，并借由赋予该介于关系的各项性质来定义我们的几何学[^imp-fn-06-1]。而三项关系之间的相像，定义起来同二项关系之间的相像一样轻而易举。设 B 与 B′ 是两个介于关系，使得「xB(y, z)」意为「相对于 B 而言 x 介于 y 与 z 之间」；若一一关系 S 以 B′ 的场作为其逆域，且使得当且仅当 B′ 在三项各自的 S 关联项之间成立时，关系 B 在这三项之间成立，我们便称 S 为 B 与 B′ 的一个关联子。并且，当至少存在一个 B 与 B′ 的关联子时，我们便说 B 与 B′ 相像。读者不难自行确信，倘若 B 与 B′ 在这一意义上相像，那么由 B 所生成的几何学与由 B′ 所生成的几何学之间便不可能有任何差别。',
         authorNotes: [
           {
             id: 'imp-fn-06-1',
             original:
               'This does not apply to elliptic space, but only to spaces in which the straight line is an open series. Modern Mathematics, edited by J. W. A. Young, pp. 3–51 (monograph by O. Veblen on “The Foundations of Geometry”).',
-            zh: '这并不适用于椭圆空间，而仅适用于直线构成开序列的那些空间。见 J. W. A. 杨主编《现代数学》，第 3—51 页（O. 维布伦所撰专论《几何学基础》）。',
+            zh: '这并不适用于椭圆空间，而仅适用于直线构成开序列的那些空间。参见 J. W. A. 杨主编《现代数学》，第 3—51 页（O. 维布伦所撰专论《几何学基础》）。',
           },
         ],
       },
@@ -419,7 +419,7 @@ export const russellPart3Sections: BookSection[] = [
             id: 'g-imp-c6-05',
             anchor: '从经验材料出发构造出某种逻辑结构',
             content:
-              '此处直接指涉怀特海为筹划中的《数学纲要》第 4 卷（几何卷，终未写成）所创立、并由罗素在《我们对外部世界的知识》（1914，第 4 讲）中加以采纳的**「广延抽象法」**（method of extensive abstraction；系统阐述见怀特海 1919 年同年出版的《自然知识原理探究》）。鉴于感官经验中只存在具有有限体积与绵延的知觉区域，而从不存在欧几里得式的「无部分之点」或「无绵延之瞬」，怀特海利用空间包含关系，将无限层层收敛嵌套的一组有限体积序列定义为「抽象集」（abstractive set，如无限同心球序列），再把彼此相互覆盖等价的全体抽象集所组成的等价类直接定义为几何学上的一个「点」，使之在纯粹经验材料上严格满足维布伦与希尔伯特的几何公理。',
+              '此处指涉怀特海为筹划中的《数学原理》第四卷（几何卷，终未写成）所创立、并由罗素在《我们关于外在世界的知识》（1914，第四讲）中采纳的「**广延抽象法**」（method of extensive abstraction；系统阐述见怀特海 1919 年同年出版的《自然知识原理探究》）。鉴于感官经验中只存在具有有穷体积与绵延的知觉区域，而不存在欧几里得式的「无部分之点」或「无绵延之瞬」，怀特海利用空间包含关系，将无限层层收敛嵌套的一组有穷体积序列定义为「抽象集」（abstractive set，如无限同心球序列），再把彼此相互覆盖等价的全体抽象集所组成的等价类定义为几何学上的一个「点」。',
           },
         ],
       },
@@ -429,13 +429,13 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 18',
         original:
           'We may say, of two similar relations, that they have the same “structure.” For mathematical purposes (though not for those of pure philosophy) the only thing of importance about a relation is the cases in which it holds, not its intrinsic nature. Just as a class may be defined by various different but co-extensive concepts—e.g. “man” and “featherless biped”—so two relations which are conceptually different may hold in the same set of instances. An “instance” in which a relation holds is to be conceived as a couple of terms, with an order, so that one of the terms comes first and the other second; the couple is to be, of course, such that its first term has the relation in question to its second. Take (say) the relation “father”: we can define what we may call the “extension” of this relation as the class of all ordered couples (x, y) which are such that x is the father of y. From the mathematical point of view, the only thing of importance about the relation “father” is that it defines this set of ordered couples. Speaking generally, we say:\n\nThe “extension” of a relation is the class of those ordered couples (x, y) which are such that x has the relation in question to y.',
-        zh: '对于两个相似的关系，我们可以说它们具有相同的「结构」。就数学目的而言（尽管就纯粹哲学的目的而言并非如此），关于一个关系唯一重要的事情是它在哪些实例中成立，而不是它的内在性质。正如同一个类可以借由种种不同却具有相同外延的概念来定义——例如「人」与「无羽两足动物」——两个在概念上不同的关系，也完全可以在同一组实例中成立。一个关系得以成立的「实例」，应当设想为带有先后次序的一对项，使得其中一项居先、另一项居后；当然，这一对项必须满足其第一项对第二项具有所论关系。不妨以「父亲」这一关系为例：我们可以把所谓该关系的「外延」，定义为满足 x 是 y 的父亲这一条件的全体有序偶 (x, y) 所组成的类。从数学观点来看，「父亲」这一关系唯一紧要之处，就在于它确定了这样一组有序偶。一般而言，我们说：\n\n[关系的**「外延」**就是满足如下条件的全体有序偶]{#g-imp-c6-06} (x, y) 所组成的类，即其中 x 对 y 具有所论关系。',
+        zh: '对于两个相似的关系，我们可以说它们具有相同的「结构」。就数学目的而言（尽管就纯粹哲学的目的而言并非如此），关于一个关系唯一重要的事情是它在哪些实例中成立，而不是它的内在性质。正如同一个类可以借由种种不同却具有相同外延的概念来定义——例如「人」与「无羽两足动物」——两个在概念上不同的关系，也完全可以在同一组实例中成立。一个关系得以成立的「实例」，应当设想为带有先后次序的一对项，使得其中一项居先、另一项居后；当然，这一对项必须满足其第一项对第二项具有所论关系。不妨以「父亲」这一关系为例：我们可以把所谓该关系的「外延」，定义为满足 x 是 y 的父亲这一条件的全体有序偶 (x, y) 所组成的类。从数学观点来看，「父亲」这一关系唯一紧要之处，就在于它确定了这样一组有序偶。一般而言，我们说：\n\n[关系的「**外延**」就是满足如下条件的全体有序偶]{#g-imp-c6-06} (x, y) 所组成的类，即其中 x 对 y 具有所论关系。',
         glosses: [
           {
             id: 'g-imp-c6-06',
             anchor: '关系的「外延」就是满足如下条件的全体有序偶',
             content:
-              '上文以「人」与「无羽两足动物」说明外延等同而内涵相异，典出柏拉图《政治家篇》（266e）及第欧根尼·拉尔修《名哲言行录》（第 6 卷第 40 节记犬儒学派第欧根尼拔光公鸡羽毛讥讽柏拉图学园定义轶事），罗素在《数学纲要》第 1 卷导论第 3 章亦曾引此例区分命题函数的内涵与外延。关于关系的「外延」，在 1910 年《数学纲要》第 1 卷第 21 节与第 55 节中，怀特海与罗素仍将关系的「外延」（extensional relation）与类的外延分列为两套平行的不完全符号，并把有序偶 x ↓ y 定义为仅在 x 与 y 之间成立的二元外延关系；直至 1914 年，曾赴剑桥随罗素研习数理逻辑的诺伯特·维纳（Norbert Wiener）发表《关系逻辑的一种简化》（刊于《剑桥哲学学会会刊》第 17 卷），首次将有序偶 (x, y) 纯粹还原为「类之类」（1921 年经库拉托夫斯基进一步简化为现今通行的 {{x}, {x, y}}），从而使关系的外延彻底归入集合论中的有序偶之类。',
+              '在 1910 年《数学原理》第一卷第 21 节与第 55 节中，怀特海与罗素仍将关系的「外延」（extensional relation）与类的外延分列为两套平行的不完全符号，并把有序偶 x ↓ y 定义为仅在 x 与 y 之间成立的二元外延关系。1914 年，曾赴剑桥随罗素研习数理逻辑的诺伯特·维纳（Norbert Wiener）发表《关系逻辑的一种简化》（刊于《剑桥哲学学会会刊》第十七卷），首次将有序偶 (x, y) 纯粹还原为「类的类」（1921 年经卡齐米日·库拉托夫斯基简化为现今通行的 {{x}, {x, y}}），从而使关系的外延归入类论中的有序偶之类。',
           },
         ],
       },
@@ -453,7 +453,7 @@ export const russellPart3Sections: BookSection[] = [
         num: '§ 20',
         original:
           'It is clear that the “structure” of the relation does not depend upon the particular terms that make up the field of the relation. The field may be changed without changing the structure, and the structure may be changed without changing the field—for example, if we were to add the couple ae in the above illustration we should alter the structure but not the field. Two relations have the same “structure,” we shall say, when the same map will do for both—or, what comes to the same thing, when either can be a map for the other (since every relation can be its own map). And that, as a moment’s reflection shows, is the very same thing as what we have called “likeness.” That is to say, two relations have the same structure when they have likeness, i.e. when they have the same relation-number. Thus what we defined as the “relation-number” is the very same thing as is obscurely intended by the word “structure”—a word which, important as it is, is never (so far as we know) defined in precise terms by those who use it.',
-        zh: '显而易见，关系的「结构」并不取决于组成该关系之场的那些特定项。改变场未必改变结构，改变结构也未必改变场——例如在上面的例子中，倘若我们添上有序偶 ae，便改变了结构，却并没有改变场。我们将说：当同一幅图可以同时充当两个关系的地图时——或者换一种等价的说法，当其中一个关系可以充当另一个关系的地图时（因为每一个关系都可以充当它自身的地图）——这两个关系便具有相同的「结构」。稍加思索便知，这同我们此前所说的「相像」完全是一回事。也就是说，两个关系具有相同的结构，当且仅当它们彼此相像，亦即具有相同的关系数。由此可见，我们所定义的「关系数」，恰恰就是人们使用「结构」一词时隐约想要表达的同一样东西——尽管「结构」这个词如此重要，据我们所知，使用它的人却从未给它下过精确的定义。',
+        zh: '显而易见，关系的「结构」并不取决于组成该关系之场的那些特定项。改变场未必改变结构，改变结构也未必改变场——例如在上面的例子中，倘若我们添上有序偶 ae，便改变了结构，却并没有改变场。我们将说：当同一幅图可以同时充当两个关系的地图时——或者换一种等价的说法，当其中一个关系可以充当另一个关系的地图时（因为每一个关系都可以充当它自身的地图）——这两个关系便具有相同的「结构」。稍加思索便知，这同我们此前所说的「相像」完全是一回事。也就是说，两个关系具有相同的结构，当且仅当它们彼此相像，亦即具有相同的关系数。由此可见，我们所定义的「关系数」，恰恰就是人们使用「结构」一词时隐约想要表达的同一样东西——尽管「结构」这个词如此重要，使用它的人却从未（据我们所知）给它下过精确的定义。',
       },
       {
         id: 'imp-ch06-p21',
@@ -467,7 +467,7 @@ export const russellPart3Sections: BookSection[] = [
             id: 'g-imp-c6-07',
             anchor: '结构或关系数这一概念都具有重大的意义',
             content:
-              '本段直接针对康德《纯粹理性批判》（1781/1787）将空间与时间归为主观感性直观形式、同时又设定不可知的「物自体」（Dinge an sich）作为现象原因的二元架构，以及赫尔姆霍茨（Hermann von Helmholtz）等新康德主义生理学家的知觉符号论。罗素将本章第 03、09—10 及第 21 节提出的地图与地域同构论推进为系统的科学结构主义认识论，在《物的分析》（The Analysis of Matter，1927，第 20、24、37 章）中借口语与文字、留声机唱片纹路与乐曲旋律之间的「关系数」同构，论证现代物理学所能认识的唯有不可见物理事件的抽象因果—数学结构，而非其内在质性；鲁道夫·卡尔纳普随即在《世界的逻辑构造》（Der logische Aufbau der Welt，1928，第 11—16 节）中直接援引本章的「关系数」与箭头图，提出以「纯结构摹状词」界定一切科学客观概念，成为当代科学哲学中「认识论结构实在论」（epistemic structural realism，由约翰·沃勒尔于 1989 年重新命名复兴）的共同源头。然而就在 1928 年 4 月，剑桥数学家马克斯·纽曼（M. H. A. Newman）在《心灵》（Mind，第 37 卷第 146 期）发表《罗素先生的「知觉因果理论」》（通称为「纽曼诘难」），从集合论上严格证明：只要给定任意一个具有特定基数的对象集合，任何与该基数相容的抽象关系结构（关系数）都必然已经由该集合上的某组有序偶外延平凡地加以实现；因此，倘若对外部世界除了「具有某种关系数」之外对具体关系本身毫无非结构性的直接认识，关于不可观察世界之结构的断言便会退化为仅关乎元素**基数**的空洞重言式。罗素于 1928 年 4 月 24 日致信纽曼坦率承认：「你极其清楚地表明，我此前所谓关于物理世界除其结构外一无所知的那些说法，要么是假的，要么是琐屑空洞的。」',
+              '本段针对康德《纯粹理性批判》将空间与时间归为主观感性直观形式、同时设定不可知的「物自体」（Dinge an sich）作为现象原因的二元架构，以及赫尔曼·冯·赫尔姆霍茨（Hermann von Helmholtz）等新康德主义生理学家的知觉符号论。罗素后来在《物的分析》（The Analysis of Matter，1927，第二十、二十四、三十七章）中将本章提出的地图与地域同构论发展为系统的结构实在论认识论，借口语与文字、留声机唱片纹路与乐曲旋律之间的「关系数」同构，论证现代物理学所能认识的唯有物理事件的抽象因果与数学结构，而非其内在质性；鲁道夫·卡尔纳普在《世界的逻辑构造》（Der logische Aufbau der Welt，1928，第 11—16 节）中亦直接援引本章的「关系数」与箭头图，提出以「纯结构摹状词」界定一切科学客观概念，构成当代科学哲学中「认识论结构实在论」（epistemic structural realism，1989 年由约翰·沃勒尔重新命名）的思想源头。1928 年 4 月，剑桥数学家马克斯·纽曼（M. H. A. Newman）在《心灵》（Mind，第三十七卷第 146 期）发表《罗素先生的「知觉因果理论」》（通称「纽曼诘难」），从集合论上证明：只要给定任意一个具有特定基数的对象集合，任何与该基数相容的抽象关系结构（关系数）都必然已由该集合上的某组有序偶外延平凡实现；因此，倘若对外部世界除「具有某种关系数」之外对具体关系本身毫无非结构性的直接认识，关于不可观察世界之结构的断言便会退化为仅关乎集合**基数**的平凡命题。罗素于 1928 年 4 月 24 日覆信纽曼承认：「你完全清楚地表明，我此前所谓关于物理世界除其结构外一无所知的那些说法，要么是假的，要么是琐屑平凡的。」',
           },
         ],
       },
