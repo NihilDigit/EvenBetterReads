@@ -6,6 +6,8 @@ export const beimBauDerChinesischenMauer: BookMeta = {
   slug: 'beim-bau-der-chinesischen-mauer',
   vol: 'VOL. 12',
   langOriginal: 'DE',
+  categories: ['literature'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Beim Bau der Chinesischen Mauer',
   subtitleOriginal: 'Und andere Parabeln aus dem Nachlaß',
   titleZh: '中国长城建造时',

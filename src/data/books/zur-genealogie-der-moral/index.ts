@@ -26,6 +26,8 @@ export const zurGenealogieDerMoral: BookMeta = {
   slug: 'zur-genealogie-der-moral',
   vol: 'VOL. 02',
   langOriginal: 'DE',
+  categories: ['philosophy'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Zur Genealogie der Moral',
   subtitleOriginal: 'Eine Streitschrift',
   titleZh: '论道德的谱系',

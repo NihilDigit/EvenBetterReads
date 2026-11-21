@@ -7,6 +7,8 @@ export const wasIstMetaphysik: BookMeta = {
   slug: 'was-ist-metaphysik',
   vol: 'VOL. 13',
   langOriginal: 'DE',
+  categories: ['philosophy'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Was ist Metaphysik?',
   subtitleOriginal: 'Freiburger Antrittsvorlesung (1929) mit dem Nachwort (1943)',
   titleZh: '形而上学是什么？',

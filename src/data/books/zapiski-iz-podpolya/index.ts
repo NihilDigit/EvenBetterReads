@@ -7,6 +7,8 @@ export const zapiskiIzPodpolya: BookMeta = {
   slug: 'zapiski-iz-podpolya',
   vol: 'VOL. 10',
   langOriginal: 'RU',
+  categories: ['literature', 'philosophy'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Записки из подполья',
   subtitleOriginal: 'Часть I. Подполье',
   titleZh: '地下室手记',

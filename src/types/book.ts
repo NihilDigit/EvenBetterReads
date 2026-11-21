@@ -1,9 +1,18 @@
+export type BookCategory =
+  | 'philosophy'
+  | 'literature'
+  | 'politics'
+  | 'economics'
+  | 'history';
+
 export interface GlossItem {
   id: string;
   /** 正文被标记的中文词句 */
   anchor: string;
   /** 旁注正文（支持 **霞鹜文楷强调**） */
   content: string;
+  /** 可选：单条旁注独立记录译注 AI 模型 */
+  aiModel?: string;
 }
 
 export interface AuthorNote {
@@ -25,6 +34,14 @@ export interface ParagraphBlock {
   authorNotes?: AuthorNote[];
   /** 伴读旁注 (Gloss) */
   glosses?: GlossItem[];
+  /** 可选：单段独立记录译注 AI 模型 */
+  aiModel?: string;
+}
+
+export interface EpigraphData {
+  quoteZh: string;
+  authorZh: string;
+  sourceZh: string;
 }
 
 export interface BookSection {
@@ -32,6 +49,9 @@ export interface BookSection {
   roman: string;
   titleOriginal: string;
   titleZh: string;
+  /** 可选：本节专属译注 AI 模型（覆盖 chapter.aiModel 与 book.aiModel） */
+  aiModel?: string;
+  epigraph?: EpigraphData;
   blocks: ParagraphBlock[];
 }
 
@@ -40,11 +60,9 @@ export interface BookChapter {
   number: string;
   titleOriginal: string;
   titleZh: string;
-  epigraph?: {
-    quoteZh: string;
-    authorZh: string;
-    sourceZh: string;
-  };
+  /** 可选：本卷/章专属译注 AI 模型（覆盖 book.aiModel） */
+  aiModel?: string;
+  epigraph?: EpigraphData;
   dedication?: {
     toOriginal?: string;
     toZh: string;
@@ -59,6 +77,12 @@ export interface BookMeta {
   slug: string;
   vol: string;
   langOriginal: string;
+  /** 学科与体裁分类（支持多标签归类） */
+  categories?: BookCategory[];
+  /** 全书默认译注 AI 模型（如 'Gemini-4-Argon'、'Gemini-4-Carbon'） */
+  aiModel?: string;
+  /** 可选：导读专属撰写 AI 模型（默认继承 aiModel） */
+  descriptionAiModel?: string;
   titleOriginal: string;
   subtitleOriginal: string;
   titleZh: string;
@@ -71,4 +95,25 @@ export interface BookMeta {
   collection: string;
   descriptionZh: string;
   chapters: BookChapter[];
+}
+
+/** 书架首页专用的轻量目录元数据 */
+export interface BookCatalogItem {
+  slug: string;
+  vol: string;
+  categories: BookCategory[];
+  /** 汇总本书各部分涉及的全部 AI 译注模型（去重保序） */
+  aiModels: string[];
+  titleOriginal: string;
+  subtitleOriginal: string;
+  titleZh: string;
+  subtitleZh: string;
+  authorOriginal: string;
+  authorZh: string;
+  year: string;
+  publisher: string;
+  collection: string;
+  descriptionZh: string;
+  sectionCount: number;
+  glossCount: number;
 }

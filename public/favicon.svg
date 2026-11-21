@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .bg { fill: #9A432A; }
+    .page { fill: #FFF8F5; }
+    .gloss-top { fill: #F4CA64; }
+    .gloss-bottom { fill: #FFDBD0; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #2C1812; }
+      .page { fill: #FFB59F; }
+      .gloss-top { fill: #F2C45A; }
+      .gloss-bottom { fill: #E7967E; }
+    }
+  </style>
+  <!-- M3 Expressive 圆角方砖容器 -->
+  <rect class="bg" x="2" y="2" width="60" height="60" rx="18" />
+  <!-- 左侧：正文书页立柱 (Primary Reading Pane) -->
+  <rect class="page" x="12" y="13" width="21" height="38" rx="7" />
+  <!-- 右侧：上下呼应的伴读注疏色块 (Supporting Gloss Cards) -->
+  <rect class="gloss-top" x="37" y="13" width="15" height="17" rx="6.5" />
+  <rect class="gloss-bottom" x="37" y="34" width="15" height="17" rx="6.5" />
+</svg>

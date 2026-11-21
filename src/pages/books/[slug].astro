@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BookReaderApp from '../../components/BookReaderApp';
+import { books } from '../../data/books';
+import type { BookMeta } from '../../types/book';
+
+export function getStaticPaths() {
+  return books.map((b) => {
+    // 剥离前端渲染不使用的外文原段字段，完整保留各层级 aiModel 署名记录
+    const slimBook: BookMeta = {
+      ...b,
+      chapters: b.chapters.map((ch) => ({
+        ...ch,
+        sections: ch.sections.map((sec) => ({
+          ...sec,
+          blocks: sec.blocks.map((blk) => ({
+            id: blk.id,
+            type: blk.type,
+            zh: blk.zh,
+            aiModel: blk.aiModel,
+            glosses: blk.glosses,
+            authorNotes: blk.authorNotes?.map((fn) => ({
+              id: fn.id,
+              zh: fn.zh
+            }))
+          }))
+        }))
+      }))
+    };
+
+    return {
+      params: { slug: b.slug },
+      props: { book: slimBook }
+    };
+  });
+}
+
+interface Props {
+  book: BookMeta;
+}
+
+const { book } = Astro.props;
+const plainDesc = book.descriptionZh.split('\n\n')[0]?.replace(/\*\*/g, '') ?? '';
+---
+
+<BaseLayout
+  title={`${book.titleZh} — ${book.authorZh} | EvenBetterReads`}
+  description={plainDesc}
+>
+  <BookReaderApp book={book} client:load />
+</BaseLayout>

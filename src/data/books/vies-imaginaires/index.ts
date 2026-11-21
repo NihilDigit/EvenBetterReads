@@ -6,6 +6,8 @@ export const viesImaginaires: BookMeta = {
   slug: 'vies-imaginaires',
   vol: 'VOL. 11',
   langOriginal: 'FR',
+  categories: ['literature'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Vies imaginaires',
   subtitleOriginal: 'L’Art de la Biographie',
   titleZh: '假想的传记',

@@ -10,28 +10,21 @@ export interface GlossIndexMap {
 interface ParseZhOptions {
   glossIndexMap: GlossIndexMap;
   activeGlossId: string | null;
-  hoveredGlossId?: string | null;
   onSelectGloss: (glossId: string) => void;
-  onHoverGloss?: (glossId: string | null) => void;
   footnoteMap?: Record<string, number>;
   authorNoteLabel?: string;
   fontSizeClass?: string;
 }
 
 /**
- * 解析内部 **霞鹜文楷强调** 与 [^fn-id] 原注标记
+ * 解析内部 **霞鹜文楷强调** 与 [^fn-id] 原注温润胶囊角标
  */
 function renderInnerZh(
   text: string,
   keyPrefix: string,
   options?: Pick<
     ParseZhOptions,
-    | 'footnoteMap'
-    | 'authorNoteLabel'
-    | 'activeGlossId'
-    | 'hoveredGlossId'
-    | 'onSelectGloss'
-    | 'onHoverGloss'
+    'footnoteMap' | 'authorNoteLabel' | 'activeGlossId' | 'onSelectGloss'
   >
 ): React.ReactNode[] {
   const tokenRegex = /(\*\*[^*]+\*\*|\[\^[^\]]+\])/g;
@@ -50,29 +43,27 @@ function renderInnerZh(
     if (part.startsWith('[^') && part.endsWith(']')) {
       const fnId = part.slice(2, -1);
       const fnNum = options?.footnoteMap?.[fnId] ?? 1;
-      const isHighlighted =
-        options?.activeGlossId === fnId || options?.hoveredGlossId === fnId;
-      const label = options?.authorNoteLabel ?? '作者原注';
+      const isActive = options?.activeGlossId === fnId;
+      const label = options?.authorNoteLabel ?? '原注';
       return (
         <button
           key={`${keyPrefix}-fn-${idx}`}
           type="button"
           data-gloss-trigger={fnId}
-          style={{ textIndent: 0 }}
+          style={{ textIndent: 0, fontFamily: 'var(--font-ui)' }}
           onClick={(e) => {
             e.stopPropagation();
             options?.onSelectGloss?.(fnId);
           }}
-          onMouseEnter={() => options?.onHoverGloss?.(fnId)}
-          onMouseLeave={() => options?.onHoverGloss?.(null)}
-          title={`查看${label}`}
-          className={`inline-flex items-center mx-0.5 px-1.5 py-[1.5px] text-[11px] leading-none font-mono-coord align-super -top-[0.18em] relative border transition-colors cursor-pointer touch-manipulation after:content-[''] after:absolute after:-inset-y-2 after:-inset-x-1.5 ${
-            isHighlighted
-              ? 'bg-[var(--accent-nrf)] text-[#fbf9f5] border-[var(--accent-nrf)]'
-              : 'bg-[var(--bg-panel)] text-[var(--ink-primary)] border-[var(--rule-strong)] hover:bg-[var(--surface-solid)] hover:text-[var(--ink-on-solid)]'
+          title={`查看${label} ${fnNum}`}
+          className={`inline-flex items-center gap-0.5 mx-1 px-2 py-[2px] rounded-full text-[11px] font-medium leading-none tabular-nums-ui align-baseline -translate-y-[2px] relative transition-all duration-150 cursor-pointer touch-manipulation after:content-[''] after:absolute after:-inset-y-2 after:-inset-x-1 ${
+            isActive
+              ? 'bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] shadow-xs'
+              : 'bg-[var(--md-sys-color-tertiary-container)] text-[var(--md-sys-color-on-tertiary-container)] hover:brightness-95'
           }`}
         >
-          {label} {fnNum}
+          <span>{label}</span>
+          <span>{fnNum}</span>
         </button>
       );
     }
@@ -80,9 +71,6 @@ function renderInnerZh(
   });
 }
 
-/**
- * 将跨伴读旁注锚点的 **...** 拆解归并到各子段内部，防止外层切分后残留裸露的 **
- */
 function normalizeBoldAcrossGlosses(text: string): string {
   const glossToken = /(\[[^\]]+\]\{#[a-zA-Z0-9_-]+\})/g;
   return text.replace(/\*\*([^*]+)\*\*/g, (full, inner: string) => {
@@ -104,7 +92,9 @@ function normalizeBoldAcrossGlosses(text: string): string {
 }
 
 /**
- * 解析中文段落：每个自然段均为 <p className="zh-prose zh-indent">（首行缩进两字）
+ * 解析中文正文自然段：
+ * 默认面貌极其安静克制（柔和虚点底线 + 轻盈上标序号），
+ * 悬停或激活时以 M3E secondaryContainer 圆角柔光色底包裹词条。
  */
 export function renderZhParagraph(text: string, options: ParseZhOptions): React.ReactNode[] {
   const paragraphs = normalizeBoldAcrossGlosses(text).split('\n\n');
@@ -119,8 +109,7 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
       if (match) {
         const [, anchorText, glossId] = match;
         const meta = options.glossIndexMap[glossId];
-        const isHighlighted =
-          options.activeGlossId === glossId || options.hoveredGlossId === glossId;
+        const isActive = options.activeGlossId === glossId;
 
         if (!meta) {
           return (
@@ -142,26 +131,28 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
               if (sel && !sel.isCollapsed && sel.toString().trim().length > 0) return;
               options.onSelectGloss(glossId);
             }}
-            onMouseEnter={() => options.onHoverGloss?.(glossId)}
-            onMouseLeave={() => options.onHoverGloss?.(null)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 options.onSelectGloss(glossId);
               }
             }}
-            className={`group/gloss inline cursor-pointer touch-manipulation border-b-[1.5px] pb-[1px] transition-colors duration-150 ${
-              isHighlighted
-                ? 'bg-[var(--accent-nrf-soft)] border-solid border-[var(--accent-nrf)]'
-                : 'border-solid border-[var(--accent-nrf)]/65 hover:border-[var(--accent-nrf)] hover:bg-[var(--accent-nrf-soft)]'
+            className={`inline cursor-pointer touch-manipulation rounded-[6px] px-[2px] -mx-[2px] decoration-[1.5px] underline-offset-[5px] transition-colors duration-150 ${
+              isActive
+                ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] underline decoration-[var(--md-sys-color-primary)]'
+                : 'underline decoration-dotted decoration-[color-mix(in_srgb,var(--md-sys-color-primary)_48%,transparent)] hover:bg-[color-mix(in_srgb,var(--md-sys-color-secondary-container)_75%,transparent)] hover:decoration-solid hover:decoration-[var(--md-sys-color-primary)]'
             }`}
           >
             {renderInnerZh(anchorText, `p${pIdx}-s${sIdx}`, options)}
             <sup
-              style={{ textIndent: 0 }}
-              className="inline-block ml-0.5 font-mono-coord italic text-[11.5px] leading-none select-none text-[var(--accent-nrf)]"
+              style={{ textIndent: 0, fontFamily: 'var(--font-ui)' }}
+              className={`inline-block ml-[2px] text-[10.5px] font-semibold leading-none tabular-nums-ui select-none ${
+                isActive
+                  ? 'text-[var(--md-sys-color-primary)]'
+                  : 'text-[color-mix(in_srgb,var(--md-sys-color-primary)_82%,transparent)]'
+              }`}
             >
-              {meta.formattedIndex}
+              {meta.index}
             </sup>
           </span>
         );
@@ -177,7 +168,7 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
     return (
       <p
         key={`para-${pIdx}`}
-        className={`zh-prose zh-indent ${options.fontSizeClass ?? ''} ${pIdx > 0 ? 'mt-3.5' : ''}`}
+        className={`zh-prose zh-indent ${options.fontSizeClass ?? ''} ${pIdx > 0 ? 'mt-4' : ''}`}
       >
         {children}
       </p>
@@ -185,9 +176,6 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
   });
 }
 
-/**
- * 解析旁注正文（支持 **霞鹜文楷强调**）
- */
 export function renderGlossContent(text: string): React.ReactNode[] {
   return renderInnerZh(text, 'gloss');
 }

@@ -12,6 +12,8 @@ export const laNausee: BookMeta = {
   slug: 'la-nausee',
   vol: 'VOL. 14',
   langOriginal: 'FR',
+  categories: ['literature', 'philosophy'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'La Nausée',
   subtitleOriginal: 'Journal d’Antoine Roquentin (Première partie)',
   titleZh: '恶心',

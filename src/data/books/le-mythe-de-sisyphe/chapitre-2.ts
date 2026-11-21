@@ -12,6 +12,7 @@ export const chapitre2Sections: BookSection[] = [
     roman: 'II.1',
     titleOriginal: "L'Homme absurde",
     titleZh: '荒谬的人',
+    epigraph: chapitre2Epigraph,
     blocks: [
       {
         id: 'c2-s1-p01',

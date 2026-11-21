@@ -9,6 +9,8 @@ export const achtzehnteBrumaire: BookMeta = {
   slug: 'achtzehnte-brumaire',
   vol: 'VOL. 09',
   langOriginal: 'DE',
+  categories: ['politics', 'history'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Der achtzehnte Brumaire des Louis Bonaparte',
   subtitleOriginal: 'Die Revolution von 1848 bis zum Staatsstreich von 1851',
   titleZh: '路易·波拿巴的雾月十八日',

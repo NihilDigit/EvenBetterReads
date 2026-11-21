@@ -7,6 +7,8 @@ export const ceQuOnVoit: BookMeta = {
   slug: 'ce-qu-on-voit',
   vol: 'VOL. 07',
   langOriginal: 'FR',
+  categories: ['economics'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: "Ce qu'on voit et ce qu'on ne voit pas",
   subtitleOriginal: "Ou l'Économie politique en une leçon",
   titleZh: '看得见的与看不见的',

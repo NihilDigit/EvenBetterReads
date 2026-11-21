@@ -9,6 +9,8 @@ export const protestantischeEthik: BookMeta = {
   slug: 'protestantische-ethik',
   vol: 'VOL. 03',
   langOriginal: 'DE',
+  categories: ['history', 'economics'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Die protestantische Ethik und der Geist des Kapitalismus',
   subtitleOriginal: 'Gesammelte Aufsätze zur Religionssoziologie I',
   titleZh: '新教伦理与资本主义精神',

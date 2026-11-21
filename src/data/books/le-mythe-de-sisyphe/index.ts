@@ -11,6 +11,8 @@ export const leMytheDeSisyphe: BookMeta = {
   slug: 'le-mythe-de-sisyphe',
   vol: 'VOL. 01',
   langOriginal: 'FR',
+  categories: ['philosophy'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Le Mythe de Sisyphe',
   subtitleOriginal: "Essai sur l'absurde",
   titleZh: '西西弗神话',

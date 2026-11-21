@@ -16,7 +16,7 @@ export const laNauseeDedication = {
 };
 
 export const laNauseeEpigraph = {
-  quoteZh: '「他是个毫无集体重要性的小伙子，彻头彻尾只是个个体罢了。」',
+  quoteZh: '他是个毫无集体重要性的小伙子，彻头彻尾只是个个体罢了。',
   authorZh: '路易-费迪南·塞利纳',
   sourceZh: '《教会》（L’Église）'
 };

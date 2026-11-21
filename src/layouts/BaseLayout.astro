@@ -1,0 +1,93 @@
+---
+import '@fontsource/eb-garamond/400.css';
+import '@fontsource/eb-garamond/400-italic.css';
+import '@fontsource/eb-garamond/600.css';
+import '@fontsource/eb-garamond/600-italic.css';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'EvenBetterReads — 私人思想与人文经典精译伴读文库'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN" data-palette="terracotta" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <script is:inline>
+      try {
+        var validPalettes = [
+          'terracotta',
+          'amber',
+          'sage',
+          'teal',
+          'ocean',
+          'iris',
+          'rose',
+          'mono'
+        ];
+        var savedPalette = localStorage.getItem('ebr-palette');
+        var legacyTheme = localStorage.getItem('ebr-theme');
+        var palette =
+          savedPalette && validPalettes.indexOf(savedPalette) !== -1
+            ? savedPalette
+            : legacyTheme === 'warm' || legacyTheme === 'parchment'
+              ? 'amber'
+              : 'terracotta';
+
+        var savedMode = localStorage.getItem('ebr-color-mode');
+        var mode =
+          savedMode === 'light' || savedMode === 'dark' || savedMode === 'system'
+            ? savedMode
+            : legacyTheme === 'dark' || legacyTheme === 'obsidian'
+              ? 'dark'
+              : 'light';
+
+        var resolved =
+          mode === 'dark'
+            ? 'dark'
+            : mode === 'system' &&
+                window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+
+        document.documentElement.setAttribute('data-palette', palette);
+        document.documentElement.setAttribute('data-theme', resolved);
+      } catch (e) {}
+    </script>
+    <link
+      rel="preload"
+      href="/fonts/LXGWNeoZhiSong-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/LXGWWenKai-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

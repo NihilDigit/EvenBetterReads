@@ -9,6 +9,8 @@ export const commonSense: BookMeta = {
   slug: 'common-sense',
   vol: 'VOL. 04',
   langOriginal: 'EN',
+  categories: ['politics'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Common Sense',
   subtitleOriginal: 'Addressed to the Inhabitants of America',
   titleZh: '常识',

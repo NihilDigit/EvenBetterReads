@@ -1,49 +1,63 @@
 ---
-import '../styles/global.css';
-import ReaderApp from '../components/ReaderApp';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LibraryApp from '../components/LibraryApp';
+import { books } from '../data/books';
+import type { BookCatalogItem } from '../types/book';
+
+// 在 SSG 构建期提取轻量目录索引，自动汇总每本书各章节/段落记录的 AI 译注模型
+const catalog: BookCatalogItem[] = books.map((b) => {
+  const modelSet = new Set<string>();
+  if (b.aiModel) modelSet.add(b.aiModel);
+  if (b.descriptionAiModel) modelSet.add(b.descriptionAiModel);
+
+  let sectionCount = 0;
+  let glossCount = 0;
+
+  for (const ch of b.chapters) {
+    if (ch.aiModel) modelSet.add(ch.aiModel);
+    glossCount += ch.dedication?.glosses?.length ?? 0;
+    for (const g of ch.dedication?.glosses ?? []) {
+      if (g.aiModel) modelSet.add(g.aiModel);
+    }
+
+    for (const sec of ch.sections) {
+      sectionCount++;
+      if (sec.aiModel) modelSet.add(sec.aiModel);
+      for (const blk of sec.blocks) {
+        if (blk.aiModel) modelSet.add(blk.aiModel);
+        glossCount += blk.glosses?.length ?? 0;
+        for (const g of blk.glosses ?? []) {
+          if (g.aiModel) modelSet.add(g.aiModel);
+        }
+      }
+    }
+  }
+
+  if (modelSet.size === 0) {
+    modelSet.add('Gemini-4-Argon');
+  }
+
+  return {
+    slug: b.slug,
+    vol: b.vol,
+    categories: b.categories ?? ['philosophy'],
+    aiModels: Array.from(modelSet),
+    titleOriginal: b.titleOriginal,
+    subtitleOriginal: b.subtitleOriginal,
+    titleZh: b.titleZh,
+    subtitleZh: b.subtitleZh,
+    authorOriginal: b.authorOriginal,
+    authorZh: b.authorZh,
+    year: b.year,
+    publisher: b.publisher,
+    collection: b.collection,
+    descriptionZh: b.descriptionZh,
+    sectionCount,
+    glossCount
+  };
+});
 ---
 
-<!doctype html>
-<html lang="zh-CN" data-theme="ivory">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light dark" />
-    <title>EvenBetterReads</title>
-    <script is:inline>
-      try {
-        var saved = localStorage.getItem('ebr-theme');
-        if (saved === 'ivory' || saved === 'parchment' || saved === 'obsidian') {
-          document.documentElement.setAttribute('data-theme', saved);
-        }
-      } catch (e) {}
-    </script>
-    <meta
-      name="description"
-      content="EvenBetterReads — 私人思想与哲学经典精译及深度伴读文库"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..600;1,400..600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="preload"
-      href="/fonts/LXGWNeoZhiSong-subset.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/fonts/LXGWWenKai-subset.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-  </head>
-  <body>
-    <ReaderApp client:load />
-  </body>
-</html>
+<BaseLayout title="EvenBetterReads — 思想与哲学经典精译伴读">
+  <LibraryApp catalog={catalog} client:load />
+</BaseLayout>

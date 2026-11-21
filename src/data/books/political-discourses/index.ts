@@ -8,6 +8,8 @@ export const politicalDiscourses: BookMeta = {
   slug: 'political-discourses',
   vol: 'VOL. 08',
   langOriginal: 'EN',
+  categories: ['economics', 'politics'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Political Discourses',
   subtitleOriginal: 'Essays on Commerce, Money, Interest, and Trade',
   titleZh: '政治与经济论集',

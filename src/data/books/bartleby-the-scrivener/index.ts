@@ -8,6 +8,8 @@ export const bartlebyTheScrivener: BookMeta = {
   slug: 'bartleby-the-scrivener',
   vol: 'VOL. 06',
   langOriginal: 'EN',
+  categories: ['literature'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Bartleby, the Scrivener',
   subtitleOriginal: 'A Story of Wall-Street',
   titleZh: '抄写员巴托比',

@@ -12,6 +12,8 @@ export const lesVillesDuMoyenAge: BookMeta = {
   slug: 'les-villes-du-moyen-age',
   vol: 'VOL. 05',
   langOriginal: 'FR',
+  categories: ['history', 'economics'],
+  aiModel: 'Gemini-4-Argon',
   titleOriginal: 'Les villes du Moyen Âge',
   subtitleOriginal: "Essai d'histoire économique et sociale",
   titleZh: '中世纪城市',
