@@ -13,6 +13,18 @@ interface ParseZhOptions {
   footnoteMap?: Record<string, number>;
   authorNoteLabel?: string;
   fontSizeClass?: string;
+  isVerse?: boolean;
+}
+
+function renderPlainWithLineBreaks(text: string, keyPrefix: string): React.ReactNode {
+  if (!text.includes('\n')) return text;
+  const lines = text.split('\n');
+  return lines.map((line, idx) => (
+    <React.Fragment key={`${keyPrefix}-ln-${idx}`}>
+      {idx > 0 && <br />}
+      {line}
+    </React.Fragment>
+  ));
 }
 
 /**
@@ -32,7 +44,7 @@ function renderInnerZh(
       const inner = part.slice(2, -2);
       return (
         <strong key={`${keyPrefix}-b-${idx}`} className="zh-emphasis">
-          {inner}
+          {renderPlainWithLineBreaks(inner, `${keyPrefix}-b-${idx}`)}
         </strong>
       );
     }
@@ -58,7 +70,11 @@ function renderInnerZh(
         </button>
       );
     }
-    return <React.Fragment key={`${keyPrefix}-t-${idx}`}>{part}</React.Fragment>;
+    return (
+      <React.Fragment key={`${keyPrefix}-t-${idx}`}>
+        {renderPlainWithLineBreaks(part, `${keyPrefix}-t-${idx}`)}
+      </React.Fragment>
+    );
   });
 }
 
@@ -146,6 +162,18 @@ export function renderZhParagraph(text: string, options: ParseZhOptions): React.
         </React.Fragment>
       );
     });
+
+    if (options.isVerse) {
+      return (
+        <blockquote
+          key={`verse-${pIdx}`}
+          className={`zh-prose zh-emphasis my-2 pl-5 sm:pl-7 border-l-2 border-[var(--md-sys-color-outline-variant)]/60 leading-[1.95] ${options.fontSizeClass ?? ''} ${pIdx > 0 ? 'mt-4' : ''}`}
+          style={{ textIndent: 0 }}
+        >
+          {children}
+        </blockquote>
+      );
+    }
 
     return (
       <p

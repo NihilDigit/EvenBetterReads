@@ -269,6 +269,62 @@ const BOOK_COVER_PALETTES: Record<string, DualCoverPalette> = {
       coverShapeSecondary: '#8E5F3B',
       coverShapeTertiary: '#77B2B8'
     }
+  },
+  'existentialisme-est-un-humanisme': {
+    light: {
+      coverBg: '#E4E1FA',
+      coverShapePrimary: '#36397A',
+      coverShapeSecondary: '#7D82C4',
+      coverShapeTertiary: '#D9822B'
+    },
+    dark: {
+      coverBg: '#202142',
+      coverShapePrimary: '#B8BCFF',
+      coverShapeSecondary: '#4B4F94',
+      coverShapeTertiary: '#F29D49'
+    }
+  },
+  'l-iliade-ou-le-poeme-de-la-force': {
+    light: {
+      coverBg: '#F6E6CE',
+      coverShapePrimary: '#6E3B1E',
+      coverShapeSecondary: '#BA8154',
+      coverShapeTertiary: '#2F5D73'
+    },
+    dark: {
+      coverBg: '#331F12',
+      coverShapePrimary: '#F2B488',
+      coverShapeSecondary: '#8C5432',
+      coverShapeTertiary: '#7CB3CC'
+    }
+  },
+  'introduction-to-mathematical-philosophy': {
+    light: {
+      coverBg: '#D8EEFB',
+      coverShapePrimary: '#1A4E6E',
+      coverShapeSecondary: '#659EC2',
+      coverShapeTertiary: '#D6982C'
+    },
+    dark: {
+      coverBg: '#152B3B',
+      coverShapePrimary: '#8CC9F2',
+      coverShapeSecondary: '#2D678A',
+      coverShapeTertiary: '#EEB34B'
+    }
+  },
+  'la-science-et-l-hypothese': {
+    light: {
+      coverBg: '#D6F0E8',
+      coverShapePrimary: '#195749',
+      coverShapeSecondary: '#63A897',
+      coverShapeTertiary: '#CF5C47'
+    },
+    dark: {
+      coverBg: '#142F28',
+      coverShapePrimary: '#8AD4C1',
+      coverShapeSecondary: '#2B6E5F',
+      coverShapeTertiary: '#ED7B66'
+    }
   }
 };
 

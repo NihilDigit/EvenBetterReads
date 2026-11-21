@@ -75,6 +75,9 @@ interface TriggerMetric {
   id: string;
   top: number;
   bottom: number;
+  checkpointY: number;
+  cardTop: number;
+  cardBottom: number;
 }
 
 interface BlockMetric {
@@ -279,7 +282,8 @@ const BookProseStream = React.memo(function BookProseStream({
                       onSelectGloss,
                       footnoteMap,
                       authorNoteLabel,
-                      fontSizeClass
+                      fontSizeClass,
+                      isVerse: blk.type === 'verse'
                     })}
                   </div>
                 );
@@ -471,7 +475,7 @@ function MobilePlainNoteSheet({ note, defaultBookModel, onClose }: MobilePlainNo
 }
 
 export default function BookReaderApp({ book }: BookReaderAppProps) {
-  const defaultBookModel = book.aiModel ?? 'Gemini-4-Argon';
+  const defaultBookModel = book.aiModel ?? 'Gemini-4-Carbon';
   const introAiModel = book.descriptionAiModel ?? defaultBookModel;
 
   // 展平全书各部分并解析每节专属 AI 译注模型署名
@@ -661,10 +665,9 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   const selectedAtScrollYRef = useRef<number | null>(null);
   const targetPaneScrollTopRef = useRef<number | null>(null);
   const paneAnimRafRef = useRef<number | null>(null);
-  const syncTargetsRef = useRef<{ topId: string | null; revealId: string | null }>({
-    topId: null,
-    revealId: null
-  });
+  const paneClientHeightRef = useRef<number>(600);
+  const syncTargetOffsetRef = useRef<number>(0);
+  const syncFromLeftScrollRef = useRef<(() => void) | null>(null);
 
   const filteredNotes = useMemo(() => {
     if (noteFilter === 'all') return allAnnotations;
@@ -715,25 +718,11 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   );
 
   const scrollNoteIntoPane = useCallback(
-    (noteId: string, mustRevealNoteId?: string | null) => {
+    (noteId: string) => {
       const pane = sidePaneScrollRef.current;
       const topCard = noteCardRefs.current[noteId];
       if (!pane || !topCard) return;
-
-      let desiredTop = Math.max(0, topCard.offsetTop - 16);
-
-      if (mustRevealNoteId && mustRevealNoteId !== noteId) {
-        const focalCard = noteCardRefs.current[mustRevealNoteId];
-        if (focalCard) {
-          const minScrollToReveal =
-            focalCard.offsetTop + focalCard.offsetHeight - pane.clientHeight + 24;
-          if (minScrollToReveal > desiredTop) {
-            desiredTop = Math.min(focalCard.offsetTop - 16, minScrollToReveal);
-          }
-        }
-      }
-
-      scrollPaneToOffset(desiredTop);
+      scrollPaneToOffset(Math.max(0, topCard.offsetTop - 12));
     },
     [scrollPaneToOffset]
   );
@@ -788,18 +777,52 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     blockMetricsRef.current = blocks;
 
     if (isDesktopLayoutRef.current && desktopPaneOpenRef.current) {
+      if (sidePaneScrollRef.current) {
+        paneClientHeightRef.current = sidePaneScrollRef.current.clientHeight;
+      }
       const triggers: TriggerMetric[] = [];
       main.querySelectorAll<HTMLElement>('[data-gloss-trigger]').forEach((el) => {
         const id = el.dataset.glossTrigger;
         if (!id) return;
+        const card = noteCardRefs.current[id];
+        if (!card) return;
         const r = el.getBoundingClientRect();
+        const top = r.top + scrollY;
+        const bottom = r.bottom + scrollY;
         triggers.push({
           id,
-          top: r.top + scrollY,
-          bottom: r.bottom + scrollY
+          top,
+          bottom,
+          checkpointY: top,
+          cardTop: Math.max(0, card.offsetTop - 12),
+          cardBottom: card.offsetTop + card.offsetHeight
         });
       });
+
+      if (triggers.length > 0) {
+        const MIN_STRIDE = 88;
+        triggers[0].checkpointY = triggers[0].top;
+        for (let i = 1; i < triggers.length; i++) {
+          triggers[i].checkpointY = Math.max(
+            triggers[i].top,
+            triggers[i - 1].checkpointY + MIN_STRIDE
+          );
+        }
+        const maxReachableY = docScrollableHeightRef.current + window.innerHeight * 0.92;
+        if (triggers[triggers.length - 1].checkpointY > maxReachableY) {
+          triggers[triggers.length - 1].checkpointY = Math.min(
+            triggers[triggers.length - 1].checkpointY,
+            maxReachableY
+          );
+          for (let i = triggers.length - 2; i >= 0; i--) {
+            if (triggers[i].checkpointY > triggers[i + 1].checkpointY - 36) {
+              triggers[i].checkpointY = triggers[i + 1].checkpointY - 36;
+            }
+          }
+        }
+      }
       triggerMetricsRef.current = triggers;
+      syncFromLeftScrollRef.current?.();
     } else {
       triggerMetricsRef.current = [];
     }
@@ -955,7 +978,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       ro?.disconnect();
       window.removeEventListener('resize', scheduleMeasure);
     };
-  }, [measureLayout, fontScale, introExpanded, isDesktopLayout, desktopPaneOpen]);
+  }, [measureLayout, fontScale, introExpanded, isDesktopLayout, desktopPaneOpen, noteFilter]);
 
   // 左栏滚动监听：基于缓存坐标与二分查找驱动进度条、小节感知与宽屏右侧同步焦点
   useEffect(() => {
@@ -1009,54 +1032,20 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         if (triggers.length > 0) {
           const viewTop = scrollTop + 72;
           const viewBottom = scrollTop + vh - 32;
-          const bandTop = scrollTop + Math.max(88, vh * 0.28);
-          const bandBottom = scrollTop + vh * 0.82;
-          const mustRevealHorizon = scrollTop + vh * 0.78;
-          const enterLimit = scrollTop + vh * 0.96;
+          const preloadHorizon = scrollTop + vh * 0.84;
 
           const nextVisible = new Set<string>();
-          let firstInBandId: string | null = null;
-          let latestMustRevealId: string | null = null;
-          let lastPassedAboveBandId: string | null = null;
-          let nextEnteringBelowId: string | null = null;
-          const lastTriggerId = triggers[triggers.length - 1].id;
-
-          // 找到第一个可能进入视口的触发器（前移 2 条以覆盖多行折行锚点）
           const approxStart = Math.max(
             0,
             findLastLe(triggers, viewTop - 120, (t) => t.top) - 1
           );
-          if (approxStart > 0) {
-            lastPassedAboveBandId = triggers[approxStart - 1].id;
-          }
-
           for (let i = approxStart; i < triggers.length; i++) {
             const t = triggers[i];
-            if (t.top > enterLimit) break;
-
-            if (t.bottom >= viewTop && t.top <= viewBottom) {
+            if (t.top > viewBottom) break;
+            if (t.bottom >= viewTop) {
               nextVisible.add(t.id);
             }
-
-            if (t.bottom < bandTop) {
-              lastPassedAboveBandId = t.id;
-            } else if (t.top <= bandBottom) {
-              if (!firstInBandId) {
-                firstInBandId = t.id;
-              }
-              if (t.top <= mustRevealHorizon) {
-                latestMustRevealId = t.id;
-              }
-            } else if (!nextEnteringBelowId) {
-              nextEnteringBelowId = t.id;
-            }
           }
-
-          const nearBottom = scrollTop >= docH - 32;
-          const resolvedTopAnchor = nearBottom
-            ? (lastTriggerId ?? firstInBandId ?? lastPassedAboveBandId)
-            : (firstInBandId ?? nextEnteringBelowId ?? lastPassedAboveBandId);
-          const resolvedReveal = nearBottom ? lastTriggerId : latestMustRevealId;
 
           setVisibleNoteIds((prev) => {
             if (prev.size === nextVisible.size && [...prev].every((x) => nextVisible.has(x))) {
@@ -1065,14 +1054,65 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
             return nextVisible;
           });
 
-          if (resolvedTopAnchor) {
-            syncTargetsRef.current = { topId: resolvedTopAnchor, revealId: resolvedReveal };
-            const nextLead = resolvedReveal ?? resolvedTopAnchor;
-            setSyncedNoteId((prev) => (prev === nextLead ? prev : nextLead));
-            if (isAutoSyncRef.current) {
-              scrollNoteIntoPane(resolvedTopAnchor, resolvedReveal);
+          // 以视口中上部舒适阅读线为基准；仅在滚至全书末尾半屏时平滑下探至视口底端，保证文末连注逐条走完
+          let tailProgress = 0;
+          if (docH > 32) {
+            const tailSpan = Math.min(docH, Math.max(1, vh * 0.65));
+            const tailStart = docH - tailSpan;
+            if (scrollTop > tailStart) {
+              tailProgress = Math.min(1, (scrollTop - tailStart) / tailSpan);
             }
           }
+          const readingLineY =
+            scrollTop + Math.max(104, vh * 0.28) + tailProgress * (vh * 0.66);
+
+          const paneH = paneClientHeightRef.current;
+          const k = findLastLe(triggers, readingLineY, (t) => t.checkpointY);
+          let desiredPaneTop = triggers[0].cardTop;
+          let nextLead: string | null = null;
+
+          if (k < 0) {
+            desiredPaneTop = triggers[0].cardTop;
+            nextLead = triggers[0].top <= preloadHorizon ? triggers[0].id : null;
+          } else if (k >= triggers.length - 1) {
+            const last = triggers[triggers.length - 1];
+            nextLead = last.id;
+            desiredPaneTop = Math.max(last.cardTop, last.cardBottom - paneH + 24);
+          } else {
+            const curr = triggers[k];
+            const next = triggers[k + 1];
+            const span = Math.max(1, next.checkpointY - curr.checkpointY);
+            const currEndScroll = Math.max(curr.cardTop, curr.cardBottom - paneH + 24);
+            const glideWindow = Math.min(110, span * 0.62);
+            const glideStart = next.checkpointY - glideWindow;
+
+            if (readingLineY <= glideStart) {
+              nextLead = curr.id;
+              if (currEndScroll > curr.cardTop && glideStart > curr.checkpointY) {
+                const ownU = Math.min(
+                  1,
+                  (readingLineY - curr.checkpointY) /
+                    Math.min(200, glideStart - curr.checkpointY)
+                );
+                desiredPaneTop = curr.cardTop + ownU * (currEndScroll - curr.cardTop);
+              } else {
+                desiredPaneTop = curr.cardTop;
+              }
+            } else {
+              const u = Math.min(1, (readingLineY - glideStart) / Math.max(1, glideWindow));
+              desiredPaneTop = currEndScroll + u * (next.cardTop - currEndScroll);
+              nextLead = u >= 0.55 ? next.id : curr.id;
+            }
+          }
+
+          syncTargetOffsetRef.current = desiredPaneTop;
+          setSyncedNoteId((prev) => (prev === nextLead ? prev : nextLead));
+          if (isAutoSyncRef.current && selectedNoteIdRef.current === null) {
+            scrollPaneToOffset(desiredPaneTop);
+          }
+        } else {
+          setVisibleNoteIds((prev) => (prev.size === 0 ? prev : new Set()));
+          setSyncedNoteId(null);
         }
       }
 
@@ -1113,22 +1153,21 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       }
     };
 
+    syncFromLeftScrollRef.current = syncFromLeftScroll;
     window.addEventListener('scroll', onWindowScroll, { passive: true });
     syncFromLeftScroll();
 
     return () => {
+      syncFromLeftScrollRef.current = null;
       window.removeEventListener('scroll', onWindowScroll);
       if (saveTimer !== null) window.clearTimeout(saveTimer);
     };
-  }, [book.slug, flatSections, scrollNoteIntoPane]);
+  }, [book.slug, flatSections, scrollPaneToOffset]);
 
   useEffect(() => {
     if (!isDesktopLayout || !isAutoSync || !desktopPaneOpen) return;
-    const { topId, revealId } = syncTargetsRef.current;
-    if (topId) {
-      scrollNoteIntoPane(topId, revealId);
-    }
-  }, [isDesktopLayout, isAutoSync, desktopPaneOpen, noteFilter, scrollNoteIntoPane]);
+    scrollPaneToOffset(syncTargetOffsetRef.current);
+  }, [isDesktopLayout, isAutoSync, desktopPaneOpen, noteFilter, scrollPaneToOffset]);
 
   // 直改单个 DOM 元素的 data-active 属性实现高亮，零正文树 React 重渲染
   const activeHighlightId = isDesktopLayout
@@ -1162,13 +1201,10 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   const resumeAutoSync = useCallback(() => {
     setSelectedNoteId(null);
     setIsAutoSync(true);
-    const { topId, revealId } = syncTargetsRef.current;
-    if (topId) {
-      window.requestAnimationFrame(() => {
-        scrollNoteIntoPane(topId, revealId);
-      });
-    }
-  }, [scrollNoteIntoPane]);
+    window.requestAnimationFrame(() => {
+      scrollPaneToOffset(syncTargetOffsetRef.current);
+    });
+  }, [scrollPaneToOffset]);
 
   const handleSelectTrigger = useCallback(
     (noteId: string, forceOpen = false) => {
@@ -1690,23 +1726,93 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--md-sys-color-on-surface-variant)] px-1">
-              <span>全馆译文与伴读旁注按分篇记录具体大语言模型署名</span>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <svg
+                  viewBox="0 0 64 64"
+                  aria-hidden="true"
+                  className="w-4.5 h-4.5 shrink-0"
+                >
+                  <rect
+                    x="2"
+                    y="2"
+                    width="60"
+                    height="60"
+                    rx="18"
+                    fill="var(--md-sys-color-primary)"
+                  />
+                  <rect
+                    x="12"
+                    y="13"
+                    width="21"
+                    height="38"
+                    rx="7"
+                    fill="var(--md-sys-color-on-primary)"
+                  />
+                  <rect
+                    x="37"
+                    y="13"
+                    width="15"
+                    height="17"
+                    rx="6.5"
+                    fill="var(--md-sys-color-tertiary-container)"
+                  />
+                  <rect
+                    x="37"
+                    y="34"
+                    width="15"
+                    height="17"
+                    rx="6.5"
+                    fill="var(--md-sys-color-secondary-container)"
+                  />
+                </svg>
+                <span className="fr-prose text-[13px] text-[var(--md-sys-color-on-surface)] tracking-[-0.01em] shrink-0">
+                  <span className="italic text-[var(--md-sys-color-primary)] pr-[1px]">Even</span>
+                  <span className="font-semibold">Better</span>
+                  <span>Reads</span>
+                </span>
+                <span
+                  className="hidden sm:inline-block h-3 w-px bg-[var(--md-sys-color-outline-variant)]"
+                  aria-hidden="true"
+                />
+                <span className="truncate">基于外文底本由大语言模型译注</span>
+              </div>
+              <div className="flex items-center gap-2">
                 <a
                   href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hans"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[var(--md-sys-color-on-surface)] transition-colors"
+                  className="h-8 px-3 rounded-full inline-flex items-center gap-1.5 font-medium bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] transition-colors"
                 >
-                  CC0 1.0 公有领域
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="w-3.5 h-3.5 shrink-0"
+                  >
+                    <circle cx="12" cy="12" r="9.5" />
+                    <rect x="9" y="7.5" width="6" height="9" rx="3" />
+                  </svg>
+                  <span>CC0 1.0</span>
                 </a>
                 <a
                   href="https://github.com/NihilDigit/EvenBetterReads"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[var(--md-sys-color-on-surface)] transition-colors"
+                  className="h-8 px-3 rounded-full inline-flex items-center gap-1.5 font-medium bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] transition-colors"
                 >
-                  GitHub
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    className="w-3.5 h-3.5 shrink-0"
+                  >
+                    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z" />
+                  </svg>
+                  <span>GitHub</span>
                 </a>
               </div>
             </div>

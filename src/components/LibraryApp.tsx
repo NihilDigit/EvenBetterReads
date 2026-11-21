@@ -5,7 +5,8 @@ import {
   ArrowRight,
   Check,
   BookOpen,
-  Sparkles
+  Sparkles,
+  Download
 } from 'lucide-react';
 import type { BookCatalogItem, BookCategory } from '../types/book';
 import BookCoverSvg from './BookCoverSvg';
@@ -512,42 +513,113 @@ export default function LibraryApp({ catalog }: LibraryAppProps) {
         )}
       </main>
 
-      {/* ==================== 底部协议与多模型译注说明 ==================== */}
+      {/* ==================== 底部栏 ==================== */}
       <footer className="mt-auto py-6 px-4 sm:px-6 lg:px-10 text-xs text-[var(--md-sys-color-on-surface-variant)]">
-        <div className="max-w-[1320px] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-5 border-t border-[var(--md-sys-color-outline-variant)]/45">
-          <p>
-            全馆外文原典由大语言模型依据权威底本直接精译并撰注，各卷及分篇译注模型于卷内署名
-          </p>
-          <div className="flex items-center gap-4 flex-wrap shrink-0">
+        <div className="max-w-[1320px] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-5 border-t border-[var(--md-sys-color-outline-variant)]/45">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <svg
+              viewBox="0 0 64 64"
+              aria-hidden="true"
+              className="w-5 h-5 shrink-0"
+            >
+              <rect
+                x="2"
+                y="2"
+                width="60"
+                height="60"
+                rx="18"
+                fill="var(--md-sys-color-primary)"
+              />
+              <rect
+                x="12"
+                y="13"
+                width="21"
+                height="38"
+                rx="7"
+                fill="var(--md-sys-color-on-primary)"
+              />
+              <rect
+                x="37"
+                y="13"
+                width="15"
+                height="17"
+                rx="6.5"
+                fill="var(--md-sys-color-tertiary-container)"
+              />
+              <rect
+                x="37"
+                y="34"
+                width="15"
+                height="17"
+                rx="6.5"
+                fill="var(--md-sys-color-secondary-container)"
+              />
+            </svg>
+            <span className="fr-prose text-sm text-[var(--md-sys-color-on-surface)] tracking-[-0.01em] shrink-0">
+              <span className="italic text-[var(--md-sys-color-primary)] pr-[1px]">Even</span>
+              <span className="font-semibold">Better</span>
+              <span>Reads</span>
+            </span>
+            <span
+              className="hidden sm:inline-block h-3 w-px bg-[var(--md-sys-color-outline-variant)]"
+              aria-hidden="true"
+            />
+            <span className="truncate">基于外文底本由大语言模型译注</span>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap shrink-0">
             <a
               href="/ebooks/EvenBetterReads-EPUB.zip"
               download="EvenBetterReads-EPUB.zip"
-              className="hover:text-[var(--md-sys-color-on-surface)] transition-colors"
+              className="h-8 px-3 rounded-full inline-flex items-center gap-1.5 font-medium bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] transition-colors"
             >
-              全集 EPUB
+              <Download className="w-3.5 h-3.5 text-[var(--md-sys-color-primary)] shrink-0" />
+              <span>全集 EPUB</span>
             </a>
             <a
               href="/ebooks/EvenBetterReads-AZW3.zip"
               download="EvenBetterReads-AZW3.zip"
-              className="hover:text-[var(--md-sys-color-on-surface)] transition-colors"
+              className="h-8 px-3 rounded-full inline-flex items-center gap-1.5 font-medium bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] transition-colors"
             >
-              全集 AZW3
+              <Download className="w-3.5 h-3.5 text-[var(--md-sys-color-primary)] shrink-0" />
+              <span>全集 AZW3</span>
             </a>
             <a
               href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hans"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--md-sys-color-on-surface)] transition-colors"
+              className="h-8 px-3 rounded-full inline-flex items-center gap-1.5 font-medium bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] transition-colors"
             >
-              CC0 1.0 公有领域
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                className="w-3.5 h-3.5 shrink-0"
+              >
+                <circle cx="12" cy="12" r="9.5" />
+                <rect x="9" y="7.5" width="6" height="9" rx="3" />
+              </svg>
+              <span>CC0 1.0</span>
             </a>
             <a
               href="https://github.com/NihilDigit/EvenBetterReads"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[var(--md-sys-color-on-surface)] transition-colors"
+              className="h-8 px-3 rounded-full inline-flex items-center gap-1.5 font-medium bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-on-surface)] transition-colors"
             >
-              GitHub
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+                className="w-3.5 h-3.5 shrink-0"
+              >
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z" />
+              </svg>
+              <span>GitHub</span>
             </a>
           </div>
         </div>

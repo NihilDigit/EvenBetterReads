@@ -24,7 +24,7 @@ export interface AuthorNote {
 
 export interface ParagraphBlock {
   id: string;
-  type?: 'paragraph' | 'divider';
+  type?: 'paragraph' | 'verse' | 'divider';
   num?: string;
   fr?: string;
   original?: string;

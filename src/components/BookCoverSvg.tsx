@@ -425,6 +425,95 @@ function renderCoverBySlug(slug: string, { bg, c1, c2, c3 }: CoverColors) {
         </svg>
       );
 
+    // 15. 存在主义是一种人道主义：敞开的无预设虚空底座与向自身之外斜跃投射的筹划棱体
+    case 'existentialisme-est-un-humanisme':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <rect x="26" y="168" width="148" height="82" rx="28" fill={c2} opacity="0.58" />
+          <circle cx="84" cy="209" r="24" fill={bg} />
+          <path
+            d={createRoundedPolygonPath(106, 128, 72, 4, 0.22, -32)}
+            fill={c1}
+            className="origin-[106px_128px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:-translate-y-2 group-hover:translate-x-1.5"
+          />
+          <circle
+            cx="148"
+            cy="64"
+            r="19"
+            fill={c3}
+            className="origin-[148px_64px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:scale-110"
+          />
+        </svg>
+      );
+
+    // 16. 伊利亚特，或力量之诗：往复摆荡倾压的重力巨楔与重压之下遥相对望的双圆
+    case 'l-iliade-ou-le-poeme-de-la-force':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <path
+            d={createRoundedPolygonPath(118, 108, 70, 3, 0.22, 76)}
+            fill={c2}
+            opacity="0.55"
+            className="origin-[118px_108px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:rotate-6"
+          />
+          <path
+            d={createRoundedPolygonPath(94, 106, 76, 3, 0.2, 90)}
+            fill={c1}
+            className="origin-[94px_106px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:translate-y-1.5"
+          />
+          <circle cx="68" cy="222" r="20" fill={c3} />
+          <circle cx="132" cy="222" r="20" fill={c3} opacity="0.78" />
+        </svg>
+      );
+
+    // 17. 数理哲学导论：等势类的同构嵌套多边形与皮亚诺后继递推序列圆点
+    case 'introduction-to-mathematical-philosophy':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <path
+            d={createRoundedPolygonPath(84, 152, 68, 6, 0.24, 0)}
+            fill={c2}
+            opacity="0.62"
+            className="origin-[84px_152px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:-rotate-6"
+          />
+          <path
+            d={createRoundedPolygonPath(116, 126, 64, 6, 0.24, 0)}
+            fill={c1}
+            className="origin-[116px_126px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:rotate-6"
+          />
+          <circle cx="54" cy="224" r="11" fill={c3} opacity="0.72" />
+          <circle cx="94" cy="224" r="14" fill={c3} opacity="0.86" />
+          <circle cx="142" cy="224" r="18" fill={c3} />
+        </svg>
+      );
+
+    // 18. 科学与假设：庞加莱双曲圆盘模型与正交切割圆周的非欧测地弧面
+    case 'la-science-et-l-hypothese':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <circle
+            cx="100"
+            cy="144"
+            r="78"
+            fill={c1}
+            className="origin-[100px_144px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:scale-[1.03]"
+          />
+          <circle cx="164" cy="96" r="56" fill={bg} />
+          <circle cx="42" cy="196" r="46" fill={c2} opacity="0.82" />
+          <circle
+            cx="78"
+            cy="116"
+            r="17"
+            fill={c3}
+            className="origin-[78px_116px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:scale-115"
+          />
+        </svg>
+      );
+
     default:
       return (
         <svg viewBox="0 0 200 280" className="w-full h-full block">

@@ -13,8 +13,16 @@ import { viesImaginaires } from './vies-imaginaires';
 import { beimBauDerChinesischenMauer } from './beim-bau-der-chinesischen-mauer';
 import { wasIstMetaphysik } from './was-ist-metaphysik';
 import { laNausee } from './la-nausee';
+import { existentialismeEstUnHumanisme } from './existentialisme-est-un-humanisme';
+import { lIliadeOuLePoemeDeLaForce } from './l-iliade-ou-le-poeme-de-la-force';
+import { introductionToMathematicalPhilosophy } from './introduction-to-mathematical-philosophy';
+import { laScienceEtLHypothese } from './la-science-et-l-hypothese';
 
 export const books: BookMeta[] = [
+  existentialismeEstUnHumanisme,
+  lIliadeOuLePoemeDeLaForce,
+  introductionToMathematicalPhilosophy,
+  laScienceEtLHypothese,
   leMytheDeSisyphe,
   laNausee,
   wasIstMetaphysik,

@@ -203,6 +203,10 @@ function buildBookMaps(book: BookMeta): BookMaps {
   return { glossNumMap, fnNumMap };
 }
 
+function escapeXmlWithBreaks(str: string): string {
+  return escapeXml(str).replace(/\n/g, '<br />');
+}
+
 function renderInnerRichXhtml(
   text: string,
   maps: BookMaps,
@@ -215,14 +219,14 @@ function renderInnerRichXhtml(
     .map((part) => {
       if (!part) return '';
       if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
-        return `<strong>${escapeXml(part.slice(2, -2))}</strong>`;
+        return `<strong>${escapeXmlWithBreaks(part.slice(2, -2))}</strong>`;
       }
       if (part.startsWith('[^') && part.endsWith(']')) {
         const fnId = part.slice(2, -1);
         const fnNum = maps.fnNumMap[fnId] ?? 1;
         return `<sup><a id="ref-${escapeXml(fnId)}" href="#note-${escapeXml(fnId)}" epub:type="noteref" role="doc-noteref">[${escapeXml(authorNoteLabel)} ${fnNum}]</a></sup>`;
       }
-      return escapeXml(part);
+      return escapeXmlWithBreaks(part);
     })
     .join('');
 }
@@ -230,10 +234,11 @@ function renderInnerRichXhtml(
 function renderParagraphXhtml(
   text: string,
   maps: BookMaps,
-  authorNoteLabel: string
+  authorNoteLabel: string,
+  isVerse = false
 ): string {
   const paragraphs = text.split('\n\n');
-  return paragraphs
+  const innerParas = paragraphs
     .map((para) => {
       const glossRegex = /(\[[^\]]+\]\{#[a-zA-Z0-9_-]+\})/g;
       const segments = para.split(glossRegex);
@@ -252,6 +257,7 @@ function renderParagraphXhtml(
       return `<p>${innerHtml}</p>`;
     })
     .join('\n');
+  return isVerse ? `<blockquote>${innerParas}</blockquote>` : innerParas;
 }
 
 function renderNotesSectionXhtml(
@@ -493,7 +499,12 @@ function buildBookEpubBuffer(book: BookMeta, fontFiles: string[]): { epubBuf: Bu
           }
         }
 
-        const rendered = renderParagraphXhtml(blk.zh, maps, book.authorNoteLabel);
+        const rendered = renderParagraphXhtml(
+          blk.zh,
+          maps,
+          book.authorNoteLabel,
+          blk.type === 'verse'
+        );
         if (subAnchorId) {
           return rendered.replace(/^<p>/, `<p id="${escapeXml(subAnchorId)}">`);
         }
