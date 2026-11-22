@@ -116,4 +116,5 @@ export interface BookCatalogItem {
   descriptionZh: string;
   sectionCount: number;
   glossCount: number;
+  charCount: number;
 }

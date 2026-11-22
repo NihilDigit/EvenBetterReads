@@ -4,7 +4,17 @@ import LibraryApp from '../components/LibraryApp';
 import { books } from '../data/books';
 import type { BookCatalogItem } from '../types/book';
 
-// 在 SSG 构建期提取轻量目录索引，自动汇总每本书各章节/段落记录的 AI 译注模型
+// 剥离正文行内标记后统计实际可读字数
+function countReadableChars(raw: string | undefined): number {
+  if (!raw) return 0;
+  return raw
+    .replace(/\[([^\]]+)\]\{#[a-zA-Z0-9_-]+\}/g, '$1')
+    .replace(/\[\^[a-zA-Z0-9_-]+\]/g, '')
+    .replace(/\*\*/g, '')
+    .replace(/\s+/g, '').length;
+}
+
+// 在 SSG 构建期提取轻量目录索引，自动汇总每本书各章节/段落记录的 AI 译注模型与正文字数
 const catalog: BookCatalogItem[] = books.map((b) => {
   const modelSet = new Set<string>();
   if (b.aiModel) modelSet.add(b.aiModel);
@@ -12,9 +22,13 @@ const catalog: BookCatalogItem[] = books.map((b) => {
 
   let sectionCount = 0;
   let glossCount = 0;
+  let charCount = 0;
 
   for (const ch of b.chapters) {
     if (ch.aiModel) modelSet.add(ch.aiModel);
+    charCount += countReadableChars(ch.dedication?.toZh);
+    charCount += countReadableChars(ch.dedication?.noteZh);
+    charCount += countReadableChars(ch.epigraph?.quoteZh);
     glossCount += ch.dedication?.glosses?.length ?? 0;
     for (const g of ch.dedication?.glosses ?? []) {
       if (g.aiModel) modelSet.add(g.aiModel);
@@ -23,8 +37,12 @@ const catalog: BookCatalogItem[] = books.map((b) => {
     for (const sec of ch.sections) {
       sectionCount++;
       if (sec.aiModel) modelSet.add(sec.aiModel);
+      charCount += countReadableChars(sec.epigraph?.quoteZh);
       for (const blk of sec.blocks) {
         if (blk.aiModel) modelSet.add(blk.aiModel);
+        if (blk.type !== 'divider') {
+          charCount += countReadableChars(blk.zh);
+        }
         glossCount += blk.glosses?.length ?? 0;
         for (const g of blk.glosses ?? []) {
           if (g.aiModel) modelSet.add(g.aiModel);
@@ -53,7 +71,8 @@ const catalog: BookCatalogItem[] = books.map((b) => {
     collection: b.collection,
     descriptionZh: b.descriptionZh,
     sectionCount,
-    glossCount
+    glossCount,
+    charCount
   };
 });
 ---

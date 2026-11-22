@@ -514,6 +514,104 @@ function renderCoverBySlug(slug: string, { bg, c1, c2, c3 }: CoverColors) {
         </svg>
       );
 
+    // 19. 罗生门与王朝物语四篇：平安京倾颓朱雀楼门横梁与地狱变旋卷劫火波瓣轮
+    case 'rashomon-short-stories':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <path
+            d={createScallopPath(112, 108, 66, 48, 9, -20)}
+            fill={c3}
+            className="origin-[112px_108px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:rotate-12 group-hover:scale-105"
+          />
+          <rect x="26" y="156" width="148" height="32" rx="16" fill={c1} />
+          <rect x="42" y="176" width="34" height="78" rx="14" fill={c1} />
+          <rect x="124" y="176" width="34" height="78" rx="14" fill={c2} />
+        </svg>
+      );
+
+    // 20. 星际信使：晨昏线切割的凹凸月面圆盘与木星同轴四颗美第奇卫星序列
+    case 'sidereus-nuncius':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <circle cx="96" cy="118" r="66" fill={c1} />
+          <circle cx="132" cy="108" r="52" fill={c2} opacity="0.45" />
+          <circle cx="150" cy="104" r="46" fill={bg} />
+          <g className="transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:translate-x-1.5">
+            <circle cx="34" cy="222" r="7.5" fill={c3} />
+            <circle cx="64" cy="214" r="9" fill={c3} />
+            <circle cx="104" cy="204" r="19" fill={c1} />
+            <circle cx="144" cy="194" r="8.5" fill={c3} />
+            <circle cx="170" cy="187" r="7" fill={c3} />
+          </g>
+        </svg>
+      );
+
+    // 21. 狗的对话：巴利亚多利德复活医院夜色下相对倾听的双拱剪影与悬灯圆月
+    case 'el-coloquio-de-los-perros':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <circle
+            cx="100"
+            cy="72"
+            r="24"
+            fill={c3}
+            className="origin-[100px_72px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:scale-110"
+          />
+          <path
+            d={createArchPath(28, 122, 68, 128, 18)}
+            fill={c1}
+            className="origin-[62px_250px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:rotate-3"
+          />
+          <path
+            d={createArchPath(104, 138, 68, 112, 18)}
+            fill={c2}
+            className="origin-[138px_250px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:-rotate-3"
+          />
+        </svg>
+      );
+
+    // 22. 一间只属于自己的房间：布鲁姆斯伯里明亮圆拱窗、独立带锁门扉与双生圆核
+    case 'a-room-of-ones-own':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <circle cx="136" cy="78" r="42" fill={c2} opacity="0.52" />
+          <path
+            d={createArchPath(42, 64, 108, 186, 22)}
+            fill={c1}
+            className="origin-[96px_157px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:scale-[1.02]"
+          />
+          <circle cx="96" cy="134" r="24" fill={bg} />
+          <rect x="85" y="146" width="22" height="52" rx="11" fill={bg} />
+          <circle
+            cx="96"
+            cy="134"
+            r="11"
+            fill={c3}
+            className="origin-[96px_134px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:scale-125"
+          />
+        </svg>
+      );
+
+    // 23. 有闲阶级论：层层攀比递升的金钱阶梯基座与顶端张扬的八瓣炫耀勋章
+    case 'theory-of-the-leisure-class':
+      return (
+        <svg viewBox="0 0 200 280" className="w-full h-full block">
+          <rect x="0" y="0" width="200" height="280" fill={bg} />
+          <rect x="26" y="214" width="148" height="36" rx="16" fill={c2} opacity="0.65" />
+          <rect x="46" y="172" width="108" height="36" rx="16" fill={c1} opacity="0.82" />
+          <rect x="66" y="130" width="68" height="36" rx="16" fill={c1} />
+          <path
+            d={createScallopPath(100, 78, 40, 29, 8, 0)}
+            fill={c3}
+            className="origin-[100px_78px] transition-transform duration-500 ease-[var(--md-sys-motion-spring-spatial)] group-hover:rotate-15 group-hover:scale-110"
+          />
+        </svg>
+      );
+
     default:
       return (
         <svg viewBox="0 0 200 280" className="w-full h-full block">

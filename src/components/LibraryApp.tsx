@@ -5,11 +5,12 @@ import {
   ArrowRight,
   Check,
   BookOpen,
-  Sparkles,
   Download
 } from 'lucide-react';
 import type { BookCatalogItem, BookCategory } from '../types/book';
 import BookCoverSvg from './BookCoverSvg';
+import BrandMark from './BrandMark';
+import AiModelBadge from './AiModelBadge';
 import { FourColorSwatch, M3AppearanceControls } from './M3PaletteControls';
 import {
   M3_PALETTE_PRESETS,
@@ -47,6 +48,14 @@ function stripInlineStars(text: string): string {
   return text.replace(/\*\*/g, '');
 }
 
+function formatWordCount(count: number): string {
+  if (count >= 10000) {
+    const wan = (count / 10000).toFixed(1).replace(/\.0$/, '');
+    return `${wan} 万字`;
+  }
+  return `${(Math.round(count / 100) * 100).toLocaleString('en-US')} 字`;
+}
+
 export default function LibraryApp({ catalog }: LibraryAppProps) {
   const [palette, setPalette] = useState<PaletteId>('terracotta');
   const [colorMode, setColorMode] = useState<ColorMode>('light');
@@ -54,6 +63,7 @@ export default function LibraryApp({ catalog }: LibraryAppProps) {
   const [appearanceOpen, setAppearanceOpen] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchExpanded, setSearchExpanded] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterKey>('ALL');
   const [progressStore, setProgressStore] = useState<ReadingProgressStore>({
     lastSlug: null,
@@ -61,6 +71,7 @@ export default function LibraryApp({ catalog }: LibraryAppProps) {
   });
 
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const searchWrapRef = useRef<HTMLDivElement | null>(null);
   const appearanceRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -87,25 +98,38 @@ export default function LibraryApp({ catalog }: LibraryAppProps) {
     };
     mql?.addEventListener?.('change', onSystemThemeChange);
 
+    const openAndFocusSearch = () => {
+      setSearchExpanded(true);
+      window.requestAnimationFrame(() => {
+        searchInputRef.current?.focus();
+      });
+    };
+
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        searchInputRef.current?.focus();
+        openAndFocusSearch();
       } else if (
         e.key === '/' &&
         document.activeElement?.tagName !== 'INPUT' &&
         document.activeElement?.tagName !== 'TEXTAREA'
       ) {
         e.preventDefault();
-        searchInputRef.current?.focus();
+        openAndFocusSearch();
       } else if (e.key === 'Escape') {
         setAppearanceOpen(false);
+        setSearchQuery('');
+        setSearchExpanded(false);
+        searchInputRef.current?.blur();
       }
     };
 
     const onClickOutside = (e: MouseEvent) => {
       if (appearanceRef.current && !appearanceRef.current.contains(e.target as Node)) {
         setAppearanceOpen(false);
+      }
+      if (searchWrapRef.current && !searchWrapRef.current.contains(e.target as Node)) {
+        setSearchExpanded((prev) => (prev ? false : prev));
       }
     };
 
@@ -219,82 +243,101 @@ export default function LibraryApp({ catalog }: LibraryAppProps) {
     'history'
   ];
 
+  const isSearchOpen = searchExpanded || Boolean(searchQuery);
+
   return (
     <div className="min-h-screen flex flex-col bg-[var(--md-sys-color-background)] text-[var(--md-sys-color-on-surface)]">
       {/* ==================== M3 Expressive Top App Bar ==================== */}
       <header className="sticky top-0 z-30 bg-[color-mix(in_srgb,var(--md-sys-color-background)_88%,transparent)] backdrop-blur-md">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-10 h-16 sm:h-[72px] flex items-center justify-between gap-3 sm:gap-6">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-10 h-16 sm:h-[72px] flex items-center justify-between gap-2.5 sm:gap-4">
           <a
             href="/"
-            className="shrink-0 flex items-baseline gap-3 group focus:outline-none"
+            className="shrink-0 flex items-center gap-2.5 sm:gap-3 group focus:outline-none"
           >
-            <span className="fr-prose text-[22px] sm:text-[26px] leading-none tracking-[-0.02em]">
-              <span className="italic text-[var(--md-sys-color-primary)] pr-[2px]">Even</span>
-              <span className="font-semibold">Better</span>
-              <span className="font-normal">Reads</span>
-            </span>
-            <span className="hidden xl:inline-block text-xs text-[var(--md-sys-color-on-surface-variant)]">
-              思想与人文经典精译伴读文库
+            <BrandMark className="w-8 h-8 sm:w-9 sm:h-9 shrink-0 transition-transform duration-200 group-hover:scale-[1.04]" />
+            <span
+              className={`${
+                isSearchOpen ? 'hidden sm:inline' : 'inline'
+              } text-[15.5px] sm:text-[16.5px] font-semibold leading-none tracking-[-0.015em] text-[var(--md-sys-color-on-surface)]`}
+            >
+              Even Better Reads
             </span>
           </a>
 
-          <div className="flex-1 max-w-[480px]">
-            <label className="relative flex items-center h-11 rounded-full bg-[var(--md-sys-color-surface-container-high)] hover:bg-[var(--md-sys-color-surface-container-highest)] focus-within:bg-[var(--md-sys-color-surface-container-lowest)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)] px-4 gap-2.5 transition-all duration-200 cursor-text">
-              <Search className="w-4 h-4 text-[var(--md-sys-color-on-surface-variant)] shrink-0" />
-              <input
-                ref={searchInputRef}
-                type="search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="搜索书名、作者、关键词或译注模型…"
-                aria-label="搜索馆藏书目"
-                className="w-full bg-transparent text-sm text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-on-surface-variant)]/75 focus:outline-none"
-              />
-              {searchQuery ? (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery('')}
-                  aria-label="清空搜索"
-                  className="w-6 h-6 rounded-full inline-flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] cursor-pointer"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              ) : (
-                <kbd className="hidden md:inline-flex items-center px-2 py-0.5 rounded-full text-[11px] bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface-variant)] select-none">
-                  /
-                </kbd>
-              )}
-            </label>
-          </div>
-
-          {/* M3 四色圆圈主题色板与明暗模式选择器 */}
-          <div ref={appearanceRef} className="relative shrink-0">
-            <button
-              type="button"
-              onClick={() => setAppearanceOpen((v) => !v)}
-              aria-expanded={appearanceOpen}
-              aria-label="主题色板与外观设置"
-              title="主题色板与外观设置"
-              className={`h-10 pl-2 pr-3 sm:pr-3.5 rounded-full inline-flex items-center gap-2 text-xs font-medium transition-colors cursor-pointer ${
-                appearanceOpen
-                  ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]'
-                  : 'bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]'
-              }`}
-            >
-              <FourColorSwatch quadrants={activePreset.quadrants} sizeClass="w-6 h-6" />
-              <span className="hidden sm:inline">{activePreset.label}</span>
-            </button>
-
-            {appearanceOpen && (
-              <div className="anim-m3e-dialog absolute right-0 mt-2 w-[284px] rounded-[24px] bg-[var(--md-sys-color-surface-container)] p-4 shadow-[var(--md-sys-elevation-3)] z-50">
-                <M3AppearanceControls
-                  palette={palette}
-                  colorMode={colorMode}
-                  onSelectPalette={handleSelectPalette}
-                  onSelectColorMode={handleSelectColorMode}
-                />
+          <div className={`flex items-center justify-end gap-2 ${isSearchOpen ? 'flex-1 sm:flex-initial' : 'shrink-0'}`}>
+            {isSearchOpen ? (
+              <div ref={searchWrapRef} className="flex-1 sm:flex-initial sm:w-[250px] md:w-[290px]">
+                <label className="relative flex items-center h-10 rounded-full bg-[var(--md-sys-color-surface-container-high)] focus-within:bg-[var(--md-sys-color-surface-container-lowest)] focus-within:ring-2 focus-within:ring-[var(--md-sys-color-primary)] pl-3.5 pr-2 gap-2 transition-all duration-200 cursor-text">
+                  <Search className="w-4 h-4 text-[var(--md-sys-color-on-surface-variant)] shrink-0" />
+                  <input
+                    ref={searchInputRef}
+                    type="search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="搜索书目或作者…"
+                    aria-label="搜索馆藏书目"
+                    className="w-full min-w-0 bg-transparent text-sm text-[var(--md-sys-color-on-surface)] placeholder:text-[var(--md-sys-color-on-surface-variant)]/75 focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSearchExpanded(false);
+                    }}
+                    aria-label="关闭搜索"
+                    className="w-6 h-6 rounded-full inline-flex items-center justify-center hover:bg-[var(--md-sys-color-surface-container)] text-[var(--md-sys-color-on-surface-variant)] shrink-0 cursor-pointer"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </label>
               </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchExpanded(true);
+                  window.requestAnimationFrame(() => {
+                    searchInputRef.current?.focus();
+                  });
+                }}
+                aria-label="搜索书目 (/ 或 Ctrl+K)"
+                title="搜索书目 (/ 或 Ctrl+K)"
+                className="h-10 w-10 sm:w-auto sm:px-3.5 rounded-full inline-flex items-center justify-center gap-1.5 text-xs font-medium bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)] transition-colors cursor-pointer shrink-0"
+              >
+                <Search className="w-4 h-4 text-[var(--md-sys-color-on-surface-variant)]" />
+                <span className="hidden sm:inline">搜索</span>
+              </button>
             )}
+
+            {/* M3 四色圆圈主题色板与明暗模式选择器 */}
+            <div ref={appearanceRef} className="relative shrink-0">
+              <button
+                type="button"
+                onClick={() => setAppearanceOpen((v) => !v)}
+                aria-expanded={appearanceOpen}
+                aria-label="主题色板与外观设置"
+                title="主题色板与外观设置"
+                className={`h-10 pl-2 pr-3 sm:pr-3.5 rounded-full inline-flex items-center gap-2 text-xs font-medium transition-colors cursor-pointer ${
+                  appearanceOpen
+                    ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]'
+                    : 'bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]'
+                }`}
+              >
+                <FourColorSwatch quadrants={activePreset.quadrants} sizeClass="w-6 h-6" />
+                <span className="hidden sm:inline">{activePreset.label}</span>
+              </button>
+
+              {appearanceOpen && (
+                <div className="anim-m3e-dialog absolute right-0 mt-2 w-[284px] rounded-[24px] bg-[var(--md-sys-color-surface-container)] p-4 shadow-[var(--md-sys-elevation-3)] z-50">
+                  <M3AppearanceControls
+                    palette={palette}
+                    colorMode={colorMode}
+                    onSelectPalette={handleSelectPalette}
+                    onSelectColorMode={handleSelectColorMode}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -470,16 +513,15 @@ export default function LibraryApp({ catalog }: LibraryAppProps) {
 
                       <div className="space-y-2 pt-1">
                         <div className="flex items-center justify-between gap-2 text-[11px] text-[var(--md-sys-color-on-surface-variant)]">
-                          <div className="flex items-center gap-1.5 min-w-0">
+                          <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
+                            {b.aiModels.map((m) => (
+                              <AiModelBadge key={m} model={m} className="max-w-[156px]" />
+                            ))}
                             <span
-                              title={`译注模型：${b.aiModels.join('、')}`}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)] truncate max-w-[150px]"
+                              title={`正文约 ${b.charCount.toLocaleString('en-US')} 字`}
+                              className="px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)] tabular-nums-ui shrink-0"
                             >
-                              <Sparkles className="w-2.5 h-2.5 text-[var(--md-sys-color-primary)] shrink-0" />
-                              <span className="truncate">{b.aiModels.join(' / ')}</span>
-                            </span>
-                            <span className="px-2 py-0.5 rounded-full bg-[var(--md-sys-color-surface-container-high)] tabular-nums-ui shrink-0">
-                              {b.glossCount} 注
+                              {formatWordCount(b.charCount)}
                             </span>
                           </div>
 
@@ -516,55 +558,16 @@ export default function LibraryApp({ catalog }: LibraryAppProps) {
       {/* ==================== 底部栏 ==================== */}
       <footer className="mt-auto py-6 px-4 sm:px-6 lg:px-10 text-xs text-[var(--md-sys-color-on-surface-variant)]">
         <div className="max-w-[1320px] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-5 border-t border-[var(--md-sys-color-outline-variant)]/45">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <svg
-              viewBox="0 0 64 64"
-              aria-hidden="true"
-              className="w-5 h-5 shrink-0"
-            >
-              <rect
-                x="2"
-                y="2"
-                width="60"
-                height="60"
-                rx="18"
-                fill="var(--md-sys-color-primary)"
-              />
-              <rect
-                x="12"
-                y="13"
-                width="21"
-                height="38"
-                rx="7"
-                fill="var(--md-sys-color-on-primary)"
-              />
-              <rect
-                x="37"
-                y="13"
-                width="15"
-                height="17"
-                rx="6.5"
-                fill="var(--md-sys-color-tertiary-container)"
-              />
-              <rect
-                x="37"
-                y="34"
-                width="15"
-                height="17"
-                rx="6.5"
-                fill="var(--md-sys-color-secondary-container)"
-              />
-            </svg>
-            <span className="fr-prose text-sm text-[var(--md-sys-color-on-surface)] tracking-[-0.01em] shrink-0">
-              <span className="italic text-[var(--md-sys-color-primary)] pr-[1px]">Even</span>
-              <span className="font-semibold">Better</span>
-              <span>Reads</span>
+          <div className="flex items-center gap-2 min-w-0">
+            <BrandMark className="w-5 h-5 shrink-0" />
+            <span className="text-[13px] font-medium text-[var(--md-sys-color-on-surface)] tracking-[-0.01em] shrink-0">
+              Even Better Reads
             </span>
             <span
               className="hidden sm:inline-block h-3 w-px bg-[var(--md-sys-color-outline-variant)]"
               aria-hidden="true"
             />
-            <span className="truncate">基于外文底本由大语言模型译注</span>
+            <span className="truncate">大语言模型据外文原典译注</span>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap shrink-0">

@@ -325,6 +325,76 @@ const BOOK_COVER_PALETTES: Record<string, DualCoverPalette> = {
       coverShapeSecondary: '#2B6E5F',
       coverShapeTertiary: '#ED7B66'
     }
+  },
+  'rashomon-short-stories': {
+    light: {
+      coverBg: '#F6DDD8',
+      coverShapePrimary: '#7C231D',
+      coverShapeSecondary: '#5E4B52',
+      coverShapeTertiary: '#DE8628'
+    },
+    dark: {
+      coverBg: '#2E1615',
+      coverShapePrimary: '#F59B92',
+      coverShapeSecondary: '#8C747D',
+      coverShapeTertiary: '#F6B156'
+    }
+  },
+  'sidereus-nuncius': {
+    light: {
+      coverBg: '#DCE5FA',
+      coverShapePrimary: '#1D356B',
+      coverShapeSecondary: '#6F88C2',
+      coverShapeTertiary: '#DCA02E'
+    },
+    dark: {
+      coverBg: '#15203D',
+      coverShapePrimary: '#9DB6F8',
+      coverShapeSecondary: '#39528C',
+      coverShapeTertiary: '#F5BE52'
+    }
+  },
+  'el-coloquio-de-los-perros': {
+    light: {
+      coverBg: '#F7E9CE',
+      coverShapePrimary: '#5E421B',
+      coverShapeSecondary: '#A88451',
+      coverShapeTertiary: '#C94E38'
+    },
+    dark: {
+      coverBg: '#302311',
+      coverShapePrimary: '#EFC084',
+      coverShapeSecondary: '#7D5D30',
+      coverShapeTertiary: '#EC7660'
+    }
+  },
+  'a-room-of-ones-own': {
+    light: {
+      coverBg: '#E4F0E2',
+      coverShapePrimary: '#2D5940',
+      coverShapeSecondary: '#8696C7',
+      coverShapeTertiary: '#D99B26'
+    },
+    dark: {
+      coverBg: '#192E22',
+      coverShapePrimary: '#98D4AF',
+      coverShapeSecondary: '#586799',
+      coverShapeTertiary: '#F2B84B'
+    }
+  },
+  'theory-of-the-leisure-class': {
+    light: {
+      coverBg: '#F5ECD4',
+      coverShapePrimary: '#1E4F46',
+      coverShapeSecondary: '#789E96',
+      coverShapeTertiary: '#C98A1E'
+    },
+    dark: {
+      coverBg: '#2B2413',
+      coverShapePrimary: '#89CFC1',
+      coverShapeSecondary: '#396B61',
+      coverShapeTertiary: '#EDAF3E'
+    }
   }
 };
 

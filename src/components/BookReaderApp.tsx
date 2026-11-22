@@ -6,11 +6,11 @@ import {
   Download,
   X,
   LocateFixed,
-  Sparkles,
   ChevronDown,
   ChevronUp,
   RefreshCw,
-  BookOpen
+  BookOpen,
+  List
 } from 'lucide-react';
 import type { BookMeta, BookSection, BookChapter, ParagraphBlock } from '../types/book';
 import {
@@ -19,6 +19,8 @@ import {
   type GlossIndexMap
 } from '../utils/parseRichText';
 import { FourColorSwatch, M3AppearanceControls } from './M3PaletteControls';
+import BrandMark from './BrandMark';
+import AiModelBadge from './AiModelBadge';
 import {
   M3_PALETTE_PRESETS,
   type ColorMode,
@@ -230,13 +232,7 @@ const BookProseStream = React.memo(function BookProseStream({
                 <span className="fr-prose text-sm font-semibold tracking-wide text-[var(--md-sys-color-primary)]">
                   {formatRomanLabel(section.roman)}
                 </span>
-                <span
-                  title={`本节译注模型：${resolvedAiModel}`}
-                  className="inline-flex items-center gap-1 text-[11px] text-[var(--md-sys-color-on-surface-variant)]/85"
-                >
-                  <Sparkles className="w-2.5 h-2.5 text-[var(--md-sys-color-primary)]" />
-                  <span>{resolvedAiModel}</span>
-                </span>
+                <AiModelBadge model={resolvedAiModel} variant="inline" />
               </div>
               <h2 className="zh-display-serif text-2xl sm:text-[26px] leading-snug text-[var(--md-sys-color-on-surface)]">
                 {section.titleZh}
@@ -332,7 +328,7 @@ const AnnotationCard = React.memo(function AnnotationCard({
             ? 'bg-[var(--md-sys-color-secondary-container)]/65 ring-1 ring-[var(--md-sys-color-primary)]/45'
             : isInViewport
               ? 'bg-[var(--md-sys-color-surface-container)] hover:bg-[var(--md-sys-color-surface-container-high)]'
-              : 'bg-[var(--md-sys-color-surface-container-lowest)]/75 hover:bg-[var(--md-sys-color-surface-container)]'
+              : 'bg-[var(--md-sys-color-surface-container-low)] hover:bg-[var(--md-sys-color-surface-container)]'
       }`}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
@@ -370,9 +366,8 @@ const AnnotationCard = React.memo(function AnnotationCard({
       </p>
 
       {hasCustomNoteModel && (
-        <div className="mt-2 pt-1.5 border-t border-[var(--md-sys-color-outline-variant)]/35 flex items-center gap-1 text-[10.5px] text-[var(--md-sys-color-on-surface-variant)]">
-          <Sparkles className="w-2.5 h-2.5 text-[var(--md-sys-color-primary)]" />
-          <span>{item.aiModel}</span>
+        <div className="mt-2 pt-1.5 border-t border-[var(--md-sys-color-outline-variant)]/35 flex items-center">
+          <AiModelBadge model={item.aiModel} variant="inline" />
         </div>
       )}
     </article>
@@ -618,14 +613,17 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   const [colorMode, setColorMode] = useState<ColorMode>('light');
   const [fontScale, setFontScale] = useState<FontScale>('md');
 
-  // 响应式断点 (>= 960px 为宽屏双栏 Supporting Pane)
+  // 响应式断点 (>= 960px 为宽屏双栏 Supporting Pane；>= 1180px 支持左侧常驻目录栏)
   const [isDesktopLayout, setIsDesktopLayout] = useState<boolean>(false);
+  const [isWideTocLayout, setIsWideTocLayout] = useState<boolean>(false);
 
   const [introExpanded, setIntroExpanded] = useState<boolean>(false);
   const [introSheetOpen, setIntroSheetOpen] = useState<boolean>(false);
 
   const [desktopPaneOpen, setDesktopPaneOpen] = useState<boolean>(true);
+  const [desktopTocOpen, setDesktopTocOpen] = useState<boolean>(true);
   const [mobileSheetOpen, setMobileSheetOpen] = useState<boolean>(false);
+  const [mobileTocOpen, setMobileTocOpen] = useState<boolean>(false);
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [inBookQuery, setInBookQuery] = useState<string>('');
@@ -637,12 +635,18 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   const [visibleNoteIds, setVisibleNoteIds] = useState<Set<string>>(() => new Set());
   const [noteFilter, setNoteFilter] = useState<NoteFilter>('all');
 
+  const [currentSectionId, setCurrentSectionId] = useState<string>(
+    () => flatSections[0]?.section.id ?? ''
+  );
   const [currentSectionTitle, setCurrentSectionTitle] = useState<string>('');
 
   const mainRef = useRef<HTMLElement | null>(null);
   const progressBarRef = useRef<HTMLDivElement | null>(null);
   const sidePaneScrollRef = useRef<HTMLDivElement | null>(null);
   const noteCardRefs = useRef<Record<string, HTMLElement | null>>({});
+  const tocRef = useRef<HTMLDivElement | null>(null);
+  const tocBreadcrumbRef = useRef<HTMLButtonElement | null>(null);
+  const tocActiveItemRef = useRef<HTMLButtonElement | null>(null);
   const settingsRef = useRef<HTMLDivElement | null>(null);
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const activeDomTriggerRef = useRef<HTMLElement | null>(null);
@@ -652,6 +656,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   const triggerMetricsRef = useRef<TriggerMetric[]>([]);
   const blockMetricsRef = useRef<BlockMetric[]>([]);
   const docScrollableHeightRef = useRef<number>(1);
+  const currentSectionIdRef = useRef<string>('');
   const currentSectionTitleRef = useRef<string>('');
 
   const isDesktopLayoutRef = useRef<boolean>(false);
@@ -832,9 +837,10 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     return () => stopPaneAnimation();
   }, [stopPaneAnimation]);
 
-  // 监听响应式宽度断点 (>= 960px)
+  // 监听响应式宽度断点 (>= 960px 支持双栏；>= 1120px 支持目录+正文+注疏三栏并排)
   useEffect(() => {
     const mql = window.matchMedia('(min-width: 960px)');
+    const wideMql = window.matchMedia('(min-width: 1120px)');
     const update = () => {
       const desktop = mql.matches;
       setIsDesktopLayout(desktop);
@@ -846,9 +852,21 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         setMobileSheetOpen(false);
       }
     };
+    const updateWide = () => {
+      const wide = wideMql.matches;
+      setIsWideTocLayout(wide);
+      if (wide) {
+        setMobileTocOpen(false);
+      }
+    };
     update();
+    updateWide();
     mql.addEventListener('change', update);
-    return () => mql.removeEventListener('change', update);
+    wideMql.addEventListener('change', updateWide);
+    return () => {
+      mql.removeEventListener('change', update);
+      wideMql.removeEventListener('change', updateWide);
+    };
   }, [stopPaneAnimation]);
 
   // 初始化偏好与上次阅读进度恢复
@@ -875,6 +893,10 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       const savedPane = localStorage.getItem('ebr-m3e-pane');
       if (savedPane === 'closed') {
         setDesktopPaneOpen(false);
+      }
+      const savedToc = localStorage.getItem('ebr-m3e-toc');
+      if (savedToc === 'closed') {
+        setDesktopTocOpen(false);
       }
     } catch {
       // ignore
@@ -913,6 +935,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         setSearchOpen(true);
       } else if (e.key === 'Escape') {
         setSearchOpen(false);
+        setMobileTocOpen(false);
         setSettingsOpen(false);
         setMobileSheetOpen(false);
         setSelectedNoteId(null);
@@ -920,8 +943,16 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       }
     };
     const onClickOutside = (e: MouseEvent) => {
-      if (settingsRef.current && !settingsRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      if (settingsRef.current && !settingsRef.current.contains(target)) {
         setSettingsOpen(false);
+      }
+      if (
+        tocRef.current &&
+        !tocRef.current.contains(target) &&
+        (!tocBreadcrumbRef.current || !tocBreadcrumbRef.current.contains(target))
+      ) {
+        setMobileTocOpen(false);
       }
     };
 
@@ -939,6 +970,24 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       window.setTimeout(() => searchInputRef.current?.focus(), 40);
     }
   }, [searchOpen]);
+
+  const canDockToc = isWideTocLayout || (isDesktopLayout && !desktopPaneOpen);
+  const showPinnedGloss = isDesktopLayout && desktopPaneOpen;
+  const showPinnedToc = canDockToc && desktopTocOpen;
+
+  useEffect(() => {
+    if (canDockToc && mobileTocOpen) {
+      setMobileTocOpen(false);
+    }
+  }, [canDockToc, mobileTocOpen]);
+
+  useEffect(() => {
+    if (showPinnedToc || (!canDockToc && mobileTocOpen)) {
+      window.requestAnimationFrame(() => {
+        tocActiveItemRef.current?.scrollIntoView({ block: 'nearest' });
+      });
+    }
+  }, [showPinnedToc, canDockToc, mobileTocOpen, currentSectionId]);
 
   useEffect(() => {
     if (!mobileSheetOpen && !searchOpen && !introSheetOpen) return;
@@ -978,7 +1027,16 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       ro?.disconnect();
       window.removeEventListener('resize', scheduleMeasure);
     };
-  }, [measureLayout, fontScale, introExpanded, isDesktopLayout, desktopPaneOpen, noteFilter]);
+  }, [
+    measureLayout,
+    fontScale,
+    introExpanded,
+    isDesktopLayout,
+    desktopPaneOpen,
+    isWideTocLayout,
+    desktopTocOpen,
+    noteFilter
+  ]);
 
   // 左栏滚动监听：基于缓存坐标与二分查找驱动进度条、小节感知与宽屏右侧同步焦点
   useEffect(() => {
@@ -1020,6 +1078,10 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         const hit = idx >= 0 ? sections[idx] : sections[0];
         activeSecId = hit.id;
         activeSecTitle = hit.title;
+      }
+      if (activeSecId && activeSecId !== currentSectionIdRef.current) {
+        currentSectionIdRef.current = activeSecId;
+        setCurrentSectionId(activeSecId);
       }
       if (activeSecTitle && activeSecTitle !== currentSectionTitleRef.current) {
         currentSectionTitleRef.current = activeSecTitle;
@@ -1261,6 +1323,8 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
   }, []);
 
   const handleOpenIntroAction = () => {
+    setMobileTocOpen(false);
+    setSettingsOpen(false);
     if (typeof window !== 'undefined' && window.scrollY < 320) {
       setIntroExpanded((v) => !v);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1268,6 +1332,32 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
       setIntroSheetOpen(true);
     }
   };
+
+  const toggleTocAction = useCallback(() => {
+    setSettingsOpen(false);
+    if (canDockToc) {
+      setDesktopTocOpen((prev) => {
+        const next = !prev;
+        try {
+          localStorage.setItem('ebr-m3e-toc', next ? 'open' : 'closed');
+        } catch {
+          // ignore
+        }
+        return next;
+      });
+    } else {
+      setMobileTocOpen((prev) => !prev);
+    }
+  }, [canDockToc]);
+
+  const jumpToSection = useCallback((sectionId: string) => {
+    setMobileTocOpen(false);
+    const el = document.getElementById(`section-${sectionId}`);
+    if (el) {
+      const y = Math.max(0, el.getBoundingClientRect().top + window.scrollY - 84);
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }, []);
 
   const handleSelectPalette = (nextPalette: PaletteId) => {
     setPalette(nextPalette);
@@ -1401,12 +1491,72 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
     [book.descriptionZh]
   );
 
+  const isTocActive = canDockToc ? desktopTocOpen : mobileTocOpen;
+
+  const readerGridClass =
+    showPinnedToc && showPinnedGloss
+      ? 'grid grid-cols-[minmax(196px,276px)_minmax(460px,720px)_minmax(300px,440px)] gap-6 lg:gap-8 xl:gap-12 2xl:gap-14'
+      : showPinnedToc && !showPinnedGloss
+        ? 'grid grid-cols-[minmax(200px,280px)_minmax(520px,840px)] gap-7 lg:gap-10 xl:gap-14'
+        : !showPinnedToc && showPinnedGloss
+          ? 'grid grid-cols-[minmax(500px,740px)_minmax(290px,430px)] gap-7 lg:gap-10 xl:gap-14'
+          : 'grid grid-cols-[minmax(0,800px)]';
+
+  const renderTocItems = () =>
+    book.chapters.map((ch) => {
+      const isMultiChapter = book.chapters.length > 1;
+      const isSingleRedundantSec =
+        isMultiChapter && ch.sections.length === 1 && ch.sections[0].titleZh === ch.titleZh;
+
+      return (
+        <div key={ch.id} className="space-y-0.5">
+          {isMultiChapter && !isSingleRedundantSec && (
+            <div className="px-3 pt-2.5 pb-1 text-[11px] font-medium text-[var(--md-sys-color-primary)]">
+              {ch.number ? `${ch.number} ` : ''}
+              {ch.titleZh}
+            </div>
+          )}
+
+          {ch.sections.map((sec) => {
+            const isActive = currentSectionId === sec.id;
+            const labelRoman = formatRomanLabel(sec.roman);
+            return (
+              <button
+                key={sec.id}
+                ref={isActive ? tocActiveItemRef : undefined}
+                type="button"
+                onClick={() => jumpToSection(sec.id)}
+                className={`w-full text-left px-3 py-2 rounded-[14px] flex items-baseline gap-2 text-xs transition-colors cursor-pointer ${
+                  isMultiChapter && !isSingleRedundantSec ? 'pl-4' : ''
+                } ${
+                  isActive
+                    ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)] font-medium'
+                    : 'text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container)] hover:text-[var(--md-sys-color-on-surface)]'
+                }`}
+              >
+                <span
+                  className={`fr-prose text-[12px] tabular-nums shrink-0 ${
+                    isActive
+                      ? 'text-[var(--md-sys-color-primary)] font-semibold'
+                      : 'text-[var(--md-sys-color-on-surface-variant)]/85'
+                  }`}
+                >
+                  {isSingleRedundantSec && ch.number ? ch.number : labelRoman}
+                </span>
+                <span className="leading-snug line-clamp-2">{sec.titleZh}</span>
+              </button>
+            );
+          })}
+        </div>
+      );
+    });
+
   return (
     <div className="min-h-screen flex flex-col bg-[var(--md-sys-color-background)] text-[var(--md-sys-color-on-surface)] selection:bg-[var(--md-sys-color-primary-container)] selection:text-[var(--md-sys-color-on-primary-container)]">
       {/* ==================== M3 Expressive Top App Bar ==================== */}
       <header className="sticky top-0 z-30 bg-[color-mix(in_srgb,var(--md-sys-color-background)_90%,transparent)] backdrop-blur-md">
-        <div className="max-w-[1380px] mx-auto px-3 sm:px-6 h-15 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
-          <div className="flex items-center gap-2.5 min-w-0">
+        <div className="max-w-[1780px] mx-auto px-3 sm:px-6 lg:px-10 h-15 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 min-w-0">
             <a
               href="/"
               title="返回书架"
@@ -1416,7 +1566,47 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
               <span>书架</span>
             </a>
 
-            <div className="hidden sm:flex items-baseline gap-3 min-w-0 pl-1">
+            {/* 与书架按钮并排的目录切换按钮（空间充裕时切换左侧常驻栏，紧凑视口弹出浮动卡片） */}
+            <div ref={tocRef} className="sm:relative shrink-0">
+              <button
+                type="button"
+                onClick={toggleTocAction}
+                aria-expanded={isTocActive}
+                aria-label="切换章节目录"
+                title="切换章节目录"
+                className={`h-10 w-10 sm:w-auto sm:px-3.5 rounded-full inline-flex items-center justify-center gap-1.5 text-xs sm:text-[13px] font-medium transition-colors cursor-pointer ${
+                  isTocActive
+                    ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]'
+                    : 'bg-[var(--md-sys-color-surface-container-low)] hover:bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface)]'
+                }`}
+              >
+                <List className="w-4 h-4" />
+                <span className="hidden sm:inline">目录</span>
+              </button>
+
+              {!canDockToc && mobileTocOpen && (
+                <div className="anim-m3e-dialog fixed left-3 right-3 sm:right-auto top-[66px] sm:top-auto sm:left-0 sm:mt-2 sm:w-[320px] max-h-[72vh] rounded-[24px] bg-[var(--md-sys-color-surface-container)] p-2.5 shadow-[var(--md-sys-elevation-3)] z-50 flex flex-col">
+                  <div className="px-3 pt-1 pb-2 flex items-center justify-between gap-2 shrink-0">
+                    <span className="text-xs font-semibold text-[var(--md-sys-color-on-surface)]">
+                      目录
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setMobileTocOpen(false)}
+                      aria-label="关闭目录"
+                      className="w-6 h-6 rounded-full inline-flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                  <div className="no-scrollbar overflow-y-auto overscroll-contain space-y-0.5">
+                    {renderTocItems()}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="hidden md:flex items-baseline gap-2.5 min-w-0 pl-1">
               <button
                 type="button"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -1425,9 +1615,15 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                 {book.titleZh}
               </button>
               {currentSectionTitle && (
-                <span className="text-xs text-[var(--md-sys-color-on-surface-variant)] truncate">
+                <button
+                  ref={tocBreadcrumbRef}
+                  type="button"
+                  onClick={toggleTocAction}
+                  title="切换章节目录"
+                  className="text-xs text-[var(--md-sys-color-on-surface-variant)] hover:text-[var(--md-sys-color-primary)] transition-colors truncate cursor-pointer"
+                >
                   {currentSectionTitle}
-                </span>
+                </button>
               )}
             </div>
           </div>
@@ -1563,9 +1759,38 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
         </div>
       </header>
 
-      {/* ==================== M3E 双栏主阅读画布 ==================== */}
-      <div className="max-w-[1280px] w-full mx-auto px-4 sm:px-6 flex-1 flex items-start justify-center gap-8 xl:gap-10 py-6 sm:py-9">
-        {/* 左栏：正文连续流 */}
+      {/* ==================== M3E 弹性响应式三栏阅读画布 ==================== */}
+      <div
+        className={`max-w-[1780px] w-full mx-auto px-4 sm:px-6 lg:px-10 flex-1 ${readerGridClass} justify-center items-start py-6 sm:py-9`}
+      >
+        {/* 左栏：弹性伸缩无边框章节目录栏 */}
+        {showPinnedToc && (
+          <nav
+            aria-label="章节目录"
+            className="flex sticky top-[84px] w-full min-w-0 h-[calc(100vh-104px)] flex-col"
+          >
+            <div className="px-2 pb-2.5 flex items-center justify-between gap-2 shrink-0">
+              <span className="text-xs font-medium text-[var(--md-sys-color-on-surface-variant)] pl-1">
+                目录
+              </span>
+              <button
+                type="button"
+                onClick={toggleTocAction}
+                title="收起目录栏"
+                aria-label="收起目录栏"
+                className="w-7 h-7 rounded-full inline-flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] hover:text-[var(--md-sys-color-on-surface)] cursor-pointer shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="no-scrollbar flex-1 overflow-y-auto overscroll-contain space-y-0.5 pb-12">
+              {renderTocItems()}
+            </div>
+          </nav>
+        )}
+
+        {/* 中栏：正文连续流（按当前并排栏数自适应最佳行宽上限） */}
         <main
           ref={mainRef}
           onClick={() => {
@@ -1575,7 +1800,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
             setSelectedNoteId(null);
             selectedAtScrollYRef.current = null;
           }}
-          className="flex-1 min-w-0 max-w-[700px] mx-auto anim-m3e-enter pb-20"
+          className="w-full min-w-0 anim-m3e-enter pb-20"
         >
           <header className="mb-10 space-y-5">
             <div className="space-y-2">
@@ -1590,13 +1815,15 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                   </span>
                 </div>
 
-                <span
-                  title="译注模型署名"
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-[var(--md-sys-color-surface-container-low)] text-[var(--md-sys-color-on-surface-variant)]"
-                >
-                  <Sparkles className="w-3 h-3 text-[var(--md-sys-color-primary)]" />
-                  <span>{bookAllModels.join(' / ')} 译注</span>
-                </span>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {bookAllModels.map((m) => (
+                    <AiModelBadge
+                      key={m}
+                      model={m}
+                      suffix={bookAllModels.length === 1 ? '译注' : undefined}
+                    />
+                  ))}
+                </div>
               </div>
 
               <h1 className="zh-display-serif text-3xl sm:text-[34px] leading-snug text-[var(--md-sys-color-on-surface)]">
@@ -1702,9 +1929,15 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                   {book.titleOriginal}
                 </p>
                 <p className="text-sm font-medium">《{book.titleZh}》全文完</p>
-                <p className="text-xs text-[var(--md-sys-color-on-surface-variant)]">
-                  译注模型：{bookAllModels.join('、')}
-                </p>
+                <div className="pt-1 flex items-center gap-1.5 flex-wrap">
+                  {bookAllModels.map((m) => (
+                    <AiModelBadge
+                      key={m}
+                      model={m}
+                      suffix={bookAllModels.length === 1 ? '译注' : undefined}
+                    />
+                  ))}
+                </div>
               </div>
 
               <div className="flex items-center gap-2.5 shrink-0">
@@ -1726,55 +1959,16 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--md-sys-color-on-surface-variant)] px-1">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <svg
-                  viewBox="0 0 64 64"
-                  aria-hidden="true"
-                  className="w-4.5 h-4.5 shrink-0"
-                >
-                  <rect
-                    x="2"
-                    y="2"
-                    width="60"
-                    height="60"
-                    rx="18"
-                    fill="var(--md-sys-color-primary)"
-                  />
-                  <rect
-                    x="12"
-                    y="13"
-                    width="21"
-                    height="38"
-                    rx="7"
-                    fill="var(--md-sys-color-on-primary)"
-                  />
-                  <rect
-                    x="37"
-                    y="13"
-                    width="15"
-                    height="17"
-                    rx="6.5"
-                    fill="var(--md-sys-color-tertiary-container)"
-                  />
-                  <rect
-                    x="37"
-                    y="34"
-                    width="15"
-                    height="17"
-                    rx="6.5"
-                    fill="var(--md-sys-color-secondary-container)"
-                  />
-                </svg>
-                <span className="fr-prose text-[13px] text-[var(--md-sys-color-on-surface)] tracking-[-0.01em] shrink-0">
-                  <span className="italic text-[var(--md-sys-color-primary)] pr-[1px]">Even</span>
-                  <span className="font-semibold">Better</span>
-                  <span>Reads</span>
+              <div className="flex items-center gap-2 min-w-0">
+                <BrandMark className="w-5 h-5 shrink-0" />
+                <span className="text-[13px] font-medium text-[var(--md-sys-color-on-surface)] tracking-[-0.01em] shrink-0">
+                  Even Better Reads
                 </span>
                 <span
                   className="hidden sm:inline-block h-3 w-px bg-[var(--md-sys-color-outline-variant)]"
                   aria-hidden="true"
                 />
-                <span className="truncate">基于外文底本由大语言模型译注</span>
+                <span className="truncate">大语言模型据外文原典译注</span>
               </div>
               <div className="flex items-center gap-2">
                 <a
@@ -1819,51 +2013,14 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
           </footer>
         </main>
 
-        {/* 右栏：M3E 连续阻尼同步滚动注疏面板（仅宽屏 >= 960px 挂载，移动端零 DOM 开销） */}
-        {isDesktopLayout && desktopPaneOpen && (
+        {/* 右栏：M3E 弹性伸缩连续阻尼同步滚动注疏面板 */}
+        {showPinnedGloss && (
           <aside
             aria-label="伴读注疏面板"
-            className="flex sticky top-[84px] w-[348px] xl:w-[384px] h-[calc(100vh-104px)] shrink-0 rounded-[28px] bg-[var(--md-sys-color-surface-container-low)] flex-col overflow-hidden relative"
+            className="flex sticky top-[84px] w-full min-w-0 h-[calc(100vh-104px)] flex-col relative"
           >
-            <div className="px-4 pt-4 pb-3 bg-[var(--md-sys-color-surface-container)]/65 flex flex-col gap-2.5 shrink-0">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  <h2 className="text-sm font-semibold text-[var(--md-sys-color-on-surface)] shrink-0">
-                    伴读注疏
-                  </h2>
-                  <span className="px-2 py-0.5 rounded-full text-[11px] font-medium tabular-nums-ui bg-[var(--md-sys-color-surface-container-high)] text-[var(--md-sys-color-on-surface-variant)] shrink-0">
-                    {filteredNotes.length}
-                  </span>
-
-                  {isAutoSync ? (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] text-[var(--md-sys-color-primary)] bg-[var(--md-sys-color-primary-container)]/50 truncate">
-                      同步滚动
-                    </span>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={resumeAutoSync}
-                      title="恢复与正文的同步滚动"
-                      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-[var(--md-sys-color-primary)] text-[var(--md-sys-color-on-primary)] hover:brightness-105 transition-all cursor-pointer truncate"
-                    >
-                      <RefreshCw className="w-3 h-3 shrink-0" />
-                      <span>恢复同步</span>
-                    </button>
-                  )}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={toggleDesktopSupportingPane}
-                  title="收起注疏面板"
-                  aria-label="收起注疏面板"
-                  className="w-8 h-8 rounded-full inline-flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] hover:text-[var(--md-sys-color-on-surface)] cursor-pointer shrink-0"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="flex items-center gap-1.5">
+            <div className="px-1 pb-2.5 flex items-center justify-between gap-2 shrink-0">
+              <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
                 {(
                   [
                     { id: 'all', label: '全部' },
@@ -1878,26 +2035,30 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                     className={`h-7 px-3 rounded-full text-xs font-medium transition-colors cursor-pointer ${
                       noteFilter === tab.id
                         ? 'bg-[var(--md-sys-color-secondary-container)] text-[var(--md-sys-color-on-secondary-container)]'
-                        : 'text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)]'
+                        : 'text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container)]'
                     }`}
                   >
                     {tab.label}
                   </button>
                 ))}
               </div>
+
+              <button
+                type="button"
+                onClick={toggleDesktopSupportingPane}
+                title="收起注疏面板"
+                aria-label="收起注疏面板"
+                className="w-7 h-7 rounded-full inline-flex items-center justify-center text-[var(--md-sys-color-on-surface-variant)] hover:bg-[var(--md-sys-color-surface-container-high)] hover:text-[var(--md-sys-color-on-surface)] cursor-pointer shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
-            {/* 独立纵向滚动容器：仅真实用户输入事件（滚轮/触控/拖拽滚动条/按键）触发脱离同步 */}
+            {/* 独立纵向无滚动条容器：仅真实用户输入事件（滚轮/触控/按键）触发脱离同步 */}
             <div
               ref={sidePaneScrollRef}
               onWheel={pauseAutoSyncByManualAction}
               onTouchMove={pauseAutoSyncByManualAction}
-              onPointerDown={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                if (e.clientX >= rect.right - 18) {
-                  pauseAutoSyncByManualAction();
-                }
-              }}
               onKeyDown={(e) => {
                 if (
                   ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(
@@ -1907,7 +2068,7 @@ export default function BookReaderApp({ book }: BookReaderAppProps) {
                   pauseAutoSyncByManualAction();
                 }
               }}
-              className="relative flex-1 overflow-y-auto overscroll-contain p-3 pb-16 space-y-2.5"
+              className="no-scrollbar relative flex-1 overflow-y-auto overscroll-contain px-1 pt-1 pb-16 space-y-2.5"
             >
               {filteredNotes.length === 0 ? (
                 <div className="h-full flex items-center justify-center text-center p-6 text-xs text-[var(--md-sys-color-on-surface-variant)]">

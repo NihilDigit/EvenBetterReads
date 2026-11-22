@@ -17,8 +17,18 @@ import { existentialismeEstUnHumanisme } from './existentialisme-est-un-humanism
 import { lIliadeOuLePoemeDeLaForce } from './l-iliade-ou-le-poeme-de-la-force';
 import { introductionToMathematicalPhilosophy } from './introduction-to-mathematical-philosophy';
 import { laScienceEtLHypothese } from './la-science-et-l-hypothese';
+import { rashomonShortStories } from './rashomon-short-stories';
+import { sidereusNuncius } from './sidereus-nuncius';
+import { elColoquioDeLosPerros } from './el-coloquio-de-los-perros';
+import { aRoomOfOnesOwn } from './a-room-of-ones-own';
+import { theoryOfTheLeisureClass } from './theory-of-the-leisure-class';
 
 export const books: BookMeta[] = [
+  rashomonShortStories,
+  aRoomOfOnesOwn,
+  sidereusNuncius,
+  elColoquioDeLosPerros,
+  theoryOfTheLeisureClass,
   existentialismeEstUnHumanisme,
   lIliadeOuLePoemeDeLaForce,
   introductionToMathematicalPhilosophy,
